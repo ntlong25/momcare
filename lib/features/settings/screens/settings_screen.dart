@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/providers/theme_provider.dart';
+import '../../../core/providers/locale_provider.dart';
+import '../../../core/services/database_service.dart';
+import '../../../core/models/pregnancy_model.dart';
+import '../../../core/utils/date_formatter.dart';
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  PregnancyModel? _pregnancy;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPregnancy();
+  }
+
+  void _loadPregnancy() {
+    try {
+      _pregnancy = DatabaseService.getActivePregnancy();
+      setState(() {});
+    } catch (e) {
+      // No active pregnancy
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
 
     return Scaffold(
@@ -31,6 +58,39 @@ class SettingsScreen extends ConsumerWidget {
                   themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
                 ),
               ),
+            ],
+          ),
+          const Divider(),
+          _buildSection(
+            context,
+            'Pregnancy Info',
+            [
+              if (_pregnancy != null)
+                ListTile(
+                  leading: const Icon(Icons.calendar_today),
+                  title: const Text('Due Date'),
+                  subtitle: Text(DateFormatter.formatDate(_pregnancy!.dueDate)),
+                  trailing: const Icon(Icons.edit),
+                  onTap: () => _changeDueDate(context),
+                ),
+              if (_pregnancy != null)
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('Mother Name'),
+                  subtitle: Text(_pregnancy!.motherName ?? 'Not set'),
+                  trailing: const Icon(Icons.edit),
+                  onTap: () => _changeMotherName(context),
+                ),
+              if (_pregnancy != null)
+                ListTile(
+                  leading: const Icon(Icons.monitor_weight),
+                  title: const Text('Pre-Pregnancy Weight'),
+                  subtitle: Text(_pregnancy!.prePregnancyWeight != null
+                      ? '${_pregnancy!.prePregnancyWeight} kg'
+                      : 'Not set'),
+                  trailing: const Icon(Icons.edit),
+                  onTap: () => _changeWeight(context),
+                ),
             ],
           ),
           const Divider(),
@@ -110,6 +170,128 @@ class SettingsScreen extends ConsumerWidget {
         ...children,
       ],
     );
+  }
+
+  Future<void> _changeDueDate(BuildContext context) async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _pregnancy!.dueDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+
+    if (picked != null && mounted) {
+      final updated = _pregnancy!.copyWith(
+        dueDate: picked,
+        updatedAt: DateTime.now(),
+      );
+      await DatabaseService.savePregnancy(updated);
+      _loadPregnancy();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Due date updated successfully')),
+        );
+      }
+    }
+  }
+
+  Future<void> _changeMotherName(BuildContext context) async {
+    final controller = TextEditingController(text: _pregnancy!.motherName ?? '');
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Change Mother Name'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            labelText: 'Name',
+            hintText: 'Enter your name',
+          ),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, controller.text),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null && mounted) {
+      final updated = _pregnancy!.copyWith(
+        motherName: result.isEmpty ? null : result,
+        updatedAt: DateTime.now(),
+      );
+      await DatabaseService.savePregnancy(updated);
+      _loadPregnancy();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Name updated successfully')),
+        );
+      }
+    }
+
+    controller.dispose();
+  }
+
+  Future<void> _changeWeight(BuildContext context) async {
+    final controller = TextEditingController(
+      text: _pregnancy!.prePregnancyWeight?.toString() ?? '',
+    );
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Change Pre-Pregnancy Weight'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            labelText: 'Weight (kg)',
+            hintText: 'Enter weight in kg',
+          ),
+          keyboardType: TextInputType.number,
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, controller.text),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null && mounted) {
+      final weight = double.tryParse(result);
+      if (weight != null) {
+        final updated = _pregnancy!.copyWith(
+          prePregnancyWeight: weight,
+          updatedAt: DateTime.now(),
+        );
+        await DatabaseService.savePregnancy(updated);
+        _loadPregnancy();
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Weight updated successfully')),
+          );
+        }
+      }
+    }
+
+    controller.dispose();
   }
 
   void _showAboutDialog(BuildContext context) {
