@@ -139,5 +139,103 @@
   "aboutMomCare": "About MomCare+",
   "privacyPolicy": "Privacy Policy",
   "version": "Version",
-  "appDescription": "MomCare+ is your companion app for pregnancy and postpartum health. Track your journey, get nutrition advice, and stay organized with appointments."
+  "appDescription": "MomCare+ is your companion app for pregnancy and postpartum health. Track your journey, get nutrition advice, and stay organized with appointments.",
+
+  "goodMorning": "Good Morning",
+  "goodAfternoon": "Good Afternoon",
+  "goodEvening": "Good Evening",
+  "dailyTip": "Daily Tip",
+  "dailyTipMessage": "Stay hydrated! Drink at least 8-10 glasses of water daily to support your baby's development and maintain your own health.",
+
+  "welcomeToMomCare": "Welcome to MomCare+",
+  "startYourJourney": "Start your journey by setting up your pregnancy details",
+  "setUpPregnancy": "Set Up Pregnancy",
+  "noActivePregnancy": "No active pregnancy",
+
+  "letsGetStarted": "Let's get started!",
+  "tellUsAboutYourself": "Tell us a bit about yourself and your pregnancy",
+  "yourNameOptional": "Your Name (Optional)",
+  "enterYourNameHint": "Enter your name",
+  "prePregnancyWeightKg": "Pre-Pregnancy Weight (kg)",
+  "enterYourWeightHint": "Enter your weight",
+  "heightCm": "Height (cm)",
+  "enterYourHeightHint": "Enter your height",
+  "selectYourDueDate": "Select your due date",
+  "lastPeriodDateOptional": "Last Period Date (Optional)",
+  "selectLastPeriodDate": "Select last period date",
+  "continue": "Continue",
+  "skipForNow": "Skip for now",
+  "pleaseSelectDueDate": "Please select a due date",
+
+  "measurements": "Measurements",
+  "weightKg": "Weight (kg)",
+  "systolicBP": "Systolic BP",
+  "diastolicBP": "Diastolic BP",
+  "normalBP": "Normal: <120/<80 mmHg",
+  "howAreYouFeelingToday": "How are you feeling today?",
+  "updateLog": "Update Log",
+  "saveLog": "Save Log",
+  "deleteLog": "Delete Log",
+  "confirmDeleteLog": "Are you sure you want to delete this health log?",
+
+  "validationWeight": "Weight must be between {min}-{max} kg",
+  "@validationWeight": {
+    "placeholders": {
+      "min": {"type": "double"},
+      "max": {"type": "double"}
+    }
+  },
+  "validationHeight": "Height must be between {min}-{max} cm",
+  "@validationHeight": {
+    "placeholders": {
+      "min": {"type": "double"},
+      "max": {"type": "double"}
+    }
+  },
+  "validationBPSystolic": "Must be {min}-{max}",
+  "@validationBPSystolic": {
+    "placeholders": {
+      "min": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "validationBPDiastolic": "Must be {min}-{max}",
+  "@validationBPDiastolic": {
+    "placeholders": {
+      "min": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "validationBPPair": "Systolic must be greater than diastolic",
+  "validationInvalidNumber": "Please enter a valid number",
+  "rangeHelper": "Range: {min}-{max} {unit}",
+  "@rangeHelper": {
+    "placeholders": {
+      "min": {"type": "String"},
+      "max": {"type": "String"},
+      "unit": {"type": "String"}
+    }
+  },
+
+  "upcomingAppointments": "Upcoming Appointments",
+  "viewAll": "View All",
+  "addFirstAppointment": "Add your first appointment",
+  "noUpcoming": "No upcoming appointments",
+  "quickActions": "Quick Actions",
+
+  "nausea": "Nausea",
+  "headache": "Headache",
+  "backPain": "Back pain",
+  "swelling": "Swelling",
+  "heartburn": "Heartburn",
+  "fatigue": "Fatigue",
+  "contractions": "Contractions",
+  "cramps": "Cramps",
+
+  "happy": "Happy",
+  "calm": "Calm",
+  "anxious": "Anxious",
+  "tired": "Tired",
+  "energetic": "Energetic",
+  "uncomfortable": "Uncomfortable"
 }

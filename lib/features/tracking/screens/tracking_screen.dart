@@ -13,13 +13,8 @@ class TrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    PregnancyModel? pregnancy;
-
-    try {
-      pregnancy = DatabaseService.getActivePregnancy();
-    } catch (e) {
-      // No active pregnancy
-    }
+    // Get active pregnancy (returns null if not found, no exception thrown)
+    final pregnancy = DatabaseService.getActivePregnancy();
 
     if (pregnancy == null) {
       return Scaffold(

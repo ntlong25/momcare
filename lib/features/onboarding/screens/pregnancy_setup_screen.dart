@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/utils/health_validators.dart';
 import '../../home/screens/main_navigation.dart';
 
 class PregnancySetupScreen extends StatefulWidget {
@@ -56,36 +57,26 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
               const SizedBox(height: 20),
               TextFormField(
                 controller: _weightController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(
                   labelText: 'Pre-Pregnancy Weight (kg)',
                   hintText: 'Enter your weight',
-                  prefixIcon: Icon(Icons.monitor_weight),
+                  prefixIcon: const Icon(Icons.monitor_weight),
+                  helperText: 'Range: ${HealthValidators.minWeight}-${HealthValidators.maxWeight} kg',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) return null;
-                  if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
+                validator: HealthValidators.validateWeight,
               ),
               const SizedBox(height: 20),
               TextFormField(
                 controller: _heightController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(
                   labelText: 'Height (cm)',
                   hintText: 'Enter your height',
-                  prefixIcon: Icon(Icons.height),
+                  prefixIcon: const Icon(Icons.height),
+                  helperText: 'Range: ${HealthValidators.minHeight}-${HealthValidators.maxHeight} cm',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) return null;
-                  if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
+                validator: HealthValidators.validateHeight,
               ),
               const SizedBox(height: 20),
               ListTile(

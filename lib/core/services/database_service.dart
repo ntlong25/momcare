@@ -5,25 +5,58 @@ import '../models/appointment_model.dart';
 import '../models/nutrition_model.dart';
 import '../models/recipe_model.dart';
 import '../constants/app_constants.dart';
+import '../utils/app_logger.dart';
+import 'encryption_service.dart';
 
 class DatabaseService {
+  static final _logger = AppLogger.instance;
+
   static Future<void> init() async {
-    await Hive.initFlutter();
+    try {
+      _logger.info('Initializing Hive database');
+      await Hive.initFlutter();
 
-    // Register adapters
-    Hive.registerAdapter(PregnancyModelAdapter());
-    Hive.registerAdapter(HealthLogModelAdapter());
-    Hive.registerAdapter(AppointmentModelAdapter());
-    Hive.registerAdapter(NutritionModelAdapter());
-    Hive.registerAdapter(RecipeModelAdapter());
+      // Register adapters
+      Hive.registerAdapter(PregnancyModelAdapter());
+      Hive.registerAdapter(HealthLogModelAdapter());
+      Hive.registerAdapter(AppointmentModelAdapter());
+      Hive.registerAdapter(NutritionModelAdapter());
+      Hive.registerAdapter(RecipeModelAdapter());
+      _logger.debug('Hive adapters registered');
 
-    // Open boxes
-    await Hive.openBox<PregnancyModel>(AppConstants.pregnancyBox);
-    await Hive.openBox<HealthLogModel>(AppConstants.healthLogBox);
-    await Hive.openBox<AppointmentModel>(AppConstants.appointmentBox);
-    await Hive.openBox<NutritionModel>(AppConstants.nutritionBox);
-    await Hive.openBox<RecipeModel>(AppConstants.recipeBox);
-    await Hive.openBox(AppConstants.settingsBox);
+      // Get encryption cipher for sensitive data
+      final encryptionCipher = await EncryptionService.getEncryptionCipher();
+
+      if (encryptionCipher != null) {
+        _logger.info('Opening Hive boxes with encryption');
+      } else {
+        _logger.warning('Opening Hive boxes WITHOUT encryption (fallback mode)');
+      }
+
+      // Open boxes with encryption for sensitive health data
+      await Hive.openBox<PregnancyModel>(
+        AppConstants.pregnancyBox,
+        encryptionCipher: encryptionCipher,
+      );
+      await Hive.openBox<HealthLogModel>(
+        AppConstants.healthLogBox,
+        encryptionCipher: encryptionCipher,
+      );
+      await Hive.openBox<AppointmentModel>(
+        AppConstants.appointmentBox,
+        encryptionCipher: encryptionCipher,
+      );
+
+      // These boxes don't contain sensitive data, so no encryption needed
+      await Hive.openBox<NutritionModel>(AppConstants.nutritionBox);
+      await Hive.openBox<RecipeModel>(AppConstants.recipeBox);
+      await Hive.openBox(AppConstants.settingsBox);
+
+      _logger.info('Hive database initialized successfully');
+    } catch (e, stackTrace) {
+      _logger.fatal('Failed to initialize Hive database', error: e, stackTrace: stackTrace);
+      rethrow;
+    }
   }
 
   // Pregnancy operations
@@ -35,10 +68,29 @@ class DatabaseService {
   }
 
   static PregnancyModel? getActivePregnancy() {
-    return pregnancyBox.values.firstWhere(
-      (p) => p.isActive,
-      orElse: () => pregnancyBox.values.isNotEmpty ? pregnancyBox.values.first : throw Exception('No pregnancy found'),
-    );
+    try {
+      // Try to find active pregnancy
+      final activePregnancy = pregnancyBox.values.cast<PregnancyModel?>().firstWhere(
+        (p) => p?.isActive == true,
+        orElse: () => null,
+      );
+
+      if (activePregnancy != null) {
+        return activePregnancy;
+      }
+
+      // If no active pregnancy, return the first one if exists
+      if (pregnancyBox.values.isNotEmpty) {
+        _logger.debug('No active pregnancy found, returning first pregnancy');
+        return pregnancyBox.values.first;
+      }
+
+      _logger.debug('No pregnancy data found');
+      return null;
+    } catch (e, stackTrace) {
+      _logger.error('Error getting active pregnancy', error: e, stackTrace: stackTrace);
+      return null;
+    }
   }
 
   static List<PregnancyModel> getAllPregnancies() {

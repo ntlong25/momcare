@@ -73,6 +73,12 @@ dependencies:
   # UUID
   uuid: ^4.5.1
 
+  # Secure storage for encryption keys
+  flutter_secure_storage: ^9.2.2
+
+  # Logging
+  logger: ^2.5.0
+
 dependency_overrides:
   vector_math: ^2.2.0
 

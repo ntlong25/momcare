@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/models/health_log_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/utils/health_validators.dart';
 
 class AddHealthLogScreen extends StatefulWidget {
   final HealthLogModel? log;
@@ -169,64 +170,64 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
   Widget _buildWeightField() {
     return TextFormField(
       controller: _weightController,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(
         labelText: 'Weight (kg)',
         hintText: 'Enter your weight',
-        prefixIcon: Icon(Icons.monitor_weight),
+        prefixIcon: const Icon(Icons.monitor_weight),
+        helperText: 'Range: ${HealthValidators.minWeight}-${HealthValidators.maxWeight} kg',
       ),
-      validator: (value) {
-        if (value != null && value.isNotEmpty) {
-          if (double.tryParse(value) == null) {
-            return 'Please enter a valid number';
-          }
-        }
-        return null;
-      },
+      validator: HealthValidators.validateWeight,
     );
   }
 
   Widget _buildBloodPressureFields() {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: TextFormField(
-            controller: _systolicController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Systolic BP',
-              hintText: '120',
-              prefixIcon: Icon(Icons.favorite),
+        Row(
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: _systolicController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Systolic BP',
+                  hintText: '120',
+                  prefixIcon: Icon(Icons.favorite),
+                ),
+                validator: (value) {
+                  // First validate individual value
+                  final error = HealthValidators.validateSystolicBP(value);
+                  if (error != null) return error;
+
+                  // Then validate pair if both values present
+                  return HealthValidators.validateBloodPressurePair(
+                    value,
+                    _diastolicController.text,
+                  );
+                },
+              ),
             ),
-            validator: (value) {
-              if (value != null && value.isNotEmpty) {
-                if (int.tryParse(value) == null) {
-                  return 'Invalid';
-                }
-              }
-              return null;
-            },
-          ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: TextFormField(
+                controller: _diastolicController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Diastolic BP',
+                  hintText: '80',
+                  prefixIcon: Icon(Icons.favorite),
+                ),
+                validator: HealthValidators.validateDiastolicBP,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: TextFormField(
-            controller: _diastolicController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Diastolic BP',
-              hintText: '80',
-              prefixIcon: Icon(Icons.favorite),
-            ),
-            validator: (value) {
-              if (value != null && value.isNotEmpty) {
-                if (int.tryParse(value) == null) {
-                  return 'Invalid';
-                }
-              }
-              return null;
-            },
-          ),
+        const SizedBox(height: 8),
+        Text(
+          'Normal: <120/<80 mmHg',
+          style: Theme.of(context).textTheme.bodySmall,
         ),
       ],
     );
