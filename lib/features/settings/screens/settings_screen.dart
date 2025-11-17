@@ -33,6 +33,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
+    final locale = ref.watch(localeProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,6 +56,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 secondary: Icon(
                   themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
                 ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text('Language'),
+                subtitle: Text(locale.languageCode == 'en' ? 'English' : 'Tiếng Việt'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _showLanguageDialog(context),
               ),
             ],
           ),
@@ -124,6 +132,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             context,
             'About',
             [
+              ListTile(
+                leading: const Icon(Icons.help_outline),
+                title: const Text('App Guide'),
+                subtitle: const Text('Learn how to use MomCare+'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => NavigationHelper.toGuide(context),
+              ),
               ListTile(
                 leading: const Icon(Icons.info),
                 title: const Text('About MomCare+'),
@@ -303,5 +318,52 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
       ],
     );
+  }
+
+  Future<void> _showLanguageDialog(BuildContext context) async {
+    final currentLocale = ref.read(localeProvider);
+
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Language'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RadioListTile<String>(
+              title: const Text('English'),
+              value: 'en',
+              groupValue: currentLocale.languageCode,
+              onChanged: (value) => Navigator.pop(context, value),
+            ),
+            RadioListTile<String>(
+              title: const Text('Tiếng Việt'),
+              value: 'vi',
+              groupValue: currentLocale.languageCode,
+              onChanged: (value) => Navigator.pop(context, value),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null && result != currentLocale.languageCode) {
+      await ref.read(localeProvider.notifier).setLocale(Locale(result));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result == 'en'
+              ? 'Language changed to English'
+              : 'Đã chuyển sang Tiếng Việt'),
+          ),
+        );
+      }
+    }
   }
 }
