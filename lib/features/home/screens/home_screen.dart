@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/utils/navigation_helper.dart';
 import '../../../l10n/app_localizations.dart';
 import '../widgets/pregnancy_progress_card.dart';
 import '../widgets/quick_actions_grid.dart';
@@ -23,9 +24,7 @@ class HomeScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {
-              // TODO: Navigate to notifications
-            },
+            onPressed: () => NavigationHelper.showNotificationsDialog(context),
           ),
         ],
       ),
@@ -63,9 +62,7 @@ class HomeScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             ElevatedButton.icon(
-              onPressed: () {
-                // TODO: Navigate to pregnancy setup
-              },
+              onPressed: () => NavigationHelper.toPregnancySetup(context),
               icon: const Icon(Icons.add),
               label: Text(l10n.setUpPregnancy),
             ),

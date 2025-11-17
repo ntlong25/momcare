@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/utils/bmi_calculator.dart';
+import '../../../core/utils/navigation_helper.dart';
 
 class WeightGainChart extends StatelessWidget {
   final PregnancyModel pregnancy;
@@ -47,9 +48,7 @@ class WeightGainChart extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.add_circle_outline),
-                  onPressed: () {
-                    // TODO: Add weight entry
-                  },
+                  onPressed: () => NavigationHelper.toAddHealthLog(context),
                 ),
               ],
             ),
@@ -94,9 +93,7 @@ class WeightGainChart extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           TextButton.icon(
-            onPressed: () {
-              // TODO: Add weight entry
-            },
+            onPressed: () => NavigationHelper.toAddHealthLog(context),
             icon: const Icon(Icons.add),
             label: const Text('Add Weight'),
           ),

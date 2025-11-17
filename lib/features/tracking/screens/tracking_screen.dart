@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../../core/utils/navigation_helper.dart';
 import '../widgets/baby_development_card.dart';
 import '../widgets/mother_changes_card.dart';
 import '../widgets/weekly_tips_card.dart';
@@ -35,7 +36,23 @@ class TrackingScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.history),
             onPressed: () {
-              // TODO: Show week history
+              // Show week history dialog (placeholder for future feature)
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Week History'),
+                  content: const Text(
+                    'Week-by-week history view will be available in a future update.\n\n'
+                    'You\'ll be able to review your pregnancy journey week by week.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],
@@ -94,9 +111,7 @@ class TrackingScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 32),
             ElevatedButton.icon(
-              onPressed: () {
-                // TODO: Navigate to pregnancy setup
-              },
+              onPressed: () => NavigationHelper.toPregnancySetup(context),
               icon: const Icon(Icons.add),
               label: const Text('Add Pregnancy'),
             ),
