@@ -1,4 +1,4 @@
-package com.example.momcare
+package com.ntlong25.momcare
 
 import io.flutter.embedding.android.FlutterActivity
 

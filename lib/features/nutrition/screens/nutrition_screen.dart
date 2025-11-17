@@ -9,7 +9,9 @@ import 'recipe_detail_screen.dart';
 import 'nutrition_detail_screen.dart';
 
 class NutritionScreen extends ConsumerStatefulWidget {
-  const NutritionScreen({super.key});
+  final int initialTab;
+
+  const NutritionScreen({super.key, this.initialTab = 0});
 
   @override
   ConsumerState<NutritionScreen> createState() => _NutritionScreenState();
@@ -24,7 +26,11 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: widget.initialTab.clamp(0, 1),
+    );
     _initializeSampleData();
   }
 

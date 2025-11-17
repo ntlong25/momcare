@@ -6,6 +6,7 @@ import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/utils/navigation_helper.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -100,9 +101,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 title: const Text('Profile'),
                 subtitle: const Text('Manage your profile'),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                  // TODO: Navigate to profile
-                },
+                onTap: () => NavigationHelper.showProfileDialog(context),
               ),
             ],
           ),
@@ -116,9 +115,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 title: const Text('Notification Settings'),
                 subtitle: const Text('Manage your notifications'),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                  // TODO: Navigate to notification settings
-                },
+                onTap: () => NavigationHelper.showNotificationSettingsDialog(context),
               ),
             ],
           ),
@@ -139,9 +136,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 leading: const Icon(Icons.privacy_tip),
                 title: const Text('Privacy Policy'),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                  // TODO: Show privacy policy
-                },
+                onTap: () => NavigationHelper.showPrivacyPolicy(context),
               ),
             ],
           ),

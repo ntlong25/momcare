@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/navigation_helper.dart';
 
 class QuickActionsGrid extends StatelessWidget {
   const QuickActionsGrid({super.key});
@@ -25,33 +26,25 @@ class QuickActionsGrid extends StatelessWidget {
               icon: Icons.restaurant_menu,
               title: 'Nutrition',
               color: Colors.orange,
-              onTap: () {
-                // TODO: Navigate to nutrition
-              },
+              onTap: () => NavigationHelper.toNutrition(context),
             ),
             _QuickActionCard(
               icon: Icons.calendar_today,
               title: 'Appointments',
               color: Colors.blue,
-              onTap: () {
-                // TODO: Navigate to appointments
-              },
+              onTap: () => NavigationHelper.toAppointments(context),
             ),
             _QuickActionCard(
               icon: Icons.favorite,
               title: 'Health Diary',
               color: Colors.pink,
-              onTap: () {
-                // TODO: Navigate to health diary
-              },
+              onTap: () => NavigationHelper.toHealthDiary(context),
             ),
             _QuickActionCard(
               icon: Icons.book,
               title: 'Recipes',
               color: Colors.green,
-              onTap: () {
-                // TODO: Navigate to recipes
-              },
+              onTap: () => NavigationHelper.toRecipes(context),
             ),
           ],
         ),

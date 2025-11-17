@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/appointment_model.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/utils/navigation_helper.dart';
 
 class UpcomingAppointmentsCard extends StatelessWidget {
   const UpcomingAppointmentsCard({super.key});
@@ -21,9 +22,7 @@ class UpcomingAppointmentsCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             TextButton(
-              onPressed: () {
-                // TODO: Navigate to all appointments
-              },
+              onPressed: () => NavigationHelper.toAppointments(context),
               child: const Text('View All'),
             ),
           ],
@@ -50,9 +49,7 @@ class UpcomingAppointmentsCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         TextButton.icon(
-                          onPressed: () {
-                            // TODO: Add appointment
-                          },
+                          onPressed: () => NavigationHelper.toAddAppointment(context),
                           icon: const Icon(Icons.add),
                           label: const Text('Add Appointment'),
                         ),
@@ -112,9 +109,7 @@ class _AppointmentCard extends StatelessWidget {
           color: Colors.grey[400],
         ),
         isThreeLine: appointment.location != null,
-        onTap: () {
-          // TODO: View appointment details
-        },
+        onTap: () => NavigationHelper.toAppointments(context),
       ),
     );
   }
