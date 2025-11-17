@@ -24,12 +24,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   void _loadPregnancy() {
-    try {
-      _pregnancy = DatabaseService.getActivePregnancy();
-      setState(() {});
-    } catch (e) {
-      // No active pregnancy
-    }
+    // Get active pregnancy (returns null if not found, no exception thrown)
+    _pregnancy = DatabaseService.getActivePregnancy();
+    setState(() {});
   }
 
   @override
