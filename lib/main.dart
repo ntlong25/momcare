@@ -11,6 +11,7 @@ import 'core/providers/locale_provider.dart';
 import 'core/constants/app_constants.dart';
 import 'features/home/screens/main_navigation.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
+import 'features/splash/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +48,9 @@ class MyApp extends ConsumerWidget {
         Locale('en'),
         Locale('vi'),
       ],
-      home: const AppInitializer(),
+      home: const SplashScreen(
+        nextScreen: AppInitializer(),
+      ),
     );
   }
 }

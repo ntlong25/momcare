@@ -21,12 +21,61 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
   DateTime? _dueDate;
   DateTime? _lastPeriodDate;
 
+  bool get _hasData {
+    return _nameController.text.isNotEmpty ||
+        _weightController.text.isNotEmpty ||
+        _heightController.text.isNotEmpty ||
+        _dueDate != null ||
+        _lastPeriodDate != null;
+  }
+
+  Future<bool> _onWillPop() async {
+    if (!_hasData) {
+      return true; // Allow pop if no data entered
+    }
+
+    final shouldPop = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Discard Changes?'),
+        content: const Text(
+          'You have unsaved pregnancy information. Are you sure you want to go back and lose this data?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+            child: const Text('Discard'),
+          ),
+        ],
+      ),
+    );
+
+    return shouldPop ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Set Up Your Pregnancy'),
-      ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, dynamic result) async {
+        if (didPop) return;
+
+        final shouldPop = await _onWillPop();
+        if (shouldPop && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Set Up Your Pregnancy'),
+        ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Form(
@@ -130,6 +179,7 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
