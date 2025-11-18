@@ -4,6 +4,7 @@ import '../models/health_log_model.dart';
 import '../models/appointment_model.dart';
 import '../models/nutrition_model.dart';
 import '../models/recipe_model.dart';
+import '../models/menstrual_cycle_model.dart';
 import '../constants/app_constants.dart';
 import '../utils/app_logger.dart';
 import 'encryption_service.dart';
@@ -22,6 +23,7 @@ class DatabaseService {
       Hive.registerAdapter(AppointmentModelAdapter());
       Hive.registerAdapter(NutritionModelAdapter());
       Hive.registerAdapter(RecipeModelAdapter());
+      Hive.registerAdapter(MenstrualCycleModelAdapter());
       _logger.debug('Hive adapters registered');
 
       // Get encryption cipher for sensitive data
@@ -44,6 +46,10 @@ class DatabaseService {
       );
       await Hive.openBox<AppointmentModel>(
         AppConstants.appointmentBox,
+        encryptionCipher: encryptionCipher,
+      );
+      await Hive.openBox<MenstrualCycleModel>(
+        AppConstants.menstrualCycleBox,
         encryptionCipher: encryptionCipher,
       );
 
@@ -213,6 +219,42 @@ class DatabaseService {
     return settingsBox.get(key, defaultValue: defaultValue);
   }
 
+  // Menstrual Cycle operations
+  static Box<MenstrualCycleModel> get menstrualCycleBox =>
+      Hive.box<MenstrualCycleModel>(AppConstants.menstrualCycleBox);
+
+  static Future<void> saveMenstrualCycle(MenstrualCycleModel cycle) async {
+    await menstrualCycleBox.put(cycle.id, cycle);
+  }
+
+  static List<MenstrualCycleModel> getAllMenstrualCycles() {
+    final cycles = menstrualCycleBox.values.toList();
+    cycles.sort((a, b) => b.startDate.compareTo(a.startDate));
+    return cycles;
+  }
+
+  static List<MenstrualCycleModel> getMenstrualCyclesByDateRange(
+      DateTime start, DateTime end) {
+    return menstrualCycleBox.values
+        .where((cycle) =>
+            cycle.startDate.isAfter(start) && cycle.startDate.isBefore(end))
+        .toList()
+      ..sort((a, b) => b.startDate.compareTo(a.startDate));
+  }
+
+  static MenstrualCycleModel? getLastMenstrualCycle() {
+    final cycles = getAllMenstrualCycles();
+    return cycles.isNotEmpty ? cycles.first : null;
+  }
+
+  static Future<void> deleteMenstrualCycle(String id) async {
+    await menstrualCycleBox.delete(id);
+  }
+
+  static Future<void> clearMenstrualCycles() async {
+    await menstrualCycleBox.clear();
+  }
+
   // Clear all data
   static Future<void> clearAllData() async {
     await pregnancyBox.clear();
@@ -220,5 +262,6 @@ class DatabaseService {
     await appointmentBox.clear();
     await nutritionBox.clear();
     await recipeBox.clear();
+    await menstrualCycleBox.clear();
   }
 }
