@@ -7,6 +7,7 @@ import '../../features/appointments/screens/add_appointment_screen.dart';
 import '../../features/nutrition/screens/nutrition_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/guide/screens/guide_screen.dart';
+import '../../features/fertility/screens/fertility_planner_screen.dart';
 
 /// Navigation helper for consistent navigation throughout the app
 class NavigationHelper {
@@ -78,6 +79,14 @@ class NavigationHelper {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(builder: (_) => const GuideScreen()),
+    );
+  }
+
+  /// Navigate to fertility planner screen
+  static Future<T?> toFertilityPlanner<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const FertilityPlannerScreen()),
     );
   }
 

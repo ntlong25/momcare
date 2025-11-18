@@ -46,6 +46,18 @@ class QuickActionsGrid extends StatelessWidget {
               color: Colors.green,
               onTap: () => NavigationHelper.toRecipes(context),
             ),
+            _QuickActionCard(
+              icon: Icons.calendar_month,
+              title: 'Fertility Planner',
+              color: Colors.purple,
+              onTap: () => NavigationHelper.toFertilityPlanner(context),
+            ),
+            _QuickActionCard(
+              icon: Icons.help_outline,
+              title: 'App Guide',
+              color: Colors.teal,
+              onTap: () => NavigationHelper.toGuide(context),
+            ),
           ],
         ),
       ],
