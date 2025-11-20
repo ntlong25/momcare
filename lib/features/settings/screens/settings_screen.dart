@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../onboarding/screens/pregnancy_setup_screen.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -34,6 +36,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
     final locale = ref.watch(localeProvider);
+    final appMode = ref.watch(appModeProvider);
+    final isPregnancyMode = appMode == AppMode.pregnancy;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,6 +46,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       body: ListView(
         children: [
           const SizedBox(height: 8),
+          // App Mode Section
+          _buildSection(
+            context,
+            'App Mode',
+            [
+              ListTile(
+                leading: Icon(
+                  isPregnancyMode ? Icons.pregnant_woman : Icons.eco,
+                  color: isPregnancyMode ? Colors.pink : Colors.green,
+                ),
+                title: const Text('Current Mode'),
+                subtitle: Text(
+                  isPregnancyMode
+                      ? 'Pregnancy Mode'
+                      : 'Pre-Pregnancy Planning Mode',
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => _showModeDialog(context),
+              ),
+            ],
+          ),
+          const Divider(),
           _buildSection(
             context,
             'Appearance',
@@ -67,39 +93,42 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
           ),
           const Divider(),
-          _buildSection(
-            context,
-            'Pregnancy Info',
-            [
-              if (_pregnancy != null)
-                ListTile(
-                  leading: const Icon(Icons.calendar_today),
-                  title: const Text('Due Date'),
-                  subtitle: Text(DateFormatter.formatDate(_pregnancy!.dueDate)),
-                  trailing: const Icon(Icons.edit),
-                  onTap: () => _changeDueDate(context),
-                ),
-              if (_pregnancy != null)
-                ListTile(
-                  leading: const Icon(Icons.person),
-                  title: const Text('Mother Name'),
-                  subtitle: Text(_pregnancy!.motherName ?? 'Not set'),
-                  trailing: const Icon(Icons.edit),
-                  onTap: () => _changeMotherName(context),
-                ),
-              if (_pregnancy != null)
-                ListTile(
-                  leading: const Icon(Icons.monitor_weight),
-                  title: const Text('Pre-Pregnancy Weight'),
-                  subtitle: Text(_pregnancy!.prePregnancyWeight != null
-                      ? '${_pregnancy!.prePregnancyWeight} kg'
-                      : 'Not set'),
-                  trailing: const Icon(Icons.edit),
-                  onTap: () => _changeWeight(context),
-                ),
-            ],
-          ),
-          const Divider(),
+          // Show Pregnancy Info only in pregnancy mode
+          if (isPregnancyMode) ...[
+            _buildSection(
+              context,
+              'Pregnancy Info',
+              [
+                if (_pregnancy != null)
+                  ListTile(
+                    leading: const Icon(Icons.calendar_today),
+                    title: const Text('Due Date'),
+                    subtitle: Text(DateFormatter.formatDate(_pregnancy!.dueDate)),
+                    trailing: const Icon(Icons.edit),
+                    onTap: () => _changeDueDate(context),
+                  ),
+                if (_pregnancy != null)
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: const Text('Mother Name'),
+                    subtitle: Text(_pregnancy!.motherName ?? 'Not set'),
+                    trailing: const Icon(Icons.edit),
+                    onTap: () => _changeMotherName(context),
+                  ),
+                if (_pregnancy != null)
+                  ListTile(
+                    leading: const Icon(Icons.monitor_weight),
+                    title: const Text('Pre-Pregnancy Weight'),
+                    subtitle: Text(_pregnancy!.prePregnancyWeight != null
+                        ? '${_pregnancy!.prePregnancyWeight} kg'
+                        : 'Not set'),
+                    trailing: const Icon(Icons.edit),
+                    onTap: () => _changeWeight(context),
+                  ),
+              ],
+            ),
+            const Divider(),
+          ],
           _buildSection(
             context,
             'Account',
@@ -363,6 +392,117 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               : 'Đã chuyển sang Tiếng Việt'),
           ),
         );
+      }
+    }
+  }
+
+  Future<void> _showModeDialog(BuildContext context) async {
+    final currentMode = ref.read(appModeProvider);
+
+    final result = await showDialog<AppMode>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Change App Mode'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Select your current stage:',
+              style: TextStyle(color: Colors.grey),
+            ),
+            const SizedBox(height: 16),
+            RadioListTile<AppMode>(
+              title: Row(
+                children: [
+                  Icon(Icons.eco, color: Colors.green, size: 20),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: Text('Pre-Pregnancy Planning'),
+                  ),
+                ],
+              ),
+              subtitle: const Text(
+                'Track cycles, nutrition tips for conception',
+                style: TextStyle(fontSize: 12),
+              ),
+              value: AppMode.prePregnancy,
+              groupValue: currentMode,
+              onChanged: (value) => Navigator.pop(context, value),
+            ),
+            RadioListTile<AppMode>(
+              title: Row(
+                children: [
+                  Icon(Icons.pregnant_woman, color: Colors.pink, size: 20),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: Text('Pregnancy'),
+                  ),
+                ],
+              ),
+              subtitle: const Text(
+                'Track pregnancy, health, weekly nutrition',
+                style: TextStyle(fontSize: 12),
+              ),
+              value: AppMode.pregnancy,
+              groupValue: currentMode,
+              onChanged: (value) => Navigator.pop(context, value),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+
+    if (result != null && result != currentMode && mounted) {
+      // Show confirmation dialog
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Confirm Mode Change'),
+          content: Text(
+            result == AppMode.pregnancy
+                ? 'Switch to Pregnancy Mode?\n\nYou will need to set up your pregnancy information.'
+                : 'Switch to Pre-Pregnancy Planning Mode?\n\nYour pregnancy data will be kept for future use.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Confirm'),
+            ),
+          ],
+        ),
+      );
+
+      if (confirmed == true && mounted) {
+        await ref.read(appModeProvider.notifier).setMode(result);
+
+        if (mounted) {
+          // If switching to pregnancy mode and no pregnancy data, go to setup
+          if (result == AppMode.pregnancy && _pregnancy == null) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const PregnancySetupScreen()),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  result == AppMode.pregnancy
+                      ? 'Switched to Pregnancy Mode'
+                      : 'Switched to Pre-Pregnancy Planning Mode',
+                ),
+              ),
+            );
+          }
+        }
       }
     }
   }
