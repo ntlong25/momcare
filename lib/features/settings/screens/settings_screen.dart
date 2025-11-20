@@ -41,7 +41,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text('Cài đặt'),
       ),
       body: ListView(
         children: [
@@ -49,18 +49,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           // App Mode Section
           _buildSection(
             context,
-            'App Mode',
+            'Chế độ ứng dụng',
             [
               ListTile(
                 leading: Icon(
                   isPregnancyMode ? Icons.pregnant_woman : Icons.eco,
                   color: isPregnancyMode ? Colors.pink : Colors.green,
                 ),
-                title: const Text('Current Mode'),
+                title: const Text('Chế độ hiện tại'),
                 subtitle: Text(
                   isPregnancyMode
-                      ? 'Pregnancy Mode'
-                      : 'Pre-Pregnancy Planning Mode',
+                      ? 'Chế độ mang thai'
+                      : 'Chế độ chuẩn bị mang thai',
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => _showModeDialog(context),
@@ -70,11 +70,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Divider(),
           _buildSection(
             context,
-            'Appearance',
+            'Giao diện',
             [
               SwitchListTile(
-                title: const Text('Dark Mode'),
-                subtitle: const Text('Enable dark theme'),
+                title: const Text('Chế độ tối'),
+                subtitle: const Text('Bật giao diện tối'),
                 value: themeMode == ThemeMode.dark,
                 onChanged: (value) {
                   ref.read(themeProvider.notifier).toggleTheme();
@@ -85,7 +85,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.language),
-                title: const Text('Language'),
+                title: const Text('Ngôn ngữ'),
                 subtitle: Text(locale.languageCode == 'en' ? 'English' : 'Tiếng Việt'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => _showLanguageDialog(context),
@@ -97,12 +97,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           if (isPregnancyMode) ...[
             _buildSection(
               context,
-              'Pregnancy Info',
+              'Thông tin thai kỳ',
               [
                 if (_pregnancy != null)
                   ListTile(
                     leading: const Icon(Icons.calendar_today),
-                    title: const Text('Due Date'),
+                    title: const Text('Ngày dự sinh'),
                     subtitle: Text(DateFormatter.formatDate(_pregnancy!.dueDate)),
                     trailing: const Icon(Icons.edit),
                     onTap: () => _changeDueDate(context),
@@ -110,18 +110,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 if (_pregnancy != null)
                   ListTile(
                     leading: const Icon(Icons.person),
-                    title: const Text('Mother Name'),
-                    subtitle: Text(_pregnancy!.motherName ?? 'Not set'),
+                    title: const Text('Tên mẹ'),
+                    subtitle: Text(_pregnancy!.motherName ?? 'Chưa cài đặt'),
                     trailing: const Icon(Icons.edit),
                     onTap: () => _changeMotherName(context),
                   ),
                 if (_pregnancy != null)
                   ListTile(
                     leading: const Icon(Icons.monitor_weight),
-                    title: const Text('Pre-Pregnancy Weight'),
+                    title: const Text('Cân nặng trước khi mang thai'),
                     subtitle: Text(_pregnancy!.prePregnancyWeight != null
                         ? '${_pregnancy!.prePregnancyWeight} kg'
-                        : 'Not set'),
+                        : 'Chưa cài đặt'),
                     trailing: const Icon(Icons.edit),
                     onTap: () => _changeWeight(context),
                   ),
@@ -131,12 +131,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ],
           _buildSection(
             context,
-            'Account',
+            'Tài khoản',
             [
               ListTile(
                 leading: const Icon(Icons.person),
-                title: const Text('Profile'),
-                subtitle: const Text('Manage your profile'),
+                title: const Text('Hồ sơ'),
+                subtitle: const Text('Quản lý hồ sơ của bạn'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => NavigationHelper.showProfileDialog(context),
               ),
@@ -145,12 +145,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Divider(),
           _buildSection(
             context,
-            'Notifications',
+            'Thông báo',
             [
               ListTile(
                 leading: const Icon(Icons.notifications),
-                title: const Text('Notification Settings'),
-                subtitle: const Text('Manage your notifications'),
+                title: const Text('Cài đặt thông báo'),
+                subtitle: const Text('Quản lý thông báo của bạn'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => NavigationHelper.showNotificationSettingsDialog(context),
               ),
@@ -159,18 +159,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const Divider(),
           _buildSection(
             context,
-            'About',
+            'Thông tin',
             [
               ListTile(
                 leading: const Icon(Icons.help_outline),
-                title: const Text('App Guide'),
-                subtitle: const Text('Learn how to use MomCare+'),
+                title: const Text('Hướng dẫn sử dụng'),
+                subtitle: const Text('Tìm hiểu cách sử dụng MomCare+'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => NavigationHelper.toGuide(context),
               ),
               ListTile(
                 leading: const Icon(Icons.info),
-                title: const Text('About MomCare+'),
+                title: const Text('Về MomCare+'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
                   _showAboutDialog(context);
@@ -178,7 +178,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.privacy_tip),
-                title: const Text('Privacy Policy'),
+                title: const Text('Chính sách bảo mật'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => NavigationHelper.showPrivacyPolicy(context),
               ),
@@ -226,7 +226,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Due date updated successfully')),
+          const SnackBar(content: Text('Đã cập nhật ngày dự sinh')),
         );
       }
     }
@@ -238,23 +238,23 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Change Mother Name'),
+        title: const Text('Đổi tên mẹ'),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(
-            labelText: 'Name',
-            hintText: 'Enter your name',
+            labelText: 'Tên',
+            hintText: 'Nhập tên của bạn',
           ),
           autofocus: true,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, controller.text),
-            child: const Text('Save'),
+            child: const Text('Lưu'),
           ),
         ],
       ),
@@ -270,7 +270,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Name updated successfully')),
+          const SnackBar(content: Text('Đã cập nhật tên')),
         );
       }
     }
@@ -286,12 +286,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Change Pre-Pregnancy Weight'),
+        title: const Text('Đổi cân nặng trước khi mang thai'),
         content: TextField(
           controller: controller,
           decoration: const InputDecoration(
-            labelText: 'Weight (kg)',
-            hintText: 'Enter weight in kg',
+            labelText: 'Cân nặng (kg)',
+            hintText: 'Nhập cân nặng (kg)',
           ),
           keyboardType: TextInputType.number,
           autofocus: true,
@@ -299,11 +299,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, controller.text),
-            child: const Text('Save'),
+            child: const Text('Lưu'),
           ),
         ],
       ),
@@ -321,7 +321,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Weight updated successfully')),
+            const SnackBar(content: Text('Đã cập nhật cân nặng')),
           );
         }
       }
@@ -342,8 +342,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       children: [
         const Text(
-          'MomCare+ is your companion app for pregnancy and postpartum health. '
-          'Track your journey, get nutrition advice, and stay organized with appointments.',
+          'MomCare+ là ứng dụng đồng hành cùng bạn trong thai kỳ và sau sinh. '
+          'Theo dõi hành trình, nhận tư vấn dinh dưỡng và quản lý lịch hẹn.',
         ),
       ],
     );
@@ -355,7 +355,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Select Language'),
+        title: const Text('Chọn ngôn ngữ'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -376,7 +376,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
         ],
       ),
@@ -388,7 +388,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(result == 'en'
-              ? 'Language changed to English'
+              ? 'Đã chuyển sang tiếng Anh'
               : 'Đã chuyển sang Tiếng Việt'),
           ),
         );
@@ -402,12 +402,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final result = await showDialog<AppMode>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Change App Mode'),
+        title: const Text('Đổi chế độ ứng dụng'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Select your current stage:',
+              'Chọn giai đoạn hiện tại của bạn:',
               style: TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 16),
@@ -417,12 +417,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Icon(Icons.eco, color: Colors.green, size: 20),
                   const SizedBox(width: 8),
                   const Expanded(
-                    child: Text('Pre-Pregnancy Planning'),
+                    child: Text('Chuẩn bị mang thai'),
                   ),
                 ],
               ),
               subtitle: const Text(
-                'Track cycles, nutrition tips for conception',
+                'Theo dõi chu kỳ, tips dinh dưỡng thụ thai',
                 style: TextStyle(fontSize: 12),
               ),
               value: AppMode.prePregnancy,
@@ -435,12 +435,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Icon(Icons.pregnant_woman, color: Colors.pink, size: 20),
                   const SizedBox(width: 8),
                   const Expanded(
-                    child: Text('Pregnancy'),
+                    child: Text('Đang mang thai'),
                   ),
                 ],
               ),
               subtitle: const Text(
-                'Track pregnancy, health, weekly nutrition',
+                'Theo dõi thai kỳ, sức khỏe, dinh dưỡng theo tuần',
                 style: TextStyle(fontSize: 12),
               ),
               value: AppMode.pregnancy,
@@ -452,7 +452,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
         ],
       ),
@@ -463,20 +463,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Confirm Mode Change'),
+          title: const Text('Xác nhận đổi chế độ'),
           content: Text(
             result == AppMode.pregnancy
-                ? 'Switch to Pregnancy Mode?\n\nYou will need to set up your pregnancy information.'
-                : 'Switch to Pre-Pregnancy Planning Mode?\n\nYour pregnancy data will be kept for future use.',
+                ? 'Chuyển sang chế độ mang thai?\n\nBạn sẽ cần thiết lập thông tin thai kỳ.'
+                : 'Chuyển sang chế độ chuẩn bị mang thai?\n\nDữ liệu thai kỳ sẽ được giữ lại để sử dụng sau.',
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel'),
+              child: const Text('Hủy'),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Confirm'),
+              child: const Text('Xác nhận'),
             ),
           ],
         ),
@@ -496,8 +496,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               SnackBar(
                 content: Text(
                   result == AppMode.pregnancy
-                      ? 'Switched to Pregnancy Mode'
-                      : 'Switched to Pre-Pregnancy Planning Mode',
+                      ? 'Đã chuyển sang chế độ mang thai'
+                      : 'Đã chuyển sang chế độ chuẩn bị mang thai',
                 ),
               ),
             );

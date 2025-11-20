@@ -117,7 +117,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
         .toList();
 
     if (logsWithWeight.isEmpty) {
-      return _buildEmptyChart('No weight data available');
+      return _buildEmptyChart('Chưa có dữ liệu cân nặng');
     }
 
     final spots = logsWithWeight.asMap().entries.map((entry) {
@@ -244,7 +244,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
         .toList();
 
     if (logsWithBP.isEmpty) {
-      return _buildEmptyChart('No blood pressure data available');
+      return _buildEmptyChart('Chưa có dữ liệu huyết áp');
     }
 
     final systolicSpots = logsWithBP.asMap().entries.map((entry) {
@@ -397,7 +397,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
         .toList();
 
     if (logsWithMood.isEmpty) {
-      return _buildEmptyChart('No mood data available');
+      return _buildEmptyChart('Chưa có dữ liệu tâm trạng');
     }
 
     final moodCounts = <String, int>{};

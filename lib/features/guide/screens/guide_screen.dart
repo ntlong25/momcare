@@ -14,50 +14,50 @@ class _GuideScreenState extends State<GuideScreen> {
   final List<_GuidePage> _pages = [
     _GuidePage(
       icon: Icons.favorite,
-      title: 'Welcome to MomCare+',
+      title: 'Chào mừng đến MomCare+',
       description:
-          'Your all-in-one companion for a healthy and happy pregnancy journey. '
-          'Track your progress, manage appointments, and get personalized nutrition advice.',
+          'Ứng dụng đồng hành cùng bạn trong hành trình mang thai khỏe mạnh và hạnh phúc. '
+          'Theo dõi tiến trình, quản lý lịch hẹn và nhận tư vấn dinh dưỡng cá nhân hóa.',
       color: Colors.pink,
     ),
     _GuidePage(
       icon: Icons.track_changes,
-      title: 'Track Your Progress',
+      title: 'Theo dõi tiến trình',
       description:
-          'Monitor your pregnancy week by week with detailed insights. '
-          'View your baby\'s development, track weight gain, and see how many days until your due date.',
+          'Theo dõi thai kỳ từng tuần với thông tin chi tiết. '
+          'Xem sự phát triển của bé, theo dõi cân nặng và đếm ngược ngày dự sinh.',
       color: Colors.purple,
     ),
     _GuidePage(
       icon: Icons.favorite_border,
-      title: 'Health Diary',
+      title: 'Nhật ký sức khỏe',
       description:
-          'Record your daily health metrics including weight, blood pressure, blood sugar, '
-          'and symptoms. Keep a comprehensive log of your pregnancy health.',
+          'Ghi lại các chỉ số sức khỏe hàng ngày bao gồm cân nặng, huyết áp, đường huyết '
+          'và triệu chứng. Lưu trữ nhật ký sức khỏe thai kỳ toàn diện.',
       color: Colors.red,
     ),
     _GuidePage(
       icon: Icons.calendar_today,
-      title: 'Appointments',
+      title: 'Lịch hẹn',
       description:
-          'Never miss a doctor\'s appointment. Schedule and manage all your prenatal visits, '
-          'ultrasounds, and medical checkups in one place with reminders.',
+          'Không bỏ lỡ bất kỳ cuộc hẹn nào. Lên lịch và quản lý tất cả các lần khám thai, '
+          'siêu âm và kiểm tra y tế tại một nơi với nhắc nhở.',
       color: Colors.blue,
     ),
     _GuidePage(
       icon: Icons.restaurant_menu,
-      title: 'Nutrition & Recipes',
+      title: 'Dinh dưỡng & Công thức',
       description:
-          'Get personalized nutrition guidance for each trimester. '
-          'Discover healthy recipes, track your daily intake, and learn what foods to eat or avoid.',
+          'Nhận hướng dẫn dinh dưỡng cá nhân hóa cho từng tam cá nguyệt. '
+          'Khám phá các công thức nấu ăn lành mạnh và tìm hiểu thực phẩm nên ăn hoặc tránh.',
       color: Colors.orange,
     ),
     _GuidePage(
       icon: Icons.settings,
-      title: 'Customize Your Experience',
+      title: 'Tùy chỉnh trải nghiệm',
       description:
-          'Personalize the app with dark mode, language preferences, and manage your pregnancy information. '
-          'Your data is stored securely and encrypted on your device.',
+          'Cá nhân hóa ứng dụng với chế độ tối, ngôn ngữ và quản lý thông tin thai kỳ. '
+          'Dữ liệu của bạn được lưu trữ an toàn và mã hóa trên thiết bị.',
       color: Colors.teal,
     ),
   ];
@@ -79,7 +79,7 @@ class _GuideScreenState extends State<GuideScreen> {
               alignment: Alignment.topRight,
               child: TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Skip'),
+                child: const Text('Bỏ qua'),
               ),
             ),
 
@@ -127,7 +127,7 @@ class _GuideScreenState extends State<GuideScreen> {
                         );
                       },
                       icon: const Icon(Icons.arrow_back),
-                      label: const Text('Previous'),
+                      label: const Text('Trước'),
                     )
                   else
                     const SizedBox(width: 100),
@@ -145,7 +145,7 @@ class _GuideScreenState extends State<GuideScreen> {
                       }
                     },
                     child: Text(
-                      _currentPage < _pages.length - 1 ? 'Next' : 'Get Started',
+                      _currentPage < _pages.length - 1 ? 'Tiếp' : 'Bắt đầu',
                     ),
                   ),
                 ],

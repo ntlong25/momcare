@@ -143,7 +143,7 @@ class _PrePregnancyHomeScreenState
             Expanded(
               child: _QuickActionButton(
                 icon: Icons.calendar_month,
-                label: 'Fertility\nPlanner',
+                label: 'Kế hoạch\nthụ thai',
                 color: Colors.purple,
                 onTap: () => NavigationHelper.toFertilityPlanner(context),
               ),

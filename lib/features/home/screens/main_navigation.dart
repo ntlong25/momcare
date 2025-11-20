@@ -50,22 +50,22 @@ class MainNavigation extends ConsumerWidget {
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Trang chủ',
           ),
           NavigationDestination(
             icon: Icon(Icons.favorite_outline),
             selectedIcon: Icon(Icons.favorite),
-            label: 'Track',
+            label: 'Theo dõi',
           ),
           NavigationDestination(
             icon: Icon(Icons.widgets_outlined),
             selectedIcon: Icon(Icons.widgets),
-            label: 'Tools',
+            label: 'Công cụ',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Cài đặt',
           ),
         ],
       ),

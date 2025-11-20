@@ -18,12 +18,12 @@ class UpcomingAppointmentsCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Upcoming Appointments',
+              'Lịch hẹn sắp tới',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             TextButton(
               onPressed: () => NavigationHelper.toAppointments(context),
-              child: const Text('View All'),
+              child: const Text('Xem tất cả'),
             ),
           ],
         ),
@@ -42,7 +42,7 @@ class UpcomingAppointmentsCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'No upcoming appointments',
+                          'Chưa có lịch hẹn nào',
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 color: Colors.grey[600],
                               ),
@@ -51,7 +51,7 @@ class UpcomingAppointmentsCard extends StatelessWidget {
                         TextButton.icon(
                           onPressed: () => NavigationHelper.toAddAppointment(context),
                           icon: const Icon(Icons.add),
-                          label: const Text('Add Appointment'),
+                          label: const Text('Thêm lịch hẹn'),
                         ),
                       ],
                     ),
