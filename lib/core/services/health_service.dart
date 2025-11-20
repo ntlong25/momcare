@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:health/health.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 import '../models/menstrual_cycle_model.dart';
 import '../utils/app_logger.dart';
@@ -8,7 +7,7 @@ import '../utils/app_logger.dart';
 /// Service to interact with Apple Health (iOS) and Google Fit (Android)
 /// for menstrual cycle data
 class HealthService {
-  static final AppLogger _logger = AppLogger();
+  static final AppLogger _logger = AppLogger.instance;
   static Health? _health;
 
   /// Initialize the health service

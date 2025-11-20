@@ -8,9 +8,11 @@ import 'core/services/notification_service.dart';
 import 'core/theme/app_theme.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/providers/locale_provider.dart';
+import 'core/providers/app_mode_provider.dart';
 import 'core/constants/app_constants.dart';
 import 'features/home/screens/main_navigation.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
+import 'features/onboarding/screens/mode_selection_screen.dart';
 import 'features/splash/screens/splash_screen.dart';
 
 void main() async {
@@ -55,11 +57,13 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-class AppInitializer extends StatelessWidget {
+class AppInitializer extends ConsumerWidget {
   const AppInitializer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appMode = ref.watch(appModeProvider);
+
     return FutureBuilder<bool>(
       future: _checkOnboardingStatus(),
       builder: (context, snapshot) {
@@ -91,9 +95,19 @@ class AppInitializer extends StatelessWidget {
         }
 
         final hasCompletedOnboarding = snapshot.data ?? false;
-        return hasCompletedOnboarding
-            ? const MainNavigation()
-            : const OnboardingScreen();
+
+        // If not completed onboarding, show onboarding screen
+        if (!hasCompletedOnboarding) {
+          return const OnboardingScreen();
+        }
+
+        // If no mode selected yet, show mode selection
+        if (appMode == null) {
+          return const ModeSelectionScreen();
+        }
+
+        // Otherwise show main navigation
+        return const MainNavigation();
       },
     );
   }

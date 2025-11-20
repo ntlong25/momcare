@@ -160,7 +160,7 @@ class HealthLogList extends StatelessWidget {
           children: [
             ListTile(
               leading: const Icon(Icons.edit),
-              title: const Text('Edit'),
+              title: const Text('Chỉnh sửa'),
               onTap: () {
                 Navigator.pop(context);
                 onEdit(log);
@@ -168,7 +168,7 @@ class HealthLogList extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: Colors.red),
-              title: const Text('Delete', style: TextStyle(color: Colors.red)),
+              title: const Text('Xóa', style: TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
                 _confirmDelete(context, log);
@@ -184,17 +184,17 @@ class HealthLogList extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Log'),
-        content: const Text('Are you sure you want to delete this health log?'),
+        title: const Text('Xóa nhật ký'),
+        content: const Text('Bạn có chắc muốn xóa nhật ký sức khỏe này?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: const Text('Xóa'),
           ),
         ],
       ),

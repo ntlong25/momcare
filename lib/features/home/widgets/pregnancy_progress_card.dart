@@ -113,11 +113,11 @@ class PregnancyProgressCard extends StatelessWidget {
 
   String _getWeeklyTip(int week) {
     if (week <= 13) {
-      return 'Your baby\'s major organs are forming. Take your prenatal vitamins daily!';
+      return 'Các cơ quan chính của bé đang hình thành. Hãy uống vitamin bầu mỗi ngày!';
     } else if (week <= 27) {
-      return 'Your baby is growing rapidly. Make sure you\'re eating a balanced diet.';
+      return 'Bé đang phát triển nhanh chóng. Hãy đảm bảo ăn uống cân bằng.';
     } else {
-      return 'Your baby is getting ready for birth. Practice relaxation techniques.';
+      return 'Bé đang chuẩn bị chào đời. Hãy tập các kỹ thuật thư giãn.';
     }
   }
 }

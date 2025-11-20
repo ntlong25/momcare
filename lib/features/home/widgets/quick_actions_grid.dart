@@ -10,7 +10,7 @@ class QuickActionsGrid extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quick Actions',
+          'Truy cập nhanh',
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: 16),
@@ -24,37 +24,37 @@ class QuickActionsGrid extends StatelessWidget {
           children: [
             _QuickActionCard(
               icon: Icons.restaurant_menu,
-              title: 'Nutrition',
+              title: 'Dinh dưỡng',
               color: Colors.orange,
               onTap: () => NavigationHelper.toNutrition(context),
             ),
             _QuickActionCard(
               icon: Icons.calendar_today,
-              title: 'Appointments',
+              title: 'Lịch hẹn',
               color: Colors.blue,
               onTap: () => NavigationHelper.toAppointments(context),
             ),
             _QuickActionCard(
               icon: Icons.favorite,
-              title: 'Health Diary',
+              title: 'Nhật ký sức khỏe',
               color: Colors.pink,
               onTap: () => NavigationHelper.toHealthDiary(context),
             ),
             _QuickActionCard(
               icon: Icons.book,
-              title: 'Recipes',
+              title: 'Công thức nấu ăn',
               color: Colors.green,
               onTap: () => NavigationHelper.toRecipes(context),
             ),
             _QuickActionCard(
               icon: Icons.calendar_month,
-              title: 'Fertility Planner',
+              title: 'Kế hoạch thụ thai',
               color: Colors.purple,
               onTap: () => NavigationHelper.toFertilityPlanner(context),
             ),
             _QuickActionCard(
               icon: Icons.help_outline,
-              title: 'App Guide',
+              title: 'Hướng dẫn',
               color: Colors.teal,
               onTap: () => NavigationHelper.toGuide(context),
             ),
