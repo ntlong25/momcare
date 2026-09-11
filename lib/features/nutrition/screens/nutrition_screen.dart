@@ -10,8 +10,13 @@ import 'nutrition_detail_screen.dart';
 
 class NutritionScreen extends ConsumerStatefulWidget {
   final int initialTab;
+  final bool showAppBar;
 
-  const NutritionScreen({super.key, this.initialTab = 0});
+  const NutritionScreen({
+    super.key,
+    this.initialTab = 0,
+    this.showAppBar = true,
+  });
 
   @override
   ConsumerState<NutritionScreen> createState() => _NutritionScreenState();
@@ -66,21 +71,30 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
 
   @override
   Widget build(BuildContext context) {
+    final tabBar = TabBar(
+      controller: _tabController,
+      tabs: const [
+        Tab(icon: Icon(Icons.lightbulb), text: 'Hướng dẫn'),
+        Tab(icon: Icon(Icons.restaurant), text: 'Công thức'),
+      ],
+    );
+    final tabBarView = TabBarView(
+      controller: _tabController,
+      children: [_buildGuidesTab(), _buildRecipesTab()],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hướng dẫn dinh dưỡng'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.lightbulb), text: 'Hướng dẫn'),
-            Tab(icon: Icon(Icons.restaurant), text: 'Công thức'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [_buildGuidesTab(), _buildRecipesTab()],
-      ),
+      appBar: widget.showAppBar
+          ? AppBar(title: const Text('Hướng dẫn dinh dưỡng'), bottom: tabBar)
+          : null,
+      body: widget.showAppBar
+          ? tabBarView
+          : Column(
+              children: [
+                tabBar,
+                Expanded(child: tabBarView),
+              ],
+            ),
     );
   }
 

@@ -18,12 +18,12 @@ class DatabaseService {
       await Hive.initFlutter();
 
       // Register adapters
-      Hive.registerAdapter(PregnancyModelAdapter());
-      Hive.registerAdapter(HealthLogModelAdapter());
-      Hive.registerAdapter(AppointmentModelAdapter());
-      Hive.registerAdapter(NutritionModelAdapter());
-      Hive.registerAdapter(RecipeModelAdapter());
-      Hive.registerAdapter(MenstrualCycleModelAdapter());
+      _registerAdapter(PregnancyModelAdapter());
+      _registerAdapter(HealthLogModelAdapter());
+      _registerAdapter(AppointmentModelAdapter());
+      _registerAdapter(NutritionModelAdapter());
+      _registerAdapter(RecipeModelAdapter());
+      _registerAdapter(MenstrualCycleModelAdapter());
       _logger.debug('Hive adapters registered');
 
       // Get encryption cipher for sensitive data
@@ -68,6 +68,12 @@ class DatabaseService {
         stackTrace: stackTrace,
       );
       rethrow;
+    }
+  }
+
+  static void _registerAdapter<T>(TypeAdapter<T> adapter) {
+    if (!Hive.isAdapterRegistered(adapter.typeId)) {
+      Hive.registerAdapter(adapter);
     }
   }
 

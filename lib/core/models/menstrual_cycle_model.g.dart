@@ -8,7 +8,7 @@ part of 'menstrual_cycle_model.dart';
 
 class MenstrualCycleModelAdapter extends TypeAdapter<MenstrualCycleModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
   MenstrualCycleModel read(BinaryReader reader) {

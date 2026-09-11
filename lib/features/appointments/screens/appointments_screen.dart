@@ -8,7 +8,9 @@ import '../widgets/appointment_card.dart';
 import 'add_appointment_screen.dart';
 
 class AppointmentsScreen extends ConsumerStatefulWidget {
-  const AppointmentsScreen({super.key});
+  final bool showAppBar;
+
+  const AppointmentsScreen({super.key, this.showAppBar = true});
 
   @override
   ConsumerState<AppointmentsScreen> createState() => _AppointmentsScreenState();
@@ -36,21 +38,30 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final tabBar = TabBar(
+      controller: _tabController,
+      tabs: const [
+        Tab(icon: Icon(Icons.calendar_month), text: 'Lịch'),
+        Tab(icon: Icon(Icons.list), text: 'Danh sách'),
+      ],
+    );
+    final tabBarView = TabBarView(
+      controller: _tabController,
+      children: [_buildCalendarView(), _buildListView()],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lịch hẹn'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.calendar_month), text: 'Lịch'),
-            Tab(icon: Icon(Icons.list), text: 'Danh sách'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [_buildCalendarView(), _buildListView()],
-      ),
+      appBar: widget.showAppBar
+          ? AppBar(title: const Text('Lịch hẹn'), bottom: tabBar)
+          : null,
+      body: widget.showAppBar
+          ? tabBarView
+          : Column(
+              children: [
+                tabBar,
+                Expanded(child: tabBarView),
+              ],
+            ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final result = await Navigator.of(context).push(

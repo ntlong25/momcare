@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'menstrual_cycle_model.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 5)
 class MenstrualCycleModel extends HiveObject {
   @HiveField(0)
   final String id;

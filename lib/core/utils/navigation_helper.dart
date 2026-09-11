@@ -8,6 +8,8 @@ import '../../features/nutrition/screens/nutrition_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/guide/screens/guide_screen.dart';
 import '../../features/fertility/screens/fertility_planner_screen.dart';
+import '../../features/legal/screens/privacy_policy_screen.dart';
+import '../../features/legal/screens/medical_disclaimer_screen.dart';
 
 class NavigationHelper {
   static Future<T?> toPregnancySetup<T>(BuildContext context) {
@@ -79,6 +81,24 @@ class NavigationHelper {
     );
   }
 
+  static Future<T?> toPrivacyPolicy<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+    );
+  }
+
+  static Future<T?> toMedicalDisclaimer<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const MedicalDisclaimerScreen()),
+    );
+  }
+
+  static Future<T?> showPrivacyPolicy<T>(BuildContext context) {
+    return toPrivacyPolicy<T>(context);
+  }
+
   static void showNotificationsDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -95,38 +115,6 @@ class NavigationHelper {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Đồng ý'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static void showPrivacyPolicy(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Chính sách bảo mật'),
-        content: const SingleChildScrollView(
-          child: Text(
-            'Chính sách bảo mật MomCare+\n\n'
-            '1. Lưu trữ dữ liệu\n'
-            'Dữ liệu sức khỏe của bạn được lưu trên thiết bị bằng bộ nhớ cục bộ của ứng dụng. '
-            'Ứng dụng v1 chưa đồng bộ cloud và không gửi dữ liệu sức khỏe cá nhân lên máy chủ.\n\n'
-            '2. Bảo mật dữ liệu\n'
-            'Dữ liệu thai kỳ và nhật ký sức khỏe được bảo vệ trong phạm vi cơ chế bảo mật của thiết bị và hệ điều hành.\n\n'
-            '3. Quyền truy cập\n'
-            'Ứng dụng chỉ xin các quyền cần thiết cho chức năng đang dùng, ví dụ thông báo để nhắc lịch hẹn.\n\n'
-            '4. Lưu giữ dữ liệu\n'
-            'Dữ liệu nằm trên thiết bị cho đến khi bạn xóa ứng dụng hoặc xóa dữ liệu theo chức năng được cung cấp.\n\n'
-            '5. Dịch vụ bên thứ ba\n'
-            'Phiên bản v1 không dùng quảng cáo, analytics hoặc dịch vụ theo dõi bên thứ ba.\n\n'
-            'Cập nhật lần cuối: 09/2026',
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Đóng'),
           ),
         ],
       ),

@@ -10,7 +10,9 @@ import '../widgets/weekly_tips_card.dart';
 import '../widgets/weight_gain_chart.dart';
 
 class TrackingScreen extends ConsumerWidget {
-  const TrackingScreen({super.key});
+  final bool showAppBar;
+
+  const TrackingScreen({super.key, this.showAppBar = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +21,9 @@ class TrackingScreen extends ConsumerWidget {
 
     if (pregnancy == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Theo dõi thai kỳ')),
+        appBar: showAppBar
+            ? AppBar(title: const Text('Theo dõi thai kỳ'))
+            : null,
         body: _buildNoPregnancyView(context),
       );
     }
@@ -28,33 +32,35 @@ class TrackingScreen extends ConsumerWidget {
     final weekData = PregnancyWeeksDatabase.getWeekData(currentWeek);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Theo dõi thai kỳ'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.history),
-            onPressed: () {
-              // Show week history dialog (placeholder for future feature)
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Lịch sử theo tuần'),
-                  content: const Text(
-                    'Màn xem lịch sử theo từng tuần sẽ được bổ sung trong bản cập nhật sau.\n\n'
-                    'Bạn sẽ có thể xem lại hành trình thai kỳ theo từng tuần.',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('Đồng ý'),
-                    ),
-                  ],
+      appBar: showAppBar
+          ? AppBar(
+              title: const Text('Theo dõi thai kỳ'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.history),
+                  onPressed: () {
+                    // Show week history dialog (placeholder for future feature)
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Lịch sử theo tuần'),
+                        content: const Text(
+                          'Màn xem lịch sử theo từng tuần sẽ được bổ sung trong bản cập nhật sau.\n\n'
+                          'Bạn sẽ có thể xem lại hành trình thai kỳ theo từng tuần.',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Đồng ý'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ],
-      ),
+              ],
+            )
+          : null,
       body: RefreshIndicator(
         onRefresh: () async {
           // Refresh data

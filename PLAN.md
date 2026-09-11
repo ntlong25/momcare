@@ -46,8 +46,32 @@ Status: Completed
 - Acceptance: `rg` found no mojibake markers in source/README/plan docs excluding generated adapter files.
 - Result: completed.
 
+## Phase 3: Privacy Policy and Medical Disclaimer
+Status: Completed
+
+### Task 3.1: Add In-App Privacy Policy Screen
+- Added a dedicated Vietnamese Privacy Policy screen.
+- Covered V1 data handling: local-first storage, no cloud sync, no analytics/ads, health data sensitivity, permission purpose, and encryption when supported by device/security key availability.
+- Added a public privacy URL action using the shared app constant.
+- Acceptance: accessible from Settings > Thông tin.
+- Result: completed.
+
+### Task 3.2: Add Medical Disclaimer Screen
+- Added a dedicated Vietnamese Medical Disclaimer screen.
+- States clearly that MomCare+ is for reference only and does not diagnose, treat, prescribe, or replace doctors/qualified healthcare professionals.
+- Added warning copy to contact a doctor or nearby medical facility for abnormal or concerning symptoms.
+- Added a disclaimer page/link in onboarding so first-time users see the medical limitation before starting.
+- Acceptance: accessible from Settings and visible during onboarding.
+- Result: completed.
+
+### Task 3.3: Add Public Policy URL Placeholder
+- Added `AppConstants.privacyPolicyUrl`.
+- Added `AppConstants.medicalDisclaimerUrl`.
+- Both in-app website buttons use these same constants, ready to replace with the final public URLs before store submission.
+- Acceptance: policy/disclaimer website actions use centralized placeholder URLs.
+- Result: completed.
+
 ## Later Phases
-- Phase 3: Privacy Policy and Medical Disclaimer.
 - Phase 4: Delete-all-data flow and offline-first trust copy.
 - Phase 5: Emergency warning guidance.
 - Phase 6: Medical references and source metadata.
@@ -63,3 +87,8 @@ Status: Completed
 - Phase 2: `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
 - Phase 2: `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
 - Phase 2 debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.
+- Phase 3: `C:\Users\PC\Development\flutter\bin\flutter.bat pub get` passed.
+- Phase 3: `C:\Users\PC\Development\flutter\bin\dart.bat format ...` passed for changed Phase 3 files.
+- Phase 3: `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
+- Phase 3: `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
+- Phase 3 debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.

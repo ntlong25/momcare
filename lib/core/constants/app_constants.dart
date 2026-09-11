@@ -2,6 +2,10 @@ class AppConstants {
   // App Info
   static const String appName = 'MomCare+';
   static const String appVersion = '1.0.0';
+  static const String privacyPolicyUrl =
+      'https://example.com/momcare/privacy-policy';
+  static const String medicalDisclaimerUrl =
+      'https://example.com/momcare/medical-disclaimer';
 
   // Hive Box Names
   static const String pregnancyBox = 'pregnancy_box';

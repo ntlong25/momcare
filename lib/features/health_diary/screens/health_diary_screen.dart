@@ -8,7 +8,9 @@ import '../widgets/health_charts_card.dart';
 import 'add_health_log_screen.dart';
 
 class HealthDiaryScreen extends ConsumerStatefulWidget {
-  const HealthDiaryScreen({super.key});
+  final bool showAppBar;
+
+  const HealthDiaryScreen({super.key, this.showAppBar = true});
 
   @override
   ConsumerState<HealthDiaryScreen> createState() => _HealthDiaryScreenState();
@@ -33,22 +35,30 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
   @override
   Widget build(BuildContext context) {
     final healthLogs = DatabaseService.getAllHealthLogs();
+    final tabBar = TabBar(
+      controller: _tabController,
+      tabs: const [
+        Tab(icon: Icon(Icons.list), text: 'Nhật ký'),
+        Tab(icon: Icon(Icons.show_chart), text: 'Biểu đồ'),
+      ],
+    );
+    final tabBarView = TabBarView(
+      controller: _tabController,
+      children: [_buildLogsTab(healthLogs), _buildChartsTab(healthLogs)],
+    );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nhật ký sức khỏe'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: const [
-            Tab(icon: Icon(Icons.list), text: 'Nhật ký'),
-            Tab(icon: Icon(Icons.show_chart), text: 'Biểu đồ'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [_buildLogsTab(healthLogs), _buildChartsTab(healthLogs)],
-      ),
+      appBar: widget.showAppBar
+          ? AppBar(title: const Text('Nhật ký sức khỏe'), bottom: tabBar)
+          : null,
+      body: widget.showAppBar
+          ? tabBarView
+          : Column(
+              children: [
+                tabBar,
+                Expanded(child: tabBarView),
+              ],
+            ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final result = await Navigator.of(context).push(

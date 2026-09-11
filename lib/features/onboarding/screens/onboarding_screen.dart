@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../legal/screens/medical_disclaimer_screen.dart';
 import 'pregnancy_setup_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -18,30 +19,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingPage(
       title: 'Chào mừng đến với MomCare+',
       description:
-          'Người bạn đồng hành giúp bạn theo dõi thai kỳ khỏe mạnh và an tâm hơn',
+          'Người bạn đồng hành giúp bạn theo dõi thai kỳ khỏe mạnh và an tâm hơn.',
       icon: Icons.favorite,
       color: const Color(0xFFFF9A9E),
     ),
     OnboardingPage(
       title: 'Theo dõi hành trình',
       description:
-          'Theo dõi thai kỳ theo từng tuần và lưu lại các mốc phát triển quan trọng',
+          'Theo dõi thai kỳ theo từng tuần và lưu lại các mốc phát triển quan trọng.',
       icon: Icons.track_changes,
       color: const Color(0xFFFAD0C4),
     ),
     OnboardingPage(
       title: 'Gợi ý dinh dưỡng',
       description:
-          'Xem hướng dẫn dinh dưỡng và công thức phù hợp theo từng giai đoạn',
+          'Xem hướng dẫn dinh dưỡng và công thức phù hợp theo từng giai đoạn.',
       icon: Icons.restaurant_menu,
       color: const Color(0xFFFFC3A0),
     ),
     OnboardingPage(
       title: 'Sắp xếp lịch hẹn',
       description:
-          'Lưu lịch khám và nhận nhắc nhở để không bỏ lỡ những mốc cần nhớ',
+          'Lưu lịch khám và nhận nhắc nhở để không bỏ lỡ những mốc cần nhớ.',
       icon: Icons.calendar_today,
       color: const Color(0xFFFFB74D),
+    ),
+    OnboardingPage(
+      title: 'Lưu ý y tế',
+      description:
+          'MomCare+ chỉ cung cấp thông tin tham khảo, không chẩn đoán, điều trị hoặc thay thế bác sĩ.',
+      icon: Icons.medical_information,
+      color: const Color(0xFF4DB6AC),
+      showDisclaimerLink: true,
     ),
   ];
 
@@ -155,6 +164,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           ),
+          if (page.showDisclaimerLink) ...[
+            const SizedBox(height: 24),
+            OutlinedButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const MedicalDisclaimerScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.article_outlined),
+              label: const Text('Đọc tuyên bố miễn trừ'),
+            ),
+          ],
         ],
       ),
     );
@@ -197,11 +220,13 @@ class OnboardingPage {
   final String description;
   final IconData icon;
   final Color color;
+  final bool showDisclaimerLink;
 
   OnboardingPage({
     required this.title,
     required this.description,
     required this.icon,
     required this.color,
+    this.showDisclaimerLink = false,
   });
 }

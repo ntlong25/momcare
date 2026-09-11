@@ -7,7 +7,9 @@ import '../../../core/services/health_service.dart';
 import 'add_period_screen.dart';
 
 class FertilityPlannerScreen extends ConsumerStatefulWidget {
-  const FertilityPlannerScreen({super.key});
+  final bool showAppBar;
+
+  const FertilityPlannerScreen({super.key, this.showAppBar = true});
 
   @override
   ConsumerState<FertilityPlannerScreen> createState() =>
@@ -156,23 +158,25 @@ class _FertilityPlannerScreenState
     final fertileWindow = HealthService.predictFertileWindow(_cycles);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Theo dõi chu kỳ'),
-        actions: [
-          if (HealthService.isAvailable)
-            IconButton(
-              icon: _isSyncing
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.sync),
-              onPressed: _isSyncing ? null : _syncFromHealthKit,
-              tooltip: 'Đồng bộ từ ứng dụng Sức khỏe',
-            ),
-        ],
-      ),
+      appBar: widget.showAppBar
+          ? AppBar(
+              title: const Text('Theo dõi chu kỳ'),
+              actions: [
+                if (HealthService.isAvailable)
+                  IconButton(
+                    icon: _isSyncing
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.sync),
+                    onPressed: _isSyncing ? null : _syncFromHealthKit,
+                    tooltip: 'Đồng bộ từ ứng dụng Sức khỏe',
+                  ),
+              ],
+            )
+          : null,
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

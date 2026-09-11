@@ -33,7 +33,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
     final appMode = ref.watch(appModeProvider);
-    final isPregnancyMode = appMode == AppMode.pregnancy;
+    final effectiveAppMode = _resolveCurrentMode(appMode);
+    final isPregnancyMode = effectiveAppMode == AppMode.pregnancy;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Cài đặt')),
@@ -142,8 +143,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ListTile(
               leading: const Icon(Icons.privacy_tip),
               title: const Text('Chính sách bảo mật'),
+              subtitle: const Text('Cách MomCare+ lưu và bảo vệ dữ liệu'),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () => NavigationHelper.showPrivacyPolicy(context),
+              onTap: () => NavigationHelper.toPrivacyPolicy(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.medical_information),
+              title: const Text('Tuyên bố miễn trừ y tế'),
+              subtitle: const Text('MomCare+ không thay thế tư vấn y tế'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.toMedicalDisclaimer(context),
             ),
           ]),
         ],
@@ -319,7 +328,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _showModeDialog(BuildContext context) async {
-    final currentMode = ref.read(appModeProvider);
+    final currentMode = _resolveCurrentMode(ref.read(appModeProvider));
 
     final result = await showDialog<AppMode>(
       context: context,
@@ -376,7 +385,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
     );
 
-    if (result != null && result != currentMode && mounted) {
+    if (result == null || result == currentMode || !mounted) {
+      return;
+    }
+
+    if (mounted) {
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
@@ -403,7 +416,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         await ref.read(appModeProvider.notifier).setMode(result);
 
         if (mounted) {
-          if (result == AppMode.pregnancy && _pregnancy == null) {
+          final activePregnancy =
+              _pregnancy ?? DatabaseService.getActivePregnancy();
+
+          if (result == AppMode.pregnancy && activePregnancy == null) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (_) => const PregnancySetupScreen()),
             );
@@ -421,5 +437,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         }
       }
     }
+  }
+
+  AppMode _resolveCurrentMode(AppMode? appMode) {
+    if (appMode != null) {
+      return appMode;
+    }
+
+    return _pregnancy != null ? AppMode.pregnancy : AppMode.prePregnancy;
   }
 }

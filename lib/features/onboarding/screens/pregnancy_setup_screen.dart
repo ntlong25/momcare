@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/models/pregnancy_model.dart';
+import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/utils/health_validators.dart';
 import '../../home/screens/main_navigation.dart';
 
-class PregnancySetupScreen extends StatefulWidget {
+class PregnancySetupScreen extends ConsumerStatefulWidget {
   const PregnancySetupScreen({super.key});
 
   @override
-  State<PregnancySetupScreen> createState() => _PregnancySetupScreenState();
+  ConsumerState<PregnancySetupScreen> createState() =>
+      _PregnancySetupScreenState();
 }
 
-class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
+class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _weightController = TextEditingController();
@@ -247,6 +250,7 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
     );
 
     await DatabaseService.savePregnancy(pregnancy);
+    await ref.read(appModeProvider.notifier).setMode(AppMode.pregnancy);
 
     if (!mounted) return;
 

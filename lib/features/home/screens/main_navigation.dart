@@ -78,29 +78,30 @@ class _TrackTabScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: isPrePregnancy ? 2 : 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Theo dõi sức khỏe'),
-          bottom: TabBar(
-            tabs: isPrePregnancy
-                ? const [
-                    Tab(text: 'Chu kỳ', icon: Icon(Icons.calendar_month)),
-                    Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
-                  ]
-                : const [
-                    Tab(text: 'Thai kỳ', icon: Icon(Icons.track_changes)),
-                    Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
-                    Tab(text: 'Chu kỳ', icon: Icon(Icons.calendar_month)),
-                  ],
-          ),
+      child: _CollapsibleTabScaffold(
+        title: 'Theo dõi sức khỏe',
+        tabBar: TabBar(
+          tabs: isPrePregnancy
+              ? const [
+                  Tab(text: 'Chu kỳ', icon: Icon(Icons.calendar_month)),
+                  Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
+                ]
+              : const [
+                  Tab(text: 'Thai kỳ', icon: Icon(Icons.track_changes)),
+                  Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
+                  Tab(text: 'Chu kỳ', icon: Icon(Icons.calendar_month)),
+                ],
         ),
         body: TabBarView(
           children: isPrePregnancy
-              ? const [FertilityPlannerScreen(), HealthDiaryScreen()]
+              ? const [
+                  FertilityPlannerScreen(showAppBar: false),
+                  HealthDiaryScreen(showAppBar: false),
+                ]
               : const [
-                  TrackingScreen(),
-                  HealthDiaryScreen(),
-                  FertilityPlannerScreen(),
+                  TrackingScreen(showAppBar: false),
+                  HealthDiaryScreen(showAppBar: false),
+                  FertilityPlannerScreen(showAppBar: false),
                 ],
         ),
       ),
@@ -113,21 +114,55 @@ class _ToolsTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Công cụ'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
-              Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
-            ],
-          ),
+      child: _CollapsibleTabScaffold(
+        title: 'Công cụ',
+        tabBar: TabBar(
+          tabs: [
+            Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
+            Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
+          ],
         ),
-        body: const TabBarView(
-          children: [NutritionScreen(), AppointmentsScreen()],
+        body: TabBarView(
+          children: [
+            NutritionScreen(showAppBar: false),
+            AppointmentsScreen(showAppBar: false),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class _CollapsibleTabScaffold extends StatelessWidget {
+  final String title;
+  final TabBar tabBar;
+  final Widget body;
+
+  const _CollapsibleTabScaffold({
+    required this.title,
+    required this.tabBar,
+    required this.body,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              title: Text(title),
+              floating: true,
+              snap: true,
+              forceElevated: innerBoxIsScrolled,
+              bottom: tabBar,
+            ),
+          ];
+        },
+        body: body,
       ),
     );
   }
