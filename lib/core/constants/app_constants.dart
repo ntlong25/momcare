@@ -20,6 +20,7 @@ class AppConstants {
   static const String themeKey = 'theme_mode';
   static const String languageKey = 'language';
   static const String onboardingKey = 'onboarding_completed';
+  static const String appModeKey = 'app_mode';
   static const String dueDateKey = 'due_date';
   static const String userNameKey = 'user_name';
 

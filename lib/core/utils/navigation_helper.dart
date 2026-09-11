@@ -10,6 +10,7 @@ import '../../features/guide/screens/guide_screen.dart';
 import '../../features/fertility/screens/fertility_planner_screen.dart';
 import '../../features/legal/screens/privacy_policy_screen.dart';
 import '../../features/legal/screens/medical_disclaimer_screen.dart';
+import '../../features/emergency/screens/emergency_warning_screen.dart';
 
 class NavigationHelper {
   static Future<T?> toPregnancySetup<T>(BuildContext context) {
@@ -92,6 +93,13 @@ class NavigationHelper {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(builder: (_) => const MedicalDisclaimerScreen()),
+    );
+  }
+
+  static Future<T?> toEmergencyWarning<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const EmergencyWarningScreen()),
     );
   }
 

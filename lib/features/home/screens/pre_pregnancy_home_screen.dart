@@ -4,6 +4,7 @@ import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../emergency/widgets/emergency_entry_card.dart';
 
 class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
   const PrePregnancyHomeScreen({super.key});
@@ -57,6 +58,8 @@ class _PrePregnancyHomeScreenState
             children: [
               _buildGreeting(theme),
               const SizedBox(height: 24),
+              const EmergencyEntryCard(),
+              const SizedBox(height: 16),
               _FertileWindowWidget(
                 fertileWindow: fertileWindow,
                 nextOvulation: nextOvulation,

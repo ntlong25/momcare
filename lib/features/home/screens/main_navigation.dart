@@ -7,6 +7,7 @@ import '../../tracking/screens/tracking_screen.dart';
 import '../../health_diary/screens/health_diary_screen.dart';
 import '../../nutrition/screens/nutrition_screen.dart';
 import '../../appointments/screens/appointments_screen.dart';
+import '../../emergency/screens/emergency_warning_screen.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../../fertility/screens/fertility_planner_screen.dart';
 
@@ -115,19 +116,21 @@ class _ToolsTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(
-      length: 2,
+      length: 3,
       child: _CollapsibleTabScaffold(
         title: 'Công cụ',
         tabBar: TabBar(
           tabs: [
             Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
             Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
+            Tab(text: 'Cần khám', icon: Icon(Icons.warning_amber_rounded)),
           ],
         ),
         body: TabBarView(
           children: [
             NutritionScreen(showAppBar: false),
             AppointmentsScreen(showAppBar: false),
+            EmergencyWarningScreen(showAppBar: false),
           ],
         ),
       ),

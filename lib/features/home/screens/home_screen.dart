@@ -5,6 +5,7 @@ import '../../../core/models/pregnancy_model.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../emergency/widgets/emergency_entry_card.dart';
 import '../widgets/pregnancy_progress_card.dart';
 import '../widgets/quick_actions_grid.dart';
 import '../widgets/upcoming_appointments_card.dart';
@@ -80,6 +81,8 @@ class HomeScreen extends ConsumerWidget {
         children: [
           _buildGreeting(context, pregnancy),
           const SizedBox(height: 24),
+          const EmergencyEntryCard(),
+          const SizedBox(height: 16),
           PregnancyProgressCard(pregnancy: pregnancy),
           const SizedBox(height: 24),
           const QuickActionsGrid(),

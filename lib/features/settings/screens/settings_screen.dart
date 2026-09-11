@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/providers/theme_provider.dart';
-import '../../../core/providers/app_mode_provider.dart';
-import '../../../core/services/database_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/models/pregnancy_model.dart';
+import '../../../core/providers/app_mode_provider.dart';
+import '../../../core/providers/theme_provider.dart';
+import '../../../core/services/database_service.dart';
+import '../../../core/services/notification_service.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../onboarding/screens/onboarding_screen.dart';
 import '../../onboarding/screens/pregnancy_setup_screen.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -126,6 +130,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ]),
           const Divider(),
+          _buildSection(context, 'Quyền riêng tư & dữ liệu', [
+            ListTile(
+              leading: const Icon(Icons.phonelink_lock),
+              title: const Text('Dữ liệu lưu trên thiết bị này'),
+              subtitle: const Text(
+                'Bản V1 chưa bật đồng bộ cloud hoặc sao lưu Supabase',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showLocalDataExplanation(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete_forever, color: Colors.red),
+              title: const Text(
+                'Xóa toàn bộ dữ liệu',
+                style: TextStyle(color: Colors.red),
+              ),
+              subtitle: const Text('Xóa dữ liệu local và đặt lại ứng dụng'),
+              trailing: const Icon(Icons.chevron_right, color: Colors.red),
+              onTap: () => _showDeleteAllDataFlow(context),
+            ),
+          ]),
+          const Divider(),
           _buildSection(context, 'Thông tin', [
             ListTile(
               leading: const Icon(Icons.help_outline),
@@ -153,6 +179,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               subtitle: const Text('MomCare+ không thay thế tư vấn y tế'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => NavigationHelper.toMedicalDisclaimer(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.warning_amber_rounded),
+              title: const Text('Dấu hiệu cần đi khám ngay'),
+              subtitle: const Text('Các dấu hiệu bất thường cần chú ý'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.toEmergencyWarning(context),
             ),
           ]),
         ],
@@ -327,6 +360,128 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
+  void _showLocalDataExplanation(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Dữ liệu của bạn được lưu cục bộ'),
+        content: const Text(
+          'Trong phiên bản V1, MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn và cài đặt trên thiết bị này.\n\n'
+          'MomCare+ chưa bật đăng nhập, đồng bộ cloud hoặc sao lưu Supabase. Nếu bạn xóa ứng dụng, đổi thiết bị, hoặc xóa toàn bộ dữ liệu trong app, dữ liệu local có thể không khôi phục được.\n\n'
+          'Ứng dụng không gửi dữ liệu sức khỏe của bạn lên máy chủ trong bản V1.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Đã hiểu'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showDeleteAllDataFlow(BuildContext context) async {
+    final firstConfirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Xóa toàn bộ dữ liệu?'),
+        content: const Text(
+          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
+          'Sau khi xóa, MomCare+ sẽ quay về màn hình bắt đầu như lần cài đặt mới.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Hủy'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Tiếp tục'),
+          ),
+        ],
+      ),
+    );
+
+    if (firstConfirmed != true || !mounted) {
+      return;
+    }
+
+    final deleteTokenController = TextEditingController();
+    final secondConfirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Xác nhận lần cuối'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Dữ liệu local sẽ bị xóa khỏi thiết bị này và không có bản sao lưu cloud trong V1.\n\n'
+              'Nhập XOA để xác nhận.',
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: deleteTokenController,
+              textCapitalization: TextCapitalization.characters,
+              decoration: const InputDecoration(
+                labelText: 'Nhập XOA',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Hủy'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              final token = deleteTokenController.text.trim().toUpperCase();
+              Navigator.pop(context, token == 'XOA');
+            },
+            child: const Text('Xóa dữ liệu'),
+          ),
+        ],
+      ),
+    );
+    deleteTokenController.dispose();
+
+    if (secondConfirmed != true || !mounted) {
+      return;
+    }
+
+    await _deleteAllDataAndRestart(context);
+  }
+
+  Future<void> _deleteAllDataAndRestart(BuildContext context) async {
+    await NotificationService.cancelAllNotifications();
+    await DatabaseService.clearAllData();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(AppConstants.onboardingKey);
+    await prefs.remove(AppConstants.appModeKey);
+    await prefs.remove(AppConstants.themeKey);
+    await prefs.remove(AppConstants.languageKey);
+    await prefs.remove(AppConstants.dueDateKey);
+    await prefs.remove(AppConstants.userNameKey);
+    await prefs.remove('locale');
+
+    await ref.read(appModeProvider.notifier).clearMode();
+    await ref.read(themeProvider.notifier).setTheme(ThemeMode.light);
+
+    if (!mounted) {
+      return;
+    }
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+      (_) => false,
+    );
+  }
+
   Future<void> _showModeDialog(BuildContext context) async {
     final currentMode = _resolveCurrentMode(ref.read(appModeProvider));
 
@@ -389,53 +544,54 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       return;
     }
 
-    if (mounted) {
-      final confirmed = await showDialog<bool>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Xác nhận đổi chế độ'),
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Xác nhận đổi chế độ'),
+        content: Text(
+          result == AppMode.pregnancy
+              ? 'Chuyển sang chế độ Đang mang thai?\n\nBạn sẽ cần thiết lập thông tin thai kỳ nếu chưa có dữ liệu.'
+              : 'Chuyển sang chế độ Chuẩn bị mang thai?\n\nDữ liệu thai kỳ sẽ được giữ lại để dùng sau.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Hủy'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Xác nhận'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      await ref.read(appModeProvider.notifier).setMode(result);
+
+      if (!mounted) {
+        return;
+      }
+
+      final activePregnancy =
+          _pregnancy ?? DatabaseService.getActivePregnancy();
+
+      if (result == AppMode.pregnancy && activePregnancy == null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const PregnancySetupScreen()),
+        );
+        return;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           content: Text(
             result == AppMode.pregnancy
-                ? 'Chuyển sang chế độ đang mang thai?\n\nBạn sẽ cần thiết lập thông tin thai kỳ.'
-                : 'Chuyển sang chế độ chuẩn bị mang thai?\n\nDữ liệu thai kỳ sẽ được giữ lại để dùng sau.',
+                ? 'Đã chuyển sang chế độ Đang mang thai'
+                : 'Đã chuyển sang chế độ Chuẩn bị mang thai',
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('Hủy'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text('Xác nhận'),
-            ),
-          ],
         ),
       );
-
-      if (confirmed == true && mounted) {
-        await ref.read(appModeProvider.notifier).setMode(result);
-
-        if (mounted) {
-          final activePregnancy =
-              _pregnancy ?? DatabaseService.getActivePregnancy();
-
-          if (result == AppMode.pregnancy && activePregnancy == null) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => const PregnancySetupScreen()),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  result == AppMode.pregnancy
-                      ? 'Đã chuyển sang chế độ đang mang thai'
-                      : 'Đã chuyển sang chế độ chuẩn bị mang thai',
-                ),
-              ),
-            );
-          }
-        }
-      }
     }
   }
 

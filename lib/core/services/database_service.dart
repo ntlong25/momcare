@@ -283,5 +283,6 @@ class DatabaseService {
     await nutritionBox.clear();
     await recipeBox.clear();
     await menstrualCycleBox.clear();
+    await settingsBox.clear();
   }
 }

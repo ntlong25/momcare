@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../constants/app_constants.dart';
 
 /// App mode enum
 enum AppMode {
@@ -13,12 +14,10 @@ class AppModeNotifier extends StateNotifier<AppMode?> {
     _loadMode();
   }
 
-  static const String _modeKey = 'app_mode';
-
   /// Load saved mode from SharedPreferences
   Future<void> _loadMode() async {
     final prefs = await SharedPreferences.getInstance();
-    final modeString = prefs.getString(_modeKey);
+    final modeString = prefs.getString(AppConstants.appModeKey);
 
     if (modeString != null) {
       state = modeString == 'prePregnancy'
@@ -32,7 +31,7 @@ class AppModeNotifier extends StateNotifier<AppMode?> {
     state = mode;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(
-      _modeKey,
+      AppConstants.appModeKey,
       mode == AppMode.prePregnancy ? 'prePregnancy' : 'pregnancy',
     );
   }
@@ -54,7 +53,7 @@ class AppModeNotifier extends StateNotifier<AppMode?> {
   Future<void> clearMode() async {
     state = null;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_modeKey);
+    await prefs.remove(AppConstants.appModeKey);
   }
 }
 

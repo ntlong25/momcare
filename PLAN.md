@@ -71,9 +71,47 @@ Status: Completed
 - Acceptance: policy/disclaimer website actions use centralized placeholder URLs.
 - Result: completed.
 
+## Phase 4: Data Control and Offline-First Trust
+Status: Completed
+
+### Task 4.1: Add Delete All Data Flow
+- Added a Settings section for privacy/data controls.
+- Added a two-step Vietnamese confirmation flow for deleting all local data.
+- The final confirmation requires typing `XOA`.
+- Delete flow clears Hive boxes, including the settings box.
+- Delete flow resets onboarding/app mode/theme/language/user preference keys from SharedPreferences.
+- Delete flow cancels all scheduled local notifications.
+- After deletion, the app navigates back to onboarding to behave like a fresh install.
+- Acceptance: user can delete all local data from Settings and return to first-run flow.
+- Result: completed.
+
+### Task 4.2: Add Local Data Explanation
+- Added a Settings entry explaining that V1 stores data on the current device.
+- Copy states that V1 does not have login, cloud sync, Supabase backup, or server upload of health data.
+- Copy warns that local data may not be recoverable after app deletion, device change, or in-app delete-all-data.
+- Acceptance: user can understand that V1 has no cloud backup.
+- Result: completed.
+
+## Phase 5: Safety Guidance
+Status: Completed
+
+### Task 5.1: Add Emergency Warning Screen
+- Added a Vietnamese screen for `Dấu hiệu cần đi khám ngay`.
+- Covered warning signs for pregnancy, postpartum recovery, and mental health.
+- Added clear safety copy that MomCare+ does not replace doctors, medical facilities, or emergency services.
+- Added CTA guidance to contact the current doctor, go to the nearest medical facility, or call local emergency services for urgent situations.
+- Acceptance: content is clear and does not diagnose or replace emergency/medical care.
+- Result: completed.
+
+### Task 5.2: Add Emergency Entry Points
+- Added a prominent one-tap emergency card on pregnancy Home.
+- Added the same one-tap emergency card on pre-pregnancy Home.
+- Added an emergency tab under Tools/Công cụ.
+- Added a supporting link under Settings > Thông tin.
+- Acceptance: Home can open the emergency warning screen in one tap.
+- Result: completed.
+
 ## Later Phases
-- Phase 4: Delete-all-data flow and offline-first trust copy.
-- Phase 5: Emergency warning guidance.
 - Phase 6: Medical references and source metadata.
 - Phase 7: Health sync permission rationale.
 - Phase 8: Store readiness tests and QA checklist.
@@ -92,3 +130,12 @@ Status: Completed
 - Phase 3: `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
 - Phase 3: `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
 - Phase 3 debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.
+- Phase 4: `C:\Users\PC\Development\flutter\bin\cache\dart-sdk\bin\dart.exe format ...` passed for changed Phase 4 files.
+- Phase 4: `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
+- Phase 4: `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
+- Phase 4 debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.
+- Phase 5: `C:\Users\PC\Development\flutter\bin\cache\dart-sdk\bin\dart.exe format ...` passed for changed Phase 5 files.
+- Phase 5: `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
+- Phase 5: `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
+- Phase 5 debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.
+- Phase 5: `flutter run -d emulator-5554 --no-resident` could not run because the emulator was not available to Flutter at verification time.
