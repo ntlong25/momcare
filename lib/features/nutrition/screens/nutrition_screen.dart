@@ -20,7 +20,7 @@ class NutritionScreen extends ConsumerStatefulWidget {
 class _NutritionScreenState extends ConsumerState<NutritionScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _selectedCategory = 'All';
+  String _selectedCategory = 'Tất cả';
   bool _initialized = false;
 
   @override
@@ -68,28 +68,25 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nutrition Guide'),
+        title: const Text('Hướng dẫn dinh dưỡng'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.lightbulb), text: 'Guides'),
-            Tab(icon: Icon(Icons.restaurant), text: 'Recipes'),
+            Tab(icon: Icon(Icons.lightbulb), text: 'Hướng dẫn'),
+            Tab(icon: Icon(Icons.restaurant), text: 'Công thức'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          _buildGuidesTab(),
-          _buildRecipesTab(),
-        ],
+        children: [_buildGuidesTab(), _buildRecipesTab()],
       ),
     );
   }
 
   Widget _buildGuidesTab() {
     final allNutrition = DatabaseService.getAllNutrition();
-    final filteredNutrition = _selectedCategory == 'All'
+    final filteredNutrition = _selectedCategory == 'Tất cả'
         ? allNutrition
         : allNutrition.where((n) => n.category == _selectedCategory).toList();
 
@@ -98,7 +95,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
         _buildCategoryFilter(),
         Expanded(
           child: filteredNutrition.isEmpty
-              ? _buildEmptyState('No nutrition guides available')
+              ? _buildEmptyState('Chưa có hướng dẫn dinh dưỡng')
               : RefreshIndicator(
                   onRefresh: () async {
                     setState(() {});
@@ -130,7 +127,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
 
   Widget _buildRecipesTab() {
     final allRecipes = DatabaseService.getAllRecipes();
-    final filteredRecipes = _selectedCategory == 'All'
+    final filteredRecipes = _selectedCategory == 'Tất cả'
         ? allRecipes
         : allRecipes.where((r) => r.category == _selectedCategory).toList();
 
@@ -139,7 +136,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
         _buildCategoryFilter(),
         Expanded(
           child: filteredRecipes.isEmpty
-              ? _buildEmptyState('No recipes available')
+              ? _buildEmptyState('Chưa có công thức món ăn')
               : RefreshIndicator(
                   onRefresh: () async {
                     setState(() {});
@@ -179,7 +176,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   }
 
   Widget _buildCategoryFilter() {
-    final categories = ['All', ...AppConstants.nutritionCategories];
+    final categories = ['Tất cả', ...AppConstants.nutritionCategories];
 
     return Container(
       height: 60,
@@ -202,7 +199,9 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
                   _selectedCategory = category;
                 });
               },
-              selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.3),
+              selectedColor: Theme.of(
+                context,
+              ).primaryColor.withValues(alpha: 0.3),
               checkmarkColor: Theme.of(context).primaryColor,
             ),
           );

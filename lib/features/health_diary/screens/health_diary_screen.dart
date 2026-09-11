@@ -36,35 +36,30 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Health Diary'),
+        title: const Text('Nhật ký sức khỏe'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.list), text: 'Logs'),
-            Tab(icon: Icon(Icons.show_chart), text: 'Charts'),
+            Tab(icon: Icon(Icons.list), text: 'Nhật ký'),
+            Tab(icon: Icon(Icons.show_chart), text: 'Biểu đồ'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          _buildLogsTab(healthLogs),
-          _buildChartsTab(healthLogs),
-        ],
+        children: [_buildLogsTab(healthLogs), _buildChartsTab(healthLogs)],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final result = await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const AddHealthLogScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const AddHealthLogScreen()),
           );
           if (result == true && mounted) {
             setState(() {});
           }
         },
         icon: const Icon(Icons.add),
-        label: const Text('Add Log'),
+        label: const Text('Thêm ghi nhận'),
       ),
     );
   }
@@ -84,13 +79,13 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
               ),
               const SizedBox(height: 24),
               Text(
-                'No Health Logs Yet',
+                'Chưa có ghi nhận sức khỏe',
                 style: Theme.of(context).textTheme.displaySmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Text(
-                'Start tracking your health by adding your first log',
+                'Bắt đầu theo dõi bằng cách thêm ghi nhận đầu tiên',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
@@ -150,13 +145,13 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
               ),
               const SizedBox(height: 24),
               Text(
-                'No Data to Display',
+                'Chưa có dữ liệu để hiển thị',
                 style: Theme.of(context).textTheme.displaySmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Text(
-                'Add health logs to see your trends and charts',
+                'Thêm ghi nhận sức khỏe để xem xu hướng và biểu đồ',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
@@ -170,9 +165,7 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          HealthChartsCard(healthLogs: healthLogs),
-        ],
+        children: [HealthChartsCard(healthLogs: healthLogs)],
       ),
     );
   }

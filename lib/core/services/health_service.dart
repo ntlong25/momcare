@@ -29,13 +29,9 @@ class HealthService {
     }
 
     try {
-      final types = [
-        HealthDataType.MENSTRUATION,
-      ];
+      final types = [HealthDataType.MENSTRUATION_FLOW];
 
-      final permissions = [
-        HealthDataAccess.READ,
-      ];
+      final permissions = [HealthDataAccess.READ];
 
       final bool? authorized = await _health?.requestAuthorization(
         types,
@@ -45,8 +41,11 @@ class HealthService {
       _logger.info('Health authorization result: $authorized');
       return authorized ?? false;
     } catch (e, stackTrace) {
-      _logger.error('Error requesting health authorization',
-          error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Error requesting health authorization',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -56,12 +55,15 @@ class HealthService {
     if (!isAvailable) return false;
 
     try {
-      final types = [HealthDataType.MENSTRUATION];
+      final types = [HealthDataType.MENSTRUATION_FLOW];
       final permissions = await _health?.hasPermissions(types);
       return permissions ?? false;
     } catch (e, stackTrace) {
-      _logger.error('Error checking health permissions',
-          error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Error checking health permissions',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -80,7 +82,7 @@ class HealthService {
       final now = DateTime.now();
       final startTime = now.subtract(Duration(days: days));
 
-      final types = [HealthDataType.MENSTRUATION];
+      final types = [HealthDataType.MENSTRUATION_FLOW];
 
       final bool? hasPermission = await _health?.hasPermissions(types);
       if (hasPermission != true) {
@@ -90,11 +92,11 @@ class HealthService {
 
       final List<HealthDataPoint> healthData =
           await _health?.getHealthDataFromTypes(
-                startDate: startTime,
-                endDate: now,
-                types: types,
-              ) ??
-              [];
+            startTime: startTime,
+            endTime: now,
+            types: types,
+          ) ??
+          [];
 
       _logger.info('Fetched ${healthData.length} menstrual data points');
 
@@ -132,19 +134,23 @@ class HealthService {
           if (currentCycleStart != null) {
             int? cycleLength;
             if (previousCycleStart != null) {
-              cycleLength = currentCycleStart.difference(previousCycleStart).inDays;
+              cycleLength = currentCycleStart
+                  .difference(previousCycleStart)
+                  .inDays;
             }
 
-            cycles.add(MenstrualCycleModel(
-              id: const Uuid().v4(),
-              startDate: previousCycleStart ?? currentCycleStart,
-              endDate: currentCycleStart.subtract(const Duration(days: 1)),
-              cycleLengthDays: cycleLength,
-              periodLengthDays: null, // Will be calculated below
-              isFromHealthKit: true,
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
-            ));
+            cycles.add(
+              MenstrualCycleModel(
+                id: const Uuid().v4(),
+                startDate: previousCycleStart ?? currentCycleStart,
+                endDate: currentCycleStart.subtract(const Duration(days: 1)),
+                cycleLengthDays: cycleLength,
+                periodLengthDays: null, // Will be calculated below
+                isFromHealthKit: true,
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+              ),
+            );
           }
 
           previousCycleStart = currentCycleStart;
@@ -159,21 +165,26 @@ class HealthService {
           cycleLength = currentCycleStart.difference(previousCycleStart).inDays;
         }
 
-        cycles.add(MenstrualCycleModel(
-          id: const Uuid().v4(),
-          startDate: previousCycleStart ?? currentCycleStart,
-          cycleLengthDays: cycleLength,
-          isFromHealthKit: true,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        ));
+        cycles.add(
+          MenstrualCycleModel(
+            id: const Uuid().v4(),
+            startDate: previousCycleStart ?? currentCycleStart,
+            cycleLengthDays: cycleLength,
+            isFromHealthKit: true,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          ),
+        );
       }
 
       _logger.info('Converted to ${cycles.length} menstrual cycles');
       return cycles;
     } catch (e, stackTrace) {
-      _logger.error('Error fetching menstrual data',
-          error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Error fetching menstrual data',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return [];
     }
   }
@@ -201,8 +212,9 @@ class HealthService {
     if (cycles.length < 3) return false; // Need at least 3 cycles
 
     final averageLength = calculateAverageCycleLength(cycles);
-    final regularCycles =
-        cycles.where((c) => c.isRegular(averageLength)).length;
+    final regularCycles = cycles
+        .where((c) => c.isRegular(averageLength))
+        .length;
 
     return (regularCycles / cycles.length) >= 0.7; // 70% threshold
   }
@@ -232,7 +244,8 @@ class HealthService {
 
   /// Get fertile window for next cycle
   static List<DateTime>? predictFertileWindow(
-      List<MenstrualCycleModel> cycles) {
+    List<MenstrualCycleModel> cycles,
+  ) {
     final ovulationDate = predictNextOvulation(cycles);
     if (ovulationDate == null) return null;
 

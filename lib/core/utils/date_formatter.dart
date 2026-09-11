@@ -20,18 +20,18 @@ class DateFormatter {
     if (difference.inDays == 0) {
       if (difference.inHours == 0) {
         if (difference.inMinutes == 0) {
-          return 'Just now';
+          return 'Vừa xong';
         }
-        return '${difference.inMinutes} minutes ago';
+        return '${difference.inMinutes} phút trước';
       }
-      return '${difference.inHours} hours ago';
+      return '${difference.inHours} giờ trước';
     } else if (difference.inDays == 1) {
-      return 'Yesterday';
+      return 'Hôm qua';
     } else if (difference.inDays < 7) {
-      return '${difference.inDays} days ago';
+      return '${difference.inDays} ngày trước';
     } else if (difference.inDays < 30) {
       final weeks = (difference.inDays / 7).floor();
-      return '$weeks ${weeks == 1 ? 'week' : 'weeks'} ago';
+      return '$weeks tuần trước';
     } else {
       return formatDate(date);
     }
@@ -46,21 +46,21 @@ class DateFormatter {
   }
 
   static String formatPregnancyWeek(int weeks, int days) {
-    return '$weeks weeks${days > 0 ? ' $days days' : ''}';
+    return '$weeks tuần${days > 0 ? ' $days ngày' : ''}';
   }
 
   static String formatDaysRemaining(int days) {
-    if (days < 0) return 'Overdue by ${days.abs()} days';
-    if (days == 0) return 'Due today!';
-    if (days == 1) return '1 day remaining';
-    if (days < 7) return '$days days remaining';
+    if (days < 0) return 'Quá ngày dự sinh ${days.abs()} ngày';
+    if (days == 0) return 'Hôm nay là ngày dự sinh';
+    if (days == 1) return 'Còn 1 ngày';
+    if (days < 7) return 'Còn $days ngày';
 
     final weeks = (days / 7).floor();
     final remainingDays = days % 7;
 
     if (remainingDays == 0) {
-      return '$weeks ${weeks == 1 ? 'week' : 'weeks'} remaining';
+      return 'Còn $weeks tuần';
     }
-    return '$weeks ${weeks == 1 ? 'week' : 'weeks'} $remainingDays ${remainingDays == 1 ? 'day' : 'days'} remaining';
+    return 'Còn $weeks tuần $remainingDays ngày';
   }
 }

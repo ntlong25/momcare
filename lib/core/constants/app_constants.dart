@@ -40,19 +40,19 @@ class AppConstants {
 
   // Nutrition Categories
   static const List<String> nutritionCategories = [
-    'Trimester 1',
-    'Trimester 2',
-    'Trimester 3',
-    'Postpartum',
-    'Baby Food',
+    'Tam cá nguyệt 1',
+    'Tam cá nguyệt 2',
+    'Tam cá nguyệt 3',
+    'Sau sinh',
+    'Ăn dặm',
   ];
 
   // Health Log Categories
   static const List<String> healthLogCategories = [
-    'Weight',
-    'Blood Pressure',
-    'Mood',
-    'Symptoms',
-    'Notes',
+    'Cân nặng',
+    'Huyết áp',
+    'Tâm trạng',
+    'Triệu chứng',
+    'Ghi chú',
   ];
 }

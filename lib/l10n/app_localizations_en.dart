@@ -364,4 +364,195 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get appDescription =>
       'MomCare+ is your companion app for pregnancy and postpartum health. Track your journey, get nutrition advice, and stay organized with appointments.';
+
+  @override
+  String get goodMorning => 'Good Morning';
+
+  @override
+  String get goodAfternoon => 'Good Afternoon';
+
+  @override
+  String get goodEvening => 'Good Evening';
+
+  @override
+  String get dailyTip => 'Daily Tip';
+
+  @override
+  String get dailyTipMessage =>
+      'Stay hydrated! Drink at least 8-10 glasses of water daily to support your baby\'s development and maintain your own health.';
+
+  @override
+  String get welcomeToMomCare => 'Welcome to MomCare+';
+
+  @override
+  String get startYourJourney =>
+      'Start your journey by setting up your pregnancy details';
+
+  @override
+  String get setUpPregnancy => 'Set Up Pregnancy';
+
+  @override
+  String get noActivePregnancy => 'No active pregnancy';
+
+  @override
+  String get letsGetStarted => 'Let\'s get started!';
+
+  @override
+  String get tellUsAboutYourself =>
+      'Tell us a bit about yourself and your pregnancy';
+
+  @override
+  String get yourNameOptional => 'Your Name (Optional)';
+
+  @override
+  String get enterYourNameHint => 'Enter your name';
+
+  @override
+  String get prePregnancyWeightKg => 'Pre-Pregnancy Weight (kg)';
+
+  @override
+  String get enterYourWeightHint => 'Enter your weight';
+
+  @override
+  String get heightCm => 'Height (cm)';
+
+  @override
+  String get enterYourHeightHint => 'Enter your height';
+
+  @override
+  String get selectYourDueDate => 'Select your due date';
+
+  @override
+  String get lastPeriodDateOptional => 'Last Period Date (Optional)';
+
+  @override
+  String get selectLastPeriodDate => 'Select last period date';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get skipForNow => 'Skip for now';
+
+  @override
+  String get pleaseSelectDueDate => 'Please select a due date';
+
+  @override
+  String get measurements => 'Measurements';
+
+  @override
+  String get weightKg => 'Weight (kg)';
+
+  @override
+  String get systolicBP => 'Systolic BP';
+
+  @override
+  String get diastolicBP => 'Diastolic BP';
+
+  @override
+  String get normalBP => 'Normal: <120/<80 mmHg';
+
+  @override
+  String get howAreYouFeelingToday => 'How are you feeling today?';
+
+  @override
+  String get updateLog => 'Update Log';
+
+  @override
+  String get saveLog => 'Save Log';
+
+  @override
+  String get deleteLog => 'Delete Log';
+
+  @override
+  String get confirmDeleteLog =>
+      'Are you sure you want to delete this health log?';
+
+  @override
+  String validationWeight(double min, double max) {
+    return 'Weight must be between $min-$max kg';
+  }
+
+  @override
+  String validationHeight(double min, double max) {
+    return 'Height must be between $min-$max cm';
+  }
+
+  @override
+  String validationBPSystolic(int min, int max) {
+    return 'Must be $min-$max';
+  }
+
+  @override
+  String validationBPDiastolic(int min, int max) {
+    return 'Must be $min-$max';
+  }
+
+  @override
+  String get validationBPPair => 'Systolic must be greater than diastolic';
+
+  @override
+  String get validationInvalidNumber => 'Please enter a valid number';
+
+  @override
+  String rangeHelper(String min, String max, String unit) {
+    return 'Range: $min-$max $unit';
+  }
+
+  @override
+  String get upcomingAppointments => 'Upcoming Appointments';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get addFirstAppointment => 'Add your first appointment';
+
+  @override
+  String get noUpcoming => 'No upcoming appointments';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get nausea => 'Nausea';
+
+  @override
+  String get headache => 'Headache';
+
+  @override
+  String get backPain => 'Back pain';
+
+  @override
+  String get swelling => 'Swelling';
+
+  @override
+  String get heartburn => 'Heartburn';
+
+  @override
+  String get fatigue => 'Fatigue';
+
+  @override
+  String get contractions => 'Contractions';
+
+  @override
+  String get cramps => 'Cramps';
+
+  @override
+  String get happy => 'Happy';
+
+  @override
+  String get calm => 'Calm';
+
+  @override
+  String get anxious => 'Anxious';
+
+  @override
+  String get tired => 'Tired';
+
+  @override
+  String get energetic => 'Energetic';
+
+  @override
+  String get uncomfortable => 'Uncomfortable';
 }

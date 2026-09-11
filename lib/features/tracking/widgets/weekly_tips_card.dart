@@ -31,7 +31,7 @@ class WeeklyTipsCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Tips for This Week',
+                    'Gợi ý trong tuần này',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -56,7 +56,8 @@ class WeeklyTipsCard extends StatelessWidget {
                       child: Center(
                         child: Text(
                           '${index + 1}',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
                                 color: Colors.orange[800],
                                 fontWeight: FontWeight.bold,
                               ),

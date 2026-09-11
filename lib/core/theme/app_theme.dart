@@ -68,18 +68,9 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: textPrimaryColor,
       ),
-      bodyLarge: GoogleFonts.poppins(
-        fontSize: 16,
-        color: textPrimaryColor,
-      ),
-      bodyMedium: GoogleFonts.poppins(
-        fontSize: 14,
-        color: textPrimaryColor,
-      ),
-      bodySmall: GoogleFonts.poppins(
-        fontSize: 12,
-        color: textSecondaryColor,
-      ),
+      bodyLarge: GoogleFonts.poppins(fontSize: 16, color: textPrimaryColor),
+      bodyMedium: GoogleFonts.poppins(fontSize: 14, color: textPrimaryColor),
+      bodySmall: GoogleFonts.poppins(fontSize: 12, color: textSecondaryColor),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
@@ -94,9 +85,7 @@ class AppTheme {
     ),
     cardTheme: CardThemeData(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       color: Colors.white,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -105,9 +94,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -119,9 +106,7 @@ class AppTheme {
         foregroundColor: primaryColor,
         side: const BorderSide(color: primaryColor, width: 2),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -172,50 +157,51 @@ class AppTheme {
       onSurface: textDarkPrimaryColor,
       onError: Colors.white,
     ),
-    textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme).copyWith(
-      displayLarge: GoogleFonts.poppins(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
-        color: textDarkPrimaryColor,
-      ),
-      displayMedium: GoogleFonts.poppins(
-        fontSize: 28,
-        fontWeight: FontWeight.bold,
-        color: textDarkPrimaryColor,
-      ),
-      displaySmall: GoogleFonts.poppins(
-        fontSize: 24,
-        fontWeight: FontWeight.w600,
-        color: textDarkPrimaryColor,
-      ),
-      headlineMedium: GoogleFonts.poppins(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: textDarkPrimaryColor,
-      ),
-      titleLarge: GoogleFonts.poppins(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: textDarkPrimaryColor,
-      ),
-      titleMedium: GoogleFonts.poppins(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: textDarkPrimaryColor,
-      ),
-      bodyLarge: GoogleFonts.poppins(
-        fontSize: 16,
-        color: textDarkPrimaryColor,
-      ),
-      bodyMedium: GoogleFonts.poppins(
-        fontSize: 14,
-        color: textDarkPrimaryColor,
-      ),
-      bodySmall: GoogleFonts.poppins(
-        fontSize: 12,
-        color: textDarkSecondaryColor,
-      ),
-    ),
+    textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme)
+        .copyWith(
+          displayLarge: GoogleFonts.poppins(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: textDarkPrimaryColor,
+          ),
+          displayMedium: GoogleFonts.poppins(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: textDarkPrimaryColor,
+          ),
+          displaySmall: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: textDarkPrimaryColor,
+          ),
+          headlineMedium: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: textDarkPrimaryColor,
+          ),
+          titleLarge: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: textDarkPrimaryColor,
+          ),
+          titleMedium: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: textDarkPrimaryColor,
+          ),
+          bodyLarge: GoogleFonts.poppins(
+            fontSize: 16,
+            color: textDarkPrimaryColor,
+          ),
+          bodyMedium: GoogleFonts.poppins(
+            fontSize: 14,
+            color: textDarkPrimaryColor,
+          ),
+          bodySmall: GoogleFonts.poppins(
+            fontSize: 12,
+            color: textDarkSecondaryColor,
+          ),
+        ),
     appBarTheme: AppBarTheme(
       backgroundColor: const Color(0xFF2A2A3E),
       elevation: 0,
@@ -229,9 +215,7 @@ class AppTheme {
     ),
     cardTheme: CardThemeData(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       color: const Color(0xFF2A2A3E),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -240,9 +224,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -254,9 +236,7 @@ class AppTheme {
         foregroundColor: primaryColor,
         side: const BorderSide(color: primaryColor, width: 2),
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: GoogleFonts.poppins(
           fontSize: 16,
           fontWeight: FontWeight.w600,

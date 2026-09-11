@@ -32,7 +32,9 @@ class DatabaseService {
       if (encryptionCipher != null) {
         _logger.info('Opening Hive boxes with encryption');
       } else {
-        _logger.warning('Opening Hive boxes WITHOUT encryption (fallback mode)');
+        _logger.warning(
+          'Opening Hive boxes WITHOUT encryption (fallback mode)',
+        );
       }
 
       // Open boxes with encryption for sensitive health data
@@ -60,7 +62,11 @@ class DatabaseService {
 
       _logger.info('Hive database initialized successfully');
     } catch (e, stackTrace) {
-      _logger.fatal('Failed to initialize Hive database', error: e, stackTrace: stackTrace);
+      _logger.fatal(
+        'Failed to initialize Hive database',
+        error: e,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
@@ -76,10 +82,9 @@ class DatabaseService {
   static PregnancyModel? getActivePregnancy() {
     try {
       // Try to find active pregnancy
-      final activePregnancy = pregnancyBox.values.cast<PregnancyModel?>().firstWhere(
-        (p) => p?.isActive == true,
-        orElse: () => null,
-      );
+      final activePregnancy = pregnancyBox.values
+          .cast<PregnancyModel?>()
+          .firstWhere((p) => p?.isActive == true, orElse: () => null);
 
       if (activePregnancy != null) {
         return activePregnancy;
@@ -94,7 +99,11 @@ class DatabaseService {
       _logger.debug('No pregnancy data found');
       return null;
     } catch (e, stackTrace) {
-      _logger.error('Error getting active pregnancy', error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Error getting active pregnancy',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return null;
     }
   }
@@ -121,7 +130,10 @@ class DatabaseService {
     return logs;
   }
 
-  static List<HealthLogModel> getHealthLogsByDateRange(DateTime start, DateTime end) {
+  static List<HealthLogModel> getHealthLogsByDateRange(
+    DateTime start,
+    DateTime end,
+  ) {
     return healthLogBox.values
         .where((log) => log.date.isAfter(start) && log.date.isBefore(end))
         .toList()
@@ -199,9 +211,7 @@ class DatabaseService {
   }
 
   static List<RecipeModel> getFavoriteRecipes() {
-    return recipeBox.values
-        .where((recipe) => recipe.isFavorite)
-        .toList();
+    return recipeBox.values.where((recipe) => recipe.isFavorite).toList();
   }
 
   static Future<void> deleteRecipe(String id) async {
@@ -234,10 +244,14 @@ class DatabaseService {
   }
 
   static List<MenstrualCycleModel> getMenstrualCyclesByDateRange(
-      DateTime start, DateTime end) {
+    DateTime start,
+    DateTime end,
+  ) {
     return menstrualCycleBox.values
-        .where((cycle) =>
-            cycle.startDate.isAfter(start) && cycle.startDate.isBefore(end))
+        .where(
+          (cycle) =>
+              cycle.startDate.isAfter(start) && cycle.startDate.isBefore(end),
+        )
         .toList()
       ..sort((a, b) => b.startDate.compareTo(a.startDate));
   }

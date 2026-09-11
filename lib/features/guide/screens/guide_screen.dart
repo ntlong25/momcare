@@ -14,50 +14,47 @@ class _GuideScreenState extends State<GuideScreen> {
   final List<_GuidePage> _pages = [
     _GuidePage(
       icon: Icons.favorite,
-      title: 'Chào mừng đến MomCare+',
+      title: 'Chào mừng đến với MomCare+',
       description:
-          'Ứng dụng đồng hành cùng bạn trong hành trình mang thai khỏe mạnh và hạnh phúc. '
-          'Theo dõi tiến trình, quản lý lịch hẹn và nhận tư vấn dinh dưỡng cá nhân hóa.',
+          'Ứng dụng đồng hành cùng bạn trong hành trình chuẩn bị mang thai và thai kỳ. '
+          'Bạn có thể theo dõi tiến trình, quản lý lịch hẹn và xem gợi ý dinh dưỡng.',
       color: Colors.pink,
     ),
     _GuidePage(
       icon: Icons.track_changes,
-      title: 'Theo dõi tiến trình',
+      title: 'Theo dõi thai kỳ',
       description:
-          'Theo dõi thai kỳ từng tuần với thông tin chi tiết. '
-          'Xem sự phát triển của bé, theo dõi cân nặng và đếm ngược ngày dự sinh.',
+          'Theo dõi thai kỳ theo từng tuần, xem mốc phát triển của bé, ghi nhận cân nặng '
+          'và đếm ngược đến ngày dự sinh.',
       color: Colors.purple,
     ),
     _GuidePage(
       icon: Icons.favorite_border,
       title: 'Nhật ký sức khỏe',
       description:
-          'Ghi lại các chỉ số sức khỏe hàng ngày bao gồm cân nặng, huyết áp, đường huyết '
-          'và triệu chứng. Lưu trữ nhật ký sức khỏe thai kỳ toàn diện.',
+          'Ghi lại cân nặng, huyết áp, tâm trạng, triệu chứng và ghi chú hằng ngày để bạn '
+          'có cái nhìn rõ hơn về sức khỏe của mình.',
       color: Colors.red,
     ),
     _GuidePage(
       icon: Icons.calendar_today,
       title: 'Lịch hẹn',
       description:
-          'Không bỏ lỡ bất kỳ cuộc hẹn nào. Lên lịch và quản lý tất cả các lần khám thai, '
-          'siêu âm và kiểm tra y tế tại một nơi với nhắc nhở.',
+          'Lưu lịch khám, địa điểm, bác sĩ và ghi chú để dễ chuẩn bị trước mỗi lần thăm khám.',
       color: Colors.blue,
     ),
     _GuidePage(
       icon: Icons.restaurant_menu,
-      title: 'Dinh dưỡng & Công thức',
+      title: 'Dinh dưỡng và công thức',
       description:
-          'Nhận hướng dẫn dinh dưỡng cá nhân hóa cho từng tam cá nguyệt. '
-          'Khám phá các công thức nấu ăn lành mạnh và tìm hiểu thực phẩm nên ăn hoặc tránh.',
+          'Xem hướng dẫn dinh dưỡng theo giai đoạn và các công thức món ăn lành mạnh.',
       color: Colors.orange,
     ),
     _GuidePage(
       icon: Icons.settings,
-      title: 'Tùy chỉnh trải nghiệm',
+      title: 'Cài đặt',
       description:
-          'Cá nhân hóa ứng dụng với chế độ tối, ngôn ngữ và quản lý thông tin thai kỳ. '
-          'Dữ liệu của bạn được lưu trữ an toàn và mã hóa trên thiết bị.',
+          'Tùy chỉnh chế độ sáng/tối, chế độ ứng dụng và thông tin thai kỳ. Dữ liệu v1 được lưu trên thiết bị.',
       color: Colors.teal,
     ),
   ];
@@ -74,7 +71,6 @@ class _GuideScreenState extends State<GuideScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Skip button
             Align(
               alignment: Alignment.topRight,
               child: TextButton(
@@ -82,8 +78,6 @@ class _GuideScreenState extends State<GuideScreen> {
                 child: const Text('Bỏ qua'),
               ),
             ),
-
-            // Page view
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -98,8 +92,6 @@ class _GuideScreenState extends State<GuideScreen> {
                 },
               ),
             ),
-
-            // Page indicators
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Row(
@@ -110,14 +102,11 @@ class _GuideScreenState extends State<GuideScreen> {
                 ),
               ),
             ),
-
-            // Navigation buttons
             Padding(
               padding: const EdgeInsets.all(24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Previous button
                   if (_currentPage > 0)
                     TextButton.icon(
                       onPressed: () {
@@ -131,8 +120,6 @@ class _GuideScreenState extends State<GuideScreen> {
                     )
                   else
                     const SizedBox(width: 100),
-
-                  // Next/Done button
                   ElevatedButton(
                     onPressed: () {
                       if (_currentPage < _pages.length - 1) {
@@ -163,16 +150,12 @@ class _GuideScreenState extends State<GuideScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Icon with gradient background
           Container(
             width: 140,
             height: 140,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  page.color,
-                  page.color.withValues(alpha: 0.6),
-                ],
+                colors: [page.color, page.color.withValues(alpha: 0.6)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -185,31 +168,21 @@ class _GuideScreenState extends State<GuideScreen> {
                 ),
               ],
             ),
-            child: Icon(
-              page.icon,
-              size: 70,
-              color: Colors.white,
-            ),
+            child: Icon(page.icon, size: 70, color: Colors.white),
           ),
           const SizedBox(height: 48),
-
-          // Title
           Text(
             page.title,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: page.color,
-                ),
+              fontWeight: FontWeight.bold,
+              color: page.color,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
-
-          // Description
           Text(
             page.description,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.6),
             textAlign: TextAlign.center,
           ),
         ],

@@ -12,7 +12,7 @@ class HealthChartsCard extends StatefulWidget {
 }
 
 class _HealthChartsCardState extends State<HealthChartsCard> {
-  String _selectedChart = 'weight'; // 'weight', 'bp', 'mood'
+  String _selectedChart = 'weight';
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +38,18 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
           children: [
             Expanded(
               child: _buildSelectorButton(
-                'Weight',
+                'Cân nặng',
                 'weight',
                 Icons.monitor_weight,
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _buildSelectorButton(
-                'Blood Pressure',
-                'bp',
-                Icons.favorite,
-              ),
+              child: _buildSelectorButton('Huyết áp', 'bp', Icons.favorite),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _buildSelectorButton(
-                'Mood',
-                'mood',
-                Icons.mood,
-              ),
+              child: _buildSelectorButton('Tâm trạng', 'mood', Icons.mood),
             ),
           ],
         ),
@@ -96,11 +88,11 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
             Text(
               label,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: isSelected
-                        ? Theme.of(context).primaryColor
-                        : Colors.grey[600],
-                    fontWeight: isSelected ? FontWeight.bold : null,
-                  ),
+                color: isSelected
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey[600],
+                fontWeight: isSelected ? FontWeight.bold : null,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
@@ -131,7 +123,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Weight Trend',
+              'Xu hướng cân nặng',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 24),
@@ -144,10 +136,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     drawVerticalLine: false,
                     horizontalInterval: 5,
                     getDrawingHorizontalLine: (value) {
-                      return FlLine(
-                        color: Colors.grey[300]!,
-                        strokeWidth: 1,
-                      );
+                      return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
                     },
                   ),
                   titlesData: FlTitlesData(
@@ -201,8 +190,10 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                   ),
                   minX: 0,
                   maxX: (spots.length - 1).toDouble(),
-                  minY: spots.map((e) => e.y).reduce((a, b) => a < b ? a : b) - 5,
-                  maxY: spots.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 5,
+                  minY:
+                      spots.map((e) => e.y).reduce((a, b) => a < b ? a : b) - 5,
+                  maxY:
+                      spots.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 5,
                   lineBarsData: [
                     LineChartBarData(
                       spots: spots,
@@ -262,15 +253,15 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Blood Pressure Trend',
+              'Xu hướng huyết áp',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 12),
             Row(
               children: [
-                _buildLegendItem('Systolic', Colors.red),
+                _buildLegendItem('Tâm thu', Colors.red),
                 const SizedBox(width: 16),
-                _buildLegendItem('Diastolic', Colors.orange),
+                _buildLegendItem('Tâm trương', Colors.orange),
               ],
             ),
             const SizedBox(height: 24),
@@ -283,10 +274,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     drawVerticalLine: false,
                     horizontalInterval: 20,
                     getDrawingHorizontalLine: (value) {
-                      return FlLine(
-                        color: Colors.grey[300]!,
-                        strokeWidth: 1,
-                      );
+                      return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
                     },
                   ),
                   titlesData: FlTitlesData(
@@ -406,12 +394,12 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
     }
 
     final moodColors = {
-      'Happy': Colors.yellow[700]!,
-      'Calm': Colors.blue[300]!,
-      'Anxious': Colors.purple[300]!,
-      'Tired': Colors.grey[400]!,
-      'Energetic': Colors.green[400]!,
-      'Uncomfortable': Colors.red[300]!,
+      'Vui vẻ': Colors.yellow[700]!,
+      'Bình tĩnh': Colors.blue[300]!,
+      'Lo lắng': Colors.purple[300]!,
+      'Mệt mỏi': Colors.grey[400]!,
+      'Nhiều năng lượng': Colors.green[400]!,
+      'Khó chịu': Colors.red[300]!,
     };
 
     return Card(
@@ -421,7 +409,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Mood Distribution',
+              'Phân bố tâm trạng',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 24),
@@ -435,7 +423,8 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                         sectionsSpace: 2,
                         centerSpaceRadius: 60,
                         sections: moodCounts.entries.map((entry) {
-                          final percentage = (entry.value / logsWithMood.length * 100);
+                          final percentage =
+                              entry.value / logsWithMood.length * 100;
                           return PieChartSectionData(
                             value: entry.value.toDouble(),
                             title: '${percentage.toStringAsFixed(0)}%',
@@ -464,7 +453,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                               width: 16,
                               height: 16,
                               decoration: BoxDecoration(
-                                color: moodColors[entry.key],
+                                color: moodColors[entry.key] ?? Colors.grey,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
@@ -499,10 +488,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
           ),
         ),
         const SizedBox(width: 6),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
+        Text(label, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }
@@ -515,17 +501,13 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.show_chart,
-              size: 48,
-              color: Colors.grey[400],
-            ),
+            Icon(Icons.show_chart, size: 48, color: Colors.grey[400]),
             const SizedBox(height: 12),
             Text(
               message,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.grey[600],
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
             ),
           ],
         ),

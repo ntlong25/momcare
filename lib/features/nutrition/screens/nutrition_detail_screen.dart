@@ -9,9 +9,7 @@ class NutritionDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nutrition Guide'),
-      ),
+      appBar: AppBar(title: const Text('Hướng dẫn dinh dưỡng')),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +31,10 @@ class NutritionDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(20),
@@ -50,9 +51,9 @@ class NutritionDetailScreen extends StatelessWidget {
                   Text(
                     nutrition.title,
                     style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -63,7 +64,7 @@ class NutritionDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'About',
+                    'Tổng quan',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
@@ -73,7 +74,7 @@ class NutritionDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   Text(
-                    'Benefits',
+                    'Lợi ích',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
@@ -101,7 +102,7 @@ class NutritionDetailScreen extends StatelessWidget {
                   }),
                   const SizedBox(height: 32),
                   Text(
-                    'Recommended Foods',
+                    'Thực phẩm được khuyến nghị',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
@@ -116,11 +117,11 @@ class NutritionDetailScreen extends StatelessWidget {
                       );
                     }).toList(),
                   ),
-                  if (nutrition.foodsToAvoid != null && 
+                  if (nutrition.foodsToAvoid != null &&
                       nutrition.foodsToAvoid!.isNotEmpty) ...[
                     const SizedBox(height: 32),
                     Text(
-                      'Foods to Avoid',
+                      'Thực phẩm nên tránh',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 12),

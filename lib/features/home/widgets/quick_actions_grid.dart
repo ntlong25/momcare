@@ -9,10 +9,7 @@ class QuickActionsGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Truy cập nhanh',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        Text('Truy cập nhanh', style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
         GridView.count(
           crossAxisCount: 2,
@@ -48,7 +45,7 @@ class QuickActionsGrid extends StatelessWidget {
             ),
             _QuickActionCard(
               icon: Icons.calendar_month,
-              title: 'Kế hoạch thụ thai',
+              title: 'Theo dõi chu kỳ',
               color: Colors.purple,
               onTap: () => NavigationHelper.toFertilityPlanner(context),
             ),
@@ -95,11 +92,7 @@ class _QuickActionCard extends StatelessWidget {
                   color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 28,
-                ),
+                child: Icon(icon, color: color, size: 28),
               ),
               const SizedBox(height: 12),
               Text(

@@ -19,9 +19,7 @@ class TrackingScreen extends ConsumerWidget {
 
     if (pregnancy == null) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Pregnancy Tracking'),
-        ),
+        appBar: AppBar(title: const Text('Theo dõi thai kỳ')),
         body: _buildNoPregnancyView(context),
       );
     }
@@ -31,7 +29,7 @@ class TrackingScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pregnancy Tracking'),
+        title: const Text('Theo dõi thai kỳ'),
         actions: [
           IconButton(
             icon: const Icon(Icons.history),
@@ -40,15 +38,15 @@ class TrackingScreen extends ConsumerWidget {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text('Week History'),
+                  title: const Text('Lịch sử theo tuần'),
                   content: const Text(
-                    'Week-by-week history view will be available in a future update.\n\n'
-                    'You\'ll be able to review your pregnancy journey week by week.',
+                    'Màn xem lịch sử theo từng tuần sẽ được bổ sung trong bản cập nhật sau.\n\n'
+                    'Bạn sẽ có thể xem lại hành trình thai kỳ theo từng tuần.',
                   ),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('OK'),
+                      child: const Text('Đồng ý'),
                     ),
                   ],
                 ),
@@ -99,13 +97,13 @@ class TrackingScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'No Active Pregnancy',
+              'Chưa có thai kỳ đang theo dõi',
               style: Theme.of(context).textTheme.displaySmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
-              'Set up your pregnancy details to start tracking',
+              'Thiết lập thông tin thai kỳ để bắt đầu theo dõi',
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
@@ -113,7 +111,7 @@ class TrackingScreen extends ConsumerWidget {
             ElevatedButton.icon(
               onPressed: () => NavigationHelper.toPregnancySetup(context),
               icon: const Icon(Icons.add),
-              label: const Text('Add Pregnancy'),
+              label: const Text('Thêm thai kỳ'),
             ),
           ],
         ),
@@ -155,18 +153,18 @@ class TrackingScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Week ${pregnancy.currentWeek}',
+                    'Tuần ${pregnancy.currentWeek}',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     pregnancy.trimester,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Colors.white.withValues(alpha: 0.9),
-                        ),
+                      color: Colors.white.withValues(alpha: 0.9),
+                    ),
                   ),
                 ],
               ),
@@ -178,17 +176,13 @@ class TrackingScreen extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                      size: 32,
-                    ),
+                    const Icon(Icons.favorite, color: Colors.white, size: 32),
                     const SizedBox(height: 4),
                     Text(
-                      'Baby',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white,
-                          ),
+                      'Em bé',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.white),
                     ),
                   ],
                 ),
@@ -203,7 +197,7 @@ class TrackingScreen extends ConsumerWidget {
             children: [
               _buildStatItem(
                 context,
-                'Days Left',
+                'Còn lại',
                 '${pregnancy.daysUntilDue}',
                 Icons.calendar_today,
               ),
@@ -214,7 +208,7 @@ class TrackingScreen extends ConsumerWidget {
               ),
               _buildStatItem(
                 context,
-                'Size',
+                'Kích thước',
                 weekData.babySize,
                 Icons.spa,
               ),
@@ -225,7 +219,7 @@ class TrackingScreen extends ConsumerWidget {
               ),
               _buildStatItem(
                 context,
-                'Weight',
+                'Cân nặng',
                 weekData.babyWeight,
                 Icons.monitor_weight,
               ),
@@ -249,15 +243,15 @@ class TrackingScreen extends ConsumerWidget {
         Text(
           value,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.8),
-              ),
+            color: Colors.white.withValues(alpha: 0.8),
+          ),
         ),
       ],
     );
@@ -265,10 +259,14 @@ class TrackingScreen extends ConsumerWidget {
 
   Widget _buildMilestones(BuildContext context, int currentWeek) {
     final milestones = [
-      {'week': 12, 'title': 'End of First Trimester', 'icon': Icons.celebration},
-      {'week': 20, 'title': 'Halfway There!', 'icon': Icons.favorite},
-      {'week': 28, 'title': 'Third Trimester Begins', 'icon': Icons.star},
-      {'week': 37, 'title': 'Full Term', 'icon': Icons.child_care},
+      {
+        'week': 12,
+        'title': 'Kết thúc tam cá nguyệt 1',
+        'icon': Icons.celebration,
+      },
+      {'week': 20, 'title': 'Đi được nửa hành trình', 'icon': Icons.favorite},
+      {'week': 28, 'title': 'Bắt đầu tam cá nguyệt 3', 'icon': Icons.star},
+      {'week': 37, 'title': 'Thai đủ tháng', 'icon': Icons.child_care},
     ];
 
     return Card(
@@ -277,10 +275,7 @@ class TrackingScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Upcoming Milestones',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text('Mốc sắp tới', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 16),
             ...milestones.map((milestone) {
               final week = milestone['week'] as int;
@@ -313,15 +308,18 @@ class TrackingScreen extends ConsumerWidget {
                         children: [
                           Text(
                             milestone['title'] as String,
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
                                   color: isPassed
                                       ? Theme.of(context).primaryColor
                                       : null,
-                                  fontWeight: isCurrent ? FontWeight.bold : null,
+                                  fontWeight: isCurrent
+                                      ? FontWeight.bold
+                                      : null,
                                 ),
                           ),
                           Text(
-                            'Week $week',
+                            'Tuần $week',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
@@ -329,7 +327,7 @@ class TrackingScreen extends ConsumerWidget {
                     ),
                     if (isCurrent)
                       Chip(
-                        label: const Text('Now'),
+                        label: const Text('Hiện tại'),
                         backgroundColor: Theme.of(context).primaryColor,
                         labelStyle: const TextStyle(color: Colors.white),
                       ),

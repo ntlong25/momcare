@@ -8,10 +8,10 @@ class BMICalculator {
 
   /// Get BMI category
   static String getCategory(double bmi) {
-    if (bmi < 18.5) return 'Underweight';
-    if (bmi < 25) return 'Normal';
-    if (bmi < 30) return 'Overweight';
-    return 'Obese';
+    if (bmi < 18.5) return 'Thiếu cân';
+    if (bmi < 25) return 'Bình thường';
+    if (bmi < 30) return 'Thừa cân';
+    return 'Béo phì';
   }
 
   /// Get recommended weight gain during pregnancy based on pre-pregnancy BMI
@@ -43,13 +43,13 @@ class BMICalculator {
   /// Get health advice based on BMI
   static String getAdvice(double bmi) {
     if (bmi < 18.5) {
-      return 'You may need to gain more weight. Consult with your healthcare provider about a healthy diet plan.';
+      return 'Bạn có thể cần tăng cân phù hợp hơn. Hãy trao đổi với nhân viên y tế về kế hoạch dinh dưỡng.';
     } else if (bmi < 25) {
-      return 'You have a healthy weight. Maintain a balanced diet and regular exercise.';
+      return 'Cân nặng của bạn đang trong khoảng phù hợp. Hãy duy trì ăn uống cân bằng và vận động phù hợp.';
     } else if (bmi < 30) {
-      return 'You may be slightly overweight. Consider a balanced diet and consult your healthcare provider.';
+      return 'Bạn có thể đang thừa cân nhẹ. Hãy cân nhắc chế độ ăn cân bằng và hỏi nhân viên y tế khi cần.';
     } else {
-      return 'Please consult with your healthcare provider for personalized advice on managing your weight during pregnancy.';
+      return 'Hãy trao đổi với nhân viên y tế để có lời khuyên phù hợp về quản lý cân nặng trong thai kỳ.';
     }
   }
 
@@ -75,6 +75,8 @@ class BMICalculator {
     final remainingWeeks = 27; // Weeks from 14 to 40
     final weeklyGain = (avgWeightGain * 0.9) / remainingWeeks;
 
-    return prePregnancyWeight + (avgWeightGain * 0.1) + (weeksAfterFirst * weeklyGain);
+    return prePregnancyWeight +
+        (avgWeightGain * 0.1) +
+        (weeksAfterFirst * weeklyGain);
   }
 }

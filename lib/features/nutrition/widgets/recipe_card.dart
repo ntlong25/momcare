@@ -46,9 +46,8 @@ class RecipeCard extends StatelessWidget {
                       children: [
                         Text(
                           recipe.title,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 4),
                         Container(
@@ -57,12 +56,15 @@ class RecipeCard extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                            color: Theme.of(
+                              context,
+                            ).primaryColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             recipe.category,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -73,7 +75,9 @@ class RecipeCard extends StatelessWidget {
                   ),
                   IconButton(
                     icon: Icon(
-                      recipe.isFavorite ? Icons.favorite : Icons.favorite_border,
+                      recipe.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
                       color: recipe.isFavorite ? Colors.red : Colors.grey,
                     ),
                     onPressed: onFavoriteToggle,
@@ -93,14 +97,14 @@ class RecipeCard extends StatelessWidget {
                   _buildInfoChip(
                     context,
                     Icons.timer,
-                    '${recipe.totalTime} min',
+                    '${recipe.totalTime} phút',
                     Colors.blue,
                   ),
                   const SizedBox(width: 8),
                   _buildInfoChip(
                     context,
                     Icons.restaurant_menu,
-                    '${recipe.servings} servings',
+                    '${recipe.servings} khẩu phần',
                     Colors.green,
                   ),
                 ],
@@ -132,9 +136,9 @@ class RecipeCard extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.w600,
-                ),
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),

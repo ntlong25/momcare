@@ -4,10 +4,7 @@ import 'dart:async';
 class SplashScreen extends StatefulWidget {
   final Widget nextScreen;
 
-  const SplashScreen({
-    super.key,
-    required this.nextScreen,
-  });
+  const SplashScreen({super.key, required this.nextScreen});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -55,11 +52,8 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.nextScreen,
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
+                  return FadeTransition(opacity: animation, child: child);
+                },
             transitionDuration: const Duration(milliseconds: 500),
           ),
         );
@@ -89,10 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                     theme.primaryColor.withValues(alpha: 0.3),
                     theme.scaffoldBackgroundColor,
                   ]
-                : [
-                    theme.primaryColor.withValues(alpha: 0.1),
-                    Colors.white,
-                  ],
+                : [theme.primaryColor.withValues(alpha: 0.1), Colors.white],
           ),
         ),
         child: Center(

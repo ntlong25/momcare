@@ -24,7 +24,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe'),
+        title: const Text('Công thức'),
         actions: [
           IconButton(
             icon: Icon(
@@ -53,10 +53,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Colors.orange,
-                    Colors.orange.withValues(alpha: 0.7),
-                  ],
+                  colors: [Colors.orange, Colors.orange.withValues(alpha: 0.7)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -65,7 +62,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(20),
@@ -82,21 +82,18 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   Text(
                     _recipe.title,
                     style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      _buildInfoChip(
-                        Icons.timer,
-                        '${_recipe.totalTime} min',
-                      ),
+                      _buildInfoChip(Icons.timer, '${_recipe.totalTime} phút'),
                       const SizedBox(width: 12),
                       _buildInfoChip(
                         Icons.restaurant,
-                        '${_recipe.servings} servings',
+                        '${_recipe.servings} khẩu phần',
                       ),
                     ],
                   ),
@@ -116,7 +113,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       _recipe.nutritionBenefits!.isNotEmpty) ...[
                     const SizedBox(height: 24),
                     Text(
-                      'Nutrition Benefits',
+                      'Lợi ích dinh dưỡng',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 12),
@@ -134,7 +131,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ],
                   const SizedBox(height: 32),
                   Text(
-                    'Ingredients',
+                    'Nguyên liệu',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),
@@ -166,7 +163,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   }),
                   const SizedBox(height: 32),
                   Text(
-                    'Instructions',
+                    'Cách làm',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 12),

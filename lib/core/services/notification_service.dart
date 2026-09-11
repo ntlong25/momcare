@@ -56,8 +56,8 @@ class NotificationService {
   }) async {
     const androidDetails = AndroidNotificationDetails(
       'momcare_channel',
-      'MomCare Notifications',
-      channelDescription: 'Notifications for MomCare+ app',
+      'Thông báo MomCare+',
+      channelDescription: 'Thông báo từ ứng dụng MomCare+',
       importance: Importance.high,
       priority: Priority.high,
       icon: '@mipmap/ic_launcher',
@@ -82,8 +82,8 @@ class NotificationService {
   }) async {
     const androidDetails = AndroidNotificationDetails(
       'momcare_channel',
-      'MomCare Notifications',
-      channelDescription: 'Notifications for MomCare+ app',
+      'Thông báo MomCare+',
+      channelDescription: 'Thông báo từ ứng dụng MomCare+',
       importance: Importance.high,
       priority: Priority.high,
       icon: '@mipmap/ic_launcher',
@@ -130,8 +130,8 @@ class NotificationService {
     if (notificationTime.isAfter(DateTime.now())) {
       await scheduleNotification(
         id: id,
-        title: 'Appointment Reminder',
-        body: '$title in $minutesBefore minutes',
+        title: 'Nhắc lịch hẹn',
+        body: '$title sau $minutesBefore phút',
         scheduledDate: notificationTime,
       );
     }
@@ -145,8 +145,8 @@ class NotificationService {
     if (reminderTime.isAfter(DateTime.now())) {
       await scheduleNotification(
         id: id,
-        title: 'Medication Reminder',
-        body: 'Time to take your $medicationName',
+        title: 'Nhắc thuốc',
+        body: 'Đến giờ dùng $medicationName',
         scheduledDate: reminderTime,
       );
     }
@@ -166,7 +166,7 @@ class NotificationService {
 
     await scheduleNotification(
       id: id,
-      title: 'Daily Tip',
+      title: 'Gợi ý hôm nay',
       body: tip,
       scheduledDate: scheduledDate,
     );

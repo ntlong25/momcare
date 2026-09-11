@@ -41,7 +41,7 @@ class WeightGainChart extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'Weight Gain',
+                      'Tăng cân',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],
@@ -79,23 +79,19 @@ class WeightGainChart extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.show_chart,
-            size: 48,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.show_chart, size: 48, color: Colors.grey[400]),
           const SizedBox(height: 12),
           Text(
-            'No weight data yet',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey[600],
-                ),
+            'Chưa có dữ liệu cân nặng',
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
           ),
           const SizedBox(height: 8),
           TextButton.icon(
             onPressed: () => NavigationHelper.toAddHealthLog(context),
             icon: const Icon(Icons.add),
-            label: const Text('Add Weight'),
+            label: const Text('Thêm cân nặng'),
           ),
         ],
       ),
@@ -124,29 +120,21 @@ class WeightGainChart extends StatelessWidget {
             children: [
               _buildStatColumn(
                 context,
-                'Current',
+                'Hiện tại',
                 '${currentWeight.toStringAsFixed(1)} kg',
                 Colors.blue,
               ),
-              Container(
-                width: 1,
-                height: 40,
-                color: Colors.grey[300],
-              ),
+              Container(width: 1, height: 40, color: Colors.grey[300]),
               _buildStatColumn(
                 context,
-                'Gained',
+                'Đã tăng',
                 '${weightGain >= 0 ? '+' : ''}${weightGain.toStringAsFixed(1)} kg',
                 weightGain >= 0 ? Colors.green : Colors.red,
               ),
-              Container(
-                width: 1,
-                height: 40,
-                color: Colors.grey[300],
-              ),
+              Container(width: 1, height: 40, color: Colors.grey[300]),
               _buildStatColumn(
                 context,
-                'Target',
+                'Mục tiêu',
                 '${recommendedGain['min']?.toStringAsFixed(1)}-${recommendedGain['max']?.toStringAsFixed(1)} kg',
                 Colors.orange,
               ),
@@ -168,16 +156,16 @@ class WeightGainChart extends StatelessWidget {
         Text(
           value,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: color,
-                fontWeight: FontWeight.bold,
-              ),
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 4),
         Text(
           label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.grey[600],
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
         ),
       ],
     );
@@ -196,10 +184,7 @@ class WeightGainChart extends StatelessWidget {
           drawVerticalLine: false,
           horizontalInterval: 5,
           getDrawingHorizontalLine: (value) {
-            return FlLine(
-              color: Colors.grey[300]!,
-              strokeWidth: 1,
-            );
+            return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
           },
         ),
         titlesData: FlTitlesData(

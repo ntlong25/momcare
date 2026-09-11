@@ -1,0 +1,65 @@
+# MomCare+ Publish Readiness Plan
+
+## Phase 1: Scope Cleanup and Medical Claim Audit
+Status: Completed
+
+### Task 1.1: Remove Gender Selection
+- Remove gender selection entry points from pre-pregnancy Home.
+- Remove gender selection entry point from Fertility Planner.
+- Remove unused gender selection screen if no references remain.
+- Acceptance: no user-accessible route/button/text points to gender selection.
+- Result: completed. `rg` found no gender-selection references in `lib`.
+
+### Task 1.2: Audit Medical Claims
+- Review user-facing advice content by area: nutrition, tracking, fertility, health diary.
+- Document risky claims that should be softened or sourced in later phases.
+- Acceptance: audit artifact exists in the repo.
+- Result: completed in `MEDICAL_CLAIMS_AUDIT.md`.
+
+### Build and Test Compatibility Fixes
+- Updated health-related dependency constraints so package resolution succeeds with the current Flutter/Dart toolchain.
+- Updated Android build settings required by the newer health dependency: AGP 8.9.1, minSdk 26, core library desugaring.
+- Disabled Kotlin incremental compilation to avoid Windows cross-drive cache path failures when the project is on `F:` and Pub cache is on `C:`.
+- Renamed the generated l10n key `continue` to `continueButton` because `continue` is a Dart keyword.
+- Replaced the template counter widget test with a MomCare splash smoke test.
+
+## Phase 2: Vietnamese-Only and Encoding Cleanup
+Status: Completed
+
+### Task 2.1: Make Vietnamese Default
+- Set the runtime app locale to Vietnamese only in `MaterialApp.supportedLocales`.
+- Updated `LocaleNotifier` to normalize any stored locale back to `vi`.
+- Removed the Settings language selector so users can no longer switch to English in V1.
+- Acceptance: fresh install and persisted locale state open in Vietnamese.
+- Result: completed.
+
+### Task 2.2: Localize Visible Text
+- Localized visible text in the main user flows: Home, pre-pregnancy Home, Tracking, Health Diary, Nutrition, Appointments, Fertility, Guide, Onboarding, Pregnancy Setup, Settings, dialogs, validators, and local notification copy.
+- Localized sample pregnancy week and nutrition data used in visible cards/detail screens.
+- Kept existing l10n infrastructure and English ARB/generated files for future expansion, but the V1 runtime supported locale is Vietnamese.
+- Acceptance: no English user-facing text remains in the prioritized core flows, excluding internal identifiers/generated English localization scaffolding retained for future use.
+- Result: completed.
+
+### Task 2.3: Fix Vietnamese Encoding
+- Replaced mojibake in user-facing Dart strings and `README.md` with UTF-8 Vietnamese.
+- Rebuilt `app_vi.arb` as valid UTF-8 JSON and regenerated localization files with `flutter gen-l10n`.
+- Acceptance: `rg` found no mojibake markers in source/README/plan docs excluding generated adapter files.
+- Result: completed.
+
+## Later Phases
+- Phase 3: Privacy Policy and Medical Disclaimer.
+- Phase 4: Delete-all-data flow and offline-first trust copy.
+- Phase 5: Emergency warning guidance.
+- Phase 6: Medical references and source metadata.
+- Phase 7: Health sync permission rationale.
+- Phase 8: Store readiness tests and QA checklist.
+
+## Verification Log
+- `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
+- `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
+- Debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.
+- Phase 2: `C:\Users\PC\Development\flutter\bin\flutter.bat gen-l10n` passed.
+- Phase 2: `C:\Users\PC\Development\flutter\bin\dart.bat format lib` passed.
+- Phase 2: `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
+- Phase 2: `C:\Users\PC\Development\flutter\bin\flutter.bat build apk --debug` passed.
+- Phase 2 debug APK output: `build\app\outputs\flutter-apk\app-debug.apk`.

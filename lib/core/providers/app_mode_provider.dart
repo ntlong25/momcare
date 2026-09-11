@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// App mode enum
 enum AppMode {
   prePregnancy, // Đang lên kế hoạch mang thai
-  pregnancy,    // Đã mang thai
+  pregnancy, // Đã mang thai
 }
 
 /// Mode notifier to manage app mode state

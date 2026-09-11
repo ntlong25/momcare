@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/providers/theme_provider.dart';
-import '../../../core/providers/locale_provider.dart';
 import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/pregnancy_model.dart';
@@ -27,7 +25,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   void _loadPregnancy() {
-    // Get active pregnancy (returns null if not found, no exception thrown)
     _pregnancy = DatabaseService.getActivePregnancy();
     setState(() {});
   }
@@ -35,161 +32,130 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeProvider);
-    final locale = ref.watch(localeProvider);
     final appMode = ref.watch(appModeProvider);
     final isPregnancyMode = appMode == AppMode.pregnancy;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cài đặt'),
-      ),
+      appBar: AppBar(title: const Text('Cài đặt')),
       body: ListView(
         children: [
           const SizedBox(height: 8),
-          // App Mode Section
-          _buildSection(
-            context,
-            'Chế độ ứng dụng',
-            [
-              ListTile(
-                leading: Icon(
-                  isPregnancyMode ? Icons.pregnant_woman : Icons.eco,
-                  color: isPregnancyMode ? Colors.pink : Colors.green,
-                ),
-                title: const Text('Chế độ hiện tại'),
-                subtitle: Text(
-                  isPregnancyMode
-                      ? 'Chế độ mang thai'
-                      : 'Chế độ chuẩn bị mang thai',
-                ),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => _showModeDialog(context),
+          _buildSection(context, 'Chế độ ứng dụng', [
+            ListTile(
+              leading: Icon(
+                isPregnancyMode ? Icons.pregnant_woman : Icons.eco,
+                color: isPregnancyMode ? Colors.pink : Colors.green,
               ),
-            ],
-          ),
-          const Divider(),
-          _buildSection(
-            context,
-            'Giao diện',
-            [
-              SwitchListTile(
-                title: const Text('Chế độ tối'),
-                subtitle: const Text('Bật giao diện tối'),
-                value: themeMode == ThemeMode.dark,
-                onChanged: (value) {
-                  ref.read(themeProvider.notifier).toggleTheme();
-                },
-                secondary: Icon(
-                  themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
-                ),
+              title: const Text('Chế độ hiện tại'),
+              subtitle: Text(
+                isPregnancyMode ? 'Đang mang thai' : 'Chuẩn bị mang thai',
               ),
-              ListTile(
-                leading: const Icon(Icons.language),
-                title: const Text('Ngôn ngữ'),
-                subtitle: Text(locale.languageCode == 'en' ? 'English' : 'Tiếng Việt'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => _showLanguageDialog(context),
-              ),
-            ],
-          ),
-          const Divider(),
-          // Show Pregnancy Info only in pregnancy mode
-          if (isPregnancyMode) ...[
-            _buildSection(
-              context,
-              'Thông tin thai kỳ',
-              [
-                if (_pregnancy != null)
-                  ListTile(
-                    leading: const Icon(Icons.calendar_today),
-                    title: const Text('Ngày dự sinh'),
-                    subtitle: Text(DateFormatter.formatDate(_pregnancy!.dueDate)),
-                    trailing: const Icon(Icons.edit),
-                    onTap: () => _changeDueDate(context),
-                  ),
-                if (_pregnancy != null)
-                  ListTile(
-                    leading: const Icon(Icons.person),
-                    title: const Text('Tên mẹ'),
-                    subtitle: Text(_pregnancy!.motherName ?? 'Chưa cài đặt'),
-                    trailing: const Icon(Icons.edit),
-                    onTap: () => _changeMotherName(context),
-                  ),
-                if (_pregnancy != null)
-                  ListTile(
-                    leading: const Icon(Icons.monitor_weight),
-                    title: const Text('Cân nặng trước khi mang thai'),
-                    subtitle: Text(_pregnancy!.prePregnancyWeight != null
-                        ? '${_pregnancy!.prePregnancyWeight} kg'
-                        : 'Chưa cài đặt'),
-                    trailing: const Icon(Icons.edit),
-                    onTap: () => _changeWeight(context),
-                  ),
-              ],
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showModeDialog(context),
             ),
+          ]),
+          const Divider(),
+          _buildSection(context, 'Giao diện', [
+            SwitchListTile(
+              title: const Text('Chế độ tối'),
+              subtitle: const Text('Bật giao diện tối'),
+              value: themeMode == ThemeMode.dark,
+              onChanged: (value) {
+                ref.read(themeProvider.notifier).toggleTheme();
+              },
+              secondary: Icon(
+                themeMode == ThemeMode.dark
+                    ? Icons.dark_mode
+                    : Icons.light_mode,
+              ),
+            ),
+          ]),
+          const Divider(),
+          if (isPregnancyMode) ...[
+            _buildSection(context, 'Thông tin thai kỳ', [
+              if (_pregnancy != null)
+                ListTile(
+                  leading: const Icon(Icons.calendar_today),
+                  title: const Text('Ngày dự sinh'),
+                  subtitle: Text(DateFormatter.formatDate(_pregnancy!.dueDate)),
+                  trailing: const Icon(Icons.edit),
+                  onTap: () => _changeDueDate(context),
+                ),
+              if (_pregnancy != null)
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('Tên mẹ'),
+                  subtitle: Text(_pregnancy!.motherName ?? 'Chưa cài đặt'),
+                  trailing: const Icon(Icons.edit),
+                  onTap: () => _changeMotherName(context),
+                ),
+              if (_pregnancy != null)
+                ListTile(
+                  leading: const Icon(Icons.monitor_weight),
+                  title: const Text('Cân nặng trước khi mang thai'),
+                  subtitle: Text(
+                    _pregnancy!.prePregnancyWeight != null
+                        ? '${_pregnancy!.prePregnancyWeight} kg'
+                        : 'Chưa cài đặt',
+                  ),
+                  trailing: const Icon(Icons.edit),
+                  onTap: () => _changeWeight(context),
+                ),
+            ]),
             const Divider(),
           ],
-          _buildSection(
-            context,
-            'Tài khoản',
-            [
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text('Hồ sơ'),
-                subtitle: const Text('Quản lý hồ sơ của bạn'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => NavigationHelper.showProfileDialog(context),
-              ),
-            ],
-          ),
+          _buildSection(context, 'Tài khoản', [
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Hồ sơ'),
+              subtitle: const Text('Quản lý hồ sơ của bạn'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.showProfileDialog(context),
+            ),
+          ]),
           const Divider(),
-          _buildSection(
-            context,
-            'Thông báo',
-            [
-              ListTile(
-                leading: const Icon(Icons.notifications),
-                title: const Text('Cài đặt thông báo'),
-                subtitle: const Text('Quản lý thông báo của bạn'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => NavigationHelper.showNotificationSettingsDialog(context),
-              ),
-            ],
-          ),
+          _buildSection(context, 'Thông báo', [
+            ListTile(
+              leading: const Icon(Icons.notifications),
+              title: const Text('Cài đặt thông báo'),
+              subtitle: const Text('Quản lý thông báo của bạn'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () =>
+                  NavigationHelper.showNotificationSettingsDialog(context),
+            ),
+          ]),
           const Divider(),
-          _buildSection(
-            context,
-            'Thông tin',
-            [
-              ListTile(
-                leading: const Icon(Icons.help_outline),
-                title: const Text('Hướng dẫn sử dụng'),
-                subtitle: const Text('Tìm hiểu cách sử dụng MomCare+'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => NavigationHelper.toGuide(context),
-              ),
-              ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text('Về MomCare+'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () {
-                  _showAboutDialog(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.privacy_tip),
-                title: const Text('Chính sách bảo mật'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => NavigationHelper.showPrivacyPolicy(context),
-              ),
-            ],
-          ),
+          _buildSection(context, 'Thông tin', [
+            ListTile(
+              leading: const Icon(Icons.help_outline),
+              title: const Text('Hướng dẫn sử dụng'),
+              subtitle: const Text('Tìm hiểu cách sử dụng MomCare+'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.toGuide(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('Về MomCare+'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => _showAboutDialog(context),
+            ),
+            ListTile(
+              leading: const Icon(Icons.privacy_tip),
+              title: const Text('Chính sách bảo mật'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.showPrivacyPolicy(context),
+            ),
+          ]),
         ],
       ),
     );
   }
 
-  Widget _buildSection(BuildContext context, String title, List<Widget> children) {
+  Widget _buildSection(
+    BuildContext context,
+    String title,
+    List<Widget> children,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -198,9 +164,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: Theme.of(context).primaryColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         ...children,
@@ -233,7 +199,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _changeMotherName(BuildContext context) async {
-    final controller = TextEditingController(text: _pregnancy!.motherName ?? '');
+    final controller = TextEditingController(
+      text: _pregnancy!.motherName ?? '',
+    );
 
     final result = await showDialog<String>(
       context: context,
@@ -269,9 +237,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       _loadPregnancy();
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Đã cập nhật tên')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Đã cập nhật tên')));
       }
     }
 
@@ -320,9 +288,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         _loadPregnancy();
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Đã cập nhật cân nặng')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('Đã cập nhật cân nặng')));
         }
       }
     }
@@ -342,58 +310,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       children: [
         const Text(
-          'MomCare+ là ứng dụng đồng hành cùng bạn trong thai kỳ và sau sinh. '
-          'Theo dõi hành trình, nhận tư vấn dinh dưỡng và quản lý lịch hẹn.',
+          'MomCare+ là ứng dụng đồng hành trong thai kỳ và giai đoạn chuẩn bị mang thai. '
+          'Ứng dụng giúp theo dõi hành trình, ghi nhận sức khỏe, xem gợi ý dinh dưỡng '
+          'và quản lý lịch hẹn.',
         ),
       ],
     );
-  }
-
-  Future<void> _showLanguageDialog(BuildContext context) async {
-    final currentLocale = ref.read(localeProvider);
-
-    final result = await showDialog<String>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Chọn ngôn ngữ'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<String>(
-              title: const Text('English'),
-              value: 'en',
-              groupValue: currentLocale.languageCode,
-              onChanged: (value) => Navigator.pop(context, value),
-            ),
-            RadioListTile<String>(
-              title: const Text('Tiếng Việt'),
-              value: 'vi',
-              groupValue: currentLocale.languageCode,
-              onChanged: (value) => Navigator.pop(context, value),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Hủy'),
-          ),
-        ],
-      ),
-    );
-
-    if (result != null && result != currentLocale.languageCode) {
-      await ref.read(localeProvider.notifier).setLocale(Locale(result));
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result == 'en'
-              ? 'Đã chuyển sang tiếng Anh'
-              : 'Đã chuyển sang Tiếng Việt'),
-          ),
-        );
-      }
-    }
   }
 
   Future<void> _showModeDialog(BuildContext context) async {
@@ -412,17 +334,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
             const SizedBox(height: 16),
             RadioListTile<AppMode>(
-              title: Row(
+              title: const Row(
                 children: [
                   Icon(Icons.eco, color: Colors.green, size: 20),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: Text('Chuẩn bị mang thai'),
-                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: Text('Chuẩn bị mang thai')),
                 ],
               ),
               subtitle: const Text(
-                'Theo dõi chu kỳ, tips dinh dưỡng thụ thai',
+                'Theo dõi chu kỳ và gợi ý chuẩn bị thụ thai',
                 style: TextStyle(fontSize: 12),
               ),
               value: AppMode.prePregnancy,
@@ -430,17 +350,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               onChanged: (value) => Navigator.pop(context, value),
             ),
             RadioListTile<AppMode>(
-              title: Row(
+              title: const Row(
                 children: [
                   Icon(Icons.pregnant_woman, color: Colors.pink, size: 20),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: Text('Đang mang thai'),
-                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: Text('Đang mang thai')),
                 ],
               ),
               subtitle: const Text(
-                'Theo dõi thai kỳ, sức khỏe, dinh dưỡng theo tuần',
+                'Theo dõi thai kỳ, sức khỏe và dinh dưỡng theo tuần',
                 style: TextStyle(fontSize: 12),
               ),
               value: AppMode.pregnancy,
@@ -459,15 +377,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
 
     if (result != null && result != currentMode && mounted) {
-      // Show confirmation dialog
       final confirmed = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Xác nhận đổi chế độ'),
           content: Text(
             result == AppMode.pregnancy
-                ? 'Chuyển sang chế độ mang thai?\n\nBạn sẽ cần thiết lập thông tin thai kỳ.'
-                : 'Chuyển sang chế độ chuẩn bị mang thai?\n\nDữ liệu thai kỳ sẽ được giữ lại để sử dụng sau.',
+                ? 'Chuyển sang chế độ đang mang thai?\n\nBạn sẽ cần thiết lập thông tin thai kỳ.'
+                : 'Chuyển sang chế độ chuẩn bị mang thai?\n\nDữ liệu thai kỳ sẽ được giữ lại để dùng sau.',
           ),
           actions: [
             TextButton(
@@ -486,7 +403,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         await ref.read(appModeProvider.notifier).setMode(result);
 
         if (mounted) {
-          // If switching to pregnancy mode and no pregnancy data, go to setup
           if (result == AppMode.pregnancy && _pregnancy == null) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (_) => const PregnancySetupScreen()),
@@ -496,7 +412,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               SnackBar(
                 content: Text(
                   result == AppMode.pregnancy
-                      ? 'Đã chuyển sang chế độ mang thai'
+                      ? 'Đã chuyển sang chế độ đang mang thai'
                       : 'Đã chuyển sang chế độ chuẩn bị mang thai',
                 ),
               ),

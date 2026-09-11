@@ -38,21 +38,18 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Appointments'),
+        title: const Text('Lịch hẹn'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(icon: Icon(Icons.calendar_month), text: 'Calendar'),
-            Tab(icon: Icon(Icons.list), text: 'List'),
+            Tab(icon: Icon(Icons.calendar_month), text: 'Lịch'),
+            Tab(icon: Icon(Icons.list), text: 'Danh sách'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          _buildCalendarView(),
-          _buildListView(),
-        ],
+        children: [_buildCalendarView(), _buildListView()],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
@@ -66,7 +63,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
           }
         },
         icon: const Icon(Icons.add),
-        label: const Text('Add Appointment'),
+        label: const Text('Thêm lịch hẹn'),
       ),
     );
   }
@@ -142,7 +139,9 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
     );
   }
 
-  Widget _buildAppointmentsForSelectedDay(List<AppointmentModel> allAppointments) {
+  Widget _buildAppointmentsForSelectedDay(
+    List<AppointmentModel> allAppointments,
+  ) {
     final selectedAppointments = allAppointments.where((apt) {
       return isSameDay(apt.dateTime, _selectedDay);
     }).toList();
@@ -154,10 +153,10 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Appointments on ${DateFormatter.formatDate(_selectedDay!)}',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              'Lịch hẹn ngày ${DateFormatter.formatDate(_selectedDay!)}',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             if (selectedAppointments.isEmpty)
@@ -173,10 +172,10 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'No appointments on this day',
+                        'Không có lịch hẹn trong ngày này',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.grey[600],
-                            ),
+                          color: Colors.grey[600],
+                        ),
                       ),
                     ],
                   ),
@@ -222,13 +221,13 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
               ),
               const SizedBox(height: 24),
               Text(
-                'No Appointments Yet',
+                'Chưa có lịch hẹn',
                 style: Theme.of(context).textTheme.displaySmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               Text(
-                'Add your first appointment to get started',
+                'Thêm lịch hẹn đầu tiên để bắt đầu',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
@@ -250,10 +249,10 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
           children: [
             if (upcomingAppointments.isNotEmpty) ...[
               Text(
-                'Upcoming',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                'Sắp tới',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               ...upcomingAppointments.map((apt) {
@@ -270,11 +269,11 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
             ],
             if (pastAppointments.isNotEmpty) ...[
               Text(
-                'Past Appointments',
+                'Lịch hẹn đã qua',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[600],
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[600],
+                ),
               ),
               const SizedBox(height: 12),
               ...pastAppointments.map((apt) {

@@ -21,7 +21,6 @@ class MainNavigation extends ConsumerWidget {
     final appMode = ref.watch(appModeProvider);
     final isPrePregnancy = appMode == AppMode.prePregnancy;
 
-    // Different screens based on mode
     final screens = isPrePregnancy
         ? [
             const PrePregnancyHomeScreen(),
@@ -37,10 +36,7 @@ class MainNavigation extends ConsumerWidget {
           ];
 
     return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: screens,
-      ),
+      body: IndexedStack(index: currentIndex, children: screens),
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentIndex,
         onDestinationSelected: (index) {
@@ -73,7 +69,6 @@ class MainNavigation extends ConsumerWidget {
   }
 }
 
-/// Track Tab - Contains Tracking, Health Diary, Fertility
 class _TrackTabScreen extends StatelessWidget {
   final bool isPrePregnancy;
 
@@ -101,10 +96,7 @@ class _TrackTabScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: isPrePregnancy
-              ? const [
-                  FertilityPlannerScreen(),
-                  HealthDiaryScreen(),
-                ]
+              ? const [FertilityPlannerScreen(), HealthDiaryScreen()]
               : const [
                   TrackingScreen(),
                   HealthDiaryScreen(),
@@ -116,7 +108,6 @@ class _TrackTabScreen extends StatelessWidget {
   }
 }
 
-/// Tools Tab - Contains Nutrition, Appointments
 class _ToolsTabScreen extends StatelessWidget {
   const _ToolsTabScreen();
 
@@ -135,17 +126,13 @@ class _ToolsTabScreen extends StatelessWidget {
           ),
         ),
         body: const TabBarView(
-          children: [
-            NutritionScreen(),
-            AppointmentsScreen(),
-          ],
+          children: [NutritionScreen(), AppointmentsScreen()],
         ),
       ),
     );
   }
 }
 
-/// Profile Tab - Contains Settings and more
 class _ProfileTabScreen extends StatelessWidget {
   const _ProfileTabScreen();
 

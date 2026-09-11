@@ -4,7 +4,6 @@ import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/navigation_helper.dart';
-import '../../fertility/screens/gender_selection_screen.dart';
 
 class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
   const PrePregnancyHomeScreen({super.key});
@@ -34,8 +33,6 @@ class _PrePregnancyHomeScreenState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    // Calculate predictions
     final nextOvulation = HealthService.predictNextOvulation(_cycles);
     final fertileWindow = HealthService.predictFertileWindow(_cycles);
     final nextPeriod = HealthService.predictNextPeriod(_cycles);
@@ -58,11 +55,8 @@ class _PrePregnancyHomeScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Greeting
               _buildGreeting(theme),
               const SizedBox(height: 24),
-
-              // Widget 1: Fertile Window
               _FertileWindowWidget(
                 fertileWindow: fertileWindow,
                 nextOvulation: nextOvulation,
@@ -73,20 +67,14 @@ class _PrePregnancyHomeScreenState
                 },
               ),
               const SizedBox(height: 16),
-
-              // Widget 2: Ovulation Countdown
               _OvulationCountdownWidget(
                 nextOvulation: nextOvulation,
                 nextPeriod: nextPeriod,
                 hasCycles: _cycles.isNotEmpty,
               ),
               const SizedBox(height: 16),
-
-              // Widget 3: Daily Tips
               _DailyTipsWidget(theme: theme),
               const SizedBox(height: 16),
-
-              // Quick Actions
               _buildQuickActions(context),
               const SizedBox(height: 24),
             ],
@@ -98,14 +86,11 @@ class _PrePregnancyHomeScreenState
 
   Widget _buildGreeting(ThemeData theme) {
     final hour = DateTime.now().hour;
-    String greeting;
-    if (hour < 12) {
-      greeting = 'Chào buổi sáng';
-    } else if (hour < 17) {
-      greeting = 'Chào buổi chiều';
-    } else {
-      greeting = 'Chào buổi tối';
-    }
+    final greeting = hour < 12
+        ? 'Chào buổi sáng'
+        : hour < 17
+        ? 'Chào buổi chiều'
+        : 'Chào buổi tối';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,9 +104,7 @@ class _PrePregnancyHomeScreenState
         const SizedBox(height: 4),
         Text(
           'Chúc bạn một ngày tràn đầy năng lượng!',
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: Colors.grey[600],
-          ),
+          style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
         ),
       ],
     );
@@ -133,9 +116,9 @@ class _PrePregnancyHomeScreenState
       children: [
         Text(
           'Truy cập nhanh',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Row(
@@ -143,7 +126,7 @@ class _PrePregnancyHomeScreenState
             Expanded(
               child: _QuickActionButton(
                 icon: Icons.calendar_month,
-                label: 'Kế hoạch\nthụ thai',
+                label: 'Theo dõi\nchu kỳ',
                 color: Colors.purple,
                 onTap: () => NavigationHelper.toFertilityPlanner(context),
               ),
@@ -157,22 +140,6 @@ class _PrePregnancyHomeScreenState
                 onTap: () => NavigationHelper.toNutrition(context),
               ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _QuickActionButton(
-                icon: Icons.wc,
-                label: 'Chọn\ngiới tính',
-                color: Colors.pink,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const _GenderSelectionNavigator(),
-                    ),
-                  );
-                },
-              ),
-            ),
           ],
         ),
       ],
@@ -180,7 +147,6 @@ class _PrePregnancyHomeScreenState
   }
 }
 
-// Widget 1: Fertile Window
 class _FertileWindowWidget extends StatelessWidget {
   final List<DateTime>? fertileWindow;
   final DateTime? nextOvulation;
@@ -226,7 +192,6 @@ class _FertileWindowWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-
             if (!hasCycles) ...[
               Text(
                 'Chưa có dữ liệu chu kỳ',
@@ -240,11 +205,10 @@ class _FertileWindowWidget extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: onAddPeriod,
                   icon: const Icon(Icons.add),
-                  label: const Text('Thêm ngày kinh nguyệt'),
+                  label: const Text('Thêm kỳ kinh'),
                 ),
               ),
             ] else if (fertileWindow != null && fertileWindow!.isNotEmpty) ...[
-              // Show fertile window dates
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -290,7 +254,7 @@ class _FertileWindowWidget extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Đây là khoảng thời gian có khả năng thụ thai cao nhất',
+                'Đây là khoảng thời gian có khả năng thụ thai cao hơn trong chu kỳ.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: Colors.grey[600],
                   fontStyle: FontStyle.italic,
@@ -299,7 +263,7 @@ class _FertileWindowWidget extends StatelessWidget {
               ),
             ] else ...[
               Text(
-                'Cần thêm dữ liệu để dự đoán',
+                'Cần thêm dữ liệu để dự đoán.',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: Colors.grey[600],
                 ),
@@ -312,7 +276,6 @@ class _FertileWindowWidget extends StatelessWidget {
   }
 }
 
-// Widget 2: Ovulation Countdown
 class _OvulationCountdownWidget extends StatelessWidget {
   final DateTime? nextOvulation;
   final DateTime? nextPeriod;
@@ -354,7 +317,7 @@ class _OvulationCountdownWidget extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Ngày rụng trứng',
+                    'Ngày rụng trứng dự kiến',
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -363,8 +326,6 @@ class _OvulationCountdownWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-
-            // Countdown
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
@@ -373,8 +334,8 @@ class _OvulationCountdownWidget extends StatelessWidget {
                   colors: isToday
                       ? [Colors.blue, Colors.blue.shade700]
                       : isPast
-                          ? [Colors.grey, Colors.grey.shade600]
-                          : [Colors.blue.shade100, Colors.blue.shade200],
+                      ? [Colors.grey, Colors.grey.shade600]
+                      : [Colors.blue.shade100, Colors.blue.shade200],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -384,10 +345,10 @@ class _OvulationCountdownWidget extends StatelessWidget {
                 children: [
                   Text(
                     isToday
-                        ? 'HÔM NAY!'
+                        ? 'Hôm nay'
                         : isPast
-                            ? 'Đã qua'
-                            : '$daysUntilOvulation',
+                        ? 'Đã qua'
+                        : '$daysUntilOvulation',
                     style: theme.textTheme.displaySmall?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: isToday || isPast ? Colors.white : Colors.blue,
@@ -413,7 +374,6 @@ class _OvulationCountdownWidget extends StatelessWidget {
                 ],
               ),
             ),
-
             if (nextPeriod != null) ...[
               const SizedBox(height: 12),
               Row(
@@ -422,7 +382,7 @@ class _OvulationCountdownWidget extends StatelessWidget {
                   const Icon(Icons.calendar_today, size: 16, color: Colors.red),
                   const SizedBox(width: 8),
                   Text(
-                    'Kỳ kinh tiếp: ${nextPeriod!.day}/${nextPeriod!.month}',
+                    'Kỳ kinh tiếp theo: ${nextPeriod!.day}/${nextPeriod!.month}',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: Colors.red,
                     ),
@@ -437,7 +397,6 @@ class _OvulationCountdownWidget extends StatelessWidget {
   }
 }
 
-// Widget 3: Daily Tips
 class _DailyTipsWidget extends StatelessWidget {
   final ThemeData theme;
 
@@ -445,47 +404,47 @@ class _DailyTipsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Tips for pre-pregnancy
     final tips = [
       _Tip(
         icon: Icons.medication,
-        title: 'Bổ sung Folic Acid',
+        title: 'Bổ sung axit folic',
         content:
-            'Uống 400-800mcg folic acid mỗi ngày, ít nhất 1 tháng trước khi mang thai để ngăn ngừa dị tật ống thần kinh.',
+            'Bạn có thể trao đổi với bác sĩ về việc bổ sung axit folic trước khi mang thai.',
         color: Colors.purple,
       ),
       _Tip(
         icon: Icons.no_drinks,
         title: 'Tránh rượu bia',
         content:
-            'Ngừng uống rượu bia khi bắt đầu lên kế hoạch mang thai. Rượu có thể ảnh hưởng đến khả năng thụ thai và phát triển thai nhi.',
+            'Nên hạn chế rượu bia khi đang lên kế hoạch mang thai để hỗ trợ sức khỏe sinh sản.',
         color: Colors.red,
       ),
       _Tip(
         icon: Icons.fitness_center,
-        title: 'Duy trì cân nặng',
+        title: 'Duy trì cân nặng phù hợp',
         content:
-            'BMI từ 18.5-24.9 là lý tưởng. Cân nặng quá thấp hoặc quá cao đều ảnh hưởng đến khả năng thụ thai.',
+            'Cân nặng quá thấp hoặc quá cao có thể ảnh hưởng đến chu kỳ và khả năng thụ thai.',
         color: Colors.green,
       ),
       _Tip(
         icon: Icons.local_cafe,
-        title: 'Giảm caffeine',
+        title: 'Theo dõi lượng caffeine',
         content:
-            'Giới hạn caffeine dưới 200mg/ngày (khoảng 1 ly cà phê). Caffeine cao có thể giảm khả năng thụ thai.',
+            'Nếu dùng nhiều caffeine, bạn có thể cân nhắc giảm dần và hỏi bác sĩ khi cần.',
         color: Colors.brown,
       ),
       _Tip(
         icon: Icons.medical_services,
         title: 'Khám tiền sản',
         content:
-            'Đặt lịch khám sức khỏe tổng quát, xét nghiệm máu, kiểm tra vắc-xin và sàng lọc bệnh di truyền.',
+            'Một buổi khám trước mang thai có thể giúp bạn kiểm tra sức khỏe tổng quát và tiêm chủng cần thiết.',
         color: Colors.blue,
       ),
     ];
 
-    // Get tip of the day based on day of year
-    final dayOfYear = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays;
+    final dayOfYear = DateTime.now()
+        .difference(DateTime(DateTime.now().year, 1, 1))
+        .inDays;
     final todayTip = tips[dayOfYear % tips.length];
 
     return Card(
@@ -510,7 +469,7 @@ class _DailyTipsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Tip hôm nay',
+                        'Gợi ý hôm nay',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: Colors.grey,
                         ),
@@ -529,9 +488,7 @@ class _DailyTipsWidget extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               todayTip.content,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                height: 1.5,
-              ),
+              style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
             ),
           ],
         ),
@@ -554,7 +511,6 @@ class _Tip {
   });
 }
 
-// Quick Action Button
 class _QuickActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -597,15 +553,5 @@ class _QuickActionButton extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-// Navigator to Gender Selection
-class _GenderSelectionNavigator extends StatelessWidget {
-  const _GenderSelectionNavigator();
-
-  @override
-  Widget build(BuildContext context) {
-    return const GenderSelectionScreen();
   }
 }

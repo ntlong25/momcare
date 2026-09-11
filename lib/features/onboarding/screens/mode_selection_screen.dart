@@ -18,8 +18,6 @@ class ModeSelectionScreen extends ConsumerWidget {
           child: Column(
             children: [
               const Spacer(),
-
-              // Logo
               Container(
                 width: 100,
                 height: 100,
@@ -41,10 +39,8 @@ class ModeSelectionScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 24),
-
-              // Title
               Text(
-                'Chào mừng đến MomCare+',
+                'Chào mừng đến với MomCare+',
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: theme.primaryColor,
@@ -52,7 +48,6 @@ class ModeSelectionScreen extends ConsumerWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-
               Text(
                 'Bạn đang ở giai đoạn nào?',
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -60,17 +55,17 @@ class ModeSelectionScreen extends ConsumerWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-
               const SizedBox(height: 48),
-
-              // Pre-pregnancy option
               _ModeCard(
                 icon: Icons.eco,
                 iconColor: Colors.green,
                 title: 'Đang lên kế hoạch mang thai',
-                subtitle: 'Theo dõi chu kỳ, dinh dưỡng chuẩn bị, tips thụ thai',
+                subtitle:
+                    'Theo dõi chu kỳ, dinh dưỡng chuẩn bị và gợi ý thụ thai',
                 onTap: () async {
-                  await ref.read(appModeProvider.notifier).setMode(AppMode.prePregnancy);
+                  await ref
+                      .read(appModeProvider.notifier)
+                      .setMode(AppMode.prePregnancy);
                   if (context.mounted) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => const MainNavigation()),
@@ -78,33 +73,29 @@ class ModeSelectionScreen extends ConsumerWidget {
                   }
                 },
               ),
-
               const SizedBox(height: 16),
-
-              // Pregnancy option
               _ModeCard(
                 icon: Icons.pregnant_woman,
                 iconColor: Colors.pink,
                 title: 'Đã mang thai',
-                subtitle: 'Theo dõi thai kỳ, sức khỏe, dinh dưỡng theo tuần',
+                subtitle: 'Theo dõi thai kỳ, sức khỏe và dinh dưỡng theo tuần',
                 onTap: () async {
-                  await ref.read(appModeProvider.notifier).setMode(AppMode.pregnancy);
+                  await ref
+                      .read(appModeProvider.notifier)
+                      .setMode(AppMode.pregnancy);
                   if (context.mounted) {
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const PregnancySetupScreen()),
+                      MaterialPageRoute(
+                        builder: (_) => const PregnancySetupScreen(),
+                      ),
                     );
                   }
                 },
               ),
-
               const Spacer(),
-
-              // Note
               Text(
                 'Bạn có thể thay đổi lựa chọn này sau trong Cài đặt',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey,
-                ),
+                style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -149,11 +140,7 @@ class _ModeCard extends StatelessWidget {
                   color: iconColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(
-                  icon,
-                  size: 32,
-                  color: iconColor,
-                ),
+                child: Icon(icon, size: 32, color: iconColor),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -163,23 +150,20 @@ class _ModeCard extends StatelessWidget {
                     Text(
                       title,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[600],
-                          ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                     ),
                   ],
                 ),
               ),
-              Icon(
-                Icons.chevron_right,
-                color: Colors.grey[400],
-              ),
+              Icon(Icons.chevron_right, color: Colors.grey[400]),
             ],
           ),
         ),

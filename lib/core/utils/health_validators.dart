@@ -24,11 +24,11 @@ class HealthValidators {
 
     final weight = double.tryParse(value);
     if (weight == null) {
-      return 'Please enter a valid number';
+      return 'Vui lòng nhập số hợp lệ';
     }
 
     if (weight < minWeight || weight > maxWeight) {
-      return 'Weight must be between $minWeight-$maxWeight kg';
+      return 'Cân nặng phải trong khoảng $minWeight-$maxWeight kg';
     }
 
     return null;
@@ -43,11 +43,11 @@ class HealthValidators {
 
     final height = double.tryParse(value);
     if (height == null) {
-      return 'Please enter a valid number';
+      return 'Vui lòng nhập số hợp lệ';
     }
 
     if (height < minHeight || height > maxHeight) {
-      return 'Height must be between $minHeight-$maxHeight cm';
+      return 'Chiều cao phải trong khoảng $minHeight-$maxHeight cm';
     }
 
     return null;
@@ -62,11 +62,11 @@ class HealthValidators {
 
     final systolic = int.tryParse(value);
     if (systolic == null) {
-      return 'Invalid number';
+      return 'Số không hợp lệ';
     }
 
     if (systolic < minSystolic || systolic > maxSystolic) {
-      return 'Must be $minSystolic-$maxSystolic';
+      return 'Phải trong khoảng $minSystolic-$maxSystolic';
     }
 
     return null;
@@ -81,11 +81,11 @@ class HealthValidators {
 
     final diastolic = int.tryParse(value);
     if (diastolic == null) {
-      return 'Invalid number';
+      return 'Số không hợp lệ';
     }
 
     if (diastolic < minDiastolic || diastolic > maxDiastolic) {
-      return 'Must be $minDiastolic-$maxDiastolic';
+      return 'Phải trong khoảng $minDiastolic-$maxDiastolic';
     }
 
     return null;
@@ -93,10 +93,15 @@ class HealthValidators {
 
   /// Validate blood pressure pair (systolic must be > diastolic)
   /// Returns error message if invalid, null if valid
-  static String? validateBloodPressurePair(String? systolicValue, String? diastolicValue) {
+  static String? validateBloodPressurePair(
+    String? systolicValue,
+    String? diastolicValue,
+  ) {
     // If either is empty, skip pair validation
-    if (systolicValue == null || systolicValue.isEmpty ||
-        diastolicValue == null || diastolicValue.isEmpty) {
+    if (systolicValue == null ||
+        systolicValue.isEmpty ||
+        diastolicValue == null ||
+        diastolicValue.isEmpty) {
       return null;
     }
 
@@ -108,16 +113,16 @@ class HealthValidators {
     }
 
     if (systolic <= diastolic) {
-      return 'Systolic must be greater than diastolic';
+      return 'Huyết áp tâm thu phải lớn hơn tâm trương';
     }
 
     // Warn about unusual pulse pressure (difference > 60 or < 30)
     final pulsePressure = systolic - diastolic;
     if (pulsePressure > 60) {
-      return 'Unusual pulse pressure. Please verify values';
+      return 'Hiệu áp bất thường. Vui lòng kiểm tra lại chỉ số';
     }
     if (pulsePressure < 25) {
-      return 'Pulse pressure too narrow. Please verify values';
+      return 'Hiệu áp quá hẹp. Vui lòng kiểm tra lại chỉ số';
     }
 
     return null;
@@ -126,28 +131,28 @@ class HealthValidators {
   /// Get blood pressure category for display
   static String getBloodPressureCategory(int systolic, int diastolic) {
     if (systolic < 120 && diastolic < 80) {
-      return 'Normal';
+      return 'Bình thường';
     } else if (systolic < 130 && diastolic < 80) {
-      return 'Elevated';
+      return 'Hơi cao';
     } else if (systolic < 140 || diastolic < 90) {
-      return 'High (Stage 1)';
+      return 'Cao độ 1';
     } else if (systolic < 180 || diastolic < 120) {
-      return 'High (Stage 2)';
+      return 'Cao độ 2';
     } else {
-      return 'Hypertensive Crisis';
+      return 'Cơn tăng huyết áp';
     }
   }
 
   /// Get weight status category based on BMI
   static String getWeightCategory(double bmi) {
     if (bmi < 18.5) {
-      return 'Underweight';
+      return 'Thiếu cân';
     } else if (bmi < 25.0) {
-      return 'Normal';
+      return 'Bình thường';
     } else if (bmi < 30.0) {
-      return 'Overweight';
+      return 'Thừa cân';
     } else {
-      return 'Obese';
+      return 'Béo phì';
     }
   }
 }

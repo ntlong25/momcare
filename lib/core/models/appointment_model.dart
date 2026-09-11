@@ -73,7 +73,8 @@ class AppointmentModel extends HiveObject {
       notes: notes ?? this.notes,
       isCompleted: isCompleted ?? this.isCompleted,
       reminderEnabled: reminderEnabled ?? this.reminderEnabled,
-      reminderMinutesBefore: reminderMinutesBefore ?? this.reminderMinutesBefore,
+      reminderMinutesBefore:
+          reminderMinutesBefore ?? this.reminderMinutesBefore,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

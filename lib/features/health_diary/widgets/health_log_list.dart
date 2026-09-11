@@ -19,10 +19,7 @@ class HealthLogList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Health History',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+        Text('Lịch sử sức khỏe', style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 16),
         ListView.builder(
           shrinkWrap: true,
@@ -54,8 +51,8 @@ class HealthLogList extends StatelessWidget {
                   Text(
                     DateFormatter.formatDate(log.date),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(Icons.more_vert),
@@ -83,12 +80,7 @@ class HealthLogList extends StatelessWidget {
                       Colors.red,
                     ),
                   if (log.mood != null)
-                    _buildChip(
-                      context,
-                      Icons.mood,
-                      log.mood!,
-                      Colors.orange,
-                    ),
+                    _buildChip(context, Icons.mood, log.mood!, Colors.orange),
                 ],
               ),
               if (log.symptoms != null && log.symptoms!.isNotEmpty) ...[
@@ -142,9 +134,9 @@ class HealthLogList extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.w600,
-                ),
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -184,8 +176,10 @@ class HealthLogList extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Xóa nhật ký'),
-        content: const Text('Bạn có chắc muốn xóa nhật ký sức khỏe này?'),
+        title: const Text('Xóa ghi nhận'),
+        content: const Text(
+          'Bạn có chắc muốn xóa ghi nhận sức khỏe này không?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),

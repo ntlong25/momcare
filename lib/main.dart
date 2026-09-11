@@ -46,13 +46,8 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('vi'),
-      ],
-      home: const SplashScreen(
-        nextScreen: AppInitializer(),
-      ),
+      supportedLocales: const [Locale('vi')],
+      home: const SplashScreen(nextScreen: AppInitializer()),
     );
   }
 }
@@ -82,9 +77,9 @@ class AppInitializer extends ConsumerWidget {
                   Text(
                     'MomCare+',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 32),
                   const CircularProgressIndicator(),

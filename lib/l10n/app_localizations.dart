@@ -805,6 +805,360 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'MomCare+ is your companion app for pregnancy and postpartum health. Track your journey, get nutrition advice, and stay organized with appointments.'**
   String get appDescription;
+
+  /// No description provided for @goodMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Morning'**
+  String get goodMorning;
+
+  /// No description provided for @goodAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Afternoon'**
+  String get goodAfternoon;
+
+  /// No description provided for @goodEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Evening'**
+  String get goodEvening;
+
+  /// No description provided for @dailyTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Tip'**
+  String get dailyTip;
+
+  /// No description provided for @dailyTipMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay hydrated! Drink at least 8-10 glasses of water daily to support your baby\'s development and maintain your own health.'**
+  String get dailyTipMessage;
+
+  /// No description provided for @welcomeToMomCare.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to MomCare+'**
+  String get welcomeToMomCare;
+
+  /// No description provided for @startYourJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your journey by setting up your pregnancy details'**
+  String get startYourJourney;
+
+  /// No description provided for @setUpPregnancy.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Up Pregnancy'**
+  String get setUpPregnancy;
+
+  /// No description provided for @noActivePregnancy.
+  ///
+  /// In en, this message translates to:
+  /// **'No active pregnancy'**
+  String get noActivePregnancy;
+
+  /// No description provided for @letsGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s get started!'**
+  String get letsGetStarted;
+
+  /// No description provided for @tellUsAboutYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us a bit about yourself and your pregnancy'**
+  String get tellUsAboutYourself;
+
+  /// No description provided for @yourNameOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Name (Optional)'**
+  String get yourNameOptional;
+
+  /// No description provided for @enterYourNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enterYourNameHint;
+
+  /// No description provided for @prePregnancyWeightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-Pregnancy Weight (kg)'**
+  String get prePregnancyWeightKg;
+
+  /// No description provided for @enterYourWeightHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your weight'**
+  String get enterYourWeightHint;
+
+  /// No description provided for @heightCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Height (cm)'**
+  String get heightCm;
+
+  /// No description provided for @enterYourHeightHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your height'**
+  String get enterYourHeightHint;
+
+  /// No description provided for @selectYourDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your due date'**
+  String get selectYourDueDate;
+
+  /// No description provided for @lastPeriodDateOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Period Date (Optional)'**
+  String get lastPeriodDateOptional;
+
+  /// No description provided for @selectLastPeriodDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select last period date'**
+  String get selectLastPeriodDate;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// No description provided for @skipForNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get skipForNow;
+
+  /// No description provided for @pleaseSelectDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a due date'**
+  String get pleaseSelectDueDate;
+
+  /// No description provided for @measurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get measurements;
+
+  /// No description provided for @weightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightKg;
+
+  /// No description provided for @systolicBP.
+  ///
+  /// In en, this message translates to:
+  /// **'Systolic BP'**
+  String get systolicBP;
+
+  /// No description provided for @diastolicBP.
+  ///
+  /// In en, this message translates to:
+  /// **'Diastolic BP'**
+  String get diastolicBP;
+
+  /// No description provided for @normalBP.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal: <120/<80 mmHg'**
+  String get normalBP;
+
+  /// No description provided for @howAreYouFeelingToday.
+  ///
+  /// In en, this message translates to:
+  /// **'How are you feeling today?'**
+  String get howAreYouFeelingToday;
+
+  /// No description provided for @updateLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Log'**
+  String get updateLog;
+
+  /// No description provided for @saveLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Log'**
+  String get saveLog;
+
+  /// No description provided for @deleteLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Log'**
+  String get deleteLog;
+
+  /// No description provided for @confirmDeleteLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this health log?'**
+  String get confirmDeleteLog;
+
+  /// No description provided for @validationWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight must be between {min}-{max} kg'**
+  String validationWeight(double min, double max);
+
+  /// No description provided for @validationHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Height must be between {min}-{max} cm'**
+  String validationHeight(double min, double max);
+
+  /// No description provided for @validationBPSystolic.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be {min}-{max}'**
+  String validationBPSystolic(int min, int max);
+
+  /// No description provided for @validationBPDiastolic.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be {min}-{max}'**
+  String validationBPDiastolic(int min, int max);
+
+  /// No description provided for @validationBPPair.
+  ///
+  /// In en, this message translates to:
+  /// **'Systolic must be greater than diastolic'**
+  String get validationBPPair;
+
+  /// No description provided for @validationInvalidNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid number'**
+  String get validationInvalidNumber;
+
+  /// No description provided for @rangeHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Range: {min}-{max} {unit}'**
+  String rangeHelper(String min, String max, String unit);
+
+  /// No description provided for @upcomingAppointments.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming Appointments'**
+  String get upcomingAppointments;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// No description provided for @addFirstAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first appointment'**
+  String get addFirstAppointment;
+
+  /// No description provided for @noUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'No upcoming appointments'**
+  String get noUpcoming;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @nausea.
+  ///
+  /// In en, this message translates to:
+  /// **'Nausea'**
+  String get nausea;
+
+  /// No description provided for @headache.
+  ///
+  /// In en, this message translates to:
+  /// **'Headache'**
+  String get headache;
+
+  /// No description provided for @backPain.
+  ///
+  /// In en, this message translates to:
+  /// **'Back pain'**
+  String get backPain;
+
+  /// No description provided for @swelling.
+  ///
+  /// In en, this message translates to:
+  /// **'Swelling'**
+  String get swelling;
+
+  /// No description provided for @heartburn.
+  ///
+  /// In en, this message translates to:
+  /// **'Heartburn'**
+  String get heartburn;
+
+  /// No description provided for @fatigue.
+  ///
+  /// In en, this message translates to:
+  /// **'Fatigue'**
+  String get fatigue;
+
+  /// No description provided for @contractions.
+  ///
+  /// In en, this message translates to:
+  /// **'Contractions'**
+  String get contractions;
+
+  /// No description provided for @cramps.
+  ///
+  /// In en, this message translates to:
+  /// **'Cramps'**
+  String get cramps;
+
+  /// No description provided for @happy.
+  ///
+  /// In en, this message translates to:
+  /// **'Happy'**
+  String get happy;
+
+  /// No description provided for @calm.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm'**
+  String get calm;
+
+  /// No description provided for @anxious.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxious'**
+  String get anxious;
+
+  /// No description provided for @tired.
+  ///
+  /// In en, this message translates to:
+  /// **'Tired'**
+  String get tired;
+
+  /// No description provided for @energetic.
+  ///
+  /// In en, this message translates to:
+  /// **'Energetic'**
+  String get energetic;
+
+  /// No description provided for @uncomfortable.
+  ///
+  /// In en, this message translates to:
+  /// **'Uncomfortable'**
+  String get uncomfortable;
 }
 
 class _AppLocalizationsDelegate

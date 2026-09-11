@@ -31,27 +31,25 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
 
   Future<bool> _onWillPop() async {
     if (!_hasData) {
-      return true; // Allow pop if no data entered
+      return true;
     }
 
     final shouldPop = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Discard Changes?'),
+        title: const Text('Bỏ thay đổi?'),
         content: const Text(
-          'You have unsaved pregnancy information. Are you sure you want to go back and lose this data?',
+          'Bạn có thông tin thai kỳ chưa lưu. Bạn có chắc muốn quay lại và bỏ dữ liệu này không?',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.red,
-            ),
-            child: const Text('Discard'),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Bỏ thay đổi'),
           ),
         ],
       ),
@@ -73,113 +71,117 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Set Up Your Pregnancy'),
-        ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Let\'s get started!',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Tell us a bit about yourself and your pregnancy',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Theme.of(context).textTheme.bodySmall?.color,
-                    ),
-              ),
-              const SizedBox(height: 32),
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Your Name (Optional)',
-                  hintText: 'Enter your name',
-                  prefixIcon: Icon(Icons.person),
+        appBar: AppBar(title: const Text('Thiết lập thai kỳ')),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Bắt đầu nhé!',
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _weightController,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(
-                  labelText: 'Pre-Pregnancy Weight (kg)',
-                  hintText: 'Enter your weight',
-                  prefixIcon: const Icon(Icons.monitor_weight),
-                  helperText: 'Range: ${HealthValidators.minWeight}-${HealthValidators.maxWeight} kg',
-                ),
-                validator: HealthValidators.validateWeight,
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _heightController,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(
-                  labelText: 'Height (cm)',
-                  hintText: 'Enter your height',
-                  prefixIcon: const Icon(Icons.height),
-                  helperText: 'Range: ${HealthValidators.minHeight}-${HealthValidators.maxHeight} cm',
-                ),
-                validator: HealthValidators.validateHeight,
-              ),
-              const SizedBox(height: 20),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.calendar_today),
-                title: const Text('Due Date'),
-                subtitle: Text(
-                  _dueDate == null
-                      ? 'Select your due date'
-                      : '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}',
-                ),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => _selectDueDate(context),
-              ),
-              const Divider(),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.event),
-                title: const Text('Last Period Date (Optional)'),
-                subtitle: Text(
-                  _lastPeriodDate == null
-                      ? 'Select last period date'
-                      : '${_lastPeriodDate!.day}/${_lastPeriodDate!.month}/${_lastPeriodDate!.year}',
-                ),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => _selectLastPeriodDate(context),
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _savePregnancy,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Text('Continue'),
+                const SizedBox(height: 8),
+                Text(
+                  'Cho MomCare+ biết một vài thông tin về bạn và thai kỳ',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const MainNavigation(),
-                      ),
-                    );
-                  },
-                  child: const Text('Skip for now'),
+                const SizedBox(height: 32),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Tên của bạn (không bắt buộc)',
+                    hintText: 'Nhập tên của bạn',
+                    prefixIcon: Icon(Icons.person),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _weightController,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Cân nặng trước khi mang thai (kg)',
+                    hintText: 'Nhập cân nặng của bạn',
+                    prefixIcon: const Icon(Icons.monitor_weight),
+                    helperText:
+                        'Khoảng: ${HealthValidators.minWeight}-${HealthValidators.maxWeight} kg',
+                  ),
+                  validator: HealthValidators.validateWeight,
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _heightController,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Chiều cao (cm)',
+                    hintText: 'Nhập chiều cao của bạn',
+                    prefixIcon: const Icon(Icons.height),
+                    helperText:
+                        'Khoảng: ${HealthValidators.minHeight}-${HealthValidators.maxHeight} cm',
+                  ),
+                  validator: HealthValidators.validateHeight,
+                ),
+                const SizedBox(height: 20),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.calendar_today),
+                  title: const Text('Ngày dự sinh'),
+                  subtitle: Text(
+                    _dueDate == null
+                        ? 'Chọn ngày dự sinh'
+                        : '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}',
+                  ),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => _selectDueDate(context),
+                ),
+                const Divider(),
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.event),
+                  title: const Text('Ngày đầu kỳ kinh cuối (không bắt buộc)'),
+                  subtitle: Text(
+                    _lastPeriodDate == null
+                        ? 'Chọn ngày đầu kỳ kinh cuối'
+                        : '${_lastPeriodDate!.day}/${_lastPeriodDate!.month}/${_lastPeriodDate!.year}',
+                  ),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => _selectLastPeriodDate(context),
+                ),
+                const SizedBox(height: 32),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _savePregnancy,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Text('Tiếp tục'),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const MainNavigation(),
+                        ),
+                      );
+                    },
+                    child: const Text('Bỏ qua lúc này'),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );
@@ -221,7 +223,7 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
     if (_dueDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please select a due date'),
+          content: Text('Vui lòng chọn ngày dự sinh'),
           backgroundColor: Colors.red,
         ),
       );
@@ -249,9 +251,7 @@ class _PregnancySetupScreenState extends State<PregnancySetupScreen> {
     if (!mounted) return;
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const MainNavigation(),
-      ),
+      MaterialPageRoute(builder: (context) => const MainNavigation()),
     );
   }
 

@@ -107,25 +107,22 @@ class HomeScreen extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          greeting,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+        Text(greeting, style: Theme.of(context).textTheme.headlineMedium),
         if (pregnancy.motherName != null) ...[
           const SizedBox(height: 4),
           Text(
             pregnancy.motherName!,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  color: Theme.of(context).primaryColor,
-                ),
+              color: Theme.of(context).primaryColor,
+            ),
           ),
         ],
         const SizedBox(height: 8),
         Text(
           DateFormatter.formatDaysRemaining(pregnancy.daysUntilDue),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Theme.of(context).textTheme.bodySmall?.color,
-              ),
+            color: Theme.of(context).textTheme.bodySmall?.color,
+          ),
         ),
       ],
     );

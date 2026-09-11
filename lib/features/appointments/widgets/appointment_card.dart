@@ -35,12 +35,16 @@ class AppointmentCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: isPast
                           ? Colors.grey.withValues(alpha: 0.2)
-                          : Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                          : Theme.of(
+                              context,
+                            ).primaryColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       Icons.event,
-                      color: isPast ? Colors.grey : Theme.of(context).primaryColor,
+                      color: isPast
+                          ? Colors.grey
+                          : Theme.of(context).primaryColor,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -50,7 +54,8 @@ class AppointmentCard extends StatelessWidget {
                       children: [
                         Text(
                           appointment.title,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: isPast ? Colors.grey[600] : null,
                               ),
@@ -61,12 +66,17 @@ class AppointmentCard extends StatelessWidget {
                             Icon(
                               Icons.access_time,
                               size: 14,
-                              color: isPast ? Colors.grey : Theme.of(context).primaryColor,
+                              color: isPast
+                                  ? Colors.grey
+                                  : Theme.of(context).primaryColor,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              DateFormatter.formatDateTime(appointment.dateTime),
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              DateFormatter.formatDateTime(
+                                appointment.dateTime,
+                              ),
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
                                     color: isPast ? Colors.grey[600] : null,
                                   ),
                             ),
@@ -94,8 +104,9 @@ class AppointmentCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            'Done',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            'Đã xong',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
                                   color: Colors.green[700],
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -114,17 +125,13 @@ class AppointmentCard extends StatelessWidget {
               if (appointment.doctorName != null) ...[
                 Row(
                   children: [
-                    Icon(
-                      Icons.person,
-                      size: 16,
-                      color: Colors.grey[600],
-                    ),
+                    Icon(Icons.person, size: 16, color: Colors.grey[600]),
                     const SizedBox(width: 8),
                     Text(
                       appointment.doctorName!,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: isPast ? Colors.grey[600] : null,
-                          ),
+                        color: isPast ? Colors.grey[600] : null,
+                      ),
                     ),
                   ],
                 ),
@@ -133,30 +140,27 @@ class AppointmentCard extends StatelessWidget {
               if (appointment.location != null) ...[
                 Row(
                   children: [
-                    Icon(
-                      Icons.location_on,
-                      size: 16,
-                      color: Colors.grey[600],
-                    ),
+                    Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         appointment.location!,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: isPast ? Colors.grey[600] : null,
-                            ),
+                          color: isPast ? Colors.grey[600] : null,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ],
-              if (appointment.notes != null && appointment.notes!.isNotEmpty) ...[
+              if (appointment.notes != null &&
+                  appointment.notes!.isNotEmpty) ...[
                 const SizedBox(height: 8),
                 Text(
                   appointment.notes!,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -182,10 +186,10 @@ class AppointmentCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Reminder ${appointment.reminderMinutesBefore} min before',
+                        'Nhắc trước ${appointment.reminderMinutesBefore} phút',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.orange[700],
-                            ),
+                          color: Colors.orange[700],
+                        ),
                       ),
                     ],
                   ),

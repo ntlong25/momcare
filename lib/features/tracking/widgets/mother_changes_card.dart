@@ -31,7 +31,7 @@ class MotherChangesCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Your Changes',
+                    'Thay đổi ở mẹ',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -39,10 +39,10 @@ class MotherChangesCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'What You May Experience',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              'Bạn có thể cảm nhận',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             ...weekData.motherChanges.map((change) {

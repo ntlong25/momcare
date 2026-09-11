@@ -31,11 +31,7 @@ class NutritionCard extends StatelessWidget {
                       color: Colors.green.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
-                      Icons.eco,
-                      color: Colors.green,
-                      size: 28,
-                    ),
+                    child: const Icon(Icons.eco, color: Colors.green, size: 28),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -44,9 +40,8 @@ class NutritionCard extends StatelessWidget {
                       children: [
                         Text(
                           nutrition.title,
-                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 4),
                         Container(
@@ -55,12 +50,15 @@ class NutritionCard extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                            color: Theme.of(
+                              context,
+                            ).primaryColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             nutrition.category,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -95,9 +93,9 @@ class NutritionCard extends StatelessWidget {
                     ),
                     child: Text(
                       benefit,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.green[800],
-                          ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(color: Colors.green[800]),
                     ),
                   );
                 }).toList(),

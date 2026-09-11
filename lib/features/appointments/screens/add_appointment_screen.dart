@@ -53,7 +53,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEdit ? 'Edit Appointment' : 'Add Appointment'),
+        title: Text(isEdit ? 'Sửa lịch hẹn' : 'Thêm lịch hẹn'),
         actions: [
           if (isEdit)
             IconButton(
@@ -72,45 +72,38 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(
-                  labelText: 'Title *',
-                  hintText: 'e.g., Prenatal Checkup',
+                  labelText: 'Tiêu đề *',
+                  hintText: 'Ví dụ: Khám thai định kỳ',
                   prefixIcon: Icon(Icons.title),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a title';
+                    return 'Vui lòng nhập tiêu đề';
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 24),
               Text(
-                'Date & Time',
+                'Ngày và giờ',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(
-                    child: _buildDateSelector(),
-                  ),
+                  Expanded(child: _buildDateSelector()),
                   const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildTimeSelector(),
-                  ),
+                  Expanded(child: _buildTimeSelector()),
                 ],
               ),
               const SizedBox(height: 24),
-              Text(
-                'Details',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text('Chi tiết', style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _doctorController,
                 decoration: const InputDecoration(
-                  labelText: 'Doctor Name',
-                  hintText: 'Enter doctor name',
+                  labelText: 'Tên bác sĩ',
+                  hintText: 'Nhập tên bác sĩ',
                   prefixIcon: Icon(Icons.person),
                 ),
               ),
@@ -118,8 +111,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               TextFormField(
                 controller: _locationController,
                 decoration: const InputDecoration(
-                  labelText: 'Location',
-                  hintText: 'Enter location/clinic',
+                  labelText: 'Địa điểm',
+                  hintText: 'Nhập địa điểm/phòng khám',
                   prefixIcon: Icon(Icons.location_on),
                 ),
               ),
@@ -128,8 +121,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 controller: _notesController,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  labelText: 'Notes',
-                  hintText: 'Any additional notes',
+                  labelText: 'Ghi chú',
+                  hintText: 'Ghi chú thêm',
                   alignLabelWithHint: true,
                   prefixIcon: Padding(
                     padding: EdgeInsets.only(bottom: 40),
@@ -138,14 +131,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              Text(
-                'Reminder',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text('Nhắc hẹn', style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 12),
               SwitchListTile(
-                title: const Text('Enable Reminder'),
-                subtitle: const Text('Get notified before appointment'),
+                title: const Text('Bật nhắc hẹn'),
+                subtitle: const Text('Nhận thông báo trước lịch hẹn'),
                 value: _reminderEnabled,
                 onChanged: (value) {
                   setState(() {
@@ -159,15 +149,15 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 DropdownButtonFormField<int>(
                   value: _reminderMinutes,
                   decoration: const InputDecoration(
-                    labelText: 'Remind me before',
+                    labelText: 'Nhắc trước',
                     prefixIcon: Icon(Icons.access_time),
                   ),
                   items: const [
-                    DropdownMenuItem(value: 15, child: Text('15 minutes')),
-                    DropdownMenuItem(value: 30, child: Text('30 minutes')),
-                    DropdownMenuItem(value: 60, child: Text('1 hour')),
-                    DropdownMenuItem(value: 120, child: Text('2 hours')),
-                    DropdownMenuItem(value: 1440, child: Text('1 day')),
+                    DropdownMenuItem(value: 15, child: Text('15 phút')),
+                    DropdownMenuItem(value: 30, child: Text('30 phút')),
+                    DropdownMenuItem(value: 60, child: Text('1 giờ')),
+                    DropdownMenuItem(value: 120, child: Text('2 giờ')),
+                    DropdownMenuItem(value: 1440, child: Text('1 ngày')),
                   ],
                   onChanged: (value) {
                     if (value != null) {
@@ -181,7 +171,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               if (isEdit) ...[
                 const SizedBox(height: 24),
                 SwitchListTile(
-                  title: const Text('Mark as Completed'),
+                  title: const Text('Đánh dấu đã hoàn tất'),
                   value: _isCompleted,
                   onChanged: (value) {
                     setState(() {
@@ -198,7 +188,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                   onPressed: _saveAppointment,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Text(isEdit ? 'Update Appointment' : 'Save Appointment'),
+                    child: Text(isEdit ? 'Cập nhật lịch hẹn' : 'Lưu lịch hẹn'),
                   ),
                 ),
               ),
@@ -225,10 +215,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               children: [
                 Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
                 const SizedBox(width: 8),
-                Text(
-                  'Date',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                Text('Ngày', style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
             const SizedBox(height: 8),
@@ -258,10 +245,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
               children: [
                 Icon(Icons.access_time, size: 16, color: Colors.grey[600]),
                 const SizedBox(width: 8),
-                Text(
-                  'Time',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                Text('Giờ', style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
             const SizedBox(height: 8),
@@ -318,8 +302,12 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       id: widget.appointment?.id ?? const Uuid().v4(),
       title: _titleController.text,
       dateTime: appointmentDateTime,
-      location: _locationController.text.isEmpty ? null : _locationController.text,
-      doctorName: _doctorController.text.isEmpty ? null : _doctorController.text,
+      location: _locationController.text.isEmpty
+          ? null
+          : _locationController.text,
+      doctorName: _doctorController.text.isEmpty
+          ? null
+          : _doctorController.text,
       notes: _notesController.text.isEmpty ? null : _notesController.text,
       isCompleted: _isCompleted,
       reminderEnabled: _reminderEnabled,
@@ -349,17 +337,17 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Appointment'),
-        content: const Text('Are you sure you want to delete this appointment?'),
+        title: const Text('Xóa lịch hẹn'),
+        content: const Text('Bạn có chắc muốn xóa lịch hẹn này không?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: const Text('Xóa'),
           ),
         ],
       ),
@@ -368,7 +356,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     if (confirmed == true && mounted) {
       await DatabaseService.deleteAppointment(widget.appointment!.id);
       // Cancel notification
-      await NotificationService.cancelNotification(widget.appointment!.id.hashCode);
+      await NotificationService.cancelNotification(
+        widget.appointment!.id.hashCode,
+      );
       if (mounted) {
         Navigator.of(context).pop(true);
       }

@@ -25,11 +25,11 @@ class PregnancyProgressCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Week $currentWeek',
+                      'Tuần $currentWeek',
                       style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -41,7 +41,9 @@ class PregnancyProgressCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                    color: Theme.of(
+                      context,
+                    ).primaryColor.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
@@ -69,11 +71,11 @@ class PregnancyProgressCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${(progress * 100).toInt()}% Complete',
+                  'Hoàn thành ${(progress * 100).toInt()}%',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
-                  'Due: ${DateFormatter.formatDate(pregnancy.dueDate)}',
+                  'Dự sinh: ${DateFormatter.formatDate(pregnancy.dueDate)}',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
@@ -113,11 +115,11 @@ class PregnancyProgressCard extends StatelessWidget {
 
   String _getWeeklyTip(int week) {
     if (week <= 13) {
-      return 'Các cơ quan chính của bé đang hình thành. Hãy uống vitamin bầu mỗi ngày!';
+      return 'Các cơ quan chính của bé đang hình thành. Hãy dùng vitamin bầu theo hướng dẫn của bác sĩ.';
     } else if (week <= 27) {
-      return 'Bé đang phát triển nhanh chóng. Hãy đảm bảo ăn uống cân bằng.';
+      return 'Bé đang phát triển nhanh. Hãy duy trì bữa ăn cân bằng và theo dõi lịch khám.';
     } else {
-      return 'Bé đang chuẩn bị chào đời. Hãy tập các kỹ thuật thư giãn.';
+      return 'Bé đang chuẩn bị chào đời. Hãy nghỉ ngơi và luyện tập thư giãn nếu phù hợp.';
     }
   }
 }

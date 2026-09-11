@@ -43,13 +43,13 @@ class UpcomingAppointmentsCard extends StatelessWidget {
                         const SizedBox(height: 12),
                         Text(
                           'Chưa có lịch hẹn nào',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Colors.grey[600],
-                              ),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: Colors.grey[600]),
                         ),
                         const SizedBox(height: 8),
                         TextButton.icon(
-                          onPressed: () => NavigationHelper.toAddAppointment(context),
+                          onPressed: () =>
+                              NavigationHelper.toAddAppointment(context),
                           icon: const Icon(Icons.add),
                           label: const Text('Thêm lịch hẹn'),
                         ),
@@ -104,10 +104,7 @@ class _AppointmentCard extends StatelessWidget {
             ],
           ],
         ),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: Colors.grey[400],
-        ),
+        trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
         isThreeLine: appointment.location != null,
         onTap: () => NavigationHelper.toAppointments(context),
       ),

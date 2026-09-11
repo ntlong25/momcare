@@ -45,7 +45,9 @@ class PregnancyModel extends HiveObject {
 
   int get currentWeek {
     final now = DateTime.now();
-    final difference = now.difference(lastPeriodDate ?? dueDate.subtract(const Duration(days: 280)));
+    final difference = now.difference(
+      lastPeriodDate ?? dueDate.subtract(const Duration(days: 280)),
+    );
     final weeks = (difference.inDays / 7).floor();
     return weeks.clamp(0, 42);
   }
@@ -57,9 +59,9 @@ class PregnancyModel extends HiveObject {
 
   String get trimester {
     final week = currentWeek;
-    if (week <= 13) return 'Trimester 1';
-    if (week <= 27) return 'Trimester 2';
-    return 'Trimester 3';
+    if (week <= 13) return 'Tam cá nguyệt 1';
+    if (week <= 27) return 'Tam cá nguyệt 2';
+    return 'Tam cá nguyệt 3';
   }
 
   double? get bmi {

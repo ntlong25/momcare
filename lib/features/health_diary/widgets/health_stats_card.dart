@@ -17,7 +17,7 @@ class HealthStatsCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Latest Stats',
+              'Số liệu mới nhất',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
@@ -27,10 +27,10 @@ class HealthStatsCard extends StatelessWidget {
                   Expanded(
                     child: _buildStatItem(
                       context,
-                      'Weight',
+                      'Cân nặng',
                       latestLog.weight != null
                           ? '${latestLog.weight!.toStringAsFixed(1)} kg'
-                          : 'N/A',
+                          : 'Chưa có',
                       Icons.monitor_weight,
                       Colors.blue,
                     ),
@@ -39,10 +39,11 @@ class HealthStatsCard extends StatelessWidget {
                   Expanded(
                     child: _buildStatItem(
                       context,
-                      'Blood Pressure',
-                      latestLog.systolicBP != null && latestLog.diastolicBP != null
+                      'Huyết áp',
+                      latestLog.systolicBP != null &&
+                              latestLog.diastolicBP != null
                           ? '${latestLog.systolicBP}/${latestLog.diastolicBP}'
-                          : 'N/A',
+                          : 'Chưa có',
                       Icons.favorite,
                       Colors.red,
                     ),
@@ -55,8 +56,8 @@ class HealthStatsCard extends StatelessWidget {
                   Expanded(
                     child: _buildStatItem(
                       context,
-                      'Mood',
-                      latestLog.mood ?? 'Not tracked',
+                      'Tâm trạng',
+                      latestLog.mood ?? 'Chưa theo dõi',
                       Icons.mood,
                       Colors.orange,
                     ),
@@ -65,7 +66,7 @@ class HealthStatsCard extends StatelessWidget {
                   Expanded(
                     child: _buildStatItem(
                       context,
-                      'Total Logs',
+                      'Tổng ghi nhận',
                       '${healthLogs.length}',
                       Icons.list,
                       Colors.green,
@@ -77,7 +78,7 @@ class HealthStatsCard extends StatelessWidget {
               const Center(
                 child: Padding(
                   padding: EdgeInsets.all(16),
-                  child: Text('No data available'),
+                  child: Text('Chưa có dữ liệu'),
                 ),
               ),
           ],
@@ -109,9 +110,9 @@ class HealthStatsCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -121,9 +122,9 @@ class HealthStatsCard extends StatelessWidget {
           Text(
             value,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
           ),
         ],
       ),

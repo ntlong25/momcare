@@ -2,6 +2,9 @@
   "@@locale": "vi",
 
   "appTitle": "MomCare+",
+  "@appTitle": {
+    "description": "Application title"
+  },
 
   "home": "Trang chủ",
   "tracking": "Theo dõi",
@@ -18,16 +21,16 @@
   "tips": "Lời khuyên",
   "weightGainTracker": "Theo dõi cân nặng",
   "currentWeight": "Cân nặng hiện tại",
-  "recommendedGain": "Tăng cân khuyến nghị",
+  "recommendedGain": "Mức tăng khuyến nghị",
   "kg": "kg",
 
   "healthDiary": "Nhật ký sức khỏe",
   "logs": "Nhật ký",
   "charts": "Biểu đồ",
-  "addHealthLog": "Thêm nhật ký",
-  "editHealthLog": "Sửa nhật ký",
-  "deleteHealthLog": "Xóa nhật ký",
-  "confirmDelete": "Bạn có chắc chắn muốn xóa nhật ký này không?",
+  "addHealthLog": "Thêm ghi nhận sức khỏe",
+  "editHealthLog": "Sửa ghi nhận sức khỏe",
+  "deleteHealthLog": "Xóa ghi nhận sức khỏe",
+  "confirmDelete": "Bạn có chắc muốn xóa ghi nhận sức khỏe này không?",
   "cancel": "Hủy",
   "delete": "Xóa",
   "save": "Lưu",
@@ -45,47 +48,47 @@
   "moodCalm": "Bình tĩnh",
   "moodAnxious": "Lo lắng",
   "moodTired": "Mệt mỏi",
-  "moodEnergetic": "Tràn đầy năng lượng",
+  "moodEnergetic": "Nhiều năng lượng",
   "moodUncomfortable": "Khó chịu",
 
   "latestStats": "Số liệu mới nhất",
-  "totalLogs": "Tổng số nhật ký",
+  "totalLogs": "Tổng ghi nhận",
   "notTracked": "Chưa theo dõi",
-  "noDataAvailable": "Không có dữ liệu",
+  "noDataAvailable": "Chưa có dữ liệu",
 
   "weightTrend": "Xu hướng cân nặng",
   "bloodPressureTrend": "Xu hướng huyết áp",
   "moodDistribution": "Phân bố tâm trạng",
-  "noWeightData": "Không có dữ liệu cân nặng",
-  "noBloodPressureData": "Không có dữ liệu huyết áp",
-  "noMoodData": "Không có dữ liệu tâm trạng",
+  "noWeightData": "Chưa có dữ liệu cân nặng",
+  "noBloodPressureData": "Chưa có dữ liệu huyết áp",
+  "noMoodData": "Chưa có dữ liệu tâm trạng",
 
   "appointments": "Lịch hẹn",
   "addAppointment": "Thêm lịch hẹn",
   "editAppointment": "Sửa lịch hẹn",
   "deleteAppointment": "Xóa lịch hẹn",
-  "confirmDeleteAppointment": "Bạn có chắc chắn muốn xóa lịch hẹn này không?",
+  "confirmDeleteAppointment": "Bạn có chắc muốn xóa lịch hẹn này không?",
   "title": "Tiêu đề",
   "description": "Mô tả",
   "location": "Địa điểm",
-  "reminderBefore": "Nhắc nhở trước",
+  "reminderBefore": "Nhắc trước",
   "minutes": "phút",
   "hour": "giờ",
   "hours": "giờ",
   "day": "ngày",
-  "noAppointments": "Không có lịch hẹn",
+  "noAppointments": "Chưa có lịch hẹn",
 
   "nutritionGuide": "Hướng dẫn dinh dưỡng",
   "guides": "Hướng dẫn",
   "recipes": "Công thức",
   "all": "Tất cả",
-  "trimester1": "3 tháng đầu",
-  "trimester2": "3 tháng giữa",
-  "trimester3": "3 tháng cuối",
+  "trimester1": "Tam cá nguyệt 1",
+  "trimester2": "Tam cá nguyệt 2",
+  "trimester3": "Tam cá nguyệt 3",
   "postpartum": "Sau sinh",
-  "babyFood": "Thức ăn cho bé",
-  "noNutritionGuides": "Không có hướng dẫn dinh dưỡng",
-  "noRecipes": "Không có công thức nấu ăn",
+  "babyFood": "Ăn dặm",
+  "noNutritionGuides": "Chưa có hướng dẫn dinh dưỡng",
+  "noRecipes": "Chưa có công thức nấu ăn",
 
   "benefits": "Lợi ích",
   "recommendedFoods": "Thực phẩm được khuyến nghị",
@@ -104,7 +107,7 @@
   "darkMode": "Chế độ tối",
   "enableDarkTheme": "Bật giao diện tối",
   "language": "Ngôn ngữ",
-  "selectLanguage": "Chọn ngôn ngữ của bạn",
+  "selectLanguage": "Chọn ngôn ngữ",
 
   "pregnancyInfo": "Thông tin thai kỳ",
   "dueDate": "Ngày dự sinh",
@@ -120,9 +123,9 @@
   "weightInKg": "Cân nặng (kg)",
   "enterWeightInKg": "Nhập cân nặng tính bằng kg",
 
-  "dueDateUpdated": "Đã cập nhật ngày dự sinh thành công",
-  "nameUpdated": "Đã cập nhật tên thành công",
-  "weightUpdated": "Đã cập nhật cân nặng thành công",
+  "dueDateUpdated": "Đã cập nhật ngày dự sinh",
+  "nameUpdated": "Đã cập nhật tên",
+  "weightUpdated": "Đã cập nhật cân nặng",
 
   "account": "Tài khoản",
   "profile": "Hồ sơ",
@@ -132,62 +135,93 @@
   "notificationSettings": "Cài đặt thông báo",
   "manageYourNotifications": "Quản lý thông báo của bạn",
 
-  "about": "Giới thiệu",
-  "aboutMomCare": "Giới thiệu MomCare+",
+  "about": "Thông tin",
+  "aboutMomCare": "Về MomCare+",
   "privacyPolicy": "Chính sách bảo mật",
   "version": "Phiên bản",
-  "appDescription": "MomCare+ là ứng dụng đồng hành của bạn cho sức khỏe thai kỳ và sau sinh. Theo dõi hành trình của bạn, nhận lời khuyên về dinh dưỡng và quản lý các cuộc hẹn.",
+  "appDescription": "MomCare+ là ứng dụng đồng hành trong thai kỳ và sau sinh. Ứng dụng giúp theo dõi hành trình, xem gợi ý dinh dưỡng và quản lý lịch hẹn.",
 
   "goodMorning": "Chào buổi sáng",
   "goodAfternoon": "Chào buổi chiều",
   "goodEvening": "Chào buổi tối",
-  "dailyTip": "Mẹo hàng ngày",
-  "dailyTipMessage": "Hãy uống đủ nước! Uống ít nhất 8-10 cốc nước mỗi ngày để hỗ trợ sự phát triển của bé và duy trì sức khỏe của bạn.",
+  "dailyTip": "Gợi ý hôm nay",
+  "dailyTipMessage": "Hãy uống đủ nước mỗi ngày để hỗ trợ sức khỏe của bạn và thai kỳ.",
 
   "welcomeToMomCare": "Chào mừng đến với MomCare+",
-  "startYourJourney": "Bắt đầu hành trình của bạn bằng cách thiết lập thông tin thai kỳ",
+  "startYourJourney": "Bắt đầu hành trình bằng cách thiết lập thông tin thai kỳ",
   "setUpPregnancy": "Thiết lập thai kỳ",
-  "noActivePregnancy": "Không có thai kỳ đang hoạt động",
+  "noActivePregnancy": "Chưa có thai kỳ đang theo dõi",
 
-  "letsGetStarted": "Hãy bắt đầu!",
-  "tellUsAboutYourself": "Cho chúng tôi biết một chút về bạn và thai kỳ của bạn",
-  "yourNameOptional": "Tên của bạn (Tùy chọn)",
+  "letsGetStarted": "Bắt đầu nhé!",
+  "tellUsAboutYourself": "Cho MomCare+ biết một vài thông tin về bạn và thai kỳ",
+  "yourNameOptional": "Tên của bạn (không bắt buộc)",
   "enterYourNameHint": "Nhập tên của bạn",
   "prePregnancyWeightKg": "Cân nặng trước khi mang thai (kg)",
   "enterYourWeightHint": "Nhập cân nặng của bạn",
   "heightCm": "Chiều cao (cm)",
   "enterYourHeightHint": "Nhập chiều cao của bạn",
-  "selectYourDueDate": "Chọn ngày dự sinh của bạn",
-  "lastPeriodDateOptional": "Ngày kinh cuối (Tùy chọn)",
-  "selectLastPeriodDate": "Chọn ngày kinh cuối",
-  "continue": "Tiếp tục",
-  "skipForNow": "Bỏ qua",
+  "selectYourDueDate": "Chọn ngày dự sinh",
+  "lastPeriodDateOptional": "Ngày đầu kỳ kinh cuối (không bắt buộc)",
+  "selectLastPeriodDate": "Chọn ngày đầu kỳ kinh cuối",
+  "continueButton": "Tiếp tục",
+  "skipForNow": "Bỏ qua lúc này",
   "pleaseSelectDueDate": "Vui lòng chọn ngày dự sinh",
 
-  "measurements": "Số đo",
+  "measurements": "Chỉ số",
   "weightKg": "Cân nặng (kg)",
   "systolicBP": "Huyết áp tâm thu",
   "diastolicBP": "Huyết áp tâm trương",
   "normalBP": "Bình thường: <120/<80 mmHg",
   "howAreYouFeelingToday": "Hôm nay bạn cảm thấy thế nào?",
-  "updateLog": "Cập nhật nhật ký",
-  "saveLog": "Lưu nhật ký",
-  "deleteLog": "Xóa nhật ký",
-  "confirmDeleteLog": "Bạn có chắc chắn muốn xóa nhật ký này không?",
+  "updateLog": "Cập nhật ghi nhận",
+  "saveLog": "Lưu ghi nhận",
+  "deleteLog": "Xóa ghi nhận",
+  "confirmDeleteLog": "Bạn có chắc muốn xóa ghi nhận sức khỏe này không?",
 
   "validationWeight": "Cân nặng phải trong khoảng {min}-{max} kg",
+  "@validationWeight": {
+    "placeholders": {
+      "min": {"type": "double"},
+      "max": {"type": "double"}
+    }
+  },
   "validationHeight": "Chiều cao phải trong khoảng {min}-{max} cm",
+  "@validationHeight": {
+    "placeholders": {
+      "min": {"type": "double"},
+      "max": {"type": "double"}
+    }
+  },
   "validationBPSystolic": "Phải trong khoảng {min}-{max}",
+  "@validationBPSystolic": {
+    "placeholders": {
+      "min": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
   "validationBPDiastolic": "Phải trong khoảng {min}-{max}",
+  "@validationBPDiastolic": {
+    "placeholders": {
+      "min": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
   "validationBPPair": "Tâm thu phải lớn hơn tâm trương",
   "validationInvalidNumber": "Vui lòng nhập số hợp lệ",
   "rangeHelper": "Khoảng: {min}-{max} {unit}",
+  "@rangeHelper": {
+    "placeholders": {
+      "min": {"type": "String"},
+      "max": {"type": "String"},
+      "unit": {"type": "String"}
+    }
+  },
 
   "upcomingAppointments": "Lịch hẹn sắp tới",
   "viewAll": "Xem tất cả",
   "addFirstAppointment": "Thêm lịch hẹn đầu tiên",
   "noUpcoming": "Không có lịch hẹn sắp tới",
-  "quickActions": "Thao tác nhanh",
+  "quickActions": "Truy cập nhanh",
 
   "nausea": "Buồn nôn",
   "headache": "Đau đầu",
@@ -195,13 +229,13 @@
   "swelling": "Sưng phù",
   "heartburn": "Ợ nóng",
   "fatigue": "Mệt mỏi",
-  "contractions": "Co thắt",
+  "contractions": "Cơn co",
   "cramps": "Chuột rút",
 
   "happy": "Vui vẻ",
   "calm": "Bình tĩnh",
   "anxious": "Lo lắng",
   "tired": "Mệt mỏi",
-  "energetic": "Tràn đầy năng lượng",
+  "energetic": "Nhiều năng lượng",
   "uncomfortable": "Khó chịu"
 }

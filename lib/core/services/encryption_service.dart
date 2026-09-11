@@ -16,14 +16,19 @@ class EncryptionService {
   static Future<HiveAesCipher?> getEncryptionCipher() async {
     try {
       // Try to get existing key
-      String? encryptionKey = await _secureStorage.read(key: _encryptionKeyName);
+      String? encryptionKey = await _secureStorage.read(
+        key: _encryptionKeyName,
+      );
 
       if (encryptionKey == null) {
         // Generate new key
         _logger.info('Generating new encryption key for Hive');
         final key = Hive.generateSecureKey();
         encryptionKey = base64Url.encode(key);
-        await _secureStorage.write(key: _encryptionKeyName, value: encryptionKey);
+        await _secureStorage.write(
+          key: _encryptionKeyName,
+          value: encryptionKey,
+        );
         _logger.info('Encryption key generated and stored securely');
       }
 
@@ -31,7 +36,11 @@ class EncryptionService {
       final key = base64Url.decode(encryptionKey);
       return HiveAesCipher(key);
     } catch (e, stackTrace) {
-      _logger.error('Failed to get encryption cipher', error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Failed to get encryption cipher',
+        error: e,
+        stackTrace: stackTrace,
+      );
       // Return null - boxes will be opened without encryption as fallback
       // In production, you might want to handle this differently
       return null;
@@ -42,9 +51,15 @@ class EncryptionService {
   static Future<void> deleteEncryptionKey() async {
     try {
       await _secureStorage.delete(key: _encryptionKeyName);
-      _logger.warning('Encryption key deleted - existing encrypted data will be unreadable');
+      _logger.warning(
+        'Encryption key deleted - existing encrypted data will be unreadable',
+      );
     } catch (e, stackTrace) {
-      _logger.error('Failed to delete encryption key', error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Failed to delete encryption key',
+        error: e,
+        stackTrace: stackTrace,
+      );
       rethrow;
     }
   }
@@ -55,7 +70,11 @@ class EncryptionService {
       final key = await _secureStorage.read(key: _encryptionKeyName);
       return key != null;
     } catch (e, stackTrace) {
-      _logger.error('Failed to check encryption key', error: e, stackTrace: stackTrace);
+      _logger.error(
+        'Failed to check encryption key',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }

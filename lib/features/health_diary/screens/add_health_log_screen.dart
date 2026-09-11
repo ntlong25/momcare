@@ -25,23 +25,23 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
   List<String> _selectedSymptoms = [];
 
   final List<String> _moods = [
-    'Happy',
-    'Calm',
-    'Anxious',
-    'Tired',
-    'Energetic',
-    'Uncomfortable',
+    'Vui vẻ',
+    'Bình tĩnh',
+    'Lo lắng',
+    'Mệt mỏi',
+    'Nhiều năng lượng',
+    'Khó chịu',
   ];
 
   final List<String> _symptoms = [
-    'Nausea',
-    'Headache',
-    'Back pain',
-    'Swelling',
-    'Heartburn',
-    'Fatigue',
-    'Contractions',
-    'Cramps',
+    'Buồn nôn',
+    'Đau đầu',
+    'Đau lưng',
+    'Sưng phù',
+    'Ợ nóng',
+    'Mệt mỏi',
+    'Cơn co',
+    'Chuột rút',
   ];
 
   @override
@@ -69,7 +69,9 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEdit ? 'Edit Health Log' : 'Add Health Log'),
+        title: Text(
+          isEdit ? 'Sửa ghi nhận sức khỏe' : 'Thêm ghi nhận sức khỏe',
+        ),
         actions: [
           if (isEdit)
             IconButton(
@@ -87,33 +89,24 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
             children: [
               _buildDateSelector(),
               const SizedBox(height: 24),
-              Text(
-                'Measurements',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Chỉ số', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
               _buildWeightField(),
               const SizedBox(height: 16),
               _buildBloodPressureFields(),
               const SizedBox(height: 24),
-              Text(
-                'Mood',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Tâm trạng', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
               _buildMoodSelector(),
               const SizedBox(height: 24),
               Text(
-                'Symptoms',
+                'Triệu chứng',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
               _buildSymptomsSelector(),
               const SizedBox(height: 24),
-              Text(
-                'Notes',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Ghi chú', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
               _buildNotesField(),
               const SizedBox(height: 32),
@@ -123,7 +116,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
                   onPressed: _saveLog,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Text(isEdit ? 'Update Log' : 'Save Log'),
+                    child: Text(isEdit ? 'Cập nhật' : 'Lưu'),
                   ),
                 ),
               ),
@@ -150,10 +143,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Date',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                Text('Ngày', style: Theme.of(context).textTheme.bodySmall),
                 const SizedBox(height: 4),
                 Text(
                   '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
@@ -172,10 +162,11 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
       controller: _weightController,
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
-        labelText: 'Weight (kg)',
-        hintText: 'Enter your weight',
+        labelText: 'Cân nặng (kg)',
+        hintText: 'Nhập cân nặng của bạn',
         prefixIcon: const Icon(Icons.monitor_weight),
-        helperText: 'Range: ${HealthValidators.minWeight}-${HealthValidators.maxWeight} kg',
+        helperText:
+            'Khoảng: ${HealthValidators.minWeight}-${HealthValidators.maxWeight} kg',
       ),
       validator: HealthValidators.validateWeight,
     );
@@ -192,7 +183,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
                 controller: _systolicController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: 'Systolic BP',
+                  labelText: 'Huyết áp tâm thu',
                   hintText: '120',
                   prefixIcon: Icon(Icons.favorite),
                 ),
@@ -215,7 +206,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
                 controller: _diastolicController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: 'Diastolic BP',
+                  labelText: 'Huyết áp tâm trương',
                   hintText: '80',
                   prefixIcon: Icon(Icons.favorite),
                 ),
@@ -226,7 +217,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Normal: <120/<80 mmHg',
+          'Bình thường: <120/<80 mmHg',
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ],
@@ -282,8 +273,8 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
       controller: _notesController,
       maxLines: 4,
       decoration: const InputDecoration(
-        labelText: 'Notes',
-        hintText: 'How are you feeling today?',
+        labelText: 'Ghi chú',
+        hintText: 'Hôm nay bạn cảm thấy thế nào?',
         alignLabelWithHint: true,
       ),
     );
@@ -337,17 +328,19 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Log'),
-        content: const Text('Are you sure you want to delete this health log?'),
+        title: const Text('Xóa ghi nhận'),
+        content: const Text(
+          'Bạn có chắc muốn xóa ghi nhận sức khỏe này không?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: const Text('Hủy'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: const Text('Xóa'),
           ),
         ],
       ),

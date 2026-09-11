@@ -16,26 +16,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingPage> _pages = [
     OnboardingPage(
-      title: 'Welcome to MomCare+',
-      description: 'Your companion app for a healthy and happy pregnancy journey',
+      title: 'Chào mừng đến với MomCare+',
+      description:
+          'Người bạn đồng hành giúp bạn theo dõi thai kỳ khỏe mạnh và an tâm hơn',
       icon: Icons.favorite,
       color: const Color(0xFFFF9A9E),
     ),
     OnboardingPage(
-      title: 'Track Your Progress',
-      description: 'Monitor your pregnancy week by week and track your baby\'s development',
+      title: 'Theo dõi hành trình',
+      description:
+          'Theo dõi thai kỳ theo từng tuần và lưu lại các mốc phát triển quan trọng',
       icon: Icons.track_changes,
       color: const Color(0xFFFAD0C4),
     ),
     OnboardingPage(
-      title: 'Nutrition Guidance',
-      description: 'Get personalized nutrition advice and healthy recipes for each trimester',
+      title: 'Gợi ý dinh dưỡng',
+      description:
+          'Xem hướng dẫn dinh dưỡng và công thức phù hợp theo từng giai đoạn',
       icon: Icons.restaurant_menu,
       color: const Color(0xFFFFC3A0),
     ),
     OnboardingPage(
-      title: 'Stay Organized',
-      description: 'Never miss an appointment with smart reminders and scheduling',
+      title: 'Sắp xếp lịch hẹn',
+      description:
+          'Lưu lịch khám và nhận nhắc nhở để không bỏ lỡ những mốc cần nhớ',
       icon: Icons.calendar_today,
       color: const Color(0xFFFFB74D),
     ),
@@ -84,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             },
-                            child: const Text('Back'),
+                            child: const Text('Quay lại'),
                           ),
                         ),
                       if (_currentPage > 0) const SizedBox(width: 16),
@@ -101,7 +105,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             }
                           },
                           child: Text(
-                            _currentPage == _pages.length - 1 ? 'Get Started' : 'Next',
+                            _currentPage == _pages.length - 1
+                                ? 'Bắt đầu'
+                                : 'Tiếp tục',
                           ),
                         ),
                       ),
@@ -110,7 +116,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   if (_currentPage < _pages.length - 1)
                     TextButton(
                       onPressed: _completeOnboarding,
-                      child: const Text('Skip'),
+                      child: const Text('Bỏ qua'),
                     ),
                 ],
               ),
@@ -133,18 +139,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               color: page.color.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              page.icon,
-              size: 100,
-              color: page.color,
-            ),
+            child: Icon(page.icon, size: 100, color: page.color),
           ),
           const SizedBox(height: 48),
           Text(
             page.title,
-            style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
@@ -179,9 +181,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (!mounted) return;
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const PregnancySetupScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const PregnancySetupScreen()),
     );
   }
 

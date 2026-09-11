@@ -1,36 +1,34 @@
-“MomCare+” – Pregnancy & Postpartum Health App 🤰💖
-Concept: Ứng dụng chăm sóc sức khỏe dành cho mẹ bầu và mẹ sau sinh — giúp theo dõi thai kỳ, xây dựng chế độ dinh dưỡng phù hợp từng giai đoạn và nhắc nhở lịch khám thai. Hỗ trợ cả hành trình từ lúc mang thai → sinh con → nuôi con.
+# MomCare+
 
-💡 Why it works
-• Problem rõ ràng: Mẹ bầu thiếu kiến thức dinh dưỡng và dễ quên lịch khám/nhắc uống thuốc.• Retention cao: Tracking theo từng tuần thai → user mở app mỗi ngày.• High emotional engagement: Gắn liền với hành trình làm mẹ.• Scalable market: Hướng đến mẹ bầu trên toàn thế giới, dễ mở rộng.
+MomCare+ là ứng dụng Flutter hỗ trợ người dùng tại Việt Nam theo dõi thai kỳ, chuẩn bị mang thai, ghi nhận sức khỏe, xem gợi ý dinh dưỡng và quản lý lịch hẹn.
 
-⚙️ MVP Tech stack
-Mobile app: Flutter
+## Trạng thái V1
 
-- State management: Riverpod / Bloc
-- Local DB: Hive / SQLite
-- Networking: Dio
-- Notifications: Local push notification
-- Multi-language, dark mode
-  Backend (optional)Nếu cần đồng bộ dữ liệu: Supabase hoặc Firebase
-- Auth (email/Google/Apple)
-- Database (tracking, health logs)
-- Storage (avatar, ảnh nhật ký)
+- Offline-first: dữ liệu được lưu cục bộ trên thiết bị.
+- Chưa có đăng nhập, cloud sync, Supabase, analytics hoặc quảng cáo trong V1.
+- Giao diện phát hành V1 dùng tiếng Việt.
+- Nội dung sức khỏe chỉ mang tính tham khảo và không thay thế tư vấn y tế chuyên môn.
 
-🧩 Features – MVP
-✅ Chế độ dinh dưỡng
-• Hướng dẫn dinh dưỡng cho mẹ bầu theo từng giai đoạn thai kỳ• Khuyến nghị ăn uống & thực đơn mẫu theo từng tam cá nguyệt• Dinh dưỡng phục hồi sau sinh• Hướng dẫn dinh dưỡng cho bé theo tháng/tuần• Kho công thức nấu ăn lành mạnh• Tư vấn bổ sung vitamin & khoáng chất (ưu tiên thông tin xác thực)
-✅ Tracking và Theo dõi
-• Tracking tiến độ thai kỳ và các mốc an toàn• Nhật ký sức khoẻ (cân nặng, huyết áp, cảm xúc mỗi ngày)• Theo dõi phát triển của thai nhi theo tuần• Lịch khám thai + nhắc lịch• Đếm ngược ngày dự sinh
-✅ Tiện ích công nghệ
-• Nhắc nhở bổ sung vitamin/thuốc• Tích hợp bảng tính BMI dành cho mẹ bầu• Dark mode• Hỗ trợ nhiều ngôn ngữ• Đồng bộ dữ liệu (nếu dùng backend)• Privacy: bảo mật dữ liệu cá nhân
+## Tech Stack
 
-🤖 AI (optional cho v1.1)
-• Gợi ý thực đơn theo sở thích và cân nặng• Trả lời câu hỏi sức khoẻ ở mức thông tin (không thay thế bác sĩ)
+- Flutter
+- Riverpod
+- Hive
+- flutter_local_notifications
+- table_calendar
+- fl_chart
+- health
 
-🚀 Future roadmap (beyond MVP)
-• Tham gia cộng đồng mẹ bầu → social feed• Chat với chuyên gia dinh dưỡng• Kết nối wearable device để theo dõi nhịp tim, giấc ngủ• Gợi ý playlist bài tập Yoga/Breathing
+## Chức Năng Chính
 
-🏁 Summary
-“MomCare+” = Nutrition + Tracking + Reminder + Emotional support
-→ App đồng hành cùng mẹ bầu từ lúc biết tin có thai cho đến khi bé chào đời và phát triển những tháng đầu đời.
+- Chọn chế độ sử dụng: đang mang thai hoặc chuẩn bị mang thai.
+- Theo dõi thai kỳ theo tuần và ngày dự sinh.
+- Ghi nhật ký sức khỏe gồm cân nặng, huyết áp, tâm trạng, triệu chứng và ghi chú.
+- Theo dõi chu kỳ kinh nguyệt và dự đoán các mốc chu kỳ.
+- Xem hướng dẫn dinh dưỡng và công thức món ăn mẫu.
+- Quản lý lịch hẹn và nhắc lịch cục bộ.
+- Chế độ sáng/tối.
+
+## Publish Readiness
+
+Kế hoạch publish readiness được theo dõi trong `PLAN.md`. Các yêu cầu sản phẩm và guardrail cho agent được ghi trong `requirements.md` và `AGENTS.md`.

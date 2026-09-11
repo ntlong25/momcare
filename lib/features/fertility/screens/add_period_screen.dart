@@ -20,15 +20,15 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
   final List<String> _selectedSymptoms = [];
 
   final List<String> _availableSymptoms = [
-    'Cramps',
-    'Headache',
-    'Mood swings',
-    'Fatigue',
-    'Bloating',
-    'Breast tenderness',
-    'Back pain',
-    'Acne',
-    'Nausea',
+    'Chuột rút',
+    'Đau đầu',
+    'Thay đổi tâm trạng',
+    'Mệt mỏi',
+    'Đầy hơi',
+    'Căng tức ngực',
+    'Đau lưng',
+    'Mụn',
+    'Buồn nôn',
   ];
 
   @override
@@ -43,7 +43,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
     if (_startDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please select start date'),
+          content: Text('Vui lòng chọn ngày bắt đầu'),
           backgroundColor: Colors.red,
         ),
       );
@@ -89,9 +89,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Period'),
-      ),
+      appBar: AppBar(title: const Text('Thêm kỳ kinh')),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -100,7 +98,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Period Details',
+                'Thông tin kỳ kinh',
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -111,18 +109,20 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.calendar_today, color: Colors.red),
-                title: const Text('Start Date *'),
+                title: const Text('Ngày bắt đầu *'),
                 subtitle: Text(
                   _startDate != null
                       ? '${_startDate!.day}/${_startDate!.month}/${_startDate!.year}'
-                      : 'Select start date',
+                      : 'Chọn ngày bắt đầu',
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () async {
                   final picked = await showDatePicker(
                     context: context,
                     initialDate: _startDate ?? DateTime.now(),
-                    firstDate: DateTime.now().subtract(const Duration(days: 365)),
+                    firstDate: DateTime.now().subtract(
+                      const Duration(days: 365),
+                    ),
                     lastDate: DateTime.now(),
                   );
                   if (picked != null) {
@@ -142,11 +142,11 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.event, color: Colors.red),
-                title: const Text('End Date (Optional)'),
+                title: const Text('Ngày kết thúc (không bắt buộc)'),
                 subtitle: Text(
                   _endDate != null
                       ? '${_endDate!.day}/${_endDate!.month}/${_endDate!.year}'
-                      : 'Select end date if period ended',
+                      : 'Chọn ngày kết thúc nếu kỳ kinh đã hết',
                 ),
                 trailing: _endDate != null
                     ? IconButton(
@@ -163,7 +163,9 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
                     : () async {
                         final picked = await showDatePicker(
                           context: context,
-                          initialDate: _endDate ?? _startDate!.add(const Duration(days: 5)),
+                          initialDate:
+                              _endDate ??
+                              _startDate!.add(const Duration(days: 5)),
                           firstDate: _startDate!,
                           lastDate: DateTime.now(),
                         );
@@ -180,7 +182,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
 
               // Flow Intensity
               Text(
-                'Flow Intensity',
+                'Lượng kinh',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -190,17 +192,17 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
                 segments: const [
                   ButtonSegment(
                     value: 'light',
-                    label: Text('Light'),
+                    label: Text('Ít'),
                     icon: Icon(Icons.water_drop_outlined),
                   ),
                   ButtonSegment(
                     value: 'medium',
-                    label: Text('Medium'),
+                    label: Text('Vừa'),
                     icon: Icon(Icons.water_drop),
                   ),
                   ButtonSegment(
                     value: 'heavy',
-                    label: Text('Heavy'),
+                    label: Text('Nhiều'),
                     icon: Icon(Icons.water),
                   ),
                 ],
@@ -216,7 +218,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
 
               // Symptoms
               Text(
-                'Symptoms',
+                'Triệu chứng',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -247,7 +249,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
 
               // Notes
               Text(
-                'Notes (Optional)',
+                'Ghi chú (không bắt buộc)',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -257,7 +259,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
                 controller: _notesController,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  hintText: 'Add any additional notes...',
+                  hintText: 'Thêm ghi chú nếu cần...',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -271,7 +273,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
                   onPressed: _savePeriod,
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Text('Save Period'),
+                    child: Text('Lưu kỳ kinh'),
                   ),
                 ),
               ),

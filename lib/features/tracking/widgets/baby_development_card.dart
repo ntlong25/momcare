@@ -31,7 +31,7 @@ class BabyDevelopmentCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Baby Development',
+                    'Sự phát triển của bé',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
@@ -41,29 +41,24 @@ class BabyDevelopmentCard extends StatelessWidget {
             _buildInfoRow(
               context,
               Icons.straighten,
-              'Length',
+              'Chiều dài',
               weekData.babyLength,
             ),
             const SizedBox(height: 12),
             _buildInfoRow(
               context,
               Icons.monitor_weight_outlined,
-              'Weight',
+              'Cân nặng',
               weekData.babyWeight,
             ),
             const SizedBox(height: 12),
-            _buildInfoRow(
-              context,
-              Icons.spa,
-              'Size',
-              weekData.babySize,
-            ),
+            _buildInfoRow(context, Icons.spa, 'Kích thước', weekData.babySize),
             const Divider(height: 32),
             Text(
-              'What\'s Happening',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              'Điều đang diễn ra',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -88,17 +83,17 @@ class BabyDevelopmentCard extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           '$label:',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Colors.grey[600],
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             value,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
           ),
         ),
       ],
