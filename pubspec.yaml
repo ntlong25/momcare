@@ -112,6 +112,7 @@ flutter:
   assets:
     - assets/content/
     - assets/content/guides/
+    - assets/images/weeks/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

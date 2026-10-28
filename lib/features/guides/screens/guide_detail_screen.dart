@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/guide_models.dart';
 import '../../../core/services/guide_progress_service.dart';
+import '../../references/widgets/draft_content_note.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../guide_actions.dart';
 
@@ -48,7 +49,7 @@ class GuideDetailScreen extends ConsumerWidget {
           ],
           if (guide.isDraft) ...[
             const SizedBox(height: 12),
-            const _DraftNote(),
+            const DraftContentNote(),
           ],
           for (final section in guide.sections) _SectionView(section: section),
           if (guide.checklist.isNotEmpty) ...[
@@ -57,7 +58,9 @@ class GuideDetailScreen extends ConsumerWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Việc cần làm',
+                    guide.tracksProgress
+                        ? 'Việc cần làm'
+                        : 'Dấu hiệu cần lưu ý',
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -78,6 +81,7 @@ class GuideDetailScreen extends ConsumerWidget {
             for (final item in guide.checklist)
               _ChecklistTile(
                 item: item,
+                tickable: guide.tracksProgress,
                 checked: ticked.contains(item.id),
                 onChanged: (value) => ref
                     .read(guideChecklistProvider.notifier)
@@ -117,28 +121,6 @@ class GuideDetailScreen extends ConsumerWidget {
             note:
                 'Thông tin mang tính tham khảo, không thay thế tư vấn của bác sĩ hoặc nhân viên y tế.',
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DraftNote extends StatelessWidget {
-  const _DraftNote();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.amber.withValues(alpha: 0.18),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Row(
-        children: [
-          Icon(Icons.info_outline, color: Colors.orange),
-          SizedBox(width: 8),
-          Expanded(child: Text('Nội dung đang chờ bác sĩ duyệt')),
         ],
       ),
     );
@@ -215,12 +197,16 @@ class _ActionButton extends StatelessWidget {
 
 class _ChecklistTile extends StatelessWidget {
   final GuideChecklistItem item;
+
+  /// False renders a plain bullet (no checkbox), e.g. for warning guides.
+  final bool tickable;
   final bool checked;
   final ValueChanged<bool> onChanged;
   final VoidCallback onAction;
 
   const _ChecklistTile({
     required this.item,
+    this.tickable = true,
     required this.checked,
     required this.onChanged,
     required this.onAction,
@@ -231,22 +217,41 @@ class _ChecklistTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CheckboxListTile(
-          contentPadding: EdgeInsets.zero,
-          controlAffinity: ListTileControlAffinity.leading,
-          value: checked,
-          onChanged: (value) => onChanged(value ?? false),
-          title: Text(
-            item.text,
-            style: checked
-                ? const TextStyle(decoration: TextDecoration.lineThrough)
+        if (!tickable)
+          Padding(
+            padding: const EdgeInsets.only(top: 10, left: 4),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('•  '),
+                Expanded(
+                  child: Text(
+                    item.text,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          CheckboxListTile(
+            contentPadding: EdgeInsets.zero,
+            controlAffinity: ListTileControlAffinity.leading,
+            value: checked,
+            onChanged: (value) => onChanged(value ?? false),
+            title: Text(
+              item.text,
+              style: checked
+                  ? const TextStyle(decoration: TextDecoration.lineThrough)
+                  : null,
+            ),
+            subtitle: item.weekDue != null
+                ? Text('Tuần ${item.weekDue}')
                 : null,
           ),
-          subtitle: item.weekDue != null ? Text('Tuần ${item.weekDue}') : null,
-        ),
         if (item.actionType != GuideActionType.none)
           Padding(
-            padding: const EdgeInsets.only(left: 40),
+            padding: EdgeInsets.only(left: tickable ? 40 : 16),
             child: _ActionButton(
               type: item.actionType,
               label: item.actionLabel,

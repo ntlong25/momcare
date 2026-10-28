@@ -192,9 +192,16 @@ class GuideArticle {
 
   bool get isDraft => reviewStatus != ReviewStatus.approved;
 
-  /// Checklist completion ratio 0..1, or null when there is no checklist.
+  /// Whether checklist items are tickable to-dos with a progress bar.
+  /// Warning guides list danger signs, so ticking them makes no sense; their
+  /// checklist renders as plain bullets instead.
+  bool get tracksProgress =>
+      checklist.isNotEmpty && category != GuideCategory.warning;
+
+  /// Checklist completion ratio 0..1, or null when the guide has no
+  /// checklist or does not track progress (see [tracksProgress]).
   double? progress(Set<String> tickedIds) {
-    if (checklist.isEmpty) return null;
+    if (!tracksProgress) return null;
     final done = checklist.where((item) => tickedIds.contains(item.id)).length;
     return done / checklist.length;
   }

@@ -6,9 +6,11 @@ import 'package:uuid/uuid.dart';
 import '../models/guide_models.dart';
 import '../models/nutrition_model.dart';
 import '../models/recipe_model.dart';
+import '../models/week_detail_model.dart';
 import 'guide_content_parser.dart';
 import 'pregnancy_weeks_data.dart';
 import 'sample_nutrition_data.dart';
+import 'week_content_parser.dart';
 
 class ContentPackService {
   static const String pregnancyAssetPath =
@@ -26,6 +28,7 @@ class ContentPackService {
   static String? _nutritionContentVersion;
   static List<GuideArticle> _guides = const [];
   static Map<String, ContentSource> _sources = const {};
+  static Map<int, WeekDetail> _weekDetails = const {};
 
   static Map<int, PregnancyWeekData> get pregnancyWeeks =>
       _pregnancyWeeks ?? _buildFallbackPregnancyWeeks();
@@ -47,6 +50,25 @@ class ContentPackService {
   /// Source metadata by id from `sources.json` (empty when missing).
   static Map<String, ContentSource> get sources => _sources;
 
+  /// Detailed week pages from `weeks_v2.json` (empty when missing/invalid).
+  static Map<int, WeekDetail> get weekDetails => _weekDetails;
+
+  /// Week page for [week] (clamped to 0..42). Falls back to the legacy
+  /// `pregnancy_weeks` data when `weeks_v2.json` has no entry for it.
+  static WeekDetail weekDetail(int week) =>
+      resolveWeekDetail(week, _weekDetails);
+
+  static WeekDetail resolveWeekDetail(int week, Map<int, WeekDetail> details) {
+    final clamped = week.clamp(
+      WeekContentParser.minWeek,
+      WeekContentParser.maxWeek,
+    );
+    return details[clamped] ??
+        WeekDetail.fromPregnancyWeek(
+          PregnancyWeeksDatabase.getWeekData(clamped),
+        );
+  }
+
   static Future<void> init() async {
     _pregnancyWeeks = await loadPregnancyWeeks(rootBundle);
     _nutritionGuides = await loadNutritionGuides(rootBundle);
@@ -54,7 +76,15 @@ class ContentPackService {
     _recipes = SampleNutritionData.getRecipes();
     _sources = await loadSources(rootBundle);
     _guides = await loadGuides(rootBundle);
+    _weekDetails = await loadWeekDetails(rootBundle);
   }
+
+  /// Loads `weeks_v2.json`; never throws (missing/invalid -> empty map).
+  static Future<Map<int, WeekDetail>> loadWeekDetails(AssetBundle bundle) =>
+      WeekContentParser.loadWeekDetails(bundle);
+
+  static Map<int, WeekDetail> parseWeekDetails(String rawJson) =>
+      WeekContentParser.parseWeekDetails(rawJson);
 
   static Future<String?> loadNutritionContentVersion(AssetBundle bundle) async {
     try {

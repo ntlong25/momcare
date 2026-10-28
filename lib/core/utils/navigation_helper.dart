@@ -12,6 +12,7 @@ import '../../features/legal/screens/privacy_policy_screen.dart';
 import '../../features/legal/screens/medical_disclaimer_screen.dart';
 import '../../features/emergency/screens/emergency_warning_screen.dart';
 import '../../features/references/screens/references_screen.dart';
+import '../../features/tracking/screens/week_detail_screen.dart';
 
 class NavigationHelper {
   static Future<T?> toPregnancySetup<T>(BuildContext context) {
@@ -101,6 +102,13 @@ class NavigationHelper {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(builder: (_) => const EmergencyWarningScreen()),
+    );
+  }
+
+  static Future<T?> toWeekDetail<T>(BuildContext context, int week) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => WeekDetailScreen(initialWeek: week)),
     );
   }
 
