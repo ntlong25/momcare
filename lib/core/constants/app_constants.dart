@@ -26,6 +26,7 @@ class AppConstants {
   static const String maternalHabitsKey = 'maternal_habits';
   static const String guideChecklistKey = 'guide_checklist_ticks';
   static const String thaiGiaoDoneKey = 'thai_giao_done_dates';
+  static const String milestoneDoneKey = 'milestone_done_dates';
   static const String thaiGiaoReminderKey = 'thai_giao_reminder';
 
   // Pregnancy Weeks
