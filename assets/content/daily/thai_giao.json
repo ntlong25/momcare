@@ -1,0 +1,2654 @@
+{
+  "version": 1,
+  "type": "thai_giao",
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "items": [
+    {
+      "day": 1,
+      "week": 0,
+      "category": "talk",
+      "title": "Lời chào đầu tiên",
+      "body": "Hành trình chưa bắt đầu, nhưng bạn có thể nói ra mong ước về gia đình nhỏ của mình. Hãy nói thành lời một câu đơn giản như \"Mẹ đang chuẩn bị đón con\". Nói ra giúp bạn rõ ràng hơn về điều mình mong muốn.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 2,
+      "week": 0,
+      "category": "music",
+      "title": "Một bản nhạc thư giãn",
+      "body": "Chọn \"Canon in D\" của Pachelbel hoặc một bài dân ca bạn yêu thích. Nghe trong lúc nằm nghỉ, để đầu óc nhẹ nhàng. Âm nhạc ở giai đoạn này là để chăm sóc chính bạn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 3,
+      "week": 0,
+      "category": "movement",
+      "title": "Đi bộ chậm buổi chiều",
+      "body": "Đi bộ chậm 15–20 phút ở nơi thoáng mát. Chú ý vào từng bước chân và hơi thở. Vận động đều đặn là món quà tốt cho cơ thể trước khi mang thai.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 4,
+      "week": 0,
+      "category": "reading",
+      "title": "Đọc một bài ca dao",
+      "body": "Đọc chậm câu \"Công cha như núi Thái Sơn, nghĩa mẹ như nước trong nguồn chảy ra\". Nghĩ về điều bạn muốn trao lại cho con. Đọc to giúp bạn quen với giọng kể của mình.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 5,
+      "week": 0,
+      "category": "breathing",
+      "title": "Hít thở 4 – 6",
+      "body": "Ngồi thẳng, hít vào bằng mũi đếm đến 4, thở ra chậm bằng miệng đếm đến 6. Lặp lại 10 lần. Thở ra dài hơn hít vào giúp cơ thể thư giãn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 6,
+      "week": 0,
+      "category": "partner",
+      "title": "Trò chuyện cùng nhau",
+      "body": "Hai vợ chồng dành 15 phút không điện thoại để nói về mong ước làm cha mẹ. Mỗi người kể một kỷ niệm đẹp về bố mẹ mình. Lắng nghe mà không ngắt lời.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 7,
+      "week": 0,
+      "category": "journal",
+      "title": "Trang nhật ký đầu tiên",
+      "body": "Viết ngày hôm nay và ba điều bạn mong đợi khi làm mẹ. Không cần viết hay, chỉ cần thật lòng. Cuốn nhật ký này sẽ là kỷ niệm quý sau này.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 8,
+      "week": 1,
+      "category": "talk",
+      "title": "Nói lời tử tế với bản thân",
+      "body": "Đứng trước gương và nói một câu dịu dàng với chính mình, như \"Mình đang làm tốt\". Người mẹ bình tĩnh bắt đầu từ việc đối xử tử tế với bản thân.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 9,
+      "week": 1,
+      "category": "music",
+      "title": "Ru con – dân ca Nam Bộ",
+      "body": "Nghe một bản ru con Nam Bộ với câu \"Ầu ơ ví dầu\". Để ý giai điệu chậm, êm như nhịp võng. Bạn có thể ngân nga theo.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 10,
+      "week": 1,
+      "category": "movement",
+      "title": "Giãn cơ cổ vai",
+      "body": "Ngồi thẳng, nghiêng đầu chậm sang trái, giữ 10 giây, rồi sang phải. Xoay vai ra sau 10 lần. Bài tập nhẹ giúp giảm mỏi sau giờ làm.",
+      "durationMin": 8,
+      "sources": []
+    },
+    {
+      "day": 11,
+      "week": 1,
+      "category": "reading",
+      "title": "Sự tích Con Rồng cháu Tiên",
+      "body": "Đọc lại câu chuyện về Lạc Long Quân và Âu Cơ. Đây là câu chuyện về gia đình và cội nguồn mà sau này bạn có thể kể cho con. Thử kể lại bằng lời của mình.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 12,
+      "week": 1,
+      "category": "breathing",
+      "title": "Thả lỏng từng vùng cơ thể",
+      "body": "Nằm thoải mái, nhắm mắt. Lần lượt chú ý và thả lỏng bàn chân, bắp chân, đùi, bụng, vai, mặt. Hít thở đều trong suốt bài tập.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 13,
+      "week": 1,
+      "category": "partner",
+      "title": "Cùng nấu một bữa",
+      "body": "Hai vợ chồng cùng nấu một bữa có nhiều rau xanh. Vừa nấu vừa trò chuyện về thói quen ăn uống muốn thay đổi. Việc nhỏ chung tay giúp hai người gắn bó hơn.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 14,
+      "week": 1,
+      "category": "journal",
+      "title": "Viết về cơ thể mình",
+      "body": "Viết ba điều bạn biết ơn về cơ thể của mình. Ghi thêm một thói quen sức khỏe bạn muốn bắt đầu tuần này.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 15,
+      "week": 2,
+      "category": "talk",
+      "title": "Kể về một ngày bình yên",
+      "body": "Nói to về một ngày bình yên bạn tưởng tượng cùng con trong tương lai. Bạn đang ở đâu, nghe thấy gì? Tưởng tượng tích cực giúp tinh thần thư thái.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 16,
+      "week": 2,
+      "category": "music",
+      "title": "Clair de lune",
+      "body": "Nghe \"Clair de lune\" của Debussy trong ánh đèn dịu. Nhắm mắt và để giai điệu dẫn bạn thư giãn.",
+      "durationMin": 6,
+      "sources": []
+    },
+    {
+      "day": 17,
+      "week": 2,
+      "category": "movement",
+      "title": "Đi bộ nhanh",
+      "body": "Đi bộ nhanh vừa sức 20–30 phút, đủ để thở nhanh hơn nhưng vẫn nói chuyện được. Mang giày êm và uống nước sau khi đi.",
+      "durationMin": 25,
+      "sources": []
+    },
+    {
+      "day": 18,
+      "week": 2,
+      "category": "reading",
+      "title": "Bài thơ \"Mẹ\" của Trần Quốc Minh",
+      "body": "Đọc bài thơ \"Mẹ\" (\"Lặng rồi cả tiếng con ve…\"). Đọc chậm, nhấn vào những câu bạn thấy xúc động. Ghi lại câu bạn thích nhất.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 19,
+      "week": 2,
+      "category": "breathing",
+      "title": "Thở bụng",
+      "body": "Đặt một tay lên ngực, một tay lên bụng. Hít vào để bụng phồng lên, ngực ít chuyển động. Thở ra chậm, bụng xẹp xuống. Lặp lại 10 lần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 20,
+      "week": 2,
+      "category": "partner",
+      "title": "Một buổi hẹn nhỏ",
+      "body": "Hai vợ chồng đi dạo hoặc uống nước ép cùng nhau. Nói về những điều làm mỗi người thấy hạnh phúc dạo gần đây.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 21,
+      "week": 2,
+      "category": "journal",
+      "title": "Thư gửi con tương lai",
+      "body": "Viết vài dòng bắt đầu bằng \"Gửi con, người mẹ chưa gặp…\". Kể cho con nghe hôm nay mẹ đã làm gì.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 22,
+      "week": 3,
+      "category": "talk",
+      "title": "Lời nhắn yêu thương",
+      "body": "Có thể một hành trình mới đang lặng lẽ bắt đầu. Hãy nói một lời nhắn nhẹ nhàng, dù bạn chưa biết chắc. Điều này giúp bạn kết nối với cảm xúc của mình.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 23,
+      "week": 3,
+      "category": "music",
+      "title": "Lý cây đa",
+      "body": "Nghe bài dân ca Quan họ \"Lý cây đa\". Giai điệu mộc mạc giúp tâm trạng dịu lại sau ngày dài.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 24,
+      "week": 3,
+      "category": "movement",
+      "title": "Duỗi người buổi sáng",
+      "body": "Ngay khi thức dậy, nằm duỗi tay chân, vươn người nhẹ nhàng. Ngồi dậy từ từ, nghiêng sang một bên rồi chống tay. Tránh bật dậy đột ngột.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 25,
+      "week": 3,
+      "category": "reading",
+      "title": "Sự tích trầu cau",
+      "body": "Đọc câu chuyện về tình anh em và vợ chồng trong \"Sự tích trầu cau\". Nghĩ về giá trị gắn kết gia đình bạn muốn giữ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 26,
+      "week": 3,
+      "category": "breathing",
+      "title": "Thở cùng âm thanh",
+      "body": "Khi thở ra, khẽ ngân \"ừm\" thật nhẹ. Cảm nhận rung động ở ngực và cổ. Lặp lại 8 lần để làm dịu căng thẳng.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 27,
+      "week": 3,
+      "category": "partner",
+      "title": "Xoa vai cho nhau",
+      "body": "Vợ chồng thay phiên xoa vai cho nhau 5 phút mỗi người. Hỏi nhau lực xoa có vừa không. Sự chạm nhẹ nhàng giúp cả hai thư giãn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 28,
+      "week": 3,
+      "category": "journal",
+      "title": "Ghi lại chu kỳ",
+      "body": "Ghi lại cảm nhận cơ thể hôm nay và ngày dự kiến có kinh. Thêm một câu về tâm trạng của bạn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 29,
+      "week": 4,
+      "category": "talk",
+      "title": "Xin chào con",
+      "body": "Nếu que thử đã hai vạch, hãy đặt tay lên bụng và nói \"Xin chào con\". Bé còn rất nhỏ và chưa nghe được, nhưng khoảnh khắc này giúp bạn bắt đầu gắn kết.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 30,
+      "week": 4,
+      "category": "music",
+      "title": "Wiegenlied – Brahms",
+      "body": "Nghe \"Wiegenlied\" (Bài hát ru) của Brahms. Đây là một trong những bản nhạc ru nổi tiếng nhất. Hãy nghe khi nằm nghỉ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 31,
+      "week": 4,
+      "category": "movement",
+      "title": "Đi bộ nhẹ nhàng",
+      "body": "Nếu mệt, chỉ cần đi bộ chậm 10–15 phút. Nghe cơ thể mình và dừng lại khi thấy chóng mặt hoặc khó chịu.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 32,
+      "week": 4,
+      "category": "reading",
+      "title": "Đọc một trang về tuần thai",
+      "body": "Đọc thông tin tuần 4 trong app cùng chồng. Cùng nhau ghi lại câu hỏi để hỏi bác sĩ trong lần khám đầu.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 33,
+      "week": 4,
+      "category": "breathing",
+      "title": "Thở khi lo lắng",
+      "body": "Khi tim đập nhanh vì hồi hộp, hãy đếm 5 hơi thở chậm. Mỗi lần thở ra, thả lỏng vai. Lo lắng khi mới biết có thai là điều rất bình thường.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 34,
+      "week": 4,
+      "category": "partner",
+      "title": "Báo tin cho bố",
+      "body": "Hãy chọn một cách báo tin mà bạn thấy thoải mái. Sau đó cùng nhau nói về cảm xúc lúc này, kể cả những lo lắng.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 35,
+      "week": 4,
+      "category": "journal",
+      "title": "Ngày con đến",
+      "body": "Viết lại ngày bạn biết tin và cảm xúc đầu tiên. Đây sẽ là trang nhật ký đặc biệt bạn có thể đọc cho con sau này.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 36,
+      "week": 5,
+      "category": "talk",
+      "title": "Kể cho con nghe về nhà mình",
+      "body": "Kể cho con về căn nhà, căn phòng và những người thân yêu đang chờ con. Nói chậm, bằng giọng thường ngày.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 37,
+      "week": 5,
+      "category": "music",
+      "title": "Bà ơi bà",
+      "body": "Nghe hoặc hát bài thiếu nhi \"Bà ơi bà\". Nhớ về ông bà, gia đình và những yêu thương bạn muốn con được nhận.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 38,
+      "week": 5,
+      "category": "movement",
+      "title": "Giãn cơ khi ngồi",
+      "body": "Ngồi trên ghế, duỗi thẳng một chân, gập bàn chân về phía mình, giữ 10 giây. Đổi chân. Giúp đỡ mỏi chân khi ngồi lâu.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 39,
+      "week": 5,
+      "category": "reading",
+      "title": "Sự tích bánh chưng bánh giầy",
+      "body": "Đọc câu chuyện về Lang Liêu. Câu chuyện nhắc về sự giản dị và lòng hiếu thảo. Đánh dấu đoạn bạn muốn kể lại cho con.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 40,
+      "week": 5,
+      "category": "breathing",
+      "title": "Thở khi buồn nôn",
+      "body": "Khi buồn nôn, ngồi thẳng ở nơi thoáng khí, hít vào chậm bằng mũi, thở ra bằng miệng. Nhấp một ngụm nước nhỏ sau đó. Nếu nôn nhiều, hãy đi khám.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 41,
+      "week": 5,
+      "category": "partner",
+      "title": "Bố lo bữa tối",
+      "body": "Hôm nay bố chuẩn bị bữa tối với món mẹ ăn được. Hỏi mẹ mùi nào đang khiến mẹ khó chịu để tránh.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 42,
+      "week": 5,
+      "category": "journal",
+      "title": "Những điều đang thay đổi",
+      "body": "Ghi ba thay đổi bạn thấy ở cơ thể tuần này. Thêm một câu động viên chính mình.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 43,
+      "week": 6,
+      "category": "talk",
+      "title": "Nhịp tim nhỏ",
+      "body": "Tim bé đã bắt đầu đập. Hãy nói với con: \"Mẹ biết con đang cố gắng lớn lên mỗi ngày\". Đặt tay lên bụng, thở chậm.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 44,
+      "week": 6,
+      "category": "music",
+      "title": "Air on the G String",
+      "body": "Nghe \"Air on the G String\" của Bach. Giai điệu chậm, đều giúp bạn nghỉ ngơi khi mệt.",
+      "durationMin": 6,
+      "sources": []
+    },
+    {
+      "day": 45,
+      "week": 6,
+      "category": "movement",
+      "title": "Đi bộ sau bữa ăn",
+      "body": "Đi bộ chậm 10 phút sau bữa ăn có thể giúp bạn dễ chịu hơn. Tránh đi khi trời quá nắng nóng.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 46,
+      "week": 6,
+      "category": "reading",
+      "title": "Thánh Gióng",
+      "body": "Đọc câu chuyện Thánh Gióng, cậu bé lớn nhanh để giúp làng nước. Câu chuyện nhắc rằng mỗi đứa trẻ đều có sức mạnh riêng.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 47,
+      "week": 6,
+      "category": "breathing",
+      "title": "Thở cho giấc ngủ",
+      "body": "Trước khi ngủ, nằm nghiêng, hít vào 4 nhịp, thở ra 6 nhịp, trong 5 phút. Tập trung vào cảm giác cơ thể nặng dần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 48,
+      "week": 6,
+      "category": "partner",
+      "title": "Cùng chuẩn bị đi khám",
+      "body": "Hai vợ chồng cùng ghi câu hỏi cho buổi khám thai đầu. Chồng sắp xếp đi cùng nếu có thể.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 49,
+      "week": 6,
+      "category": "journal",
+      "title": "Lời hứa với con",
+      "body": "Viết một lời hứa nhỏ với con, như \"Mẹ sẽ ăn uống đủ chất vì con\". Dán ở nơi bạn hay nhìn thấy.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 50,
+      "week": 7,
+      "category": "talk",
+      "title": "Gọi tên thân mật",
+      "body": "Chọn một tên gọi ở nhà cho bé để dùng khi trò chuyện. Gọi tên ấy mỗi sáng giúp bạn cảm thấy gần gũi hơn.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 51,
+      "week": 7,
+      "category": "music",
+      "title": "Cò lả",
+      "body": "Nghe bài dân ca đồng bằng Bắc Bộ \"Cò lả\". Hình ảnh cánh cò, cánh đồng gợi sự yên bình.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 52,
+      "week": 7,
+      "category": "movement",
+      "title": "Xoay cổ chân",
+      "body": "Ngồi thoải mái, xoay cổ chân mỗi bên 10 vòng theo hai chiều. Giúp máu lưu thông tốt hơn khi bạn ít vận động.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 53,
+      "week": 7,
+      "category": "reading",
+      "title": "Cây khế",
+      "body": "Đọc truyện cổ tích \"Cây khế\" về người em hiền lành. Suy nghĩ về bài học \"tham thì thâm\" bạn muốn dạy con.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 54,
+      "week": 7,
+      "category": "breathing",
+      "title": "Hơi thở biết ơn",
+      "body": "Mỗi lần hít vào, nghĩ về một điều bạn biết ơn. Mỗi lần thở ra, thả lỏng vai. Làm 10 hơi thở.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 55,
+      "week": 7,
+      "category": "partner",
+      "title": "Bố nói lời chào",
+      "body": "Bố đặt tay lên bụng mẹ và nói vài lời chào con. Dù bé chưa nghe được, khoảnh khắc này giúp bố bắt đầu kết nối.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 56,
+      "week": 7,
+      "category": "journal",
+      "title": "Món mẹ thèm",
+      "body": "Ghi lại món bạn thèm và món bạn sợ tuần này. Sau này đọc lại sẽ thấy rất thú vị.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 57,
+      "week": 8,
+      "category": "talk",
+      "title": "Kể về một ngày của mẹ",
+      "body": "Trước khi ngủ, kể cho con nghe hôm nay mẹ đã đi đâu, gặp ai. Thói quen nhỏ này giúp bạn dừng lại và nhìn lại ngày của mình.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 58,
+      "week": 8,
+      "category": "music",
+      "title": "Ba ngọn nến lung linh",
+      "body": "Nghe bài \"Ba ngọn nến lung linh\" của Ngọc Lễ. Lời bài hát nói về gia đình gồm bố, mẹ và con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 59,
+      "week": 8,
+      "category": "movement",
+      "title": "Yoga ngồi nhẹ",
+      "body": "Ngồi xếp bằng trên đệm, lưng thẳng, giơ hai tay lên khi hít vào, hạ xuống khi thở ra. Lặp lại 8 lần. Không gập bụng, không vặn người mạnh.",
+      "durationMin": 8,
+      "sources": []
+    },
+    {
+      "day": 60,
+      "week": 8,
+      "category": "reading",
+      "title": "Sơn Tinh, Thủy Tinh",
+      "body": "Đọc truyện \"Sơn Tinh, Thủy Tinh\". Thử kể lại bằng giọng nhẹ nhàng như đang kể cho một đứa trẻ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 61,
+      "week": 8,
+      "category": "breathing",
+      "title": "Thở hộp",
+      "body": "Hít vào 4 nhịp, giữ nhẹ 2 nhịp, thở ra 4 nhịp, nghỉ 2 nhịp. Nếu thấy khó chịu, bỏ bước giữ hơi. Làm 5 phút.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 62,
+      "week": 8,
+      "category": "partner",
+      "title": "Đi khám cùng nhau",
+      "body": "Nếu có thể, hai vợ chồng cùng đi khám thai. Sau buổi khám, cùng nói về điều mỗi người cảm thấy khi thấy con trên màn hình siêu âm.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 63,
+      "week": 8,
+      "category": "journal",
+      "title": "Ảnh siêu âm đầu tiên",
+      "body": "Dán hoặc chụp lại ảnh siêu âm và viết vài dòng bên cạnh. Ghi lại ngày dự sinh bác sĩ đã tính.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 64,
+      "week": 9,
+      "category": "talk",
+      "title": "Kể về bố",
+      "body": "Kể cho con nghe về bố: bố thích gì, bố hay nói câu gì. Bạn có thể vừa kể vừa cười.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 65,
+      "week": 9,
+      "category": "music",
+      "title": "Eine kleine Nachtmusik",
+      "body": "Nghe chương 2 (Romanze) của \"Eine kleine Nachtmusik\" của Mozart. Chương này chậm và nhẹ nhàng.",
+      "durationMin": 6,
+      "sources": []
+    },
+    {
+      "day": 66,
+      "week": 9,
+      "category": "movement",
+      "title": "Đi bộ trong công viên",
+      "body": "Đi bộ 20 phút ở công viên hoặc nơi có cây xanh. Hít thở sâu không khí trong lành.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 67,
+      "week": 9,
+      "category": "reading",
+      "title": "Sự tích dưa hấu",
+      "body": "Đọc truyện Mai An Tiêm và quả dưa hấu. Câu chuyện nói về sự chăm chỉ và lạc quan khi gặp khó khăn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 68,
+      "week": 9,
+      "category": "breathing",
+      "title": "Thở làm dịu cảm xúc",
+      "body": "Khi thấy bực bội hoặc muốn khóc, hãy cho phép mình dừng lại. Hít vào chậm, thở ra như đang thổi nhẹ ngọn nến. Lặp lại 8 lần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 69,
+      "week": 9,
+      "category": "partner",
+      "title": "Một lời khen",
+      "body": "Hôm nay bố khen mẹ một điều cụ thể. Mẹ cũng nói với bố một điều mẹ cảm kích.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 70,
+      "week": 9,
+      "category": "journal",
+      "title": "Cảm xúc tuần này",
+      "body": "Viết một từ mô tả cảm xúc của bạn tuần này và lý do. Mọi cảm xúc đều được phép có.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 71,
+      "week": 10,
+      "category": "talk",
+      "title": "Kể về mùa trong năm",
+      "body": "Kể cho con nghe bây giờ đang là mùa gì, thời tiết thế nào. Mô tả bằng những hình ảnh đơn giản.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 72,
+      "week": 10,
+      "category": "music",
+      "title": "Bàn tay mẹ",
+      "body": "Nghe bài \"Bàn tay mẹ\" của Bùi Đình Thảo. Nhìn bàn tay mình và nghĩ về những việc bạn sẽ làm cho con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 73,
+      "week": 10,
+      "category": "movement",
+      "title": "Nghiêng chậu khi đứng",
+      "body": "Đứng dựa lưng vào tường, gối hơi chùng. Ép nhẹ lưng dưới vào tường rồi thả ra. Lặp lại 10 lần để đỡ mỏi lưng.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 74,
+      "week": 10,
+      "category": "reading",
+      "title": "Thơ \"Hạt gạo làng ta\"",
+      "body": "Đọc bài thơ \"Hạt gạo làng ta\" của Trần Đăng Khoa. Hình ảnh làng quê giúp bạn kể cho con về nơi mình lớn lên.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 75,
+      "week": 10,
+      "category": "breathing",
+      "title": "Thở mũi luân phiên nhẹ",
+      "body": "Ngồi thẳng, dùng ngón tay bịt nhẹ một bên mũi, hít vào bên còn lại, rồi đổi bên khi thở ra. Thở tự nhiên, không nín thở. Làm 3 phút.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 76,
+      "week": 10,
+      "category": "partner",
+      "title": "Cùng làm danh sách việc nhà",
+      "body": "Hai vợ chồng cùng chia lại việc nhà cho phù hợp với sức của mẹ lúc này. Viết ra để dễ nhớ.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 77,
+      "week": 10,
+      "category": "journal",
+      "title": "Viết về nơi mẹ lớn lên",
+      "body": "Viết một đoạn về quê hương hoặc nơi bạn lớn lên. Sau này bạn có thể đọc cho con nghe.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 78,
+      "week": 11,
+      "category": "talk",
+      "title": "Hát khe khẽ",
+      "body": "Hát khe khẽ một câu hát ru bạn còn nhớ từ hồi nhỏ. Không cần hát hay, giọng của mẹ là đủ.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 79,
+      "week": 11,
+      "category": "music",
+      "title": "Gymnopédie No.1",
+      "body": "Nghe \"Gymnopédie No.1\" của Erik Satie. Bản nhạc chậm rãi, phù hợp để nghỉ trưa.",
+      "durationMin": 4,
+      "sources": []
+    },
+    {
+      "day": 80,
+      "week": 11,
+      "category": "movement",
+      "title": "Bài tập Kegel đầu tiên",
+      "body": "Thử siết nhẹ cơ sàn chậu như khi nhịn tiểu, giữ 3 giây rồi thả 3 giây. Lặp lại 10 lần. Không nín thở, không siết bụng hay mông.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 81,
+      "week": 11,
+      "category": "reading",
+      "title": "Sự tích chú Cuội cung trăng",
+      "body": "Đọc truyện chú Cuội và cây đa. Mỗi khi nhìn trăng, bạn có thể nhớ đến câu chuyện để kể cho con.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 82,
+      "week": 11,
+      "category": "breathing",
+      "title": "Thả lỏng hàm và vai",
+      "body": "Nhiều người căng hàm, nhún vai khi lo lắng. Hãy mở nhẹ miệng, thả hàm, hạ vai xuống, hít thở chậm 10 lần.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 83,
+      "week": 11,
+      "category": "partner",
+      "title": "Bố đọc truyện",
+      "body": "Bố chọn một truyện ngắn và đọc to cho mẹ và con nghe. Mẹ nằm nghỉ và thưởng thức.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 84,
+      "week": 11,
+      "category": "journal",
+      "title": "Nỗi lo và cách đối diện",
+      "body": "Viết một nỗi lo của bạn và một việc nhỏ bạn có thể làm để bớt lo, như hỏi bác sĩ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 85,
+      "week": 12,
+      "category": "talk",
+      "title": "Kể về buổi siêu âm",
+      "body": "Kể lại cho con nghe buổi khám vừa rồi: con đã có tay chân, mặt mũi. Nói với con rằng mẹ rất vui khi thấy con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 86,
+      "week": 12,
+      "category": "music",
+      "title": "Cả nhà thương nhau",
+      "body": "Nghe bài thiếu nhi \"Cả nhà thương nhau\". Giai điệu vui tươi giúp bạn mỉm cười.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 87,
+      "week": 12,
+      "category": "movement",
+      "title": "Đi bộ đều đặn",
+      "body": "Đặt mục tiêu đi bộ 20–30 phút, 5 ngày trong tuần. Ghi lại vào app để theo dõi.",
+      "durationMin": 25,
+      "sources": []
+    },
+    {
+      "day": 88,
+      "week": 12,
+      "category": "reading",
+      "title": "Rùa và Thỏ",
+      "body": "Đọc truyện ngụ ngôn \"Rùa và Thỏ\". Bài học chậm mà chắc cũng đúng với hành trình mang thai.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 89,
+      "week": 12,
+      "category": "breathing",
+      "title": "Thở cho buổi sáng",
+      "body": "Sau khi thức dậy, ngồi bên giường, hít thở chậm 10 lần trước khi đứng lên. Giúp bạn bắt đầu ngày bình tĩnh và tránh chóng mặt.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 90,
+      "week": 12,
+      "category": "partner",
+      "title": "Chia sẻ tin vui",
+      "body": "Hai vợ chồng cùng bàn cách và thời điểm báo tin với gia đình, bạn bè, nơi làm việc nếu muốn.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 91,
+      "week": 12,
+      "category": "journal",
+      "title": "Kết thúc tam cá nguyệt đầu",
+      "body": "Viết về chặng 3 tháng đầu: điều khó nhất, điều vui nhất. Tự khen mình vì đã vượt qua.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 92,
+      "week": 13,
+      "category": "talk",
+      "title": "Kể về thức ăn",
+      "body": "Khi ăn, kể cho con nghe món này là gì, vị thế nào. Ăn chậm, vui vẻ cũng giúp tiêu hóa tốt hơn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 93,
+      "week": 13,
+      "category": "music",
+      "title": "Bèo dạt mây trôi",
+      "body": "Nghe dân ca Quan họ \"Bèo dạt mây trôi\". Thả lỏng người theo giai điệu.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 94,
+      "week": 13,
+      "category": "movement",
+      "title": "Mèo – bò nhẹ nhàng",
+      "body": "Quỳ bốn chân trên đệm, hít vào hơi võng lưng, thở ra cong lưng như mèo. Làm chậm 8 lần. Dừng nếu đau.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 95,
+      "week": 13,
+      "category": "reading",
+      "title": "Sự tích cây vú sữa",
+      "body": "Đọc truyện \"Sự tích cây vú sữa\" về tình mẹ. Câu chuyện có thể khiến bạn xúc động, hãy đọc khi thoải mái.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 96,
+      "week": 13,
+      "category": "breathing",
+      "title": "Thở đếm ngược",
+      "body": "Đếm ngược từ 10 về 1, mỗi số là một hơi thở chậm. Nếu bị lạc, bắt đầu lại nhẹ nhàng.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 97,
+      "week": 13,
+      "category": "partner",
+      "title": "Bố học về thai kỳ",
+      "body": "Bố đọc một bài trong mục Cẩm nang, rồi kể lại cho mẹ điều bố mới biết.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 98,
+      "week": 13,
+      "category": "journal",
+      "title": "Thay đổi của bụng",
+      "body": "Chụp một ảnh bụng và viết vài dòng. Làm mỗi tháng một lần để thấy hành trình lớn lên.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 99,
+      "week": 14,
+      "category": "talk",
+      "title": "Kể một ngày làm việc",
+      "body": "Kể cho con về công việc của mẹ, điều mẹ thích và điều mẹ thấy khó. Nói như đang tâm sự với một người bạn nhỏ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 100,
+      "week": 14,
+      "category": "music",
+      "title": "Bốn mùa – Mùa xuân",
+      "body": "Nghe chương 1 \"Mùa xuân\" trong \"Bốn mùa\" của Vivaldi. Giai điệu tươi sáng giúp bạn có thêm năng lượng.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 101,
+      "week": 14,
+      "category": "movement",
+      "title": "Bơi hoặc đi bộ dưới nước",
+      "body": "Nếu có hồ bơi sạch, bơi nhẹ nhàng 20 phút là vận động rất tốt khi mang thai. Tránh nước quá nóng và chỗ trơn trượt.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 102,
+      "week": 14,
+      "category": "reading",
+      "title": "Dế Mèn phiêu lưu ký – chương 1",
+      "body": "Đọc chương đầu \"Dế Mèn phiêu lưu ký\" của Tô Hoài. Đọc to giúp bạn quen giọng kể.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 103,
+      "week": 14,
+      "category": "breathing",
+      "title": "Thở khi đi bộ",
+      "body": "Khi đi bộ, hít vào trong 3 bước, thở ra trong 4 bước. Nếu thấy hụt hơi, đi chậm lại.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 104,
+      "week": 14,
+      "category": "partner",
+      "title": "Cùng đi dạo tối",
+      "body": "Hai vợ chồng đi dạo 20 phút sau bữa tối. Nói về những điều làm hai người vui trong tuần.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 105,
+      "week": 14,
+      "category": "journal",
+      "title": "Danh sách đồ bầu",
+      "body": "Viết những đồ bầu thật sự cần, gạch bớt những thứ có thể mượn hoặc chưa cần.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 106,
+      "week": 15,
+      "category": "talk",
+      "title": "Kể về ông bà",
+      "body": "Kể cho con nghe về ông bà nội ngoại. Mỗi người có điều gì đặc biệt?",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 107,
+      "week": 15,
+      "category": "music",
+      "title": "Chú ếch con",
+      "body": "Nghe bài thiếu nhi \"Chú ếch con\". Nhịp vui nhộn giúp bạn thư giãn sau giờ làm.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 108,
+      "week": 15,
+      "category": "movement",
+      "title": "Giãn bắp chân",
+      "body": "Đứng vịn tường, lùi một chân ra sau, gót chạm sàn, giữ 15 giây. Đổi chân. Giúp phòng chuột rút.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 109,
+      "week": 15,
+      "category": "reading",
+      "title": "Cóc kiện trời",
+      "body": "Đọc truyện \"Cóc kiện trời\". Câu chuyện về lòng dũng cảm và đoàn kết.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 110,
+      "week": 15,
+      "category": "breathing",
+      "title": "Thở với tay trên bụng",
+      "body": "Đặt hai tay lên bụng, hít vào cảm nhận bụng nở ra dưới tay. Thở ra chậm. Hình dung bạn đang ôm con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 111,
+      "week": 15,
+      "category": "partner",
+      "title": "Bố viết lời nhắn",
+      "body": "Bố viết một lời nhắn ngắn gửi con và đọc to cho mẹ nghe.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 112,
+      "week": 15,
+      "category": "journal",
+      "title": "Điều mẹ thích ở mình",
+      "body": "Viết ba điều bạn thích ở bản thân lúc mang thai. Có thể là sự kiên nhẫn, sự mạnh mẽ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 113,
+      "week": 16,
+      "category": "talk",
+      "title": "Giới thiệu các thành viên",
+      "body": "Lần lượt giới thiệu từng người trong nhà với con, kể cả thú cưng nếu có. Mỗi người nói một câu với con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 114,
+      "week": 16,
+      "category": "music",
+      "title": "Ru con mùa đông",
+      "body": "Nghe bài \"Ru con mùa đông\" của Đặng Hữu Phúc (thơ Đỗ Trung Quân). Giai điệu dịu dàng, phù hợp buổi tối.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 115,
+      "week": 16,
+      "category": "movement",
+      "title": "Yoga bầu: tư thế em bé biến thể",
+      "body": "Quỳ, mở rộng hai gối, gập người về trước, kê gối dưới ngực để bụng không bị ép. Giữ 5 hơi thở. Dừng nếu khó chịu.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 116,
+      "week": 16,
+      "category": "reading",
+      "title": "Thơ \"Mưa\" của Trần Đăng Khoa",
+      "body": "Đọc bài thơ \"Mưa\". Thử đọc với nhịp nhanh chậm theo hình ảnh trong bài.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 117,
+      "week": 16,
+      "category": "breathing",
+      "title": "Thở khi nằm nghiêng",
+      "body": "Nằm nghiêng, kê gối giữa hai gối chân. Hít thở chậm 5 phút. Tư thế nằm nghiêng sẽ ngày càng thoải mái hơn nằm ngửa.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 118,
+      "week": 16,
+      "category": "partner",
+      "title": "Xoa bóp lưng",
+      "body": "Bố xoa nhẹ hai bên cột sống lưng dưới cho mẹ, tránh ấn mạnh. Hỏi mẹ lực có vừa không.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 119,
+      "week": 16,
+      "category": "journal",
+      "title": "Thai máy đầu tiên?",
+      "body": "Nếu bạn đã thấy rung động nhẹ, hãy ghi ngày và cảm giác. Nếu chưa, cũng không sao, nhiều mẹ cảm nhận từ tuần 18–20.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 120,
+      "week": 17,
+      "category": "talk",
+      "title": "Kể về một cuốn sách",
+      "body": "Kể cho con về cuốn sách bạn yêu thích nhất. Vì sao bạn thích nó?",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 121,
+      "week": 17,
+      "category": "music",
+      "title": "Für Elise",
+      "body": "Nghe \"Für Elise\" của Beethoven. Bạn có thể nhẩm theo giai điệu quen thuộc.",
+      "durationMin": 4,
+      "sources": []
+    },
+    {
+      "day": 122,
+      "week": 17,
+      "category": "movement",
+      "title": "Đứng lên ngồi xuống với ghế",
+      "body": "Đứng trước ghế chắc chắn, từ từ ngồi xuống rồi đứng lên, hai chân rộng bằng hông. Làm 8 lần. Giúp chân khỏe hơn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 123,
+      "week": 17,
+      "category": "reading",
+      "title": "Hoàng tử bé – đoạn mở đầu",
+      "body": "Đọc vài trang đầu \"Hoàng tử bé\" của Saint-Exupéry. Câu chuyện nhắc người lớn nhìn thế giới bằng mắt trẻ thơ.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 124,
+      "week": 17,
+      "category": "breathing",
+      "title": "Hơi thở thả lỏng lưng",
+      "body": "Ngồi trên ghế, hít vào thẳng lưng, thở ra thả lỏng vai và lưng dưới. Lặp lại 10 lần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 125,
+      "week": 17,
+      "category": "partner",
+      "title": "Cùng lên ngân sách",
+      "body": "Hai vợ chồng cùng lập bảng chi phí cho mấy tháng tới: khám thai, đồ dùng, chi phí sinh.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 126,
+      "week": 17,
+      "category": "journal",
+      "title": "Thư gửi con số 2",
+      "body": "Viết lá thư thứ hai cho con. Kể về một điều mẹ mới học được tuần này.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 127,
+      "week": 18,
+      "category": "talk",
+      "title": "Bé bắt đầu nghe",
+      "body": "Tai trong của bé đã phát triển, bé có thể bắt đầu cảm nhận âm thanh. Hãy chào con bằng giọng nói tự nhiên mỗi sáng. Đây là khoảng thời gian hai mẹ con làm quen nhau.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 128,
+      "week": 18,
+      "category": "music",
+      "title": "Mẹ yêu con",
+      "body": "Nghe bài \"Mẹ yêu con\" của Nguyễn Văn Tý. Hát theo nếu bạn thuộc lời.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 129,
+      "week": 18,
+      "category": "movement",
+      "title": "Đi bộ và vung tay",
+      "body": "Đi bộ 20 phút, vung tay nhẹ nhàng theo nhịp. Giữ lưng thẳng, mắt nhìn phía trước.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 130,
+      "week": 18,
+      "category": "reading",
+      "title": "Đọc to một trang sách",
+      "body": "Chọn một cuốn sách thiếu nhi và đọc to một trang cho con. Đọc chậm, rõ ràng, giọng ấm.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 131,
+      "week": 18,
+      "category": "breathing",
+      "title": "Thở khi chóng mặt",
+      "body": "Nếu chóng mặt khi đứng, ngồi xuống ngay, hít thở chậm và uống nước. Nếu chóng mặt thường xuyên, hãy báo bác sĩ.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 132,
+      "week": 18,
+      "category": "partner",
+      "title": "Bố trò chuyện với con",
+      "body": "Bố áp sát bụng mẹ và nói chuyện với con 5 phút. Giọng trầm của bố cũng là âm thanh quen thuộc dần với bé.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 133,
+      "week": 18,
+      "category": "journal",
+      "title": "Ghi lại cử động",
+      "body": "Ghi lại thời điểm trong ngày bạn thấy con cựa quậy. Dần dần bạn sẽ thấy nhịp riêng của con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 134,
+      "week": 19,
+      "category": "talk",
+      "title": "Kể chuyện trước giờ ngủ",
+      "body": "Trước khi ngủ, kể cho con một câu chuyện ngắn bạn tự nghĩ ra. Câu chuyện có thể chỉ là về một chú mèo đi dạo.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 135,
+      "week": 19,
+      "category": "music",
+      "title": "Hồ thiên nga",
+      "body": "Nghe đoạn \"Cảnh hồ\" trong vở ballet \"Hồ thiên nga\" của Tchaikovsky.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 136,
+      "week": 19,
+      "category": "movement",
+      "title": "Kegel và thở",
+      "body": "Thở ra đồng thời siết nhẹ cơ sàn chậu, giữ 5 giây, hít vào thả lỏng. Lặp lại 10 lần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 137,
+      "week": 19,
+      "category": "reading",
+      "title": "Tấm Cám (kể nhẹ nhàng)",
+      "body": "Đọc truyện Tấm Cám và nghĩ cách kể lại phiên bản nhẹ nhàng, nhấn vào lòng tốt của cô Tấm.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 138,
+      "week": 19,
+      "category": "breathing",
+      "title": "Thở cùng nhạc",
+      "body": "Bật một bản nhạc chậm, hít vào theo một câu nhạc, thở ra theo câu tiếp theo. Làm khoảng 5 phút.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 139,
+      "week": 19,
+      "category": "partner",
+      "title": "Chọn tên cho con",
+      "body": "Hai vợ chồng cùng nghĩ vài cái tên và ý nghĩa mỗi tên. Không cần quyết định ngay.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 140,
+      "week": 19,
+      "category": "journal",
+      "title": "Danh sách tên",
+      "body": "Ghi lại các tên đã nghĩ và lý do. Đây sẽ là kỷ niệm vui khi con lớn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 141,
+      "week": 20,
+      "category": "talk",
+      "title": "Nửa chặng đường",
+      "body": "Hôm nay hãy nói với con: \"Mình đã đi được nửa chặng đường rồi\". Kể cho con những điều mẹ đã trải qua trong 20 tuần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 142,
+      "week": 20,
+      "category": "music",
+      "title": "Tình cha",
+      "body": "Nghe bài \"Tình cha\" của Ngọc Sơn. Mời bố cùng nghe.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 143,
+      "week": 20,
+      "category": "movement",
+      "title": "Duỗi hông",
+      "body": "Ngồi trên sàn, hai lòng bàn chân áp vào nhau, gối hạ nhẹ sang hai bên. Giữ lưng thẳng, thở đều 1 phút. Không ấn mạnh gối xuống.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 144,
+      "week": 20,
+      "category": "reading",
+      "title": "Thơ ca dao về mẹ",
+      "body": "Đọc vài câu ca dao về mẹ như \"Ơn cha nặng lắm ai ơi, nghĩa mẹ bằng trời chín tháng cưu mang\". Đọc to cho con nghe.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 145,
+      "week": 20,
+      "category": "breathing",
+      "title": "Thở sau siêu âm",
+      "body": "Trước và sau buổi siêu âm hình thái, hãy hít thở chậm 10 lần. Hồi hộp là bình thường. Ghi lại câu hỏi để hỏi bác sĩ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 146,
+      "week": 20,
+      "category": "partner",
+      "title": "Siêu âm cùng nhau",
+      "body": "Bố cùng mẹ đi siêu âm hình thái nếu có thể. Sau đó cùng chia sẻ cảm xúc khi thấy con.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 147,
+      "week": 20,
+      "category": "journal",
+      "title": "Trang giữa thai kỳ",
+      "body": "Viết về cảm xúc ở tuần 20 và dán ảnh siêu âm mới nếu có.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 148,
+      "week": 21,
+      "category": "talk",
+      "title": "Hỏi con một câu",
+      "body": "Hỏi con \"Hôm nay con có vui không?\" rồi chờ một lúc như đang nghe con trả lời. Trò chuyện hai chiều giúp mẹ tập thói quen lắng nghe.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 149,
+      "week": 21,
+      "category": "music",
+      "title": "Ầu ơ ví dầu",
+      "body": "Tự hát câu ru \"Ầu ơ… ví dầu cầu ván đóng đinh\". Giọng hát của mẹ là âm thanh gần gũi nhất với bé.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 150,
+      "week": 21,
+      "category": "movement",
+      "title": "Kê chân và xoay cổ chân",
+      "body": "Ngồi kê chân lên ghế thấp, xoay cổ chân 10 vòng mỗi chiều. Giúp giảm phù nhẹ ở chân.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 151,
+      "week": 21,
+      "category": "reading",
+      "title": "Dế Mèn – chương 2",
+      "body": "Đọc tiếp chương 2 \"Dế Mèn phiêu lưu ký\". Thử đổi giọng cho từng nhân vật.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 152,
+      "week": 21,
+      "category": "breathing",
+      "title": "Thở 4 – 7 nhẹ",
+      "body": "Hít vào 4 nhịp, thở ra thật chậm trong 7 nhịp. Không nín thở. Làm 5 phút trước khi ngủ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 153,
+      "week": 21,
+      "category": "partner",
+      "title": "Bố đặt tay cảm nhận con đạp",
+      "body": "Khi con cựa quậy, mẹ gọi bố đặt tay lên bụng. Kiên nhẫn chờ, có khi phải vài lần mới cảm nhận được.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 154,
+      "week": 21,
+      "category": "journal",
+      "title": "Một ngày của con",
+      "body": "Viết vài dòng tưởng tượng một ngày của con trong bụng mẹ: con ngủ, con nghe, con cựa quậy.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 155,
+      "week": 22,
+      "category": "talk",
+      "title": "Mô tả căn phòng",
+      "body": "Mô tả cho con căn phòng mẹ đang ngồi: màu tường, ánh sáng, tiếng quạt. Tập thói quen quan sát và kể lại.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 156,
+      "week": 22,
+      "category": "music",
+      "title": "Thiên nga – Saint-Saëns",
+      "body": "Nghe \"Thiên nga\" (Le Cygne) của Saint-Saëns. Tiếng cello trầm ấm giúp bạn thư thái.",
+      "durationMin": 4,
+      "sources": []
+    },
+    {
+      "day": 157,
+      "week": 22,
+      "category": "movement",
+      "title": "Yoga bầu: ngồi ghế giãn lườn",
+      "body": "Ngồi trên ghế, giơ tay phải lên, nghiêng nhẹ sang trái, giữ 3 hơi thở. Đổi bên. Không vặn người mạnh.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 158,
+      "week": 22,
+      "category": "reading",
+      "title": "Ca dao về quê hương",
+      "body": "Đọc vài câu ca dao như \"Đường vô xứ Nghệ quanh quanh, non xanh nước biếc như tranh họa đồ\". Kể cho con về một vùng đất bạn yêu.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 159,
+      "week": 22,
+      "category": "breathing",
+      "title": "Thở khi có cơn gò",
+      "body": "Khi thấy bụng gò nhẹ, ngừng việc đang làm, ngồi xuống, hít thở chậm và uống nước. Nếu gò đều và đau tăng, hãy đi khám.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 160,
+      "week": 22,
+      "category": "partner",
+      "title": "Bố hát cho con",
+      "body": "Bố chọn một bài hát và hát cho con nghe, dù hát chưa hay. Đây là kỷ niệm dễ thương cho cả nhà.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 161,
+      "week": 22,
+      "category": "journal",
+      "title": "Điều mẹ muốn dạy con",
+      "body": "Viết ba giá trị bạn muốn con lớn lên cùng: ví dụ tử tế, trung thực, biết ơn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 162,
+      "week": 23,
+      "category": "talk",
+      "title": "Kể về thời tiết hôm nay",
+      "body": "Kể cho con nghe hôm nay nắng hay mưa, gió thổi thế nào. Tập nói chậm, rõ.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 163,
+      "week": 23,
+      "category": "music",
+      "title": "Inh lả ơi",
+      "body": "Nghe dân ca Thái \"Inh lả ơi\". Giai điệu vùng núi Tây Bắc nhẹ nhàng và trong trẻo.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 164,
+      "week": 23,
+      "category": "movement",
+      "title": "Đi bộ chậm buổi sáng",
+      "body": "Đi bộ chậm 20 phút vào buổi sáng sớm khi trời mát. Mang theo nước.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 165,
+      "week": 23,
+      "category": "reading",
+      "title": "Sự tích Hồ Gươm",
+      "body": "Đọc truyền thuyết \"Sự tích Hồ Gươm\". Kể cho con về Hà Nội hoặc về một hồ nước nơi bạn sống.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 166,
+      "week": 23,
+      "category": "breathing",
+      "title": "Thở thả lỏng bụng",
+      "body": "Nằm nghiêng, đặt tay lên bụng. Khi thở ra, thả lỏng mọi căng cứng ở bụng. Làm 5 phút.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 167,
+      "week": 23,
+      "category": "partner",
+      "title": "Kế hoạch cho phòng của con",
+      "body": "Hai vợ chồng cùng bàn chỗ ngủ của bé sau sinh. Ghi lại những gì cần chuẩn bị.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 168,
+      "week": 23,
+      "category": "journal",
+      "title": "Ảnh bụng tháng 6",
+      "body": "Chụp ảnh bụng và viết cảm nhận. So sánh với ảnh tháng trước.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 169,
+      "week": 24,
+      "category": "talk",
+      "title": "Đặt tay và gọi tên",
+      "body": "Đặt tay lên bụng và gọi tên ở nhà của con. Để ý xem con có cựa quậy không. Mỗi bé có phản ứng khác nhau, không cựa cũng không sao.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 170,
+      "week": 24,
+      "category": "music",
+      "title": "Liebestraum số 3",
+      "body": "Nghe \"Liebestraum No.3\" (Giấc mơ tình yêu) của Liszt. Hợp nghe khi nghỉ trưa.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 171,
+      "week": 24,
+      "category": "movement",
+      "title": "Nghiêng chậu khi quỳ",
+      "body": "Quỳ bốn chân, lưng thẳng. Thở ra hóp nhẹ bụng và cong nhẹ lưng dưới, hít vào trở về thẳng. Làm 10 lần.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 172,
+      "week": 24,
+      "category": "reading",
+      "title": "Sự tích cây nêu ngày Tết",
+      "body": "Đọc truyện \"Sự tích cây nêu\". Kể cho con về phong tục Tết của gia đình mình.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 173,
+      "week": 24,
+      "category": "breathing",
+      "title": "Thở trước khi xét nghiệm",
+      "body": "Nếu sắp làm nghiệm pháp uống đường, hít thở chậm khi chờ đợi. Mang theo sách hoặc nhạc để thư giãn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 174,
+      "week": 24,
+      "category": "partner",
+      "title": "Bố đọc sách cho con",
+      "body": "Bố đọc to một câu chuyện ngắn. Hai vợ chồng thay phiên đọc mỗi tối.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 175,
+      "week": 24,
+      "category": "journal",
+      "title": "Lá thư số 3",
+      "body": "Viết cho con về những điều làm mẹ cười tuần này.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 176,
+      "week": 25,
+      "category": "talk",
+      "title": "Kể về món ăn quê nhà",
+      "body": "Kể cho con về món ăn quê nhà bạn yêu thích và kỷ niệm gắn với nó.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 177,
+      "week": 25,
+      "category": "music",
+      "title": "Trống cơm",
+      "body": "Nghe dân ca Bắc Bộ \"Trống cơm\". Nhịp vui tươi, bạn có thể nhẹ nhàng gõ nhịp lên đùi.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 178,
+      "week": 25,
+      "category": "movement",
+      "title": "Tập tay với chai nước",
+      "body": "Ngồi thẳng, cầm hai chai nước nhỏ, nâng tay ngang vai rồi hạ xuống chậm. Làm 10 lần. Giúp tay khỏe để bế con sau này.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 179,
+      "week": 25,
+      "category": "reading",
+      "title": "Thỏ con không vâng lời",
+      "body": "Đọc một truyện ngụ ngôn ngắn cho thiếu nhi. Ghi lại bài học bạn muốn kể lại.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 180,
+      "week": 25,
+      "category": "breathing",
+      "title": "Thở làm dịu tê tay",
+      "body": "Khi tay tê, nhẹ nhàng nắm mở bàn tay 10 lần, kết hợp hít thở chậm. Nếu tê nhiều, hãy báo bác sĩ.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 181,
+      "week": 25,
+      "category": "partner",
+      "title": "Hẹn hò trước khi thành ba người",
+      "body": "Hai vợ chồng dành một buổi tối đi ăn hoặc xem phim nhẹ nhàng. Tận hưởng thời gian riêng của hai người.",
+      "durationMin": 60,
+      "sources": []
+    },
+    {
+      "day": 182,
+      "week": 25,
+      "category": "journal",
+      "title": "Nỗi sợ về sinh nở",
+      "body": "Viết những điều bạn lo lắng về ngày sinh. Mang theo danh sách này để hỏi bác sĩ ở buổi khám tới.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 183,
+      "week": 26,
+      "category": "talk",
+      "title": "Kể về tiếng động quanh nhà",
+      "body": "Bé có thể giật mình với tiếng động lớn. Hãy giải thích cho con: \"Đó là tiếng xe máy, con đừng sợ\". Giọng mẹ bình tĩnh cũng giúp mẹ bình tĩnh.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 184,
+      "week": 26,
+      "category": "music",
+      "title": "Hoa thơm bướm lượn",
+      "body": "Nghe dân ca Quan họ \"Hoa thơm bướm lượn\". Giai điệu mềm mại phù hợp buổi tối.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 185,
+      "week": 26,
+      "category": "movement",
+      "title": "Đi bộ dưới nước hoặc bơi",
+      "body": "Nếu có điều kiện, đi bộ trong nước hoặc bơi nhẹ 20 phút giúp giảm áp lực lên lưng và chân.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 186,
+      "week": 26,
+      "category": "reading",
+      "title": "Thơ \"Lời ru của mẹ\"",
+      "body": "Đọc một bài thơ về lời ru, như \"Lời ru của mẹ\" của Xuân Quỳnh. Đọc chậm cho con nghe.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 187,
+      "week": 26,
+      "category": "breathing",
+      "title": "Thở cho giấc ngủ sâu",
+      "body": "Nằm nghiêng, hít vào 4 nhịp, thở ra 6–8 nhịp. Tưởng tượng mỗi hơi thở ra là một làn sóng nhỏ. Làm cho đến khi buồn ngủ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 188,
+      "week": 26,
+      "category": "partner",
+      "title": "Bố chuẩn bị gối ngủ",
+      "body": "Bố giúp mẹ sắp xếp gối kê lưng, gối kê giữa hai chân để mẹ ngủ nghiêng thoải mái.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 189,
+      "week": 26,
+      "category": "journal",
+      "title": "Giấc mơ thai kỳ",
+      "body": "Ghi lại giấc mơ gần đây nếu bạn nhớ. Nhiều mẹ có giấc mơ lạ khi mang thai, điều này rất thường gặp.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 190,
+      "week": 27,
+      "category": "talk",
+      "title": "Kể về tuần thai",
+      "body": "Kể cho con nghe tuần này con đã lớn cỡ bắp cải rồi. Mô tả con đang phát triển ra sao theo thông tin trong app.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 191,
+      "week": 27,
+      "category": "music",
+      "title": "Träumerei – Schumann",
+      "body": "Nghe \"Träumerei\" (Mộng mơ) của Schumann trong \"Cảnh tuổi thơ\". Bản nhạc ngắn và êm.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 192,
+      "week": 27,
+      "category": "movement",
+      "title": "Giãn ngực ở cửa",
+      "body": "Đứng ở khung cửa, đặt hai cẳng tay lên khung, bước nhẹ một chân tới để giãn ngực. Giữ 3 hơi thở. Giúp dễ thở hơn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 193,
+      "week": 27,
+      "category": "reading",
+      "title": "Dế Mèn – chương 3",
+      "body": "Đọc tiếp \"Dế Mèn phiêu lưu ký\". Đến đây bạn đã có thói quen đọc đều đặn.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 194,
+      "week": 27,
+      "category": "breathing",
+      "title": "Thở trước khi tiêm",
+      "body": "Nếu sắp tiêm phòng theo chỉ định, hít thở chậm để thả lỏng cánh tay. Hỏi nhân viên y tế những gì cần theo dõi sau tiêm.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 195,
+      "week": 27,
+      "category": "partner",
+      "title": "Bố học dấu hiệu nguy hiểm",
+      "body": "Bố đọc bài \"Dấu hiệu nguy hiểm khi mang thai\" và nói lại cho mẹ nghe. Hai người cùng lưu số 115 và số bệnh viện.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 196,
+      "week": 27,
+      "category": "journal",
+      "title": "Cuối tam cá nguyệt II",
+      "body": "Viết về chặng giữa thai kỳ: khoảnh khắc đẹp nhất là gì?",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 197,
+      "week": 28,
+      "category": "talk",
+      "title": "Đếm cử động cùng con",
+      "body": "Chọn một lúc con hay cựa quậy, nằm nghiêng và trò chuyện với con, đồng thời để ý các cử động. Nếu thấy cử động giảm rõ so với thường ngày, hãy đi khám ngay.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 198,
+      "week": 28,
+      "category": "music",
+      "title": "Ru con – dân ca Huế",
+      "body": "Nghe điệu hò ru Huế \"Ru em\". Giai điệu chậm, sâu lắng của miền Trung.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 199,
+      "week": 28,
+      "category": "movement",
+      "title": "Kegel đều đặn",
+      "body": "Tiếp tục bài tập sàn chậu: siết 5 giây, thả 5 giây, 10 lần, 3 lượt trong ngày. Có thể làm khi ngồi xem tivi.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 200,
+      "week": 28,
+      "category": "reading",
+      "title": "Truyện \"Ăn khế trả vàng\" cho con",
+      "body": "Tập kể lại \"Cây khế\" bằng lời của mình, ngắn gọn trong 3 phút. Đây là bài tập kể chuyện cho con sau này.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 201,
+      "week": 28,
+      "category": "breathing",
+      "title": "Thở chậm khi hụt hơi",
+      "body": "Khi thấy hụt hơi, ngồi thẳng, vai thả lỏng, hít vào bằng mũi, thở ra chậm qua môi chúm lại. Nếu khó thở nặng hoặc đau ngực, cần đi cấp cứu.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 202,
+      "week": 28,
+      "category": "partner",
+      "title": "Cùng đăng ký nơi sinh",
+      "body": "Hai vợ chồng cùng tìm hiểu thủ tục đăng ký sinh ở bệnh viện đã chọn.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 203,
+      "week": 28,
+      "category": "journal",
+      "title": "Lá thư số 4",
+      "body": "Viết cho con về ngày con sẽ chào đời: mẹ tưởng tượng thế nào?",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 204,
+      "week": 29,
+      "category": "talk",
+      "title": "Kể về các mùa",
+      "body": "Kể cho con về bốn mùa: xuân hoa nở, hè ve kêu, thu lá vàng, đông lạnh. Hoặc hai mùa mưa nắng ở miền Nam.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 205,
+      "week": 29,
+      "category": "music",
+      "title": "Morning Mood – Grieg",
+      "body": "Nghe \"Morning Mood\" (Buổi sáng) trong \"Peer Gynt\" của Grieg. Hợp nghe khi mới thức dậy.",
+      "durationMin": 4,
+      "sources": []
+    },
+    {
+      "day": 206,
+      "week": 29,
+      "category": "movement",
+      "title": "Đi bộ ngắn nhiều lần",
+      "body": "Thay vì đi bộ một lần lâu, hãy đi 2–3 lần, mỗi lần 10 phút. Nghỉ ngay khi mỏi.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 207,
+      "week": 29,
+      "category": "reading",
+      "title": "Đọc truyện tranh thiếu nhi",
+      "body": "Chọn một truyện tranh thiếu nhi ngắn và đọc cho con nghe. Mô tả cả các hình vẽ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 208,
+      "week": 29,
+      "category": "breathing",
+      "title": "Thở cho cơn ợ nóng",
+      "body": "Khi ợ nóng, ngồi thẳng hoặc kê cao đầu, hít thở chậm. Tránh nằm ngay sau ăn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 209,
+      "week": 29,
+      "category": "partner",
+      "title": "Bố chuẩn bị đồ cho con",
+      "body": "Bố cùng mẹ giặt và gấp quần áo sơ sinh. Khoảnh khắc này thường rất xúc động.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 210,
+      "week": 29,
+      "category": "journal",
+      "title": "Danh sách việc còn lại",
+      "body": "Liệt kê những việc cần làm trước khi sinh và đánh dấu việc đã xong.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 211,
+      "week": 30,
+      "category": "talk",
+      "title": "Kể về những người sẽ chăm con",
+      "body": "Kể cho con về những người sẽ chăm sóc con sau sinh: bố, ông bà, cô dì.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 212,
+      "week": 30,
+      "category": "music",
+      "title": "Nocturne Op.9 số 2 – Chopin",
+      "body": "Nghe \"Nocturne Op.9 No.2\" của Chopin. Bản nhạc đêm êm dịu cho buổi tối.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 213,
+      "week": 30,
+      "category": "movement",
+      "title": "Ngồi bóng tập",
+      "body": "Nếu có bóng tập dành cho bà bầu, ngồi vững trên bóng, chân rộng, lắc hông nhẹ theo vòng tròn. Có người bên cạnh để an toàn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 214,
+      "week": 30,
+      "category": "reading",
+      "title": "Ca dao ru em",
+      "body": "Đọc câu ca dao \"Ru em em thét cho muồi, để mẹ đi chợ mua vôi ăn trầu\". Hát ru theo cách của bạn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 215,
+      "week": 30,
+      "category": "breathing",
+      "title": "Hít thở cho chuyển dạ: thở chậm",
+      "body": "Tập thở chậm sâu: hít vào bằng mũi khoảng 4 nhịp, thở ra miệng 6 nhịp. Đây là kiểu thở thường được hướng dẫn cho giai đoạn đầu chuyển dạ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 216,
+      "week": 30,
+      "category": "partner",
+      "title": "Bố tập xoa lưng chuyển dạ",
+      "body": "Bố tập xoa vùng lưng dưới bằng lòng bàn tay theo vòng tròn. Hỏi mẹ chỗ nào dễ chịu nhất.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 217,
+      "week": 30,
+      "category": "journal",
+      "title": "Lời nhắn cho mẹ của ngày sinh",
+      "body": "Viết vài dòng động viên để đọc khi vào viện sinh. Cất vào túi đồ đi sinh.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 218,
+      "week": 31,
+      "category": "talk",
+      "title": "Hát tên con",
+      "body": "Ghép tên của con vào một giai điệu quen và hát cho con nghe. Bài hát riêng này có thể dùng cả sau khi con chào đời.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 219,
+      "week": 31,
+      "category": "music",
+      "title": "Lý ngựa ô",
+      "body": "Nghe dân ca Nam Bộ \"Lý ngựa ô\". Giai điệu rộn ràng mà vẫn ấm áp.",
+      "durationMin": 4,
+      "sources": []
+    },
+    {
+      "day": 220,
+      "week": 31,
+      "category": "movement",
+      "title": "Giãn mông khi ngồi",
+      "body": "Ngồi trên ghế, đặt cổ chân phải lên gối trái, nghiêng nhẹ người về trước với lưng thẳng, giữ 3 hơi thở. Đổi bên. Giúp đỡ đau mông, đùi.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 221,
+      "week": 31,
+      "category": "reading",
+      "title": "Dế Mèn – chương 4",
+      "body": "Đọc tiếp \"Dế Mèn phiêu lưu ký\". Thử dừng ở chỗ hồi hộp và kể tiếp vào ngày mai.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 222,
+      "week": 31,
+      "category": "breathing",
+      "title": "Thở và thả lỏng tay chân",
+      "body": "Khi thở ra, thả lỏng lần lượt tay phải, tay trái, chân phải, chân trái. Kỹ năng thả lỏng có ích cho chuyển dạ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 223,
+      "week": 31,
+      "category": "partner",
+      "title": "Bố lên kế hoạch đưa vợ đi sinh",
+      "body": "Bố lên kế hoạch đi đến bệnh viện: phương tiện, đường đi, số điện thoại taxi hoặc người hỗ trợ.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 224,
+      "week": 31,
+      "category": "journal",
+      "title": "Điều mẹ biết ơn",
+      "body": "Viết tên ba người đã giúp đỡ bạn trong thai kỳ và lời cảm ơn họ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 225,
+      "week": 32,
+      "category": "talk",
+      "title": "Kể về túi đồ đi sinh",
+      "body": "Vừa chuẩn bị túi đồ, vừa kể cho con: \"Đây là chiếc áo đầu tiên của con\". Việc chuẩn bị trở nên nhẹ nhàng hơn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 226,
+      "week": 32,
+      "category": "music",
+      "title": "Méditation – Massenet",
+      "body": "Nghe \"Méditation\" trong vở opera \"Thaïs\" của Massenet. Tiếng violin êm dịu.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 227,
+      "week": 32,
+      "category": "movement",
+      "title": "Đi bộ chậm có người đi cùng",
+      "body": "Đi bộ chậm 15 phút cùng người thân. Chọn đường bằng phẳng, tránh đông đúc.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 228,
+      "week": 32,
+      "category": "reading",
+      "title": "Truyện \"Sự tích hoa cúc trắng\"",
+      "body": "Đọc truyện \"Sự tích hoa cúc trắng\" về tình yêu thương mẹ. Đọc nhẹ nhàng cho con nghe.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 229,
+      "week": 32,
+      "category": "breathing",
+      "title": "Thở nông nhẹ",
+      "body": "Tập kiểu thở nhẹ nhàng, nông và đều qua miệng trong 30 giây rồi trở lại thở chậm. Không thở quá nhanh. Nếu chóng mặt, dừng lại.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 230,
+      "week": 32,
+      "category": "partner",
+      "title": "Bố tham gia lớp tiền sản",
+      "body": "Nếu bệnh viện có lớp tiền sản, bố đi cùng mẹ. Ghi lại điều mới học được.",
+      "durationMin": 60,
+      "sources": []
+    },
+    {
+      "day": 231,
+      "week": 32,
+      "category": "journal",
+      "title": "Kế hoạch sinh",
+      "body": "Viết mong muốn của bạn về ngày sinh: ai đi cùng, điều gì giúp bạn bình tĩnh. Giữ linh hoạt vì tình huống có thể thay đổi.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 232,
+      "week": 33,
+      "category": "talk",
+      "title": "Kể cho con về ngày gặp mặt",
+      "body": "Nói với con: \"Mẹ con mình sắp gặp nhau rồi\". Kể cho con những gì sẽ diễn ra, bằng giọng bình tĩnh.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 233,
+      "week": 33,
+      "category": "music",
+      "title": "Salut d'amour – Elgar",
+      "body": "Nghe \"Salut d'amour\" (Lời chào tình yêu) của Elgar. Bản nhạc ngắn, ngọt ngào.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 234,
+      "week": 33,
+      "category": "movement",
+      "title": "Lắc hông khi đứng",
+      "body": "Đứng vịn bàn, chân rộng bằng vai, lắc hông nhẹ sang trái phải. Làm 1–2 phút khi mỏi lưng.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 235,
+      "week": 33,
+      "category": "reading",
+      "title": "Ca dao về cha",
+      "body": "Đọc câu \"Công cha như núi ngất trời, nghĩa mẹ như nước ở ngoài biển Đông\". Kể cho con nghe về tình yêu của bố.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 236,
+      "week": 33,
+      "category": "breathing",
+      "title": "Hình dung nơi bình yên",
+      "body": "Nhắm mắt, hình dung một nơi bạn thấy bình yên: bãi biển, cánh đồng. Hít thở chậm và ở lại đó 5 phút.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 237,
+      "week": 33,
+      "category": "partner",
+      "title": "Bố làm \"bảng chuyển dạ\"",
+      "body": "Bố viết ra giấy: số điện thoại bệnh viện, người cần báo, vị trí túi đồ. Dán ở nơi dễ thấy.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 238,
+      "week": 33,
+      "category": "journal",
+      "title": "Lá thư số 5",
+      "body": "Viết cho con về những điều bố mẹ đã chuẩn bị cho con.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 239,
+      "week": 34,
+      "category": "talk",
+      "title": "Ru con bằng lời của mẹ",
+      "body": "Tự nghĩ một câu ru đơn giản và ru con. Lời ru của mẹ là món quà riêng, không cần vần điệu hay.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 240,
+      "week": 34,
+      "category": "music",
+      "title": "Spring Song – Mendelssohn",
+      "body": "Nghe \"Spring Song\" (Bài ca mùa xuân) của Mendelssohn. Giai điệu nhẹ nhàng, tươi sáng.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 241,
+      "week": 34,
+      "category": "movement",
+      "title": "Ngồi xổm có hỗ trợ",
+      "body": "Vịn vào bàn chắc chắn, hạ người ngồi xổm một phần, giữ 3 hơi thở rồi đứng lên chậm. Chỉ làm nếu thấy thoải mái và bác sĩ không dặn tránh.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 242,
+      "week": 34,
+      "category": "reading",
+      "title": "Dế Mèn – chương 5",
+      "body": "Đọc tiếp \"Dế Mèn phiêu lưu ký\". Đánh dấu những đoạn hay để đọc lại cho con sau này.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 243,
+      "week": 34,
+      "category": "breathing",
+      "title": "Thở qua cơn gò",
+      "body": "Khi có cơn gò, tập thở chậm từ đầu đến cuối cơn. Hít vào bằng mũi, thở ra dài bằng miệng.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 244,
+      "week": 34,
+      "category": "partner",
+      "title": "Bố thử đi đường đến viện",
+      "body": "Bố đi thử quãng đường đến bệnh viện, ghi lại thời gian vào giờ cao điểm và ban đêm.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 245,
+      "week": 34,
+      "category": "journal",
+      "title": "Kiểm tra túi đồ",
+      "body": "Đánh dấu những món đã có trong túi đồ đi sinh và ghi những món còn thiếu.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 246,
+      "week": 35,
+      "category": "talk",
+      "title": "Kể về bữa ăn đầu tiên của con",
+      "body": "Kể cho con về sữa mẹ, bữa ăn đầu tiên của con. Tìm hiểu trước về cho con bú giúp mẹ tự tin hơn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 247,
+      "week": 35,
+      "category": "music",
+      "title": "Ave Maria – Schubert",
+      "body": "Nghe \"Ave Maria\" của Schubert, bản nhạc không lời. Giai điệu thanh bình giúp tĩnh tâm.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 248,
+      "week": 35,
+      "category": "movement",
+      "title": "Xoay vai, giãn cổ",
+      "body": "Ngồi thẳng, xoay vai ra sau 10 lần, nghiêng đầu nhẹ hai bên. Giúp giảm căng vai khi ngủ không ngon.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 249,
+      "week": 35,
+      "category": "reading",
+      "title": "Đọc về cho con bú",
+      "body": "Đọc tài liệu về nuôi con bằng sữa mẹ từ bệnh viện hoặc nguồn chính thống. Ghi lại câu hỏi để hỏi nhân viên y tế.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 250,
+      "week": 35,
+      "category": "breathing",
+      "title": "Thở thư giãn toàn thân",
+      "body": "Nằm nghiêng, hít thở chậm và thả lỏng từ đỉnh đầu xuống bàn chân. Làm 10 phút trước khi ngủ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 251,
+      "week": 35,
+      "category": "partner",
+      "title": "Bố học cách bế và quấn bé",
+      "body": "Bố tập bế và quấn bằng một con gấu bông theo video hướng dẫn của bệnh viện. Mẹ cùng xem và góp ý.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 252,
+      "week": 35,
+      "category": "journal",
+      "title": "Lời nhắn cho bố",
+      "body": "Viết một lời nhắn cảm ơn bố của con về những gì bố đã làm suốt thai kỳ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 253,
+      "week": 36,
+      "category": "talk",
+      "title": "Kể về đường đến bệnh viện",
+      "body": "Kể cho con về chuyến đi đến bệnh viện sẽ diễn ra thế nào. Nói chậm để chính bạn cũng thấy yên tâm.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 254,
+      "week": 36,
+      "category": "music",
+      "title": "Ru con mùa đông",
+      "body": "Nghe lại bài \"Ru con mùa đông\". Thử hát theo để bài ru trở nên quen thuộc với cả hai mẹ con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 255,
+      "week": 36,
+      "category": "movement",
+      "title": "Đi bộ chậm, ngắn",
+      "body": "Đi bộ chậm 10–15 phút. Mang điện thoại theo và đi gần nhà.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 256,
+      "week": 36,
+      "category": "reading",
+      "title": "Đọc lại nhật ký",
+      "body": "Đọc lại những trang nhật ký đầu thai kỳ. Bạn đã đi một chặng đường rất dài.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 257,
+      "week": 36,
+      "category": "breathing",
+      "title": "Thở cùng chồng",
+      "body": "Hai vợ chồng ngồi đối diện, cùng hít vào, cùng thở ra chậm. Người chồng có thể giúp giữ nhịp khi chuyển dạ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 258,
+      "week": 36,
+      "category": "partner",
+      "title": "Bố sạc đầy điện thoại",
+      "body": "Bố luôn giữ điện thoại có pin và mở chuông từ tuần này. Lưu sẵn số bệnh viện ở mục yêu thích.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 259,
+      "week": 36,
+      "category": "journal",
+      "title": "Lá thư chào đón",
+      "body": "Viết lá thư chào đón con. Bạn có thể đọc lá thư này khi con chào đời.",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 260,
+      "week": 37,
+      "category": "talk",
+      "title": "Con đã đủ tháng",
+      "body": "Nói với con: \"Con đã đủ tháng rồi, khi nào con sẵn sàng thì mình gặp nhau nhé\". Nói bằng giọng nhẹ nhàng, không vội vàng.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 261,
+      "week": 37,
+      "category": "music",
+      "title": "Humoresque – Dvořák",
+      "body": "Nghe \"Humoresque\" của Dvořák. Giai điệu vui và dịu giúp bớt sốt ruột.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 262,
+      "week": 37,
+      "category": "movement",
+      "title": "Lắc hông trên bóng",
+      "body": "Nếu có bóng tập, ngồi vững trên bóng và lắc hông nhẹ. Có người ở bên để giữ an toàn.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 263,
+      "week": 37,
+      "category": "reading",
+      "title": "Kể \"Sự tích dưa hấu\" bằng lời của mẹ",
+      "body": "Tập kể lại câu chuyện Mai An Tiêm trong 3 phút cho con nghe.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 264,
+      "week": 37,
+      "category": "breathing",
+      "title": "Thở ra dài khi lo",
+      "body": "Khi lo lắng về chuyển dạ, tập thở ra dài như đang thổi bong bóng xà phòng. Lặp lại 10 lần.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 265,
+      "week": 37,
+      "category": "partner",
+      "title": "Bố chuẩn bị đồ ăn nhẹ",
+      "body": "Bố chuẩn bị sẵn nước uống và đồ ăn nhẹ cho ngày vào viện, kiểm tra lại túi đồ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 266,
+      "week": 37,
+      "category": "journal",
+      "title": "Ghi lại dấu hiệu",
+      "body": "Ghi lại các cơn gò, nút nhầy nếu có, để kể với bác sĩ khi khám.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 267,
+      "week": 38,
+      "category": "talk",
+      "title": "Kể về những điều đầu tiên",
+      "body": "Kể cho con về những điều đầu tiên con sẽ thấy: khuôn mặt mẹ, giọng bố, cái ôm đầu tiên.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 268,
+      "week": 38,
+      "category": "music",
+      "title": "Canon in D",
+      "body": "Nghe lại \"Canon in D\" của Pachelbel, bản nhạc đầu tiên trong nhật ký thai giáo. Nhìn lại hành trình của mình.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 269,
+      "week": 38,
+      "category": "movement",
+      "title": "Duỗi người nhẹ trước khi ngủ",
+      "body": "Nằm nghiêng, duỗi nhẹ chân dưới, co chân trên. Hít thở chậm 1 phút rồi đổi bên.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 270,
+      "week": 38,
+      "category": "reading",
+      "title": "Đọc thơ cho con",
+      "body": "Chọn bài thơ bạn thích nhất trong thai kỳ và đọc lại cho con.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 271,
+      "week": 38,
+      "category": "breathing",
+      "title": "Thở cùng âm thanh \"ừm\"",
+      "body": "Khi thở ra, ngân \"ừm\" nhẹ nhàng. Âm thanh trầm giúp thả lỏng hàm và vai.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 272,
+      "week": 38,
+      "category": "partner",
+      "title": "Bố viết lời chào đón",
+      "body": "Bố viết vài dòng chào đón con và đọc to.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 273,
+      "week": 38,
+      "category": "journal",
+      "title": "Điều mẹ muốn nhớ",
+      "body": "Viết về cảm giác có con trong bụng mà bạn muốn nhớ mãi.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 274,
+      "week": 39,
+      "category": "talk",
+      "title": "Bình tĩnh chờ con",
+      "body": "Nói với con rằng mẹ đã sẵn sàng và sẽ kiên nhẫn chờ. Đây cũng là lời nhắc cho chính mẹ.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 275,
+      "week": 39,
+      "category": "music",
+      "title": "Ầu ơ – hát cho con",
+      "body": "Hát lại câu ru \"Ầu ơ\" mà bạn đã tập từ những tuần trước. Bé có thể đã quen với giọng ru của mẹ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 276,
+      "week": 39,
+      "category": "movement",
+      "title": "Đi bộ nhẹ gần nhà",
+      "body": "Đi bộ chậm quanh nhà nếu thấy khỏe và bác sĩ đồng ý. Có người đi cùng.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 277,
+      "week": 39,
+      "category": "reading",
+      "title": "Đọc lại lá thư chào đón",
+      "body": "Đọc lại lá thư chào đón bạn đã viết. Sửa hay thêm vài dòng nếu muốn.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 278,
+      "week": 39,
+      "category": "breathing",
+      "title": "Thở trong cơn co",
+      "body": "Khi cơn co đến, thở chậm, tập trung vào hơi thở ra. Giữa các cơn, thả lỏng hoàn toàn. Ghi lại giờ cơn co.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 279,
+      "week": 39,
+      "category": "partner",
+      "title": "Bố ở bên",
+      "body": "Bố dành thời gian ở bên mẹ, trò chuyện, xoa lưng, giúp mẹ thư giãn.",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 280,
+      "week": 39,
+      "category": "journal",
+      "title": "Những ngày cuối",
+      "body": "Viết vài dòng về cảm xúc của những ngày cuối thai kỳ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 281,
+      "week": 40,
+      "category": "talk",
+      "title": "Ngày dự sinh",
+      "body": "Hôm nay là tuần dự sinh. Nói với con: \"Mẹ yêu con, mình sẽ gặp nhau thật sớm\". Nhớ rằng sinh trước hoặc sau vài ngày là bình thường.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 282,
+      "week": 40,
+      "category": "music",
+      "title": "Wiegenlied – Brahms",
+      "body": "Nghe lại bài hát ru của Brahms, bản nhạc bạn nghe ở tuần đầu thai kỳ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 283,
+      "week": 40,
+      "category": "movement",
+      "title": "Đi lại nhẹ trong nhà",
+      "body": "Đi lại nhẹ nhàng trong nhà, đổi tư thế thường xuyên. Nghỉ khi mệt.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 284,
+      "week": 40,
+      "category": "reading",
+      "title": "Đọc cho con một câu chuyện yêu thích",
+      "body": "Đọc lại câu chuyện bạn thích nhất trong thai kỳ.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 285,
+      "week": 40,
+      "category": "breathing",
+      "title": "Hít thở giữ bình tĩnh",
+      "body": "Khi sốt ruột, hít vào 4 nhịp, thở ra 6 nhịp, 5 phút. Nhắc mình rằng cơ thể và em bé đang chuẩn bị.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 286,
+      "week": 40,
+      "category": "partner",
+      "title": "Bố đọc lại \"bảng chuyển dạ\"",
+      "body": "Bố đọc lại danh sách số điện thoại và việc cần làm khi chuyển dạ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 287,
+      "week": 40,
+      "category": "journal",
+      "title": "Trang cuối của thai kỳ",
+      "body": "Viết một trang cuối cho nhật ký thai kỳ. Trang tiếp theo sẽ là ngày con chào đời.",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 288,
+      "week": 41,
+      "category": "talk",
+      "title": "Trò chuyện thư thái",
+      "body": "Tiếp tục trò chuyện với con như mọi ngày. Đừng để sự chờ đợi làm mất đi những khoảnh khắc bình yên.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 289,
+      "week": 41,
+      "category": "music",
+      "title": "Ru con – dân ca Nam Bộ",
+      "body": "Nghe lại bản ru con Nam Bộ. Nghĩ đến lúc bạn ru con trong vòng tay.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 290,
+      "week": 41,
+      "category": "movement",
+      "title": "Nghỉ ngơi là ưu tiên",
+      "body": "Tuần này hãy ưu tiên nghỉ ngơi. Chỉ đi lại nhẹ nhàng trong nhà và theo hướng dẫn của bác sĩ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 291,
+      "week": 41,
+      "category": "reading",
+      "title": "Đọc thư của bố",
+      "body": "Đọc lại những lời nhắn bố đã viết cho con trong thai kỳ.",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 292,
+      "week": 41,
+      "category": "breathing",
+      "title": "Thở cho sự kiên nhẫn",
+      "body": "Mỗi lần hít vào, nói thầm \"mẹ chờ\"; mỗi lần thở ra, nói thầm \"mẹ tin\". Làm 10 hơi thở.",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 293,
+      "week": 41,
+      "category": "partner",
+      "title": "Bố đi tái khám cùng mẹ",
+      "body": "Bố đi cùng mẹ đến các buổi tái khám theo hẹn và ghi lại lời dặn của bác sĩ.",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 294,
+      "week": 41,
+      "category": "journal",
+      "title": "Một lời gửi con",
+      "body": "Viết một câu ngắn gửi con: con sẽ chào đời vào một ngày rất đặc biệt.",
+      "durationMin": 3,
+      "sources": []
+    }
+  ]
+}

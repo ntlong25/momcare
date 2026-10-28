@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/chip_colors.dart';
 import '../../../core/models/nutrition_model.dart';
 
 class NutritionCard extends StatelessWidget {
@@ -88,14 +89,14 @@ class NutritionCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.green.withValues(alpha: 0.1),
+                      color: ChipColors.positiveBackground(context),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       benefit,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.green[800]),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: ChipColors.positiveText(context),
+                      ),
                     ),
                   );
                 }).toList(),

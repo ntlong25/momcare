@@ -11,6 +11,7 @@ import '../../features/fertility/screens/fertility_planner_screen.dart';
 import '../../features/legal/screens/privacy_policy_screen.dart';
 import '../../features/legal/screens/medical_disclaimer_screen.dart';
 import '../../features/emergency/screens/emergency_warning_screen.dart';
+import '../../features/references/screens/references_screen.dart';
 
 class NavigationHelper {
   static Future<T?> toPregnancySetup<T>(BuildContext context) {
@@ -103,6 +104,13 @@ class NavigationHelper {
     );
   }
 
+  static Future<T?> toReferences<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const ReferencesScreen()),
+    );
+  }
+
   static Future<T?> showPrivacyPolicy<T>(BuildContext context) {
     return toPrivacyPolicy<T>(context);
   }
@@ -113,11 +121,10 @@ class NavigationHelper {
       builder: (context) => AlertDialog(
         title: const Text('Thông báo'),
         content: const Text(
-          'Trung tâm thông báo sẽ được hoàn thiện trong bản cập nhật sau.\n\n'
-          'Hiện tại ứng dụng có thể nhắc:\n'
-          '- Lịch hẹn sắp tới\n'
-          '- Gợi ý sức khỏe hằng ngày\n'
-          '- Nhắc uống thuốc hoặc vitamin nếu được cấu hình',
+          'MomCare+ có thể nhắc bạn:\n'
+          '- Lịch hẹn: bật "Nhắc hẹn" khi thêm hoặc sửa lịch hẹn.\n'
+          '- Thói quen hằng ngày: bật chuông ở thẻ "Chăm sóc hôm nay" trên Trang chủ.\n\n'
+          'Nhắc nhở chỉ được bật khi bạn chọn, và lặp lại mỗi ngày với thói quen.',
         ),
         actions: [
           TextButton(
@@ -154,10 +161,10 @@ class NavigationHelper {
       builder: (context) => AlertDialog(
         title: const Text('Cài đặt thông báo'),
         content: const Text(
-          'Cài đặt thông báo chi tiết sẽ được bổ sung trong bản cập nhật sau.\n\n'
-          'Hiện tại ứng dụng hỗ trợ:\n'
-          '- Nhắc lịch hẹn trước 1 giờ\n'
-          '- Gợi ý sức khỏe hằng ngày lúc 9:00',
+          'Bạn quản lý nhắc nhở ngay tại nơi tạo chúng:\n'
+          '- Lịch hẹn: bật/tắt "Nhắc hẹn" và chọn thời gian nhắc trước trong màn sửa lịch hẹn.\n'
+          '- Thói quen: bật/tắt chuông và chọn giờ nhắc ở thẻ "Chăm sóc hôm nay".\n\n'
+          'Bạn cũng có thể tắt toàn bộ thông báo của MomCare+ trong cài đặt của điện thoại.',
         ),
         actions: [
           TextButton(

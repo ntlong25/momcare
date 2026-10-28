@@ -1,0 +1,86 @@
+{
+  "id": "pre_partner",
+  "stage": "pre",
+  "category": "partner",
+  "title": "Dành cho người chồng",
+  "summary": "Sức khỏe của bố cũng quan trọng. Đây là những việc chồng có thể làm để cùng vợ chuẩn bị đón con.",
+  "order": 70,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Sức khỏe của bố",
+      "body": "Tinh trùng mới được tạo ra liên tục trong khoảng 2–3 tháng. Vì vậy thay đổi thói quen từ sớm có thể giúp ích cho khả năng có thai.",
+      "bullets": [
+        "Bỏ thuốc lá và hạn chế rượu bia",
+        "Ăn uống cân bằng, giữ cân nặng hợp lý, vận động đều",
+        "Tránh để vùng bẹn quá nóng kéo dài (tắm nước rất nóng, đặt laptop trên đùi lâu)",
+        "Khám sức khỏe, xét nghiệm viêm gan B, HIV, giang mai theo tư vấn",
+        "Nếu gia đình có người mắc thalassemia, cả hai vợ chồng nên được tư vấn xét nghiệm"
+      ]
+    },
+    {
+      "heading": "Đồng hành về tinh thần",
+      "body": "Cùng vợ đi khám, cùng tìm hiểu thông tin và chia sẻ việc nhà giúp vợ thấy được hỗ trợ. Khi chưa có thai như mong muốn, tránh đổ lỗi; khả năng sinh sản liên quan đến cả hai người.",
+      "bullets": []
+    },
+    {
+      "heading": "Chuẩn bị thực tế",
+      "body": "",
+      "bullets": [
+        "Cùng lập ngân sách cho thai kỳ và sinh con",
+        "Tìm hiểu chế độ nghỉ khi vợ sinh con dành cho lao động nam",
+        "Không hút thuốc trong nhà và gần vợ"
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_partner_checkup",
+      "text": "Chồng đi khám sức khỏe tiền hôn nhân / tiền thai",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_partner_smoke",
+      "text": "Chồng bỏ thuốc lá, không hút thuốc trong nhà",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_partner_alcohol",
+      "text": "Chồng hạn chế rượu bia",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_partner_budget",
+      "text": "Hai vợ chồng cùng lập ngân sách",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_partner_visit",
+      "text": "Chồng sắp xếp đi cùng vợ trong buổi khám tiền thai",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "CDC-PRECONCEPTION",
+    "NHS-PLANNING"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

@@ -1,0 +1,2497 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "foods": [
+    {
+      "id": "rau_ngot",
+      "name": "Rau ngót",
+      "aliases": [
+        "bồ ngót"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Rau lá xanh giàu folate, sắt và vitamin C khi nấu chín. Có quan niệm dân gian kiêng rau ngót đầu thai kỳ, chủ yếu liên quan đến ăn sống hoặc uống nước ép sống lượng lớn; chưa có bằng chứng tốt về hại khi ăn canh nấu chín lượng vừa phải.",
+      "tip": "Nấu chín, ăn lượng vừa phải; tránh nước ép rau ngót sống. Nếu từng sảy thai hoặc dọa sảy, hỏi bác sĩ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "rau_den",
+      "name": "Rau dền",
+      "aliases": [
+        "dền đỏ",
+        "dền cơm"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Giàu folate, sắt, canxi và chất xơ.",
+      "tip": "Luộc hoặc nấu canh, ăn kèm thực phẩm giàu vitamin C để hấp thu sắt tốt hơn.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "cai_bo_xoi",
+      "name": "Cải bó xôi",
+      "aliases": [
+        "rau chân vịt",
+        "rau bina"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nguồn folate và vitamin K tốt.",
+      "tip": "Rửa kỹ, nấu chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "rau_muong",
+      "name": "Rau muống",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Rau quen thuộc, cung cấp chất xơ và vitamin.",
+      "tip": "Rửa kỹ và nấu chín; rau muống mọc ở nước bẩn dễ mang ký sinh trùng nếu ăn sống.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "mong_toi",
+      "name": "Mồng tơi",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nhiều chất xơ và nhớt, có thể giúp giảm táo bón.",
+      "tip": "Nấu canh chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "bong_cai_xanh",
+      "name": "Bông cải xanh",
+      "aliases": [
+        "súp lơ xanh"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Giàu folate, vitamin C và chất xơ.",
+      "tip": "Hấp hoặc luộc vừa chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "ca_rot",
+      "name": "Cà rốt",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Chứa beta-caroten, dạng tiền vitamin A an toàn từ thực vật.",
+      "tip": "Ăn trong bữa ăn bình thường, không cần ép nước uống lượng lớn.",
+      "sources": [
+        "VN-NIN",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "bi_do",
+      "name": "Bí đỏ",
+      "aliases": [
+        "bí ngô"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Giàu beta-caroten và chất xơ.",
+      "tip": "Nấu canh, hấp hoặc nấu cháo.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "bi_xanh",
+      "name": "Bí xanh",
+      "aliases": [
+        "bí đao"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nhẹ bụng, nhiều nước.",
+      "tip": "Nấu canh chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "muop",
+      "name": "Mướp",
+      "aliases": [
+        "mướp hương"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Dễ tiêu, nhiều nước.",
+      "tip": "Nấu canh với tôm hoặc cua đã làm sạch.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "muop_dang",
+      "name": "Mướp đắng",
+      "aliases": [
+        "khổ qua"
+      ],
+      "group": "vegetable",
+      "verdict": "limit",
+      "reason": "Một số nghiên cứu trên động vật cho thấy chất chiết mướp đắng liều cao có thể ảnh hưởng thai; bằng chứng ở người còn hạn chế. Ăn như món ăn thông thường lượng nhỏ chưa ghi nhận rõ nguy cơ.",
+      "tip": "Ăn lượng nhỏ, không dùng trà hoặc viên chiết xuất mướp đắng. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "ca_chua",
+      "name": "Cà chua",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Cung cấp vitamin C và chất chống oxy hóa.",
+      "tip": "Rửa sạch; giảm ăn nếu bị ợ nóng.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "dua_chuot",
+      "name": "Dưa chuột",
+      "aliases": [
+        "dưa leo"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nhiều nước, ít năng lượng.",
+      "tip": "Rửa kỹ, gọt vỏ nếu không chắc nguồn gốc.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "khoai_lang",
+      "name": "Khoai lang",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Giàu chất xơ, beta-caroten; giúp giảm táo bón.",
+      "tip": "Luộc hoặc hấp, thay một phần cơm.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "khoai_tay",
+      "name": "Khoai tây",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nguồn tinh bột và kali.",
+      "tip": "Không ăn khoai đã mọc mầm hoặc vỏ xanh; hạn chế khoai tây chiên.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "ca_tim",
+      "name": "Cà tím",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Rau quen thuộc, cung cấp chất xơ.",
+      "tip": "Nấu chín kỹ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "dau_bap",
+      "name": "Đậu bắp",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Có folate và chất xơ hòa tan.",
+      "tip": "Luộc hoặc xào chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "su_hao",
+      "name": "Su hào",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nhiều vitamin C và chất xơ.",
+      "tip": "Nấu canh hoặc xào.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "su_su",
+      "name": "Su su",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Dễ ăn, nhẹ bụng.",
+      "tip": "Luộc hoặc xào chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "ngo_sen",
+      "name": "Ngó sen",
+      "aliases": [
+        "củ sen"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Cung cấp chất xơ và vitamin C.",
+      "tip": "Nấu chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "cu_den",
+      "name": "Củ dền",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Có folate và chất xơ.",
+      "tip": "Nấu canh hoặc luộc.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "nam_trong",
+      "name": "Nấm trồng",
+      "aliases": [
+        "nấm rơm",
+        "nấm kim châm",
+        "nấm hương"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Nấm trồng bán ở chợ, siêu thị nấu chín là thực phẩm bình thường.",
+      "tip": "Nấu chín kỹ; nấm kim châm cần nấu chín hẳn vì từng liên quan đến Listeria.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "nam_rung",
+      "name": "Nấm rừng, nấm lạ",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "avoid",
+      "reason": "Nguy cơ ngộ độc nấm độc, rất nguy hiểm cho cả mẹ và thai.",
+      "tip": "Chỉ dùng nấm trồng rõ nguồn gốc.",
+      "sources": []
+    },
+    {
+      "id": "gia_do_song",
+      "name": "Giá đỗ sống",
+      "aliases": [
+        "giá sống"
+      ],
+      "group": "vegetable",
+      "verdict": "avoid",
+      "reason": "Mầm sống dễ nhiễm vi khuẩn như Salmonella, E. coli.",
+      "tip": "Chần hoặc nấu chín giá trước khi ăn.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "gia_do_chin",
+      "name": "Giá đỗ nấu chín",
+      "aliases": [
+        "giá xào"
+      ],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Khi nấu chín, nguy cơ vi khuẩn giảm đáng kể.",
+      "tip": "Xào hoặc nấu chín hẳn.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "mang_tuoi",
+      "name": "Măng tươi",
+      "aliases": [
+        "măng"
+      ],
+      "group": "vegetable",
+      "verdict": "limit",
+      "reason": "Măng tươi chứa chất có thể sinh độc tố cyanide nếu không sơ chế kỹ.",
+      "tip": "Luộc kỹ, bỏ nước nhiều lần; ăn lượng vừa phải.",
+      "sources": []
+    },
+    {
+      "id": "rau_song",
+      "name": "Rau sống, rau thơm ăn sống",
+      "aliases": [
+        "rau ghém"
+      ],
+      "group": "vegetable",
+      "verdict": "limit",
+      "reason": "Rau ăn sống có thể mang vi khuẩn, ký sinh trùng nếu rửa không kỹ.",
+      "tip": "Rửa dưới vòi nước chảy, ngâm rửa kỹ; ưu tiên rau rõ nguồn gốc. Ở hàng quán không chắc vệ sinh, nên hạn chế.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "rau_ram",
+      "name": "Rau răm",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "limit",
+      "reason": "Dân gian cho rằng rau răm có thể gây co bóp tử cung; chưa có bằng chứng khoa học rõ ràng ở người. Lượng nhỏ làm gia vị thường được dùng.",
+      "tip": "Dùng lượng nhỏ làm gia vị, rửa kỹ. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "ngai_cuu",
+      "name": "Ngải cứu",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "limit",
+      "reason": "Ngải cứu được dùng trong y học cổ truyền; một số loài họ ngải chứa thujone, có thể gây hại khi dùng lượng lớn. Bằng chứng về an toàn khi mang thai còn hạn chế.",
+      "tip": "Không tự dùng ngải cứu như thuốc (trứng rán ngải cứu nhiều ngày liền, nước sắc). Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "la_lot",
+      "name": "Lá lốt",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "ok",
+      "reason": "Rau gia vị quen thuộc khi nấu chín trong món ăn.",
+      "tip": "Rửa kỹ, nấu chín.",
+      "sources": []
+    },
+    {
+      "id": "tia_to",
+      "name": "Tía tô",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "ok",
+      "reason": "Dùng làm rau gia vị lượng nhỏ trong bữa ăn.",
+      "tip": "Không tự dùng nước sắc tía tô như thuốc khi chưa hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "hanh_toi",
+      "name": "Hành, tỏi",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "ok",
+      "reason": "Gia vị thông thường, an toàn trong nấu ăn.",
+      "tip": "Giảm nếu gây ợ nóng; không dùng viên tỏi liều cao khi chưa hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "gung",
+      "name": "Gừng",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "ok",
+      "reason": "Gừng trong món ăn hoặc trà loãng có thể giúp một số mẹ đỡ buồn nôn.",
+      "tip": "Dùng lượng vừa phải như gia vị; hỏi bác sĩ trước khi dùng viên gừng.",
+      "sources": [
+        "WHO-ANC"
+      ]
+    },
+    {
+      "id": "nghe",
+      "name": "Nghệ",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "ok",
+      "reason": "Nghệ làm gia vị trong món ăn là bình thường.",
+      "tip": "Không dùng viên tinh bột nghệ hay curcumin liều cao khi chưa hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "ot",
+      "name": "Ớt",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "limit",
+      "reason": "Không gây hại cho thai, nhưng dễ làm ợ nóng và khó chịu dạ dày.",
+      "tip": "Ăn vừa phải, giảm khi bị ợ nóng hoặc trĩ.",
+      "sources": []
+    },
+    {
+      "id": "que",
+      "name": "Quế",
+      "aliases": [],
+      "group": "herb_spice",
+      "verdict": "limit",
+      "reason": "Lượng nhỏ làm gia vị là bình thường; dạng tinh dầu hoặc viên liều cao chưa rõ an toàn.",
+      "tip": "Chỉ dùng như gia vị.",
+      "sources": []
+    },
+    {
+      "id": "nhuy_nghe_tay",
+      "name": "Nhụy hoa nghệ tây",
+      "aliases": [
+        "saffron"
+      ],
+      "group": "herb_spice",
+      "verdict": "avoid",
+      "reason": "Liều cao có thể kích thích co bóp tử cung. Không cần thiết trong thai kỳ.",
+      "tip": "Không tự dùng saffron ngâm nước uống hằng ngày.",
+      "sources": []
+    },
+    {
+      "id": "du_du_xanh",
+      "name": "Đu đủ xanh",
+      "aliases": [
+        "gỏi đu đủ",
+        "đu đủ sống"
+      ],
+      "group": "fruit",
+      "verdict": "avoid",
+      "reason": "Đu đủ xanh hoặc chưa chín chứa nhựa (latex, papain) có thể kích thích co bóp tử cung theo một số nghiên cứu.",
+      "tip": "Chỉ ăn đu đủ chín hẳn.",
+      "sources": []
+    },
+    {
+      "id": "du_du_chin",
+      "name": "Đu đủ chín",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Đu đủ chín vàng đều có ít nhựa, giàu vitamin C và chất xơ.",
+      "tip": "Chọn quả chín hẳn, không còn phần xanh.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "dua",
+      "name": "Dứa",
+      "aliases": [
+        "thơm",
+        "khóm"
+      ],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Dân gian cho rằng dứa gây sảy thai do enzyme bromelain; lượng bromelain trong quả ăn bình thường rất thấp và chưa có bằng chứng tốt về nguy cơ. Dứa có thể gây ợ nóng, rát miệng.",
+      "tip": "Ăn vài miếng như món tráng miệng; không ăn quá nhiều một lúc. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "chuoi",
+      "name": "Chuối",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Giàu kali, dễ ăn khi nghén.",
+      "tip": "Bữa phụ tiện lợi.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "cam",
+      "name": "Cam",
+      "aliases": [
+        "quýt"
+      ],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Giàu vitamin C và folate, giúp hấp thu sắt.",
+      "tip": "Ăn cả múi để có chất xơ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "buoi",
+      "name": "Bưởi",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Giàu vitamin C.",
+      "tip": "Bưởi có thể tương tác với một số thuốc; nếu đang dùng thuốc, hỏi bác sĩ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "oi",
+      "name": "Ổi",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Rất giàu vitamin C và chất xơ.",
+      "tip": "Rửa sạch; ăn chín vừa nếu dễ táo bón.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "tao",
+      "name": "Táo",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Chất xơ và nước, ít năng lượng.",
+      "tip": "Rửa kỹ hoặc gọt vỏ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "xoai_chin",
+      "name": "Xoài chín",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Giàu beta-caroten, vitamin C.",
+      "tip": "Khá ngọt, ăn vừa phải nếu cần kiểm soát đường huyết.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "xoai_xanh_lac",
+      "name": "Xoài xanh, cóc lắc muối ớt",
+      "aliases": [
+        "trái cây lắc"
+      ],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Nhiều muối, đường, ớt; dễ gây ợ nóng; vệ sinh đồ bán rong không đảm bảo.",
+      "tip": "Ăn thỉnh thoảng, tự làm ở nhà với ít muối.",
+      "sources": []
+    },
+    {
+      "id": "thanh_long",
+      "name": "Thanh long",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Nhiều nước và chất xơ, giúp giảm táo bón.",
+      "tip": "Ăn vừa phải.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "dua_hau",
+      "name": "Dưa hấu",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Nhiều nước, giải khát.",
+      "tip": "Ăn ngay sau khi cắt hoặc bảo quản lạnh; dưa cắt sẵn để lâu dễ nhiễm khuẩn.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "nho",
+      "name": "Nho",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Cung cấp nước và vitamin.",
+      "tip": "Rửa kỹ; ăn vừa phải vì khá ngọt.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "vai",
+      "name": "Vải",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Rất ngọt; dân gian cho là \"nóng\". Ăn nhiều lúc đói có thể gây hạ đường huyết ở một số người.",
+      "tip": "Ăn sau bữa ăn, vài quả mỗi lần, nhất là nếu có đái tháo đường thai kỳ.",
+      "sources": []
+    },
+    {
+      "id": "nhan",
+      "name": "Nhãn",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Ngọt, nhiều đường; dân gian kiêng vì cho là \"nóng\", chưa có bằng chứng khoa học về hại cho thai.",
+      "tip": "Ăn lượng vừa phải.",
+      "sources": []
+    },
+    {
+      "id": "sau_rieng",
+      "name": "Sầu riêng",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Nhiều đường và năng lượng, dễ tăng cân và đường huyết.",
+      "tip": "Một vài múi nhỏ thỉnh thoảng; tránh nếu có đái tháo đường thai kỳ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "mit",
+      "name": "Mít",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Ngọt, nhiều năng lượng; ăn nhiều dễ đầy bụng.",
+      "tip": "Ăn vài múi, không ăn khi đói.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "chom_chom",
+      "name": "Chôm chôm",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Có vitamin C.",
+      "tip": "Ăn vừa phải, rửa sạch.",
+      "sources": []
+    },
+    {
+      "id": "mang_cut",
+      "name": "Măng cụt",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Trái cây bình thường trong bữa ăn.",
+      "tip": "Ăn vừa phải.",
+      "sources": []
+    },
+    {
+      "id": "hong_xiem",
+      "name": "Hồng xiêm",
+      "aliases": [
+        "sapoche"
+      ],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Có chất xơ, khá ngọt.",
+      "tip": "Ăn quả chín mềm.",
+      "sources": []
+    },
+    {
+      "id": "le",
+      "name": "Lê",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Nhiều nước và chất xơ.",
+      "tip": "Rửa sạch.",
+      "sources": []
+    },
+    {
+      "id": "dau_tay",
+      "name": "Dâu tây",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Giàu vitamin C và folate.",
+      "tip": "Rửa rất kỹ vì bề mặt dễ bám đất.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "kiwi",
+      "name": "Kiwi",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Giàu vitamin C, có thể giúp giảm táo bón.",
+      "tip": "Ăn chín.",
+      "sources": []
+    },
+    {
+      "id": "bo",
+      "name": "Bơ",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Chất béo tốt, folate, kali.",
+      "tip": "Nhiều năng lượng, ăn vừa phải.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "man",
+      "name": "Mận",
+      "aliases": [
+        "roi",
+        "mận Hà Nội"
+      ],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Có chất xơ.",
+      "tip": "Mận chua có thể gây ê răng, rửa sạch.",
+      "sources": []
+    },
+    {
+      "id": "khe",
+      "name": "Khế",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Người có bệnh thận không nên ăn khế vì chứa độc tố ảnh hưởng thần kinh khi thận yếu. Người khỏe ăn lượng nhỏ thường không sao.",
+      "tip": "Nếu có bệnh thận, tránh hoàn toàn.",
+      "sources": []
+    },
+    {
+      "id": "luu",
+      "name": "Lựu",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "ok",
+      "reason": "Có vitamin C và chất chống oxy hóa.",
+      "tip": "Ăn hạt tươi, rửa sạch.",
+      "sources": []
+    },
+    {
+      "id": "me",
+      "name": "Me",
+      "aliases": [],
+      "group": "fruit",
+      "verdict": "limit",
+      "reason": "Chua, có thể giúp đỡ nghén ở một số người nhưng dễ gây ê răng, ợ nóng.",
+      "tip": "Dùng nấu canh hoặc ăn lượng nhỏ.",
+      "sources": []
+    },
+    {
+      "id": "trai_cay_say",
+      "name": "Trái cây sấy, mứt",
+      "aliases": [],
+      "group": "sweet",
+      "verdict": "limit",
+      "reason": "Nhiều đường, dễ tăng đường huyết.",
+      "tip": "Chọn loại không thêm đường, ăn lượng nhỏ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "thit_lon",
+      "name": "Thịt lợn nấu chín",
+      "aliases": [
+        "thịt heo"
+      ],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Nguồn đạm, sắt và vitamin B.",
+      "tip": "Nấu chín kỹ, không còn màu hồng.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "thit_bo_chin",
+      "name": "Thịt bò nấu chín",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Giàu sắt dễ hấp thu và đạm.",
+      "tip": "Nấu chín kỹ; thịt băm cần chín đều bên trong.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "thit_bo_tai",
+      "name": "Thịt bò tái, phở tái",
+      "aliases": [
+        "bò tái chanh",
+        "bò tái"
+      ],
+      "group": "meat",
+      "verdict": "avoid",
+      "reason": "Thịt chưa chín có nguy cơ nhiễm Toxoplasma, Salmonella, E. coli.",
+      "tip": "Gọi phở chín hoặc nhúng thịt cho chín hẳn.",
+      "sources": [
+        "CDC-FOOD-PREG",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "bit_tet",
+      "name": "Bò bít tết",
+      "aliases": [
+        "steak"
+      ],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Bít tết thường để tái hoặc chín vừa, chưa đủ an toàn khi mang thai.",
+      "tip": "Yêu cầu chín kỹ (well done).",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "thit_ga",
+      "name": "Thịt gà nấu chín",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Đạm nạc, dễ ăn.",
+      "tip": "Nấu chín kỹ, không còn máu ở xương.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "thit_vit",
+      "name": "Thịt vịt nấu chín",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Đạm và sắt.",
+      "tip": "Nấu chín kỹ.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "thit_de",
+      "name": "Thịt dê nấu chín",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Nguồn đạm như các loại thịt khác.",
+      "tip": "Nấu chín kỹ; tránh món dê tái.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "tiet_canh",
+      "name": "Tiết canh",
+      "aliases": [
+        "tiết canh vịt",
+        "tiết canh lợn"
+      ],
+      "group": "meat",
+      "verdict": "avoid",
+      "reason": "Máu sống có thể nhiễm liên cầu lợn (Streptococcus suis) và nhiều mầm bệnh khác, rất nguy hiểm.",
+      "tip": "Không ăn tiết canh dưới mọi hình thức.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "nem_chua",
+      "name": "Nem chua",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "avoid",
+      "reason": "Thịt lợn sống lên men, có nguy cơ nhiễm ký sinh trùng và vi khuẩn.",
+      "tip": "Tránh trong suốt thai kỳ; nem chua rán chín kỹ có thể là lựa chọn thay thế, ăn thỉnh thoảng.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "pate",
+      "name": "Pa tê",
+      "aliases": [
+        "pate gan",
+        "bánh mì pate"
+      ],
+      "group": "meat",
+      "verdict": "avoid",
+      "reason": "Pa tê để lạnh có thể nhiễm Listeria; pa tê gan chứa nhiều vitamin A.",
+      "tip": "Gọi bánh mì không pa tê; pa tê đóng hộp tiệt trùng ít nguy cơ Listeria hơn nhưng vẫn nhiều vitamin A nếu là pa tê gan.",
+      "sources": [
+        "NHS-FOODS",
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "gan",
+      "name": "Gan động vật",
+      "aliases": [
+        "gan lợn",
+        "gan gà",
+        "gan bò"
+      ],
+      "group": "meat",
+      "verdict": "avoid",
+      "reason": "Gan chứa rất nhiều vitamin A dạng retinol, thừa có thể gây hại cho thai. NHS khuyên tránh gan và sản phẩm từ gan.",
+      "tip": "Bổ sung sắt từ thịt nạc, cá, trứng thay cho gan. Nếu quen ăn gan, hỏi bác sĩ.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "long_lon",
+      "name": "Lòng lợn, nội tạng",
+      "aliases": [
+        "lòng",
+        "dồi"
+      ],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Nhiều cholesterol; nội tạng dễ nhiễm khuẩn nếu làm không sạch, nấu không kỹ.",
+      "tip": "Ăn thỉnh thoảng, ở nơi đảm bảo vệ sinh, nấu chín kỹ.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "oc_lon",
+      "name": "Óc lợn",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Rất nhiều cholesterol; quan niệm \"ăn óc bổ óc\" không có cơ sở.",
+      "tip": "Không cần ăn để \"bổ não\" cho bé.",
+      "sources": []
+    },
+    {
+      "id": "gio_lua",
+      "name": "Giò lụa, chả lụa",
+      "aliases": [
+        "giò",
+        "chả"
+      ],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Thịt chế biến sẵn để nguội có thể nhiễm Listeria khi bảo quản lâu; nhiều muối, có thể có hàn the ở hàng không rõ nguồn gốc.",
+      "tip": "Chọn nơi uy tín, ăn khi còn mới hoặc hâm nóng lại.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "xuc_xich",
+      "name": "Xúc xích, thịt nguội",
+      "aliases": [
+        "thịt nguội",
+        "jambon"
+      ],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Thịt nguội ăn ngay có nguy cơ Listeria; nhiều muối và chất bảo quản.",
+      "tip": "Hâm nóng đến khi bốc hơi trước khi ăn.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "lap_xuong",
+      "name": "Lạp xưởng",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Nhiều muối, mỡ và chất bảo quản.",
+      "tip": "Nấu chín kỹ, ăn thỉnh thoảng.",
+      "sources": []
+    },
+    {
+      "id": "thit_hun_khoi",
+      "name": "Thịt hun khói, thịt xông khói",
+      "aliases": [
+        "bacon"
+      ],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Nhiều muối; loại hun khói lạnh chưa nấu chín có nguy cơ vi khuẩn.",
+      "tip": "Nấu chín giòn trước khi ăn, ăn thỉnh thoảng.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "bo_kho",
+      "name": "Bò khô, khô gà",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Nhiều muối, đường; nguồn gốc nhiều sản phẩm không rõ.",
+      "tip": "Ăn ít, chọn sản phẩm có nhãn mác.",
+      "sources": []
+    },
+    {
+      "id": "xuong_ham",
+      "name": "Nước hầm xương",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Món canh quen thuộc, giúp ăn ngon miệng; lượng canxi trong nước hầm thực ra không nhiều.",
+      "tip": "Không thay được sữa và các nguồn canxi khác.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "do_nuong",
+      "name": "Thịt nướng",
+      "aliases": [
+        "đồ nướng",
+        "thịt xiên nướng"
+      ],
+      "group": "meat",
+      "verdict": "limit",
+      "reason": "Nướng than dễ cháy xém bên ngoài nhưng bên trong chưa chín.",
+      "tip": "Nướng chín đều, bỏ phần cháy đen.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "ca_hoi",
+      "name": "Cá hồi nấu chín",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Giàu omega-3 và ít thủy ngân.",
+      "tip": "Nấu chín; NHS khuyên cá nhiều dầu tối đa 2 bữa mỗi tuần.",
+      "sources": [
+        "FDA-FISH",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "ca_tra",
+      "name": "Cá tra, cá basa",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Cá nước ngọt ít thủy ngân, dễ ăn.",
+      "tip": "Nấu chín kỹ.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_ro_phi",
+      "name": "Cá rô phi, cá diêu hồng",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Ít thủy ngân, đạm tốt.",
+      "tip": "Nấu chín kỹ.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_chep",
+      "name": "Cá chép",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Cá nước ngọt quen thuộc.",
+      "tip": "Nấu chín kỹ, tránh gỏi cá chép.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_nuc",
+      "name": "Cá nục, cá bạc má",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Cá biển nhỏ, có omega-3.",
+      "tip": "Nấu chín, ăn 2–3 bữa cá mỗi tuần.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_com",
+      "name": "Cá cơm",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Cá nhỏ ăn cả xương cung cấp canxi và ít thủy ngân.",
+      "tip": "Nấu chín; cá cơm khô thì chú ý muối.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_trich",
+      "name": "Cá trích",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Ít thủy ngân, giàu omega-3.",
+      "tip": "Nấu chín.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_thu",
+      "name": "Cá thu",
+      "aliases": [
+        "cá thu đao",
+        "cá thu Nhật"
+      ],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Một số loài cá thu lớn có hàm lượng thủy ngân cao hơn; FDA khuyên tránh cá thu vua (king mackerel).",
+      "tip": "Ăn tối đa 1 bữa mỗi tuần, chọn cá cỡ vừa.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_ngu_dai_duong",
+      "name": "Cá ngừ đại dương",
+      "aliases": [
+        "cá ngừ vây vàng"
+      ],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Thủy ngân ở mức trung bình; FDA xếp vào nhóm ăn tối đa 1 bữa/tuần. Cá ngừ mắt to nên tránh.",
+      "tip": "Nấu chín, ăn tối đa 1 bữa mỗi tuần.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_ngu_hop",
+      "name": "Cá ngừ đóng hộp",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "NHS khuyên tối đa 4 hộp cỡ vừa mỗi tuần.",
+      "tip": "Chọn loại ngâm nước, ít muối.",
+      "sources": [
+        "NHS-FOODS",
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ca_kiem",
+      "name": "Cá kiếm",
+      "aliases": [
+        "swordfish"
+      ],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Hàm lượng thủy ngân cao, có thể ảnh hưởng hệ thần kinh của thai.",
+      "tip": "Chọn cá ít thủy ngân thay thế.",
+      "sources": [
+        "FDA-FISH",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "ca_map",
+      "name": "Cá mập, vây cá mập",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Hàm lượng thủy ngân cao.",
+      "tip": "Không ăn trong thai kỳ.",
+      "sources": [
+        "FDA-FISH",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "ca_kinh",
+      "name": "Cá cờ, cá kình",
+      "aliases": [
+        "marlin"
+      ],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Hàm lượng thủy ngân cao.",
+      "tip": "Chọn cá nhỏ thay thế.",
+      "sources": [
+        "FDA-FISH",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "ca_thu_vua",
+      "name": "Cá thu vua",
+      "aliases": [
+        "king mackerel"
+      ],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Hàm lượng thủy ngân cao theo FDA.",
+      "tip": "Thay bằng cá nục, cá hồi.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "goi_ca",
+      "name": "Gỏi cá, cá sống",
+      "aliases": [
+        "gỏi cá trích",
+        "gỏi cá mè"
+      ],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Cá sống có thể chứa ký sinh trùng (sán lá gan) và vi khuẩn.",
+      "tip": "Ăn cá nấu chín.",
+      "sources": [
+        "CDC-FOOD-PREG",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "sushi",
+      "name": "Sushi, sashimi",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Cá và hải sản sống có nguy cơ vi khuẩn, ký sinh trùng.",
+      "tip": "Chọn sushi chay hoặc loại có nhân chín như trứng, tôm luộc, lươn nướng.",
+      "sources": [
+        "CDC-FOOD-PREG",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "hau_song",
+      "name": "Hàu sống",
+      "aliases": [
+        "hàu sống mù tạt"
+      ],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Hải sản có vỏ ăn sống có thể chứa vi khuẩn Vibrio, virus và độc tố.",
+      "tip": "Chỉ ăn hàu nấu chín kỹ.",
+      "sources": [
+        "CDC-FOOD-PREG",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "hau_chin",
+      "name": "Hàu nấu chín",
+      "aliases": [
+        "hàu nướng"
+      ],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Giàu kẽm, sắt khi nấu chín kỹ.",
+      "tip": "Nướng hoặc nấu đến khi chín hẳn.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "tom",
+      "name": "Tôm",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Đạm tốt, ít thủy ngân.",
+      "tip": "Nấu chín đến khi đỏ đều; tránh tôm sống, gỏi tôm.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "cua",
+      "name": "Cua, ghẹ",
+      "aliases": [
+        "cua đồng",
+        "ghẹ"
+      ],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Đạm và canxi.",
+      "tip": "Nấu chín kỹ; cua chết lâu không nên ăn.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "muc",
+      "name": "Mực",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Ít thủy ngân, đạm tốt.",
+      "tip": "Nấu chín; mực một nắng cần nướng chín.",
+      "sources": [
+        "FDA-FISH"
+      ]
+    },
+    {
+      "id": "ngheu_so",
+      "name": "Nghêu, sò, hến",
+      "aliases": [
+        "ngao",
+        "hến"
+      ],
+      "group": "seafood",
+      "verdict": "ok",
+      "reason": "Có sắt, kẽm khi nấu chín.",
+      "tip": "Nấu đến khi vỏ mở hết, bỏ con không mở.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "oc",
+      "name": "Ốc",
+      "aliases": [
+        "ốc luộc",
+        "ốc bươu"
+      ],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Ốc nấu chưa chín có thể chứa ký sinh trùng nguy hiểm.",
+      "tip": "Chỉ ăn ốc luộc, nấu chín kỹ ở nơi đảm bảo vệ sinh.",
+      "sources": []
+    },
+    {
+      "id": "ca_kho_man",
+      "name": "Cá khô, tôm khô",
+      "aliases": [
+        "khô mực"
+      ],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Nhiều muối.",
+      "tip": "Ăn lượng nhỏ, nấu chín.",
+      "sources": []
+    },
+    {
+      "id": "ca_vien",
+      "name": "Cá viên, bò viên chiên",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Nhiều muối, dầu mỡ, nguồn gốc khó kiểm soát.",
+      "tip": "Thỉnh thoảng, chọn nơi uy tín.",
+      "sources": []
+    },
+    {
+      "id": "sua_bien",
+      "name": "Sứa",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Thường ăn trộn gỏi, không nấu chín; khó đảm bảo vệ sinh.",
+      "tip": "Hạn chế trong thai kỳ.",
+      "sources": []
+    },
+    {
+      "id": "mam_song",
+      "name": "Mắm tôm, mắm sống",
+      "aliases": [
+        "mắm tôm chua",
+        "mắm tép"
+      ],
+      "group": "seafood",
+      "verdict": "limit",
+      "reason": "Rất nhiều muối; một số loại mắm làm từ hải sản sống, khó đảm bảo vệ sinh.",
+      "tip": "Dùng ít, chọn sản phẩm có nhãn mác; tránh mắm tôm chua sống.",
+      "sources": []
+    },
+    {
+      "id": "trung_ga_chin",
+      "name": "Trứng gà luộc chín",
+      "aliases": [],
+      "group": "egg",
+      "verdict": "ok",
+      "reason": "Nguồn đạm, choline và vitamin tốt.",
+      "tip": "Luộc đến khi lòng đỏ đông đặc.",
+      "sources": [
+        "CDC-FOOD-PREG",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "trung_vit",
+      "name": "Trứng vịt nấu chín",
+      "aliases": [],
+      "group": "egg",
+      "verdict": "ok",
+      "reason": "Nguồn đạm như trứng gà.",
+      "tip": "Nấu chín kỹ; NHS khuyên trứng vịt cần nấu chín hẳn.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "trung_cut",
+      "name": "Trứng cút nấu chín",
+      "aliases": [],
+      "group": "egg",
+      "verdict": "ok",
+      "reason": "Đạm và vi chất.",
+      "tip": "Luộc chín kỹ.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "trung_long_dao",
+      "name": "Trứng lòng đào",
+      "aliases": [
+        "trứng chần",
+        "trứng ốp la lòng đào"
+      ],
+      "group": "egg",
+      "verdict": "avoid",
+      "reason": "Trứng chưa chín có nguy cơ nhiễm Salmonella.",
+      "tip": "Nấu đến khi lòng đỏ và lòng trắng đông đặc.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "trung_song",
+      "name": "Trứng sống",
+      "aliases": [
+        "sốt mayonnaise tự làm",
+        "trứng gà sống"
+      ],
+      "group": "egg",
+      "verdict": "avoid",
+      "reason": "Nguy cơ Salmonella.",
+      "tip": "Dùng sốt đóng chai tiệt trùng thay cho sốt tự làm từ trứng sống.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "trung_vit_lon",
+      "name": "Trứng vịt lộn",
+      "aliases": [
+        "hột vịt lộn"
+      ],
+      "group": "egg",
+      "verdict": "limit",
+      "reason": "Có đạm và sắt nhưng nhiều cholesterol; quan niệm ăn để \"bổ\" cho thai chưa có cơ sở.",
+      "tip": "Luộc chín kỹ, tối đa 1–2 quả mỗi tuần.",
+      "sources": []
+    },
+    {
+      "id": "banh_flan",
+      "name": "Bánh flan",
+      "aliases": [
+        "caramen"
+      ],
+      "group": "sweet",
+      "verdict": "limit",
+      "reason": "Hấp chín thì ít nguy cơ, nhưng nhiều đường; flan bán rong có thể hấp chưa kỹ.",
+      "tip": "Tự làm, hấp chín kỹ, ăn vừa phải.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "sua_tiet_trung",
+      "name": "Sữa tươi tiệt trùng / thanh trùng",
+      "aliases": [],
+      "group": "dairy",
+      "verdict": "ok",
+      "reason": "Cung cấp canxi, đạm và vitamin D.",
+      "tip": "Uống 2–3 phần sữa và chế phẩm mỗi ngày; chọn loại ít đường.",
+      "sources": [
+        "VN-NIN",
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "sua_tuoi_song",
+      "name": "Sữa tươi chưa tiệt trùng",
+      "aliases": [
+        "sữa bò tươi nguyên chất",
+        "sữa dê tươi"
+      ],
+      "group": "dairy",
+      "verdict": "avoid",
+      "reason": "Có thể chứa Listeria, Brucella và vi khuẩn khác.",
+      "tip": "Đun sôi hoặc chọn sữa đã tiệt trùng.",
+      "sources": [
+        "CDC-FOOD-PREG",
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "sua_chua",
+      "name": "Sữa chua",
+      "aliases": [
+        "yaourt"
+      ],
+      "group": "dairy",
+      "verdict": "ok",
+      "reason": "Canxi, đạm và lợi khuẩn; làm từ sữa tiệt trùng là an toàn.",
+      "tip": "Chọn loại ít đường.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "pho_mai_cung",
+      "name": "Phô mai cứng",
+      "aliases": [
+        "cheddar",
+        "parmesan"
+      ],
+      "group": "dairy",
+      "verdict": "ok",
+      "reason": "Phô mai cứng ít nguy cơ Listeria.",
+      "tip": "Ăn vừa phải vì nhiều muối và chất béo.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "pho_mai_tiet_trung",
+      "name": "Phô mai mềm đã tiệt trùng",
+      "aliases": [
+        "mozzarella",
+        "cream cheese",
+        "phô mai miếng tam giác"
+      ],
+      "group": "dairy",
+      "verdict": "ok",
+      "reason": "NHS cho rằng phô mai mềm làm từ sữa tiệt trùng (như mozzarella, cream cheese) là an toàn.",
+      "tip": "Đọc nhãn để chắc là sữa tiệt trùng.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "pho_mai_mem",
+      "name": "Phô mai mềm có vỏ mốc, phô mai xanh",
+      "aliases": [
+        "brie",
+        "camembert",
+        "gorgonzola"
+      ],
+      "group": "dairy",
+      "verdict": "avoid",
+      "reason": "Có nguy cơ nhiễm Listeria, trừ khi được nấu chín nóng hẳn.",
+      "tip": "Chỉ ăn khi nấu chín đến bốc hơi.",
+      "sources": [
+        "NHS-FOODS",
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "kem",
+      "name": "Kem",
+      "aliases": [
+        "kem que",
+        "kem ly"
+      ],
+      "group": "dairy",
+      "verdict": "limit",
+      "reason": "Kem công nghiệp làm từ sữa tiệt trùng thường an toàn nhưng nhiều đường; kem tự làm từ trứng sống có nguy cơ.",
+      "tip": "Ăn thỉnh thoảng, chọn loại có nhãn mác.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "sua_dac",
+      "name": "Sữa đặc có đường",
+      "aliases": [],
+      "group": "dairy",
+      "verdict": "limit",
+      "reason": "Chủ yếu là đường, ít giá trị dinh dưỡng so với sữa tươi.",
+      "tip": "Hạn chế trong cà phê, chè.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "sua_bau",
+      "name": "Sữa bầu",
+      "aliases": [],
+      "group": "dairy",
+      "verdict": "ok",
+      "reason": "Có thể giúp bổ sung năng lượng và vi chất nếu ăn uống chưa đủ, nhưng không bắt buộc.",
+      "tip": "Nếu đã uống viên vi chất theo chỉ định, hỏi bác sĩ để tránh thừa. Chú ý lượng đường.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "gao",
+      "name": "Cơm trắng",
+      "aliases": [
+        "gạo"
+      ],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Nguồn năng lượng chính trong bữa ăn Việt.",
+      "tip": "Ăn vừa đủ, kết hợp rau và đạm.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "gao_lut",
+      "name": "Gạo lứt",
+      "aliases": [],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Nhiều chất xơ hơn gạo trắng, giúp đường huyết ổn định.",
+      "tip": "Có thể trộn với gạo trắng cho dễ ăn.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "yen_mach",
+      "name": "Yến mạch",
+      "aliases": [],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Giàu chất xơ hòa tan.",
+      "tip": "Nấu cháo hoặc ngâm với sữa.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "banh_mi",
+      "name": "Bánh mì",
+      "aliases": [],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Nguồn tinh bột tiện lợi.",
+      "tip": "Chọn nhân chín, tránh pa tê và trứng lòng đào.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "bun_pho",
+      "name": "Bún, phở, miến",
+      "aliases": [],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Tinh bột dễ ăn.",
+      "tip": "Chọn nơi uy tín; nước dùng thường nhiều muối, không cần uống hết.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "xoi",
+      "name": "Xôi",
+      "aliases": [],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Năng lượng cao, dễ no.",
+      "tip": "Ăn vừa phải, có thể gây đầy bụng ở người khó tiêu.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "ngo",
+      "name": "Ngô",
+      "aliases": [
+        "bắp"
+      ],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Chất xơ, năng lượng.",
+      "tip": "Luộc hoặc nấu canh.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "mi_tom",
+      "name": "Mì ăn liền",
+      "aliases": [
+        "mì tôm"
+      ],
+      "group": "grain",
+      "verdict": "limit",
+      "reason": "Nhiều muối, chất béo, ít vi chất.",
+      "tip": "Thỉnh thoảng; thêm rau, trứng chín, bỏ bớt gói gia vị.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "banh_chung",
+      "name": "Bánh chưng, bánh tét",
+      "aliases": [],
+      "group": "grain",
+      "verdict": "ok",
+      "reason": "Món ăn truyền thống, nhiều năng lượng.",
+      "tip": "Ăn khi còn mới, bảo quản lạnh; bỏ phần bị chua, mốc.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "dau_phu",
+      "name": "Đậu phụ",
+      "aliases": [
+        "đậu hũ"
+      ],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Nguồn đạm thực vật và canxi.",
+      "tip": "Chọn đậu mới, nấu chín.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "sua_dau_nanh",
+      "name": "Sữa đậu nành",
+      "aliases": [],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Đạm thực vật; dùng vừa phải là bình thường.",
+      "tip": "Đun sôi kỹ nếu tự làm; chọn loại ít đường. Không thay hoàn toàn sữa nếu cần canxi.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "dau_xanh",
+      "name": "Đậu xanh",
+      "aliases": [],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Folate, đạm thực vật, chất xơ.",
+      "tip": "Nấu cháo, chè ít đường.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "dau_den",
+      "name": "Đậu đen, đậu đỏ",
+      "aliases": [],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Chất xơ, sắt và folate.",
+      "tip": "Nấu chín mềm.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "lac",
+      "name": "Lạc",
+      "aliases": [
+        "đậu phộng"
+      ],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Chất béo tốt và đạm. Không cần kiêng nếu không dị ứng.",
+      "tip": "Chọn lạc không mốc, vì lạc mốc có thể chứa aflatoxin.",
+      "sources": []
+    },
+    {
+      "id": "hat_dieu_oc_cho",
+      "name": "Hạt điều, óc chó, hạnh nhân",
+      "aliases": [],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Chất béo tốt, vitamin E.",
+      "tip": "Một nắm nhỏ mỗi ngày; chọn loại không tẩm muối, đường.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "vung",
+      "name": "Vừng",
+      "aliases": [
+        "mè"
+      ],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Có canxi và chất béo tốt.",
+      "tip": "Rắc vào món ăn.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "hat_chia",
+      "name": "Hạt chia",
+      "aliases": [],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Chất xơ và omega-3 thực vật.",
+      "tip": "Ngâm nước trước khi ăn, uống đủ nước.",
+      "sources": []
+    },
+    {
+      "id": "hat_huong_duong",
+      "name": "Hạt hướng dương, hạt bí",
+      "aliases": [],
+      "group": "legume_nut",
+      "verdict": "ok",
+      "reason": "Chất béo tốt, magie.",
+      "tip": "Chọn loại ít muối.",
+      "sources": []
+    },
+    {
+      "id": "ca_phe",
+      "name": "Cà phê",
+      "aliases": [
+        "cà phê sữa đá",
+        "cà phê đen"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Nhiều hướng dẫn (NHS, ACOG) khuyên giới hạn caffeine dưới 200 mg mỗi ngày. Cà phê phin Việt Nam có thể chứa nhiều caffeine hơn cà phê hòa tan.",
+      "tip": "Tối đa khoảng 1 cốc nhỏ mỗi ngày, tính cả trà và nước có caffeine khác.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "tra_xanh",
+      "name": "Trà xanh, trà đặc",
+      "aliases": [
+        "chè xanh",
+        "trà đá"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Có caffeine; uống trà đặc trong bữa ăn làm giảm hấp thu sắt.",
+      "tip": "Uống loãng, cách bữa ăn 1–2 giờ, tính vào tổng caffeine trong ngày.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "tra_sua",
+      "name": "Trà sữa",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Nhiều đường, có caffeine; trân châu và topping thêm nhiều năng lượng.",
+      "tip": "Thỉnh thoảng, chọn cốc nhỏ, ít đường, ít topping.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "nuoc_tang_luc",
+      "name": "Nước tăng lực",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "avoid",
+      "reason": "Nhiều caffeine, đường và các chất kích thích khác chưa rõ an toàn khi mang thai.",
+      "tip": "Thay bằng nước lọc hoặc nước dừa.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "nuoc_ngot",
+      "name": "Nước ngọt có ga",
+      "aliases": [
+        "coca",
+        "soda ngọt"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Nhiều đường, một số loại có caffeine; dễ gây đầy hơi, ợ nóng.",
+      "tip": "Ưu tiên nước lọc.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "ruou_bia",
+      "name": "Rượu, bia",
+      "aliases": [
+        "rượu vang",
+        "bia"
+      ],
+      "group": "drink",
+      "verdict": "avoid",
+      "reason": "Không có lượng rượu bia nào được xem là an toàn khi mang thai; có thể gây hội chứng rượu bào thai.",
+      "tip": "Tránh hoàn toàn.",
+      "sources": [
+        "NHS-FOODS",
+        "WHO-ANC"
+      ]
+    },
+    {
+      "id": "bia_khong_con",
+      "name": "Bia không cồn",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Nhiều loại vẫn chứa một lượng cồn nhỏ (đến khoảng 0,5%).",
+      "tip": "Tốt nhất là tránh; nếu dùng, chọn loại ghi 0,0% và hỏi bác sĩ.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "ruou_nep",
+      "name": "Rượu nếp, cơm rượu",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "avoid",
+      "reason": "Món lên men có chứa cồn.",
+      "tip": "Tránh trong thai kỳ.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "nuoc_dua",
+      "name": "Nước dừa",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "ok",
+      "reason": "Bù nước và kali. Quan niệm uống nước dừa làm bé trắng hoặc ối sạch không có cơ sở.",
+      "tip": "Một cốc mỗi ngày là đủ; chọn dừa tươi sạch, uống ngay sau khi mở.",
+      "sources": []
+    },
+    {
+      "id": "nuoc_mia",
+      "name": "Nước mía",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Rất nhiều đường; nước mía ép ở hàng rong có thể không đảm bảo vệ sinh.",
+      "tip": "Uống cốc nhỏ, thỉnh thoảng; tránh nếu có đái tháo đường thai kỳ.",
+      "sources": []
+    },
+    {
+      "id": "nuoc_ep",
+      "name": "Nước ép trái cây",
+      "aliases": [
+        "sinh tố"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Nước ép mất chất xơ và dễ nhiều đường; nước ép chưa tiệt trùng có nguy cơ vi khuẩn.",
+      "tip": "Ưu tiên ăn cả quả; tự làm từ quả rửa sạch và uống ngay.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "nuoc_loc",
+      "name": "Nước lọc",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "ok",
+      "reason": "Đồ uống tốt nhất để đủ nước.",
+      "tip": "Uống đều trong ngày.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "tra_thao_moc",
+      "name": "Trà thảo mộc",
+      "aliases": [
+        "trà hoa cúc",
+        "trà atiso",
+        "trà gừng"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Nhiều loại thảo mộc chưa được nghiên cứu đầy đủ khi mang thai. NHS khuyên không quá 4 cốc mỗi ngày.",
+      "tip": "Chọn loại quen thuộc, uống loãng. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "cam_thao",
+      "name": "Trà cam thảo",
+      "aliases": [
+        "rễ cam thảo"
+      ],
+      "group": "drink",
+      "verdict": "avoid",
+      "reason": "NHS khuyên tránh trà có rễ cam thảo khi mang thai.",
+      "tip": "Chọn đồ uống khác.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "atiso",
+      "name": "Atiso",
+      "aliases": [
+        "cao atiso"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Thường dùng như trà \"mát gan\"; bằng chứng về lợi ích và an toàn khi mang thai còn hạn chế.",
+      "tip": "Uống loãng, không dùng cao đặc. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "bot_san_day",
+      "name": "Bột sắn dây",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Dân gian dùng để \"giải nhiệt\"; chưa có bằng chứng về lợi ích hay nguy cơ rõ ràng.",
+      "tip": "Nấu chín, dùng lượng vừa phải.",
+      "sources": []
+    },
+    {
+      "id": "nuoc_rau_ma",
+      "name": "Rau má",
+      "aliases": [
+        "nước rau má"
+      ],
+      "group": "drink",
+      "verdict": "limit",
+      "reason": "Dân gian dùng để \"mát\"; bằng chứng về an toàn khi dùng nhiều trong thai kỳ còn hạn chế. Nước rau má xay sống dễ nhiễm khuẩn nếu không sạch.",
+      "tip": "Ăn như rau nấu chín hoặc uống lượng nhỏ, đảm bảo vệ sinh. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "nuoc_rau_ngot_song",
+      "name": "Nước ép rau ngót sống",
+      "aliases": [],
+      "group": "drink",
+      "verdict": "avoid",
+      "reason": "Uống nước ép rau ngót sống lượng lớn từng liên quan đến bệnh phổi nặng ở người lớn (ghi nhận tại Đài Loan); dân gian cũng kiêng khi mang thai.",
+      "tip": "Chỉ ăn rau ngót nấu chín.",
+      "sources": []
+    },
+    {
+      "id": "che",
+      "name": "Chè",
+      "aliases": [
+        "chè đậu",
+        "chè thập cẩm"
+      ],
+      "group": "sweet",
+      "verdict": "limit",
+      "reason": "Nhiều đường; chè có nước cốt dừa nhiều năng lượng.",
+      "tip": "Tự nấu ít đường, ăn thỉnh thoảng.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "socola",
+      "name": "Sô cô la",
+      "aliases": [],
+      "group": "sweet",
+      "verdict": "limit",
+      "reason": "Có caffeine và đường.",
+      "tip": "Vài miếng nhỏ, tính vào tổng caffeine.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "banh_keo",
+      "name": "Bánh ngọt, kẹo",
+      "aliases": [],
+      "group": "sweet",
+      "verdict": "limit",
+      "reason": "Nhiều đường và chất béo, ít vi chất.",
+      "tip": "Thay bằng trái cây, sữa chua.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "mat_ong",
+      "name": "Mật ong",
+      "aliases": [],
+      "group": "sweet",
+      "verdict": "ok",
+      "reason": "An toàn cho mẹ với lượng vừa phải. Lưu ý: không cho trẻ dưới 1 tuổi ăn mật ong.",
+      "tip": "Dùng lượng nhỏ vì vẫn là đường.",
+      "sources": []
+    },
+    {
+      "id": "pho_chin",
+      "name": "Phở bò chín, phở gà",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Món ăn đủ tinh bột, đạm, có thể thêm rau.",
+      "tip": "Chọn thịt chín; rau sống ăn kèm cần rửa kỹ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "bun_cha",
+      "name": "Bún chả",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Thịt nướng chín kèm bún và rau.",
+      "tip": "Đảm bảo chả nướng chín đều; rau sống rửa kỹ.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "com_tam",
+      "name": "Cơm tấm",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Đủ tinh bột và đạm.",
+      "tip": "Tránh trứng ốp lòng đào; ăn kèm rau.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "bun_rieu",
+      "name": "Bún riêu cua",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Có đạm và canxi từ cua.",
+      "tip": "Chọn nơi uy tín; hạn chế mắm tôm.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "canh_cua",
+      "name": "Canh cua rau đay, mồng tơi",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Món mát, có canxi và chất xơ.",
+      "tip": "Lọc cua sạch, nấu chín kỹ.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "chao",
+      "name": "Cháo",
+      "aliases": [
+        "cháo thịt",
+        "cháo cá"
+      ],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Dễ tiêu, phù hợp khi nghén.",
+      "tip": "Thêm rau và đạm để đủ chất.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "lau",
+      "name": "Lẩu",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Có thể ăn nếu nhúng chín kỹ mọi thứ.",
+      "tip": "Nhúng thịt, hải sản đến chín hẳn; dùng đũa riêng cho đồ sống và đồ chín.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "goi_cuon",
+      "name": "Gỏi cuốn",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Có rau sống và bún để nguội; ở hàng quán khó kiểm soát vệ sinh.",
+      "tip": "Tự làm ở nhà với tôm thịt luộc chín, rau rửa kỹ.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "banh_xeo",
+      "name": "Bánh xèo",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Nhân chín, nhưng nhiều dầu mỡ.",
+      "tip": "Ăn kèm nhiều rau rửa sạch, thỉnh thoảng.",
+      "sources": []
+    },
+    {
+      "id": "nem_ran",
+      "name": "Nem rán",
+      "aliases": [
+        "chả giò"
+      ],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Nhiều dầu mỡ; nhân cần chín kỹ.",
+      "tip": "Thỉnh thoảng, rán chín kỹ.",
+      "sources": []
+    },
+    {
+      "id": "ca_kho",
+      "name": "Cá kho",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Đạm tốt, cá nhỏ kho nhừ có thể ăn cả xương.",
+      "tip": "Kho nhạt hơn bình thường.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "thit_kho_trung",
+      "name": "Thịt kho trứng",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Đạm từ thịt và trứng chín.",
+      "tip": "Chọn thịt nạc nhiều hơn mỡ; ăn nhạt.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "ga_luoc",
+      "name": "Gà luộc",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "Đạm nạc, ít dầu mỡ.",
+      "tip": "Luộc chín kỹ, không để hồng ở xương.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "goi_du_du",
+      "name": "Gỏi đu đủ",
+      "aliases": [
+        "nộm đu đủ"
+      ],
+      "group": "dish",
+      "verdict": "avoid",
+      "reason": "Làm từ đu đủ xanh sống.",
+      "tip": "Thay bằng nộm rau củ khác như dưa chuột, cà rốt.",
+      "sources": []
+    },
+    {
+      "id": "dua_ca_muoi",
+      "name": "Dưa muối, cà muối",
+      "aliases": [
+        "dưa cải",
+        "kim chi"
+      ],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Nhiều muối; dưa muối chưa chua kỹ có thể chứa nitrit cao.",
+      "tip": "Ăn ít, chỉ ăn dưa đã chua vàng.",
+      "sources": []
+    },
+    {
+      "id": "banh_trang_tron",
+      "name": "Bánh tráng trộn",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Nhiều gia vị, nguyên liệu khô khó kiểm soát vệ sinh và chất bảo quản.",
+      "tip": "Thỉnh thoảng, chọn nơi sạch sẽ.",
+      "sources": []
+    },
+    {
+      "id": "do_an_nhanh",
+      "name": "Đồ ăn nhanh, đồ chiên rán",
+      "aliases": [
+        "gà rán",
+        "khoai tây chiên"
+      ],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Nhiều chất béo, muối và năng lượng, ít vi chất.",
+      "tip": "Thỉnh thoảng, ăn kèm rau.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "do_hop",
+      "name": "Đồ hộp",
+      "aliases": [
+        "thịt hộp"
+      ],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Nhiều muối và chất bảo quản.",
+      "tip": "Không dùng hộp phồng, móp; ăn thỉnh thoảng.",
+      "sources": []
+    },
+    {
+      "id": "com_nguoi",
+      "name": "Cơm, thức ăn để qua đêm",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "limit",
+      "reason": "Thức ăn để nguội lâu ở nhiệt độ phòng dễ nhiễm khuẩn.",
+      "tip": "Cho vào tủ lạnh trong 2 giờ sau nấu, hâm nóng kỹ trước khi ăn.",
+      "sources": [
+        "CDC-FOOD-PREG"
+      ]
+    },
+    {
+      "id": "yen_sao",
+      "name": "Yến sào",
+      "aliases": [
+        "tổ yến",
+        "nước yến"
+      ],
+      "group": "supplement",
+      "verdict": "limit",
+      "reason": "Có đạm nhưng bằng chứng khoa học về lợi ích đặc biệt cho thai kỳ còn hạn chế; giá cao, dễ gặp hàng giả, nước yến đóng chai nhiều đường.",
+      "tip": "Không cần thiết; nếu dùng, chọn nguồn rõ ràng, nấu chín, lượng vừa phải. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "nhan_sam",
+      "name": "Nhân sâm",
+      "aliases": [
+        "sâm",
+        "hồng sâm"
+      ],
+      "group": "supplement",
+      "verdict": "avoid",
+      "reason": "Một số nghiên cứu cho thấy hoạt chất nhân sâm có thể ảnh hưởng đến thai; chưa đủ bằng chứng an toàn.",
+      "tip": "Không tự dùng khi mang thai.",
+      "sources": []
+    },
+    {
+      "id": "dong_trung",
+      "name": "Đông trùng hạ thảo",
+      "aliases": [],
+      "group": "supplement",
+      "verdict": "limit",
+      "reason": "Chưa có đủ nghiên cứu về an toàn khi mang thai.",
+      "tip": "Không tự dùng. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "thuoc_bac",
+      "name": "Thuốc bắc, thuốc nam tự mua",
+      "aliases": [
+        "cao dưỡng thai",
+        "thuốc an thai truyền miệng"
+      ],
+      "group": "supplement",
+      "verdict": "avoid",
+      "reason": "Thành phần và liều lượng không rõ, có thể chứa chất có hại cho thai.",
+      "tip": "Chỉ dùng khi có chỉ định của bác sĩ, có ghi rõ thành phần.",
+      "sources": []
+    },
+    {
+      "id": "vitamin_a_lieu_cao",
+      "name": "Viên vitamin A liều cao, dầu gan cá",
+      "aliases": [],
+      "group": "supplement",
+      "verdict": "avoid",
+      "reason": "Thừa vitamin A dạng retinol có thể gây dị tật thai.",
+      "tip": "Chỉ dùng vi chất theo chỉ định của bác sĩ / nhân viên y tế.",
+      "sources": [
+        "NHS-FOODS",
+        "WHO-ANC"
+      ]
+    },
+    {
+      "id": "dau_ca",
+      "name": "Viên dầu cá omega-3",
+      "aliases": [],
+      "group": "supplement",
+      "verdict": "limit",
+      "reason": "Dầu cá từ thịt cá có thể dùng, nhưng không dùng dầu gan cá. Lợi ích của viên bổ sung còn tùy trường hợp.",
+      "tip": "Hỏi bác sĩ trước khi dùng; ưu tiên ăn cá ít thủy ngân.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    },
+    {
+      "id": "sua_ong_chua",
+      "name": "Sữa ong chúa",
+      "aliases": [],
+      "group": "supplement",
+      "verdict": "limit",
+      "reason": "Chưa đủ bằng chứng về lợi ích và an toàn khi mang thai; có thể gây dị ứng.",
+      "tip": "Không tự dùng. Nếu muốn dùng thường xuyên, hãy hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "id": "giam_can",
+      "name": "Thực phẩm chức năng giảm cân",
+      "aliases": [
+        "trà giảm cân",
+        "thuốc giảm cân"
+      ],
+      "group": "supplement",
+      "verdict": "avoid",
+      "reason": "Có thể chứa chất nhuận tràng, lợi tiểu, chất cấm gây hại cho thai.",
+      "tip": "Không giảm cân khi mang thai; hỏi bác sĩ về mức tăng cân phù hợp.",
+      "sources": []
+    },
+    {
+      "id": "muoi_iot",
+      "name": "Muối iốt",
+      "aliases": [],
+      "group": "supplement",
+      "verdict": "ok",
+      "reason": "Giúp cung cấp iốt cần cho tuyến giáp và não bộ của bé.",
+      "tip": "Dùng thay muối thường, nhưng vẫn ăn nhạt vừa phải.",
+      "sources": [
+        "VN-NIN"
+      ]
+    },
+    {
+      "id": "ruou_thuoc",
+      "name": "Rượu thuốc, rượu ngâm",
+      "aliases": [
+        "rượu ngâm thảo dược"
+      ],
+      "group": "drink",
+      "verdict": "avoid",
+      "reason": "Có cồn và thành phần thảo dược không rõ.",
+      "tip": "Không dùng, kể cả xoa bóp vùng bụng.",
+      "sources": [
+        "NHS-FOODS"
+      ]
+    }
+  ]
+}

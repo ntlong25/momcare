@@ -1,0 +1,27 @@
+{
+  "id": "pregnant_checkups",
+  "stage": "pregnant",
+  "category": "checkup",
+  "title": "Lịch khám thai định kỳ",
+  "summary": "Các mốc khám thai thường gặp.",
+  "order": 10,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    { "heading": "Vì sao cần khám định kỳ", "body": "Giúp theo dõi mẹ và bé.", "bullets": ["Theo dõi huyết áp", "Theo dõi cân nặng"] },
+    { "heading": "", "body": "", "bullets": [] }
+  ],
+  "checklist": [
+    { "id": "chk_test_book", "text": "Đặt lịch khám đầu tiên", "weekDue": 8, "actionType": "addAppointment", "actionLabel": null, "actionValue": null },
+    { "id": "chk_test_call", "text": "Lưu số cấp cứu", "weekDue": null, "actionType": "call", "actionLabel": "Gọi 115", "actionValue": "115" },
+    { "id": "chk_test_maps", "text": "Tìm bệnh viện gần nhà", "weekDue": null, "actionType": "openMaps", "actionLabel": null, "actionValue": "bệnh viện phụ sản" },
+    { "text": "Thiếu id nên bị bỏ qua" }
+  ],
+  "timeline": [
+    { "id": "tl_test_nt", "weekFrom": 11, "weekTo": 13, "title": "Siêu âm đo độ mờ da gáy", "description": "Theo chỉ định của bác sĩ.", "actionType": "addAppointment" },
+    { "id": "tl_test_weird", "weekFrom": "20", "title": "Mốc có actionType lạ", "actionType": "teleport" }
+  ],
+  "sources": ["WHO-ANC", "MOH-MCH", "UNKNOWN-SRC"],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

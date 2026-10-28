@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/models/health_log_model.dart';
 import '../widgets/health_stats_card.dart';
 import '../widgets/health_log_list.dart';
@@ -17,8 +19,11 @@ class HealthDiaryScreen extends ConsumerStatefulWidget {
 }
 
 class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, HiveRefreshMixin {
   late TabController _tabController;
+
+  @override
+  List<String> get watchedBoxes => const [AppConstants.healthLogBox];
 
   @override
   void initState() {

@@ -1,0 +1,113 @@
+{
+  "id": "pre_vaccination",
+  "stage": "pre",
+  "category": "vaccination",
+  "title": "Tiêm phòng trước khi mang thai",
+  "summary": "Một số vắc xin nên tiêm trước khi có thai, và một số loại cần chờ một thời gian sau tiêm mới nên thụ thai.",
+  "order": 30,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Vì sao nên tiêm trước",
+      "body": "Một số bệnh như rubella hay thủy đậu nếu mắc khi mang thai có thể gây dị tật hoặc biến chứng nặng cho thai. Các vắc xin phòng những bệnh này là vắc xin sống nên không tiêm khi đang mang thai. Vì vậy cần kiểm tra và tiêm trước. Mọi mũi tiêm đều theo chỉ định của bác sĩ / nhân viên y tế.",
+      "bullets": []
+    },
+    {
+      "heading": "Các vắc xin thường được tư vấn",
+      "body": "Bác sĩ sẽ dựa vào tiền sử tiêm chủng và xét nghiệm để quyết định bạn cần tiêm loại nào.",
+      "bullets": [
+        "Sởi – quai bị – rubella (MMR): sau khi tiêm, CDC khuyên tránh mang thai ít nhất 28 ngày (khoảng 1 tháng). Một số cơ sở ở Việt Nam có thể khuyên chờ lâu hơn; hãy làm theo hướng dẫn nơi bạn tiêm",
+        "Thủy đậu: nếu chưa từng mắc hoặc chưa tiêm đủ, nên tiêm trước; cần chờ khoảng 1 tháng sau mũi cuối mới thụ thai",
+        "Viêm gan B: nếu xét nghiệm chưa có miễn dịch, có thể tiêm trước hoặc cả khi đang mang thai theo chỉ định",
+        "Cúm: có thể tiêm trước hoặc trong khi mang thai, nên tiêm hằng năm",
+        "HPV: nên hoàn thành trước khi có thai; nếu có thai giữa liệu trình thì hoãn các mũi còn lại đến sau sinh",
+        "Uốn ván – bạch hầu – ho gà: kiểm tra tiền sử để được tư vấn mũi phù hợp"
+      ]
+    },
+    {
+      "heading": "Nếu lỡ có thai ngay sau khi tiêm",
+      "body": "Đừng hoảng sợ. Theo CDC, việc vô tình tiêm vắc xin sống khi đang có thai không phải là lý do để chấm dứt thai kỳ. Hãy báo cho bác sĩ sản khoa để được theo dõi.",
+      "bullets": []
+    },
+    {
+      "heading": "Giữ lại giấy tờ",
+      "body": "Lưu sổ hoặc phiếu tiêm chủng và ghi ngày tiêm vào app. Thông tin này hữu ích cho các lần khám thai sau.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_vax_record",
+      "text": "Tìm lại sổ tiêm chủng hoặc hỏi gia đình về các mũi đã tiêm",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_rubella",
+      "text": "Kiểm tra miễn dịch rubella và tiêm MMR nếu bác sĩ chỉ định",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_wait",
+      "text": "Ghi nhớ thời gian cần chờ sau tiêm MMR hoặc thủy đậu trước khi thụ thai",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_varicella",
+      "text": "Hỏi bác sĩ về vắc xin thủy đậu nếu chưa từng mắc",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_hepb",
+      "text": "Hỏi về vắc xin viêm gan B nếu chưa có miễn dịch",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_flu",
+      "text": "Tiêm cúm mùa theo tư vấn",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_hpv",
+      "text": "Hoàn thành liệu trình HPV nếu đang tiêm dở",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_vax_book",
+      "text": "Đặt lịch tư vấn tiêm chủng",
+      "weekDue": null,
+      "actionType": "addAppointment",
+      "actionLabel": "Thêm lịch tiêm",
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "CDC-VAX-PREG",
+    "VN-EPI",
+    "NHS-VACCINES"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

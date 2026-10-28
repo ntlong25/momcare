@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/pregnancy_model.dart';
 import '../models/health_log_model.dart';
 import '../models/appointment_model.dart';
@@ -8,9 +10,13 @@ import '../models/menstrual_cycle_model.dart';
 import '../constants/app_constants.dart';
 import '../utils/app_logger.dart';
 import 'encryption_service.dart';
+import 'health_service.dart';
 
 class DatabaseService {
   static final _logger = AppLogger.instance;
+
+  /// SharedPreferences flag: whether sensitive boxes were opened encrypted.
+  static const String _encryptionStateKey = 'hive_boxes_encrypted';
 
   static Future<void> init() async {
     try {
@@ -27,13 +33,33 @@ class DatabaseService {
       _logger.debug('Hive adapters registered');
 
       // Get encryption cipher for sensitive data
-      final encryptionCipher = await EncryptionService.getEncryptionCipher();
+      final prefs = await SharedPreferences.getInstance();
+      final wasEncrypted = prefs.getBool(_encryptionStateKey);
+      var encryptionCipher = await EncryptionService.getEncryptionCipher();
+
+      if (encryptionCipher == null && wasEncrypted == true) {
+        // Opening encrypted boxes without the key would make Hive discard
+        // the frames it cannot read. Keep the data intact and stop here.
+        throw const EncryptionUnavailableException(
+          'Encrypted health data exists but the encryption key is unavailable',
+        );
+      }
+      if (encryptionCipher != null && wasEncrypted == false) {
+        // Boxes were created unencrypted during an earlier fallback; opening
+        // them with a cipher would make them unreadable. Keep them as-is.
+        _logger.warning(
+          'SECURITY: existing Hive data was stored without encryption; '
+          'keeping unencrypted mode to avoid data loss',
+        );
+        encryptionCipher = null;
+        EncryptionService.isFallbackActive = true;
+      }
 
       if (encryptionCipher != null) {
         _logger.info('Opening Hive boxes with encryption');
       } else {
         _logger.warning(
-          'Opening Hive boxes WITHOUT encryption (fallback mode)',
+          'SECURITY: opening Hive boxes WITHOUT encryption (fallback mode)',
         );
       }
 
@@ -60,6 +86,9 @@ class DatabaseService {
       await Hive.openBox<RecipeModel>(AppConstants.recipeBox);
       await Hive.openBox(AppConstants.settingsBox);
 
+      // Remember how the sensitive boxes are stored for the next launch.
+      await prefs.setBool(_encryptionStateKey, encryptionCipher != null);
+
       _logger.info('Hive database initialized successfully');
     } catch (e, stackTrace) {
       _logger.fatal(
@@ -69,6 +98,34 @@ class DatabaseService {
       );
       rethrow;
     }
+  }
+
+  /// Merged change notifier for the named boxes (typed boxes are resolved
+  /// with their own type, as Hive refuses mismatched generic lookups).
+  /// Returns null when none of the boxes is open.
+  static Listenable? listenableFor(List<String> boxNames) {
+    final listenables = <Listenable>[];
+    for (final name in boxNames) {
+      if (!Hive.isBoxOpen(name)) continue;
+      switch (name) {
+        case AppConstants.pregnancyBox:
+          listenables.add(pregnancyBox.listenable());
+        case AppConstants.healthLogBox:
+          listenables.add(healthLogBox.listenable());
+        case AppConstants.appointmentBox:
+          listenables.add(appointmentBox.listenable());
+        case AppConstants.menstrualCycleBox:
+          listenables.add(menstrualCycleBox.listenable());
+        case AppConstants.nutritionBox:
+          listenables.add(nutritionBox.listenable());
+        case AppConstants.recipeBox:
+          listenables.add(recipeBox.listenable());
+        default:
+          listenables.add(Hive.box(name).listenable());
+      }
+    }
+    if (listenables.isEmpty) return null;
+    return Listenable.merge(listenables);
   }
 
   static void _registerAdapter<T>(TypeAdapter<T> adapter) {
@@ -85,15 +142,31 @@ class DatabaseService {
     await pregnancyBox.put(pregnancy.id, pregnancy);
   }
 
+  /// Saves [pregnancy] as the only active pregnancy. Any previously active
+  /// pregnancy is kept for history but marked inactive.
+  static Future<void> saveNewActivePregnancy(PregnancyModel pregnancy) async {
+    final others = pregnancyBox.values
+        .where((p) => p.id != pregnancy.id && p.isActive)
+        .toList();
+    for (final previous in others) {
+      await pregnancyBox.put(
+        previous.id,
+        previous.copyWith(isActive: false, updatedAt: DateTime.now()),
+      );
+    }
+    pregnancy.isActive = true;
+    await pregnancyBox.put(pregnancy.id, pregnancy);
+  }
+
   static PregnancyModel? getActivePregnancy() {
     try {
-      // Try to find active pregnancy
-      final activePregnancy = pregnancyBox.values
-          .cast<PregnancyModel?>()
-          .firstWhere((p) => p?.isActive == true, orElse: () => null);
+      // Prefer the most recently updated active pregnancy (older installs may
+      // have several active entries from repeated setup).
+      final active = pregnancyBox.values.where((p) => p.isActive).toList()
+        ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
 
-      if (activePregnancy != null) {
-        return activePregnancy;
+      if (active.isNotEmpty) {
+        return active.first;
       }
 
       // If no active pregnancy, return the first one if exists
@@ -269,6 +342,51 @@ class DatabaseService {
 
   static Future<void> deleteMenstrualCycle(String id) async {
     await menstrualCycleBox.delete(id);
+    await recomputeCycleLengths();
+  }
+
+  /// Saves a cycle entered or edited by the user and refreshes the stored
+  /// cycle lengths, so entering an older period later never yields a negative
+  /// cycle length.
+  static Future<void> saveMenstrualCycleAndRecompute(
+    MenstrualCycleModel cycle,
+  ) async {
+    await menstrualCycleBox.put(cycle.id, cycle);
+    await recomputeCycleLengths();
+  }
+
+  /// Imports cycles from Apple Health / Health Connect without duplicating
+  /// entries: synced cycles use a stable id per start date, and a cycle whose
+  /// start date already exists locally (e.g. entered by hand) is skipped.
+  /// Returns the number of new cycles stored.
+  static Future<int> importMenstrualCycles(
+    List<MenstrualCycleModel> cycles,
+  ) async {
+    var added = 0;
+    for (final cycle in cycles) {
+      final existing = menstrualCycleBox.values.where(
+        (c) =>
+            c.id != cycle.id &&
+            HealthService.isSameDay(c.startDate, cycle.startDate),
+      );
+      if (existing.isNotEmpty) continue;
+      if (!menstrualCycleBox.containsKey(cycle.id)) added++;
+      await menstrualCycleBox.put(cycle.id, cycle);
+    }
+    await recomputeCycleLengths();
+    return added;
+  }
+
+  static Future<void> recomputeCycleLengths() async {
+    final updated = HealthService.withRecomputedCycleLengths(
+      menstrualCycleBox.values.toList(),
+    );
+    for (final cycle in updated) {
+      final current = menstrualCycleBox.get(cycle.id);
+      if (current?.cycleLengthDays != cycle.cycleLengthDays) {
+        await menstrualCycleBox.put(cycle.id, cycle);
+      }
+    }
   }
 
   static Future<void> clearMenstrualCycles() async {

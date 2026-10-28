@@ -1,0 +1,96 @@
+{
+  "id": "pregnant_vaccination",
+  "stage": "pregnant",
+  "category": "vaccination",
+  "title": "Tiêm phòng khi đang mang thai",
+  "summary": "Một số vắc xin được khuyến nghị trong thai kỳ để bảo vệ mẹ và bé trong những tháng đầu đời. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.",
+  "order": 20,
+  "weekFrom": 0,
+  "weekTo": 40,
+  "sections": [
+    {
+      "heading": "Vì sao tiêm khi mang thai",
+      "body": "Kháng thể mẹ tạo ra sau tiêm có thể truyền qua nhau thai, giúp bảo vệ bé trong những tháng đầu khi bé còn quá nhỏ để tự tiêm một số vắc xin.",
+      "bullets": []
+    },
+    {
+      "heading": "Các vắc xin thường được tư vấn",
+      "body": "Loại vắc xin, thời điểm và số mũi do bác sĩ / nhân viên y tế quyết định dựa trên tiền sử tiêm của bạn.",
+      "bullets": [
+        "Cúm (vắc xin bất hoạt): có thể tiêm ở bất kỳ giai đoạn nào của thai kỳ, đặc biệt trước mùa cúm",
+        "Bạch hầu – uốn ván – ho gà (Tdap): CDC khuyên tiêm mỗi lần mang thai, thời điểm tốt nhất khoảng 27–36 tuần",
+        "Uốn ván (VAT/Td): số mũi tùy tiền sử tiêm; chương trình tiêm chủng ở Việt Nam có lịch riêng cho phụ nữ có thai, hãy hỏi trạm y tế",
+        "RSV: một số nước khuyến nghị tiêm trong khoảng 32–36 tuần; hỏi bác sĩ xem vắc xin này có sẵn và phù hợp với bạn không",
+        "Viêm gan B: có thể tiêm khi mang thai nếu chưa có miễn dịch và có chỉ định"
+      ]
+    },
+    {
+      "heading": "Không tiêm khi mang thai",
+      "body": "Các vắc xin sống như sởi – quai bị – rubella (MMR), thủy đậu không tiêm khi đang có thai. HPV cũng hoãn đến sau sinh.",
+      "bullets": []
+    },
+    {
+      "heading": "Sau khi tiêm",
+      "body": "Đau, sưng nhẹ chỗ tiêm hoặc sốt nhẹ có thể gặp. Đi khám ngay nếu khó thở, nổi mề đay toàn thân, sưng mặt môi hoặc sốt cao.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_vax_record",
+      "text": "Mang sổ tiêm chủng đến buổi khám thai đầu tiên",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_vax_flu",
+      "text": "Hỏi bác sĩ về tiêm cúm trong thai kỳ",
+      "weekDue": null,
+      "actionType": "addAppointment",
+      "actionLabel": "Thêm lịch tiêm",
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_vax_tdap",
+      "text": "Tiêm Tdap (bạch hầu – uốn ván – ho gà) theo chỉ định, khoảng tuần 27–36",
+      "weekDue": 27,
+      "actionType": "addAppointment",
+      "actionLabel": "Thêm lịch tiêm",
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_vax_tetanus",
+      "text": "Kiểm tra lịch tiêm uốn ván theo tiền sử",
+      "weekDue": 16,
+      "actionType": "addAppointment",
+      "actionLabel": "Thêm lịch tiêm",
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_vax_rsv",
+      "text": "Hỏi bác sĩ về vắc xin RSV (khoảng tuần 32–36) nếu có",
+      "weekDue": 32,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_vax_family",
+      "text": "Nhắc người thân sẽ chăm bé kiểm tra tiêm cúm và ho gà",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "CDC-VAX-PREG",
+    "VN-EPI",
+    "NHS-VACCINES"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

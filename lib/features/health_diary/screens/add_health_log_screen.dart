@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/models/health_log_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/utils/date_picker_utils.dart';
 import '../../../core/utils/health_validators.dart';
 
 class AddHealthLogScreen extends StatefulWidget {
@@ -281,11 +282,12 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final picked = await showDatePicker(
+    final picked = await DatePickerUtils.pickDate(
       context: context,
       initialDate: _selectedDate,
       firstDate: DateTime.now().subtract(const Duration(days: 365)),
       lastDate: DateTime.now(),
+      includeInitial: widget.log != null,
     );
 
     if (picked != null) {
@@ -298,21 +300,38 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
   Future<void> _saveLog() async {
     if (!_formKey.currentState!.validate()) return;
 
+    final weight = HealthValidators.parseDecimal(_weightController.text);
+    final systolic = int.tryParse(_systolicController.text.trim());
+    final diastolic = int.tryParse(_diastolicController.text.trim());
+    final notes = _notesController.text.trim();
+
+    if (!HealthValidators.hasHealthLogContent(
+      weight: weight,
+      systolicBP: systolic,
+      diastolicBP: diastolic,
+      mood: _selectedMood,
+      symptoms: _selectedSymptoms,
+      notes: notes,
+    )) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Hãy nhập ít nhất một chỉ số, tâm trạng, triệu chứng hoặc ghi chú',
+          ),
+        ),
+      );
+      return;
+    }
+
     final log = HealthLogModel(
       id: widget.log?.id ?? const Uuid().v4(),
       date: _selectedDate,
-      weight: _weightController.text.isEmpty
-          ? null
-          : double.parse(_weightController.text),
-      systolicBP: _systolicController.text.isEmpty
-          ? null
-          : int.parse(_systolicController.text),
-      diastolicBP: _diastolicController.text.isEmpty
-          ? null
-          : int.parse(_diastolicController.text),
+      weight: weight,
+      systolicBP: systolic,
+      diastolicBP: diastolic,
       mood: _selectedMood,
       symptoms: _selectedSymptoms.isEmpty ? null : _selectedSymptoms,
-      notes: _notesController.text.isEmpty ? null : _notesController.text,
+      notes: notes.isEmpty ? null : notes,
       createdAt: widget.log?.createdAt ?? DateTime.now(),
       updatedAt: DateTime.now(),
     );

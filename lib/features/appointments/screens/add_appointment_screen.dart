@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/models/appointment_model.dart';
-import '../../../core/services/database_service.dart';
-import '../../../core/services/notification_service.dart';
+import '../../../core/services/appointment_reminder_service.dart';
+import '../../../core/utils/date_picker_utils.dart';
 
 class AddAppointmentScreen extends StatefulWidget {
   final AppointmentModel? appointment;
 
-  const AddAppointmentScreen({super.key, this.appointment});
+  /// Optional prefill for a new appointment (e.g. from a Cẩm nang timeline).
+  final String? initialTitle;
+  final DateTime? initialDate;
+  final String? initialNotes;
+
+  const AddAppointmentScreen({
+    super.key,
+    this.appointment,
+    this.initialTitle,
+    this.initialDate,
+    this.initialNotes,
+  });
 
   @override
   State<AddAppointmentScreen> createState() => _AddAppointmentScreenState();
@@ -31,6 +42,14 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     super.initState();
     if (widget.appointment != null) {
       _loadExistingAppointment();
+    } else {
+      _titleController.text = widget.initialTitle ?? '';
+      _notesController.text = widget.initialNotes ?? '';
+      final initialDate = widget.initialDate;
+      if (initialDate != null) {
+        _selectedDate = initialDate;
+        _selectedTime = const TimeOfDay(hour: 8, minute: 0);
+      }
     }
   }
 
@@ -260,11 +279,13 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final picked = await showDatePicker(
+    // Editing a past appointment must not crash (initialDate < firstDate).
+    final picked = await DatePickerUtils.pickDate(
       context: context,
       initialDate: _selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
+      includeInitial: true,
     );
 
     if (picked != null) {
@@ -316,17 +337,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       updatedAt: DateTime.now(),
     );
 
-    await DatabaseService.saveAppointment(appointment);
-
-    // Schedule notification if reminder is enabled
-    if (_reminderEnabled && !_isCompleted) {
-      await NotificationService.scheduleAppointmentReminder(
-        id: appointment.id.hashCode,
-        title: appointment.title,
-        appointmentTime: appointmentDateTime,
-        minutesBefore: _reminderMinutes,
-      );
-    }
+    // Saves and schedules the reminder, or cancels it when the reminder is
+    // off or the appointment is marked as done.
+    await AppointmentReminderService.save(appointment);
 
     if (mounted) {
       Navigator.of(context).pop(true);
@@ -354,11 +367,8 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
     );
 
     if (confirmed == true && mounted) {
-      await DatabaseService.deleteAppointment(widget.appointment!.id);
-      // Cancel notification
-      await NotificationService.cancelNotification(
-        widget.appointment!.id.hashCode,
-      );
+      // Deletes the appointment and cancels its notification.
+      await AppointmentReminderService.delete(widget.appointment!.id);
       if (mounted) {
         Navigator.of(context).pop(true);
       }

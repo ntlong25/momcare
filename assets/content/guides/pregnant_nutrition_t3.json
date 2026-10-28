@@ -1,0 +1,72 @@
+{
+  "id": "pregnant_nutrition_t3",
+  "stage": "pregnant",
+  "category": "nutrition",
+  "title": "Dinh dưỡng 3 tháng cuối",
+  "summary": "Chuẩn bị năng lượng cho chuyển dạ, giảm ợ nóng và phù, tiếp tục đủ sắt và canxi.",
+  "order": 32,
+  "weekFrom": 28,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Nhu cầu",
+      "body": "Bé tăng cân nhanh nhất trong giai đoạn này. Mẹ cần thêm năng lượng nhiều hơn quý II một chút, nhưng vẫn ưu tiên chất lượng hơn số lượng. Tiếp tục sắt, canxi, đạm và omega-3 từ cá ít thủy ngân.",
+      "bullets": []
+    },
+    {
+      "heading": "Ợ nóng và đầy bụng",
+      "body": "",
+      "bullets": [
+        "Ăn bữa nhỏ, nhai chậm",
+        "Tránh nằm ngay trong 2–3 tiếng sau ăn",
+        "Hạn chế đồ cay, chua, nhiều dầu mỡ",
+        "Kê cao đầu khi ngủ"
+      ]
+    },
+    {
+      "heading": "Phù chân và muối",
+      "body": "Phù nhẹ ở bàn chân về chiều là thường gặp. Ăn nhạt vừa phải, kê chân cao khi nghỉ. Phù đột ngột ở mặt, tay kèm đau đầu, nhìn mờ là dấu hiệu cần đi khám ngay.",
+      "bullets": []
+    },
+    {
+      "heading": "Chuẩn bị cho nuôi con bằng sữa mẹ",
+      "body": "Ăn uống đủ chất từ bây giờ giúp mẹ có sức khỏe để cho con bú. Không cần kiêng khem quá mức sau sinh; hãy hỏi nhân viên y tế về chế độ ăn sau sinh phù hợp.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_nut3_small",
+      "text": "Chia nhỏ bữa để giảm ợ nóng",
+      "weekDue": 28,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut3_iron",
+      "text": "Tiếp tục uống sắt và canxi theo chỉ định",
+      "weekDue": 28,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut3_snack",
+      "text": "Chuẩn bị đồ ăn nhẹ, nước uống cho túi đi sinh",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "WHO-ANC",
+    "VN-NIN",
+    "FDA-FISH",
+    "CDC-WARNING"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

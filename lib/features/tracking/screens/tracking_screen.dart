@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../widgets/baby_development_card.dart';
@@ -16,6 +18,14 @@ class TrackingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Rebuild when pregnancy/health-log data changes in another tab.
+    return HiveBoxesListener(
+      boxNames: const [AppConstants.pregnancyBox, AppConstants.healthLogBox],
+      builder: _buildContent,
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     // Get active pregnancy (returns null if not found, no exception thrown)
     final pregnancy = DatabaseService.getActivePregnancy();
 
@@ -204,7 +214,7 @@ class TrackingScreen extends ConsumerWidget {
               _buildStatItem(
                 context,
                 'Còn lại',
-                '${pregnancy.daysUntilDue}',
+                '${pregnancy.daysUntilDue < 0 ? 0 : pregnancy.daysUntilDue} ngày',
                 Icons.calendar_today,
               ),
               Container(

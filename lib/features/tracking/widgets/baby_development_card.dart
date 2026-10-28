@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../references/widgets/source_metadata_card.dart';
 
 class BabyDevelopmentCard extends StatelessWidget {
   final PregnancyWeekData weekData;
@@ -64,6 +66,12 @@ class BabyDevelopmentCard extends StatelessWidget {
             Text(
               weekData.development,
               style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 16),
+            const SourceMetadataCard(
+              group: MedicalReferenceGroup.growthAndVitals,
+              note:
+                  'Các mốc phát triển là ước tính tham khảo. Kết quả thực tế có thể khác nhau theo từng thai kỳ.',
             ),
           ],
         ),

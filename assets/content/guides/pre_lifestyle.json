@@ -1,0 +1,105 @@
+{
+  "id": "pre_lifestyle",
+  "stage": "pre",
+  "category": "lifestyle",
+  "title": "Lối sống và cân nặng trước khi mang thai",
+  "summary": "Những thay đổi nhỏ trong ăn uống, vận động và thói quen giúp cơ thể sẵn sàng cho thai kỳ.",
+  "order": 60,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Cân nặng hợp lý",
+      "body": "Cả thiếu cân và thừa cân đều có thể ảnh hưởng đến khả năng có thai và sức khỏe thai kỳ. Bạn không cần đạt cân nặng \"hoàn hảo\"; chỉ cần tiến gần hơn đến mức hợp lý bằng ăn uống cân bằng và vận động đều. Không nên nhịn ăn hay dùng thuốc giảm cân.",
+      "bullets": []
+    },
+    {
+      "heading": "Ăn uống",
+      "body": "",
+      "bullets": [
+        "Ăn đủ bữa, đa dạng: cơm hoặc ngũ cốc, thịt cá trứng đậu, rau và trái cây",
+        "Giảm đồ ngọt, nước ngọt, trà sữa và đồ chiên rán",
+        "Uống đủ nước, ưu tiên nước lọc",
+        "Tập thói quen ăn chín uống sôi"
+      ]
+    },
+    {
+      "heading": "Vận động",
+      "body": "Người trưởng thành nên vận động mức vừa khoảng 150 phút mỗi tuần, ví dụ đi bộ nhanh 30 phút mỗi ngày, 5 ngày một tuần. Duy trì được thói quen này trước khi có thai sẽ giúp mẹ dễ tiếp tục trong thai kỳ.",
+      "bullets": []
+    },
+    {
+      "heading": "Những thứ nên bỏ",
+      "body": "",
+      "bullets": [
+        "Thuốc lá, kể cả thuốc lá điện tử, và tránh hút thuốc thụ động",
+        "Rượu bia: không có mức an toàn khi đang cố gắng có thai",
+        "Hạn chế cà phê và đồ uống nhiều caffeine",
+        "Tránh tiếp xúc hóa chất, thuốc trừ sâu; dùng đồ bảo hộ nếu công việc có tiếp xúc"
+      ]
+    },
+    {
+      "heading": "Giấc ngủ",
+      "body": "Ngủ đủ 7–9 tiếng mỗi đêm giúp điều hòa nội tiết và tinh thần. Hạn chế dùng điện thoại trước khi ngủ.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_life_bmi",
+      "text": "Biết chỉ số BMI hiện tại của mình",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_life_smoke",
+      "text": "Ngừng hút thuốc và tránh khói thuốc",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_life_alcohol",
+      "text": "Ngừng uống rượu bia",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_life_move",
+      "text": "Đi bộ hoặc vận động nhẹ ít nhất 5 ngày mỗi tuần",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_life_sugar",
+      "text": "Giảm nước ngọt và trà sữa",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_life_chemical",
+      "text": "Rà soát hóa chất tiếp xúc ở nơi làm việc và ở nhà",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "CDC-PRECONCEPTION",
+    "NHS-PLANNING",
+    "VN-NIN"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

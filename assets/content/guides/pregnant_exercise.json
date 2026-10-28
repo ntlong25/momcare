@@ -1,0 +1,96 @@
+{
+  "id": "pregnant_exercise",
+  "stage": "pregnant",
+  "category": "lifestyle",
+  "title": "Vận động và lối sống an toàn",
+  "summary": "Vận động vừa sức giúp mẹ khỏe hơn, ngủ ngon hơn. Đây là những điều nên và không nên.",
+  "order": 80,
+  "weekFrom": 0,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Lợi ích",
+      "body": "Với thai kỳ bình thường, ACOG và NHS khuyến khích vận động mức vừa khoảng 150 phút mỗi tuần. Vận động giúp giảm đau lưng, táo bón, cải thiện giấc ngủ và tinh thần. Hãy hỏi bác sĩ trước nếu bạn có bệnh lý hoặc biến chứng thai kỳ.",
+      "bullets": []
+    },
+    {
+      "heading": "Hoạt động phù hợp",
+      "body": "",
+      "bullets": [
+        "Đi bộ",
+        "Bơi, đi bộ dưới nước",
+        "Yoga, pilates dành cho bà bầu có người hướng dẫn",
+        "Đạp xe tại chỗ",
+        "Bài tập sàn chậu (Kegel)"
+      ]
+    },
+    {
+      "heading": "Nên tránh",
+      "body": "",
+      "bullets": [
+        "Môn có va chạm hoặc dễ ngã: bóng đá, bóng rổ, cưỡi ngựa, trượt patin",
+        "Nằm ngửa lâu khi tập sau khoảng tuần 16",
+        "Tập trong trời nóng bức, phòng xông hơi, tắm nước quá nóng",
+        "Lặn biển",
+        "Nâng vật quá nặng"
+      ]
+    },
+    {
+      "heading": "Ngừng tập và đi khám khi",
+      "body": "",
+      "bullets": [
+        "Ra máu hoặc ra nước âm đạo",
+        "Chóng mặt, ngất, khó thở trước khi gắng sức",
+        "Đau ngực, đau đầu",
+        "Co thắt bụng đều đặn, đau bụng",
+        "Đau hoặc sưng bắp chân"
+      ]
+    },
+    {
+      "heading": "Lối sống",
+      "body": "Không hút thuốc, không uống rượu bia. Thắt dây an toàn ô tô dưới bụng, vắt qua giữa ngực. Đi xe máy cẩn thận, hạn chế đường dài và đường xấu. Hỏi bác sĩ trước khi đi du lịch xa, nhất là cuối thai kỳ.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_ex_ask",
+      "text": "Hỏi bác sĩ mức vận động phù hợp với mình",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_ex_walk",
+      "text": "Đi bộ 20–30 phút hầu hết các ngày",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_ex_kegel",
+      "text": "Tập bài tập sàn chậu mỗi ngày",
+      "weekDue": 12,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_ex_side",
+      "text": "Tập ngủ nghiêng từ giữa thai kỳ",
+      "weekDue": 20,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "ACOG-EXERCISE",
+    "NHS-EXERCISE"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

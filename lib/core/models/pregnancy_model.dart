@@ -43,19 +43,44 @@ class PregnancyModel extends HiveObject {
     required this.updatedAt,
   });
 
-  int get currentWeek {
-    final now = DateTime.now();
-    final difference = now.difference(
-      lastPeriodDate ?? dueDate.subtract(const Duration(days: 280)),
-    );
-    final weeks = (difference.inDays / 7).floor();
+  /// Standard pregnancy length used to link LMP and due date (Naegele).
+  static const int gestationDays = 280;
+
+  /// Whole calendar days from [from] to [to], ignoring time of day and DST.
+  static int calendarDaysBetween(DateTime from, DateTime to) {
+    return DateTime.utc(
+      to.year,
+      to.month,
+      to.day,
+    ).difference(DateTime.utc(from.year, from.month, from.day)).inDays;
+  }
+
+  /// Due date estimated from the first day of the last menstrual period.
+  static DateTime dueDateFromLastPeriod(DateTime lastPeriodDate) => DateTime(
+    lastPeriodDate.year,
+    lastPeriodDate.month,
+    lastPeriodDate.day + gestationDays,
+  );
+
+  /// First day of the last menstrual period implied by a due date.
+  static DateTime lastPeriodFromDueDate(DateTime dueDate) =>
+      DateTime(dueDate.year, dueDate.month, dueDate.day - gestationDays);
+
+  /// Start of pregnancy (week 0). The due date is the single source of truth
+  /// so the current week and the days-left counter always agree.
+  DateTime get pregnancyStartDate => lastPeriodFromDueDate(dueDate);
+
+  int currentWeekAt(DateTime now) {
+    final difference = calendarDaysBetween(pregnancyStartDate, now);
+    final weeks = (difference / 7).floor();
     return weeks.clamp(0, 42);
   }
 
-  int get daysUntilDue {
-    final now = DateTime.now();
-    return dueDate.difference(now).inDays;
-  }
+  int daysUntilDueAt(DateTime now) => calendarDaysBetween(now, dueDate);
+
+  int get currentWeek => currentWeekAt(DateTime.now());
+
+  int get daysUntilDue => daysUntilDueAt(DateTime.now());
 
   String get trimester {
     final week = currentWeek;

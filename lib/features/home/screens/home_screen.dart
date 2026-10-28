@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/pregnancy_model.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../l10n/app_localizations.dart';
@@ -9,12 +11,21 @@ import '../../emergency/widgets/emergency_entry_card.dart';
 import '../widgets/pregnancy_progress_card.dart';
 import '../widgets/quick_actions_grid.dart';
 import '../widgets/upcoming_appointments_card.dart';
+import '../widgets/maternal_habits_card.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Rebuild when pregnancy/appointment data changes in another tab.
+    return HiveBoxesListener(
+      boxNames: const [AppConstants.pregnancyBox, AppConstants.appointmentBox],
+      builder: _buildContent,
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     // Get active pregnancy (returns null if not found, no exception thrown)
     final pregnancy = DatabaseService.getActivePregnancy();
     final l10n = AppLocalizations.of(context)!;
@@ -81,9 +92,11 @@ class HomeScreen extends ConsumerWidget {
         children: [
           _buildGreeting(context, pregnancy),
           const SizedBox(height: 24),
-          const EmergencyEntryCard(),
-          const SizedBox(height: 16),
           PregnancyProgressCard(pregnancy: pregnancy),
+          const SizedBox(height: 16),
+          const MaternalHabitsCard(),
+          const SizedBox(height: 16),
+          const EmergencyEntryCard(),
           const SizedBox(height: 24),
           const QuickActionsGrid(),
           const SizedBox(height: 24),

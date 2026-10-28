@@ -1,0 +1,54 @@
+{
+  "lastUpdated": "2026-09-12",
+  "reviewStatus": "draft_requires_medical_review",
+  "guides": [
+    {
+      "id": "folate-week-0-12",
+      "title": "Axit folic và folate từ thực phẩm",
+      "category": "Tuần 0-12",
+      "weekStart": 0,
+      "weekEnd": 12,
+      "description": "Folate có trong nhiều thực phẩm tự nhiên; axit folic trong viên bổ sung chỉ nên dùng theo hướng dẫn của bác sĩ hoặc nhân viên y tế.",
+      "benefits": ["Hỗ trợ tạo tế bào mới", "Góp phần hỗ trợ phát triển hệ thần kinh", "Có thể được khuyến nghị trước và đầu thai kỳ"],
+      "recommendedFoods": ["Rau lá xanh", "Đậu lăng", "Đậu Hà Lan", "Trái cây họ cam quýt", "Ngũ cốc tăng cường vi chất"],
+      "foodsToAvoid": ["Rượu bia", "Thực phẩm sống hoặc chưa chín kỹ"],
+      "supplementComparison": "Thực phẩm tự nhiên cung cấp folate kèm chất xơ và vi chất khác; viên bổ sung giúp đạt nhu cầu khi bác sĩ khuyến nghị."
+    },
+    {
+      "id": "iron-week-8-42",
+      "title": "Sắt từ thực phẩm và viên bổ sung",
+      "category": "Tuần 8-42",
+      "weekStart": 8,
+      "weekEnd": 42,
+      "description": "Nhu cầu sắt có thể tăng trong thai kỳ. Hãy ưu tiên bữa ăn có nguồn sắt phù hợp và chỉ dùng viên sắt theo hướng dẫn của bác sĩ.",
+      "benefits": ["Hỗ trợ tạo máu", "Góp phần vận chuyển oxy", "Hỗ trợ duy trì năng lượng"],
+      "recommendedFoods": ["Thịt nạc nấu chín", "Cá phù hợp cho thai kỳ", "Trứng chín kỹ", "Đậu", "Rau lá xanh đậm"],
+      "foodsToAvoid": ["Gan hoặc thực phẩm giàu vitamin A liều cao nếu chưa hỏi bác sĩ", "Trà/cà phê quá gần bữa giàu sắt"],
+      "supplementComparison": "Sắt từ thực phẩm hấp thu khác nhau theo nguồn; viên sắt có thể cần thiết khi được chỉ định nhưng dễ gây khó chịu tiêu hóa ở một số người."
+    },
+    {
+      "id": "calcium-vitamin-d-week-13-42",
+      "title": "Canxi và vitamin D",
+      "category": "Tuần 13-42",
+      "weekStart": 13,
+      "weekEnd": 42,
+      "description": "Canxi và vitamin D hỗ trợ xương, răng và hoạt động cơ. Nên kết hợp thực phẩm phù hợp, ánh sáng mặt trời an toàn và tư vấn y tế khi cần bổ sung.",
+      "benefits": ["Hỗ trợ xương và răng", "Góp phần duy trì sức khỏe xương của mẹ", "Hỗ trợ hoạt động cơ"],
+      "recommendedFoods": ["Sữa tiệt trùng", "Sữa chua", "Đậu phụ", "Cá nhỏ ăn cả xương phù hợp", "Rau xanh"],
+      "foodsToAvoid": ["Sữa chưa tiệt trùng", "Phô mai mềm chưa tiệt trùng"],
+      "supplementComparison": "Thực phẩm cung cấp canxi cùng đạm và vi chất; thực phẩm chức năng chỉ nên bổ sung khi khẩu phần chưa đủ hoặc bác sĩ khuyến nghị."
+    },
+    {
+      "id": "food-safety-week-0-42",
+      "title": "Thực phẩm nên tránh khi mang thai",
+      "category": "Tuần 0-42",
+      "weekStart": 0,
+      "weekEnd": 42,
+      "description": "Một số thực phẩm có thể làm tăng nguy cơ nhiễm khuẩn hoặc phơi nhiễm chất không phù hợp trong thai kỳ. Khi không chắc chắn, hãy hỏi nhân viên y tế.",
+      "benefits": ["Giảm rủi ro bệnh lây qua thực phẩm", "Hạn chế thủy ngân và chất có hại", "Giúp lựa chọn bữa ăn an toàn hơn"],
+      "recommendedFoods": ["Thực phẩm nấu chín kỹ", "Sữa và sản phẩm sữa đã tiệt trùng", "Cá ít thủy ngân", "Rau quả rửa sạch"],
+      "foodsToAvoid": ["Thịt/cá/trứng sống hoặc chưa chín kỹ", "Sữa chưa tiệt trùng", "Cá có hàm lượng thủy ngân cao", "Rượu bia", "Quá nhiều caffeine"],
+      "supplementComparison": "Không có thực phẩm chức năng nào thay thế nguyên tắc ăn chín, uống sôi và chọn nguồn thực phẩm an toàn."
+    }
+  ]
+}

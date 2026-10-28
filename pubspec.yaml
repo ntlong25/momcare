@@ -1,5 +1,5 @@
 name: momcare
-description: "A new Flutter project."
+description: "MomCare+ - offline pregnancy and pre-pregnancy companion app."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -44,9 +44,6 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
-  # Networking
-  dio: ^5.7.0
-
   # Local notifications
   flutter_local_notifications: ^19.0.1
   timezone: ^0.10.0
@@ -56,7 +53,6 @@ dependencies:
 
   # UI components
   google_fonts: ^6.2.1
-  flutter_svg: ^2.0.14
 
   # Date and time utilities
   table_calendar: ^3.2.0
@@ -112,6 +108,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   generate: true
+
+  assets:
+    - assets/content/
+    - assets/content/guides/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -6,6 +6,10 @@ class PregnancyWeekData {
   final String development;
   final List<String> motherChanges;
   final List<String> tips;
+  final List<String> redFlags;
+  final String nutritionFocus;
+  final List<String> sourceRefs;
+  final String lastUpdated;
 
   PregnancyWeekData({
     required this.week,
@@ -15,11 +19,26 @@ class PregnancyWeekData {
     required this.development,
     required this.motherChanges,
     required this.tips,
+    this.redFlags = const [],
+    this.nutritionFocus = '',
+    this.sourceRefs = const [],
+    this.lastUpdated = '2026-09-12',
   });
 }
 
 class PregnancyWeeksDatabase {
+  static Map<int, PregnancyWeekData>? _contentPackWeeks;
+
+  static void setContentPack(Map<int, PregnancyWeekData> weeks) {
+    _contentPackWeeks = weeks;
+  }
+
   static PregnancyWeekData getWeekData(int week) {
+    final contentPackWeeks = _contentPackWeeks;
+    if (contentPackWeeks != null) {
+      return contentPackWeeks[week.clamp(0, 42)] ?? contentPackWeeks[0]!;
+    }
+
     if (week < 1 || week > 42) {
       return _weeks[0]!;
     }

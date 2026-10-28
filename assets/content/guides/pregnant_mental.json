@@ -1,0 +1,78 @@
+{
+  "id": "pregnant_mental",
+  "stage": "pregnant",
+  "category": "mental",
+  "title": "Sức khỏe tinh thần khi mang thai",
+  "summary": "Thay đổi cảm xúc là bình thường, nhưng buồn bã hay lo âu kéo dài cần được hỗ trợ.",
+  "order": 70,
+  "weekFrom": 0,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Cảm xúc thay đổi",
+      "body": "Nội tiết, mệt mỏi và những lo lắng về tương lai có thể khiến mẹ dễ xúc động. Đây là phản ứng thường gặp và thường dịu đi khi mẹ được nghỉ ngơi và chia sẻ.",
+      "bullets": []
+    },
+    {
+      "heading": "Dấu hiệu cần chú ý",
+      "body": "Hãy nói với bác sĩ nếu các dấu hiệu sau kéo dài trên 2 tuần:",
+      "bullets": [
+        "Buồn bã, trống rỗng hầu hết thời gian",
+        "Mất hứng thú với những điều trước đây thích",
+        "Lo âu, hoảng sợ, không kiểm soát được suy nghĩ",
+        "Mất ngủ hoặc ngủ quá nhiều không phải do mệt thai",
+        "Cảm thấy mình vô dụng hoặc có lỗi"
+      ]
+    },
+    {
+      "heading": "Cần giúp đỡ ngay",
+      "body": "Nếu có ý nghĩ tự làm hại bản thân hoặc em bé, hãy gọi 115, đến cơ sở y tế gần nhất hoặc nhờ người thân đưa đi ngay. Bạn không có lỗi, và bạn xứng đáng được giúp đỡ.",
+      "bullets": []
+    },
+    {
+      "heading": "Những việc giúp ích",
+      "body": "",
+      "bullets": [
+        "Ngủ, nghỉ đủ; nhờ người thân chia sẻ việc nhà",
+        "Vận động nhẹ như đi bộ",
+        "Nói chuyện với chồng, bạn bè hoặc mẹ bầu khác",
+        "Hạn chế đọc thông tin gây hoang mang trên mạng",
+        "Hít thở chậm vài phút mỗi ngày"
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_mental_check",
+      "text": "Tự hỏi mình mỗi tuần: \"Tuần này mình cảm thấy thế nào?\"",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_mental_tell",
+      "text": "Nói với bác sĩ về cảm xúc trong buổi khám thai",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_mental_help",
+      "text": "Nhờ chồng hoặc người thân chia sẻ một việc nhà cố định",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "NHS-MENTAL",
+    "WHO-ANC",
+    "CDC-WARNING"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

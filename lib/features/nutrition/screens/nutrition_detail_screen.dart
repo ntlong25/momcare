@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/chip_colors.dart';
+import '../../../core/data/medical_references.dart';
 import '../../../core/models/nutrition_model.dart';
+import '../../references/widgets/source_metadata_card.dart';
 
 class NutritionDetailScreen extends StatelessWidget {
   final NutritionModel nutrition;
@@ -112,8 +115,10 @@ class NutritionDetailScreen extends StatelessWidget {
                     children: nutrition.recommendedFoods.map((food) {
                       return Chip(
                         label: Text(food),
-                        backgroundColor: Colors.green.withValues(alpha: 0.1),
-                        labelStyle: TextStyle(color: Colors.green[800]),
+                        backgroundColor: ChipColors.positiveBackground(context),
+                        labelStyle: TextStyle(
+                          color: ChipColors.positiveText(context),
+                        ),
                       );
                     }).toList(),
                   ),
@@ -131,12 +136,22 @@ class NutritionDetailScreen extends StatelessWidget {
                       children: nutrition.foodsToAvoid!.map((food) {
                         return Chip(
                           label: Text(food),
-                          backgroundColor: Colors.red.withValues(alpha: 0.1),
-                          labelStyle: TextStyle(color: Colors.red[800]),
+                          backgroundColor: ChipColors.negativeBackground(
+                            context,
+                          ),
+                          labelStyle: TextStyle(
+                            color: ChipColors.negativeText(context),
+                          ),
                         );
                       }).toList(),
                     ),
                   ],
+                  const SizedBox(height: 32),
+                  const SourceMetadataCard(
+                    group: MedicalReferenceGroup.nutrition,
+                    note:
+                        'Thông tin dinh dưỡng mang tính tham khảo chung. Hãy trao đổi với bác sĩ hoặc chuyên gia dinh dưỡng nếu bạn có bệnh nền, dị ứng, thai kỳ nguy cơ cao hoặc nhu cầu ăn uống đặc biệt.',
+                  ),
                 ],
               ),
             ),

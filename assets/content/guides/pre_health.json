@@ -1,0 +1,111 @@
+{
+  "id": "pre_health",
+  "stage": "pre",
+  "category": "health",
+  "title": "Khám sức khỏe trước khi mang thai",
+  "summary": "Khám tiền thai giúp phát hiện sớm vấn đề sức khỏe và chuẩn bị tốt nhất cho một thai kỳ an toàn.",
+  "order": 10,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Vì sao nên khám trước khi có thai",
+      "body": "Nhiều vấn đề như thiếu máu, bệnh tuyến giáp, tăng huyết áp, đái tháo đường hay một số bệnh nhiễm trùng có thể không gây triệu chứng rõ. Phát hiện và kiểm soát trước khi mang thai giúp giảm nguy cơ cho cả mẹ và bé. Thời điểm phù hợp thường là khoảng 3–6 tháng trước khi dự định có thai.",
+      "bullets": []
+    },
+    {
+      "heading": "Bác sĩ thường hỏi và kiểm tra gì",
+      "body": "Mỗi cơ sở y tế có thể có gói khám khác nhau. Bác sĩ sẽ tư vấn xét nghiệm nào cần thiết với bạn dựa trên tiền sử và kết quả khám.",
+      "bullets": [
+        "Tiền sử kinh nguyệt, các lần mang thai trước, bệnh nền và thuốc đang dùng",
+        "Đo huyết áp, cân nặng, chiều cao, chỉ số BMI",
+        "Công thức máu, nhóm máu và yếu tố Rh",
+        "Đường huyết, chức năng tuyến giáp khi có chỉ định",
+        "Xét nghiệm viêm gan B, HIV, giang mai; kiểm tra miễn dịch rubella",
+        "Khám phụ khoa, sàng lọc ung thư cổ tử cung theo lịch phù hợp với độ tuổi",
+        "Tầm soát bệnh tan máu bẩm sinh (thalassemia) nếu gia đình có người mắc hoặc theo tư vấn"
+      ]
+    },
+    {
+      "heading": "Bệnh nền và thuốc đang dùng",
+      "body": "Nếu bạn đang điều trị bệnh mạn tính như tăng huyết áp, đái tháo đường, động kinh, bệnh tuyến giáp, hen suyễn hay trầm cảm, hãy báo bác sĩ điều trị rằng bạn dự định có thai. Một số thuốc cần điều chỉnh trước khi thụ thai. Không tự ý ngừng hoặc đổi thuốc khi chưa hỏi bác sĩ.",
+      "bullets": []
+    },
+    {
+      "heading": "Răng miệng",
+      "body": "Nội tiết thai kỳ có thể làm nướu dễ sưng và chảy máu. Khám răng, lấy cao răng và điều trị sâu răng trước khi có thai giúp mẹ đỡ vất vả hơn về sau. Khi đi nha khoa, hãy cho bác sĩ biết bạn đang chuẩn bị mang thai.",
+      "bullets": []
+    },
+    {
+      "heading": "Khi nào cần đi khám sớm hơn",
+      "body": "Hãy đi khám sớm nếu bạn từng sảy thai nhiều lần, có kinh nguyệt rất không đều, đã cố gắng có thai 12 tháng (hoặc 6 tháng nếu trên 35 tuổi) mà chưa có kết quả, hoặc có bệnh nền cần theo dõi.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_health_book",
+      "text": "Đặt lịch khám tiền thai tại cơ sở sản phụ khoa",
+      "weekDue": null,
+      "actionType": "addAppointment",
+      "actionLabel": "Thêm lịch khám",
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_health_history",
+      "text": "Ghi lại tiền sử bệnh, thuốc đang dùng và kỳ kinh gần nhất để mang theo khi khám",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_health_blood",
+      "text": "Làm xét nghiệm máu cơ bản theo chỉ định của bác sĩ",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_health_infection",
+      "text": "Kiểm tra viêm gan B, HIV, giang mai và miễn dịch rubella theo tư vấn",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_health_chronic",
+      "text": "Hỏi bác sĩ điều trị về thuốc đang dùng nếu có bệnh nền",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_health_dental",
+      "text": "Khám răng và điều trị răng miệng nếu cần",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_health_cervix",
+      "text": "Hỏi bác sĩ về sàng lọc ung thư cổ tử cung",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "MOH-RH-2016",
+    "CDC-PRECONCEPTION",
+    "NHS-PLANNING"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

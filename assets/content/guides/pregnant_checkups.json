@@ -1,0 +1,152 @@
+{
+  "id": "pregnant_checkups",
+  "stage": "pregnant",
+  "category": "checkup",
+  "title": "Lịch khám thai định kỳ",
+  "summary": "Các mốc khám, siêu âm và xét nghiệm thường gặp trong thai kỳ. Bác sĩ có thể điều chỉnh lịch theo tình trạng của mẹ.",
+  "order": 10,
+  "weekFrom": 4,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Khám bao nhiêu lần là đủ",
+      "body": "Bộ Y tế khuyến cáo mỗi thai phụ được khám thai ít nhất 4 lần trong 3 giai đoạn của thai kỳ. WHO (2016) khuyến nghị ít nhất 8 lần tiếp xúc chăm sóc trước sinh: 1 lần trong 3 tháng đầu, 2 lần trong 3 tháng giữa và 5 lần trong 3 tháng cuối. Trên thực tế, nhiều bệnh viện ở Việt Nam hẹn khám dày hơn. Lịch dưới đây là các mốc thường gặp để mẹ tham khảo, không thay thế lịch hẹn của bác sĩ.",
+      "bullets": []
+    },
+    {
+      "heading": "Mỗi lần khám thường có gì",
+      "body": "",
+      "bullets": [
+        "Đo huyết áp, cân nặng; hỏi về triệu chứng",
+        "Đo bề cao tử cung, nghe tim thai (từ giữa thai kỳ)",
+        "Xét nghiệm nước tiểu khi cần",
+        "Tư vấn dinh dưỡng, bổ sung vi chất và tiêm phòng theo chỉ định"
+      ]
+    },
+    {
+      "heading": "Mang theo khi đi khám",
+      "body": "Sổ khám thai, kết quả các lần trước, thẻ BHYT, CCCD và danh sách câu hỏi muốn hỏi bác sĩ.",
+      "bullets": []
+    },
+    {
+      "heading": "Lưu ý",
+      "body": "Xét nghiệm sàng lọc (double test, triple test, NIPT) chỉ cho biết nguy cơ cao hay thấp, không phải chẩn đoán. Nếu kết quả nguy cơ cao, bác sĩ sẽ tư vấn bước tiếp theo.",
+      "bullets": []
+    }
+  ],
+  "checklist": [],
+  "timeline": [
+    {
+      "id": "tl_chk_first_visit",
+      "weekFrom": 6,
+      "weekTo": 8,
+      "title": "Khám thai lần đầu, siêu âm xác định thai và tim thai",
+      "description": "Xác nhận thai trong tử cung, nghe tim thai, tính tuổi thai và ngày dự sinh. Thường kèm xét nghiệm máu, nước tiểu ban đầu (nhóm máu, công thức máu, viêm gan B, HIV, giang mai) theo chỉ định.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_nt_scan",
+      "weekFrom": 11,
+      "weekTo": 13,
+      "title": "Siêu âm đo độ mờ da gáy và xét nghiệm sàng lọc quý I",
+      "description": "Thực hiện trong khoảng 11 tuần đến 13 tuần 6 ngày. Có thể kết hợp double test hoặc NIPT theo tư vấn để đánh giá nguy cơ bất thường nhiễm sắc thể.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_triple",
+      "weekFrom": 16,
+      "weekTo": 18,
+      "title": "Khám định kỳ, triple test nếu chưa sàng lọc quý I",
+      "description": "Triple test thường làm khoảng 15–20 tuần khi chưa làm sàng lọc quý I hoặc theo chỉ định. Khám tổng quát, đo huyết áp, cân nặng.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_anomaly",
+      "weekFrom": 20,
+      "weekTo": 22,
+      "title": "Siêu âm hình thái học",
+      "description": "Siêu âm chi tiết để đánh giá cấu trúc các cơ quan của bé, vị trí bánh nhau và lượng nước ối.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_gdm",
+      "weekFrom": 24,
+      "weekTo": 28,
+      "title": "Tầm soát đái tháo đường thai kỳ",
+      "description": "Nghiệm pháp dung nạp glucose (uống đường) thường làm trong khoảng 24–28 tuần. Có thể kèm xét nghiệm máu kiểm tra thiếu máu.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_growth",
+      "weekFrom": 30,
+      "weekTo": 32,
+      "title": "Siêu âm đánh giá tăng trưởng thai",
+      "description": "Đánh giá cân nặng ước tính, ngôi thai, nước ối và bánh nhau. Đo huyết áp, theo dõi dấu hiệu tiền sản giật.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_34",
+      "weekFrom": 34,
+      "weekTo": 35,
+      "title": "Khám định kỳ cuối thai kỳ",
+      "description": "Theo dõi huyết áp, phù, cử động thai. Bác sĩ có thể tư vấn nơi sinh và kế hoạch sinh.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_36",
+      "weekFrom": 36,
+      "weekTo": 36,
+      "title": "Khám tuần 36, bắt đầu khám hằng tuần",
+      "description": "Từ khoảng tuần 36, nhiều nơi hẹn khám mỗi tuần. Có thể có xét nghiệm liên cầu khuẩn nhóm B (GBS) theo chỉ định của cơ sở y tế.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_37",
+      "weekFrom": 37,
+      "weekTo": 37,
+      "title": "Khám tuần 37",
+      "description": "Theo dõi tim thai, ngôi thai, huyết áp. Có thể đo monitor tim thai.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_38",
+      "weekFrom": 38,
+      "weekTo": 38,
+      "title": "Khám tuần 38",
+      "description": "Kiểm tra dấu hiệu chuyển dạ, ôn lại khi nào cần đến viện.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_39",
+      "weekFrom": 39,
+      "weekTo": 39,
+      "title": "Khám tuần 39",
+      "description": "Theo dõi sức khỏe mẹ và bé, cử động thai.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_40",
+      "weekFrom": 40,
+      "weekTo": 40,
+      "title": "Khám tuần 40 (ngày dự sinh)",
+      "description": "Nếu chưa chuyển dạ, bác sĩ sẽ đánh giá và tư vấn kế hoạch theo dõi tiếp.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_chk_41",
+      "weekFrom": 41,
+      "weekTo": 41,
+      "title": "Khám khi quá ngày dự sinh",
+      "description": "Thai quá ngày dự sinh cần được theo dõi sát hơn theo hẹn của bác sĩ. Không tự chờ ở nhà mà không tái khám.",
+      "actionType": "addAppointment"
+    }
+  ],
+  "sources": [
+    "MOH-RH-2016",
+    "WHO-ANC",
+    "ACOG-SCREENING",
+    "MOH-GDM-2018"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

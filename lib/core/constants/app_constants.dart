@@ -23,6 +23,8 @@ class AppConstants {
   static const String appModeKey = 'app_mode';
   static const String dueDateKey = 'due_date';
   static const String userNameKey = 'user_name';
+  static const String maternalHabitsKey = 'maternal_habits';
+  static const String guideChecklistKey = 'guide_checklist_ticks';
 
   // Pregnancy Weeks
   static const int pregnancyTotalWeeks = 42;
@@ -49,7 +51,6 @@ class AppConstants {
     'Tam cá nguyệt 2',
     'Tam cá nguyệt 3',
     'Sau sinh',
-    'Ăn dặm',
   ];
 
   // Health Log Categories

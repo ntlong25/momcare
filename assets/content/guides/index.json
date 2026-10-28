@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "guides": [
+    "pre_health.json",
+    "pre_micronutrients.json",
+    "pre_vaccination.json",
+    "pre_mental.json",
+    "pre_finance.json",
+    "pre_lifestyle.json",
+    "pre_partner.json",
+    "pre_early_signs.json",
+    "pregnant_warning_signs.json",
+    "pregnant_checkups.json",
+    "pregnant_vaccination.json",
+    "pregnant_nutrition_t1.json",
+    "pregnant_nutrition_t2.json",
+    "pregnant_nutrition_t3.json",
+    "pregnant_shopping.json",
+    "pregnant_hospital_bag.json",
+    "pregnant_documents.json",
+    "pregnant_mental.json",
+    "pregnant_exercise.json",
+    "pregnant_partner.json",
+    "pregnant_find_hospital.json"
+  ]
+}

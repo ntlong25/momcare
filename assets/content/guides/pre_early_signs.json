@@ -1,0 +1,72 @@
+{
+  "id": "pre_early_signs",
+  "stage": "pre",
+  "category": "signs",
+  "title": "Dấu hiệu mang thai sớm và khi nào nên thử thai",
+  "summary": "Nhận biết các dấu hiệu sớm và thời điểm thử thai cho kết quả đáng tin hơn.",
+  "order": 80,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Dấu hiệu thường gặp",
+      "body": "Không phải ai cũng có đủ các dấu hiệu, và một số dấu hiệu giống với lúc sắp có kinh.",
+      "bullets": [
+        "Trễ kinh, đặc biệt nếu chu kỳ thường đều",
+        "Căng tức ngực",
+        "Mệt mỏi, buồn ngủ hơn bình thường",
+        "Buồn nôn, nhạy cảm với mùi",
+        "Đi tiểu nhiều hơn",
+        "Ra ít máu báo (vết máu nhẹ) khoảng thời gian dự kiến có kinh"
+      ]
+    },
+    {
+      "heading": "Khi nào nên thử thai",
+      "body": "Que thử thai tại nhà đo hormone hCG trong nước tiểu. Kết quả đáng tin hơn khi thử từ ngày đầu tiên trễ kinh trở đi. Thử vào buổi sáng, khi nước tiểu đậm đặc, giúp dễ phát hiện hơn. Nếu kết quả âm tính nhưng vẫn trễ kinh, hãy thử lại sau 3–7 ngày.",
+      "bullets": []
+    },
+    {
+      "heading": "Sau khi que thử dương tính",
+      "body": "Hãy đặt lịch khám thai để bác sĩ xác nhận thai trong tử cung và tính tuổi thai. Tiếp tục bổ sung axit folic theo tư vấn, ngừng rượu bia, thuốc lá và hỏi bác sĩ trước khi dùng bất kỳ thuốc nào.",
+      "bullets": []
+    },
+    {
+      "heading": "Cần đi khám ngay khi",
+      "body": "Đau bụng dữ dội, đặc biệt đau một bên; ra máu âm đạo nhiều; chóng mặt, ngất; đau vai bất thường. Đây có thể là dấu hiệu của thai ngoài tử cung hoặc biến chứng khác cần cấp cứu.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_signs_track",
+      "text": "Ghi lại ngày bắt đầu kỳ kinh mỗi tháng",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_signs_test",
+      "text": "Chuẩn bị sẵn que thử thai",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_signs_book",
+      "text": "Đặt lịch khám khi que thử dương tính",
+      "weekDue": null,
+      "actionType": "addAppointment",
+      "actionLabel": "Thêm lịch khám",
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "NHS-SIGNS",
+    "MOH-RH-2016"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

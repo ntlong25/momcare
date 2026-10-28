@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
@@ -26,24 +28,40 @@ class _FertilityPlannerScreenState
   bool _isLoading = false;
   bool _isSyncing = false;
 
+  ValueListenable<Box<MenstrualCycleModel>>? _cycleListenable;
+
   @override
   void initState() {
     super.initState();
     _loadCycles();
+    try {
+      _cycleListenable = DatabaseService.menstrualCycleBox.listenable();
+      _cycleListenable!.addListener(_onCyclesChanged);
+    } catch (_) {
+      // Box not open (e.g. in isolated widget tests).
+    }
+  }
+
+  @override
+  void dispose() {
+    _cycleListenable?.removeListener(_onCyclesChanged);
+    super.dispose();
+  }
+
+  void _onCyclesChanged() {
+    if (mounted) _loadCycles();
   }
 
   Future<void> _loadCycles() async {
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
       final cycles = DatabaseService.getAllMenstrualCycles();
+      if (!mounted) return;
       setState(() {
         _cycles = cycles;
         _isLoading = false;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
       });
@@ -51,6 +69,9 @@ class _FertilityPlannerScreenState
   }
 
   Future<void> _syncFromHealthKit() async {
+    final shouldContinue = await _showHealthSyncRationale();
+    if (shouldContinue != true || !mounted) return;
+
     setState(() {
       _isSyncing = true;
     });
@@ -74,19 +95,24 @@ class _FertilityPlannerScreenState
         return;
       }
 
+      final healthConnectAvailable =
+          await HealthService.isHealthConnectAvailable();
+      if (!healthConnectAvailable) {
+        if (mounted) {
+          await _showHealthConnectUnavailableDialog();
+        }
+        setState(() {
+          _isSyncing = false;
+        });
+        return;
+      }
+
       // Request permission
       final hasPermission = await HealthService.requestAuthorization();
 
       if (!hasPermission) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Bạn đã từ chối quyền truy cập. Có thể nhập chu kỳ thủ công hoặc bật lại trong Cài đặt.',
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
+          await _showHealthPermissionDeniedDialog();
         }
         setState(() {
           _isSyncing = false;
@@ -114,15 +140,17 @@ class _FertilityPlannerScreenState
         return;
       }
 
-      // Save to database
-      for (final cycle in healthCycles) {
-        await DatabaseService.saveMenstrualCycle(cycle);
-      }
+      // Save to database (idempotent: stable ids + dedupe by start date)
+      final added = await DatabaseService.importMenstrualCycles(healthCycles);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Đã đồng bộ ${healthCycles.length} chu kỳ'),
+            content: Text(
+              added == 0
+                  ? 'Dữ liệu chu kỳ đã được cập nhật, không có kỳ kinh mới'
+                  : 'Đã đồng bộ $added kỳ kinh mới',
+            ),
             backgroundColor: Colors.green,
           ),
         );
@@ -146,13 +174,102 @@ class _FertilityPlannerScreenState
     }
   }
 
+  Future<bool?> _showHealthSyncRationale() {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Đồng bộ dữ liệu chu kỳ'),
+        content: const Text(
+          'MomCare+ chỉ đọc dữ liệu chu kỳ kinh nguyệt từ ứng dụng Sức khỏe để hỗ trợ theo dõi chu kỳ. Dữ liệu được lưu trên thiết bị này và không tự chia sẻ ra bên ngoài. Bạn vẫn có thể nhập tay nếu không muốn cấp quyền.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Để sau'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Tiếp tục'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showHealthConnectUnavailableDialog() {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Chưa có Health Connect'),
+        content: const Text(
+          'Thiết bị Android cần Health Connect để đọc dữ liệu chu kỳ. Bạn có thể cài Health Connect hoặc nhập chu kỳ thủ công trong MomCare+.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Đóng'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _openAddPeriodScreen();
+            },
+            child: const Text('Nhập tay'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(context);
+              HealthService.openHealthConnectInstall();
+            },
+            child: const Text('Cài Health Connect'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showHealthPermissionDeniedDialog() {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Không thể đồng bộ'),
+        content: const Text(
+          'Bạn chưa cấp quyền đọc dữ liệu chu kỳ. Tính năng theo dõi vẫn hoạt động bình thường khi nhập tay trong MomCare+.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Đóng'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _openAddPeriodScreen();
+            },
+            child: const Text('Nhập tay'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _openAddPeriodScreen({MenstrualCycleModel? cycle}) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => AddPeriodScreen(cycle: cycle)),
+    );
+    if (result == true && mounted) {
+      _loadCycles();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final averageCycleLength = HealthService.calculateAverageCycleLength(
       _cycles,
     );
-    final areCyclesRegular = HealthService.areCyclesRegular(_cycles);
+    final regularity = HealthService.cycleRegularity(_cycles);
     final nextPeriod = HealthService.predictNextPeriod(_cycles);
     final nextOvulation = HealthService.predictNextOvulation(_cycles);
     final fertileWindow = HealthService.predictFertileWindow(_cycles);
@@ -225,7 +342,7 @@ class _FertilityPlannerScreenState
                   _buildStatsCard(
                     theme,
                     averageCycleLength,
-                    areCyclesRegular,
+                    regularity,
                     _cycles.length,
                   ),
 
@@ -238,6 +355,9 @@ class _FertilityPlannerScreenState
                       fertileWindow,
                     ),
 
+                  // Recorded periods (edit / delete)
+                  if (_cycles.isNotEmpty) _buildRecordedPeriodsCard(theme),
+
                   // Quick Actions
                   _buildQuickActionsCard(theme),
 
@@ -246,15 +366,7 @@ class _FertilityPlannerScreenState
               ),
             ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const AddPeriodScreen()),
-          );
-          if (result == true) {
-            _loadCycles();
-          }
-        },
+        onPressed: _openAddPeriodScreen,
         icon: const Icon(Icons.add),
         label: const Text('Thêm kỳ kinh'),
       ),
@@ -372,9 +484,10 @@ class _FertilityPlannerScreenState
   Widget _buildStatsCard(
     ThemeData theme,
     int avgLength,
-    bool isRegular,
+    CycleRegularity regularity,
     int totalCycles,
   ) {
+    final avgLengthIsDefault = HealthService.cycleLengths(_cycles).isEmpty;
     return Card(
       margin: const EdgeInsets.all(8),
       child: Padding(
@@ -399,19 +512,38 @@ class _FertilityPlannerScreenState
                   color: theme.primaryColor,
                 ),
                 _buildStatItem(
-                  icon: isRegular ? Icons.check_circle : Icons.warning,
+                  icon: switch (regularity) {
+                    CycleRegularity.regular => Icons.check_circle,
+                    CycleRegularity.irregular => Icons.warning,
+                    CycleRegularity.insufficientData => Icons.hourglass_empty,
+                  },
                   label: 'Trạng thái',
-                  value: isRegular ? 'Đều' : 'Không đều',
-                  color: isRegular ? Colors.green : Colors.orange,
+                  value: switch (regularity) {
+                    CycleRegularity.regular => 'Đều',
+                    CycleRegularity.irregular => 'Không đều',
+                    CycleRegularity.insufficientData => 'Chưa đủ dữ liệu',
+                  },
+                  color: switch (regularity) {
+                    CycleRegularity.regular => Colors.green,
+                    CycleRegularity.irregular => Colors.orange,
+                    CycleRegularity.insufficientData => Colors.grey,
+                  },
                 ),
                 _buildStatItem(
                   icon: Icons.history,
                   label: 'Đã ghi',
-                  value: '$totalCycles chu kỳ',
+                  value: '$totalCycles kỳ kinh',
                   color: Colors.purple,
                 ),
               ],
             ),
+            if (avgLengthIsDefault) ...[
+              const SizedBox(height: 12),
+              Text(
+                'Cần ít nhất 2 kỳ kinh để tính độ dài chu kỳ. Hiện đang dùng giá trị tham khảo 28 ngày.',
+                style: theme.textTheme.bodySmall,
+              ),
+            ],
           ],
         ),
       ),
@@ -496,6 +628,52 @@ class _FertilityPlannerScreenState
     );
   }
 
+  Widget _buildRecordedPeriodsCard(ThemeData theme) {
+    final recent = _cycles.take(6).toList();
+    return Card(
+      margin: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Kỳ kinh đã ghi',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Chạm vào một kỳ kinh để sửa hoặc xóa.',
+              style: theme.textTheme.bodySmall,
+            ),
+            ...recent.map((cycle) {
+              final end = cycle.endDate;
+              return ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(
+                  cycle.isFromHealthKit ? Icons.sync : Icons.water_drop,
+                  color: Colors.red,
+                ),
+                title: Text(
+                  end == null
+                      ? 'Bắt đầu ${_formatDate(cycle.startDate)}'
+                      : '${_formatDate(cycle.startDate)} - ${_formatDate(end)}',
+                ),
+                subtitle: cycle.cycleLengthDays != null
+                    ? Text('Chu kỳ ${cycle.cycleLengthDays} ngày')
+                    : null,
+                trailing: const Icon(Icons.edit_outlined),
+                onTap: () => _openAddPeriodScreen(cycle: cycle),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildQuickActionsCard(ThemeData theme) {
     return Card(
       margin: const EdgeInsets.all(8),
@@ -513,12 +691,12 @@ class _FertilityPlannerScreenState
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Row(
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 8,
                 children: [
                   _buildLegendItem(Colors.red, 'Kỳ kinh'),
-                  const SizedBox(width: 16),
                   _buildLegendItem(Colors.blue, 'Rụng trứng'),
-                  const SizedBox(width: 16),
                   _buildLegendItem(
                     Colors.green.withValues(alpha: 0.7),
                     'Dễ thụ thai',
@@ -526,6 +704,23 @@ class _FertilityPlannerScreenState
                 ],
               ),
             ),
+            if (HealthService.isAvailable) ...[
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: _isSyncing ? null : _syncFromHealthKit,
+                  icon: _isSyncing
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Icon(Icons.sync),
+                  label: const Text('Đồng bộ từ Sức khỏe'),
+                ),
+              ),
+            ],
           ],
         ),
       ),

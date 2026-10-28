@@ -1,0 +1,463 @@
+// Weeks 0–42. Length/weight: approximate values from commonly published fetal growth
+// tables (crown–rump length to week 19, crown–heel length from week 20; weights based on
+// Hadlock-type ultrasound estimates). See content_source/CONTENT_NOTES.md.
+// [week, sizeCompare, lengthCm, weightG]
+const SIZE = [
+  [0, null, null, null], [1, null, null, null], [2, null, null, null],
+  [3, 'hạt cải', null, null], [4, 'hạt vừng (mè)', 0.2, null], [5, 'hạt tiêu', 0.3, null],
+  [6, 'hạt đậu xanh', 0.6, null], [7, 'hạt lạc (đậu phộng)', 1.3, null], [8, 'quả nho', 1.6, 1],
+  [9, 'quả quất (tắc)', 2.3, 2], [10, 'quả vải', 3.1, 4], [11, 'quả sung', 4.1, 7],
+  [12, 'quả chanh', 5.4, 14], [13, 'quả chanh dây', 7.4, 23], [14, 'quả hồng xiêm', 8.7, 43],
+  [15, 'quả táo', 10.1, 70], [16, 'quả bơ', 11.6, 100], [17, 'quả lựu', 13, 140],
+  [18, 'củ khoai lang', 14.2, 190], [19, 'quả xoài nhỏ', 15.3, 240], [20, 'quả chuối', 25.6, 300],
+  [21, 'củ cà rốt lớn', 26.7, 360], [22, 'quả mướp', 27.8, 430], [23, 'quả xoài cát lớn', 28.9, 501],
+  [24, 'bắp ngô', 30, 600], [25, 'củ cải trắng', 34.6, 660], [26, 'củ đậu (củ sắn) to', 35.6, 760],
+  [27, 'bắp cải', 36.6, 875], [28, 'quả dừa xiêm', 37.6, 1005], [29, 'quả bí ngô nhỏ', 38.6, 1153],
+  [30, 'quả bưởi', 39.9, 1319], [31, 'quả dứa (thơm)', 41.1, 1502], [32, 'quả đu đủ to', 42.4, 1702],
+  [33, 'quả sầu riêng nhỏ', 43.7, 1918], [34, 'quả dưa lưới', 45, 2146], [35, 'quả bí đao', 46.2, 2383],
+  [36, 'quả dưa hấu nhỏ', 47.4, 2622], [37, 'quả mít nhỏ', 48.6, 2859], [38, 'quả bí đỏ', 49.8, 3083],
+  [39, 'quả dưa hấu', 50.7, 3288], [40, 'quả mít', 51.2, 3462], [41, 'quả dưa hấu lớn', 51.7, 3597],
+  [42, 'quả bí đỏ lớn', 51.5, 3685]
+];
+
+const W = {};
+
+W[0] = {
+  babyDevelopment: 'Tuần 0 được tính từ ngày đầu của kỳ kinh cuối. Lúc này chưa có em bé; cơ thể mẹ đang bắt đầu một chu kỳ mới, và một nang trứng trong buồng trứng bắt đầu lớn lên.',
+  motherChanges: 'Mẹ đang trong kỳ kinh. Đây là mốc mà bác sĩ dùng để tính tuổi thai và ngày dự sinh, nên hãy ghi lại ngày bắt đầu kỳ kinh.',
+  commonSymptoms: ['Hành kinh', 'Đau bụng kinh nhẹ', 'Mệt mỏi'],
+  todoThisWeek: ['Ghi ngày đầu kỳ kinh vào app', 'Bổ sung axit folic theo tư vấn nếu đang chuẩn bị có thai', 'Ngừng rượu bia và thuốc lá'],
+  examsThisWeek: [],
+  nutritionFocus: ['Rau lá xanh đậm giàu folate', 'Thực phẩm giàu sắt để bù lượng máu mất khi hành kinh'],
+  redFlags: ['Ra máu kinh rất nhiều, phải thay băng mỗi giờ', 'Đau bụng dữ dội không giảm', 'Chóng mặt, ngất'],
+  sources: ['NHS-WEEKS', 'CDC-FOLIC']
+};
+W[1] = {
+  babyDevelopment: 'Vẫn chưa có thụ thai. Nội tiết tố đang giúp niêm mạc tử cung dày lên trở lại và nang trứng trội tiếp tục trưởng thành, chuẩn bị cho lần rụng trứng sắp tới.',
+  motherChanges: 'Kỳ kinh thường đã kết thúc. Nhiều mẹ thấy người nhẹ nhõm, có năng lượng hơn so với tuần trước.',
+  commonSymptoms: ['Thường không có triệu chứng đặc biệt', 'Có thể còn ra ít máu cuối kỳ kinh'],
+  todoThisWeek: ['Ước tính ngày rụng trứng dựa vào độ dài chu kỳ', 'Duy trì vận động nhẹ 30 phút mỗi ngày', 'Rà lại thuốc đang dùng với bác sĩ'],
+  examsThisWeek: [],
+  nutritionFocus: ['Ăn đa dạng các nhóm chất', 'Dùng muối iốt khi nấu ăn'],
+  redFlags: ['Ra máu kéo dài bất thường', 'Đau bụng dưới dữ dội'],
+  sources: ['NHS-WEEKS', 'CDC-PRECONCEPTION']
+};
+W[2] = {
+  babyDevelopment: 'Khoảng cuối tuần này, trứng rụng và có thể gặp tinh trùng trong vòi trứng. Khi thụ tinh xảy ra, bộ gen của bé đã được xác định từ hai nửa của bố và mẹ.',
+  motherChanges: 'Quanh thời điểm rụng trứng, dịch âm đạo có thể trong và dai hơn như lòng trắng trứng. Một số mẹ thấy hơi tức bụng dưới một bên.',
+  commonSymptoms: ['Dịch âm đạo trong, dai', 'Tức nhẹ bụng dưới một bên', 'Ham muốn tăng'],
+  todoThisWeek: ['Quan hệ đều đặn 2–3 ngày một lần quanh thời điểm rụng trứng nếu đang mong con', 'Tránh rượu bia, thuốc lá', 'Giữ tinh thần thoải mái'],
+  examsThisWeek: [],
+  nutritionFocus: ['Tiếp tục axit folic theo tư vấn', 'Hạn chế cà phê và đồ uống có caffeine'],
+  redFlags: ['Đau bụng dưới dữ dội', 'Sốt, dịch âm đạo có mùi hôi'],
+  sources: ['NHS-WEEKS', 'NHS-PLANNING']
+};
+W[3] = {
+  babyDevelopment: 'Trứng đã thụ tinh phân chia thành một khối nhiều tế bào nhỏ, di chuyển xuống tử cung và bắt đầu làm tổ vào niêm mạc. Một phần tế bào sẽ phát triển thành bé, phần còn lại thành bánh nhau.',
+  motherChanges: 'Cơ thể bắt đầu tiết hormone hCG khi phôi làm tổ. Mẹ thường chưa thấy gì, một số người có vài giọt máu báo.',
+  commonSymptoms: ['Ra vài giọt máu hồng hoặc nâu (máu báo)', 'Tức nhẹ bụng dưới', 'Căng ngực nhẹ'],
+  todoThisWeek: ['Chưa nên thử thai vì kết quả dễ âm tính giả', 'Hỏi bác sĩ trước khi dùng bất kỳ thuốc nào', 'Tiếp tục axit folic theo tư vấn'],
+  examsThisWeek: [],
+  nutritionFocus: ['Ăn chín uống sôi', 'Bữa ăn có đủ đạm và rau xanh'],
+  redFlags: ['Đau bụng một bên dữ dội', 'Ra máu nhiều như hành kinh kèm đau'],
+  sources: ['NHS-WEEKS', 'NHS-SIGNS']
+};
+W[4] = {
+  babyDevelopment: 'Phôi đã làm tổ và chia thành các lớp tế bào sẽ tạo nên mọi cơ quan. Túi ối và túi noãn hoàng bắt đầu hình thành để nuôi dưỡng phôi trong những tuần đầu.',
+  motherChanges: 'Đây thường là tuần trễ kinh. Lượng hCG đủ để que thử thai có thể hiện hai vạch. Ngực có thể căng và nhạy cảm hơn.',
+  commonSymptoms: ['Trễ kinh', 'Căng tức ngực', 'Mệt mỏi', 'Đi tiểu nhiều hơn'],
+  todoThisWeek: ['Thử thai bằng que từ ngày trễ kinh', 'Đặt lịch khám thai khi que dương tính', 'Ngừng hoàn toàn rượu bia, thuốc lá'],
+  examsThisWeek: ['Có thể xét nghiệm hCG máu nếu bác sĩ chỉ định'],
+  nutritionFocus: ['Axit folic theo chỉ định', 'Thực phẩm giàu folate: rau ngót, rau dền, đậu'],
+  redFlags: ['Đau bụng dữ dội, nhất là một bên', 'Ra máu âm đạo', 'Chóng mặt, ngất, đau vai'],
+  sources: ['NHS-WEEKS', 'NHS-SIGNS', 'CDC-FOLIC']
+};
+W[5] = {
+  babyDevelopment: 'Ống thần kinh, nền tảng của não và tủy sống, đang khép lại. Một ống tim nguyên thủy hình thành và có thể bắt đầu co bóp. Phôi dài chỉ vài milimet.',
+  motherChanges: 'Nội tiết tăng nhanh khiến mẹ dễ mệt, buồn ngủ và nhạy cảm với mùi. Một số mẹ bắt đầu buồn nôn.',
+  commonSymptoms: ['Buồn nôn nhẹ', 'Mệt, buồn ngủ', 'Nhạy cảm với mùi', 'Căng ngực'],
+  todoThisWeek: ['Đặt lịch khám thai lần đầu ở tuần 6–8', 'Chia nhỏ bữa ăn nếu buồn nôn', 'Ngủ sớm hơn, nghỉ ngơi khi mệt'],
+  examsThisWeek: [],
+  nutritionFocus: ['Tiếp tục axit folic theo tư vấn', 'Bánh quy nhạt, cháo, cơm nát khi buồn nôn', 'Uống nước từng ngụm nhỏ'],
+  redFlags: ['Đau bụng dữ dội một bên', 'Ra máu âm đạo', 'Nôn không giữ được nước'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[6] = {
+  babyDevelopment: 'Siêu âm đầu dò có thể thấy tim thai nhấp nháy. Các mầm của tay, chân bắt đầu nhú ra. Mắt và tai trong bắt đầu hình thành.',
+  motherChanges: 'Ốm nghén thường rõ hơn từ tuần này. Mẹ có thể đi tiểu nhiều, ngực căng to và quầng vú sẫm màu.',
+  commonSymptoms: ['Buồn nôn, nôn', 'Đi tiểu nhiều', 'Ngực căng, quầng vú sẫm', 'Thay đổi cảm xúc'],
+  todoThisWeek: ['Đi khám thai lần đầu khi đến hẹn', 'Ghi lại câu hỏi muốn hỏi bác sĩ', 'Mang sổ tiêm chủng khi đi khám'],
+  examsThisWeek: ['Siêu âm xác định thai trong tử cung và tim thai (khoảng tuần 6–8)'],
+  nutritionFocus: ['Gừng trong món ăn có thể giúp đỡ buồn nôn', 'Bữa nhỏ nhiều lần', 'Tránh đồ nhiều dầu mỡ'],
+  redFlags: ['Ra máu âm đạo', 'Đau bụng dữ dội', 'Nôn nhiều, tiểu ít, sụt cân'],
+  sources: ['NHS-WEEKS', 'MOH-RH-2016', 'WHO-ANC']
+};
+W[7] = {
+  babyDevelopment: 'Não phát triển nhanh và phần đầu lớn hơn hẳn thân. Mầm tay đã chia thành đoạn vai, khuỷu và bàn tay nhỏ. Thận nguyên thủy bắt đầu hoạt động.',
+  motherChanges: 'Tử cung lớn dần nhưng bụng chưa lộ. Nghén, chán ăn và mệt có thể là vất vả nhất trong giai đoạn này.',
+  commonSymptoms: ['Nghén, chán ăn', 'Tiết nhiều nước bọt', 'Đầy hơi', 'Mệt mỏi'],
+  todoThisWeek: ['Đi khám thai lần đầu nếu chưa đi', 'Báo với bác sĩ các thuốc đang dùng', 'Nhờ người thân chia sẻ việc nấu nướng'],
+  examsThisWeek: ['Xét nghiệm máu ban đầu theo chỉ định: nhóm máu, công thức máu, viêm gan B, HIV, giang mai'],
+  nutritionFocus: ['Ăn món mẹ thấy dễ chịu, miễn là chín và sạch', 'Trái cây giàu vitamin C', 'Uống đủ nước'],
+  redFlags: ['Ra máu âm đạo kèm đau bụng', 'Nôn ra máu', 'Sốt cao'],
+  sources: ['NHS-WEEKS', 'MOH-RH-2016']
+};
+W[8] = {
+  babyDevelopment: 'Các ngón tay, ngón chân bắt đầu tách ra như có màng. Mí mắt hình thành. Tim đã chia thành các buồng và đập rất nhanh. Bé bắt đầu có những cử động nhỏ mà mẹ chưa cảm nhận được.',
+  motherChanges: 'Tử cung lúc này to cỡ quả cam nhỏ. Lượng máu trong cơ thể tăng dần, mẹ có thể thấy hơi chóng mặt khi đứng dậy nhanh.',
+  commonSymptoms: ['Nghén', 'Chóng mặt khi đứng dậy nhanh', 'Táo bón', 'Đau nhẹ bụng dưới do tử cung lớn'],
+  todoThisWeek: ['Hoàn thành khám thai lần đầu và nhận sổ khám thai', 'Đứng dậy từ từ', 'Hỏi bác sĩ về tiêm phòng cúm'],
+  examsThisWeek: ['Siêu âm tim thai, tính tuổi thai và ngày dự sinh nếu chưa làm'],
+  nutritionFocus: ['Chất xơ từ rau, trái cây để giảm táo bón', 'Đạm từ trứng chín, cá, đậu phụ'],
+  redFlags: ['Ra máu âm đạo', 'Đau bụng quặn liên tục', 'Ngất'],
+  sources: ['NHS-WEEKS', 'WHO-ANC', 'MOH-RH-2016']
+};
+W[9] = {
+  babyDevelopment: 'Phôi bắt đầu được gọi là thai nhi. Đuôi phôi biến mất, các khớp như khuỷu tay, đầu gối đã có thể gập. Cơ quan sinh dục bên ngoài bắt đầu hình thành nhưng chưa phân biệt được.',
+  motherChanges: 'Vòng eo có thể hơi chật hơn. Thay đổi nội tiết khiến mẹ dễ cáu gắt hoặc khóc mà không rõ lý do.',
+  commonSymptoms: ['Thay đổi tâm trạng', 'Nghén', 'Đầy bụng', 'Nghẹt mũi nhẹ'],
+  todoThisWeek: ['Tìm hiểu về sàng lọc quý I ở tuần 11–13', 'Nói chuyện với chồng về cảm xúc của mình', 'Mặc quần áo rộng thoải mái'],
+  examsThisWeek: [],
+  nutritionFocus: ['Sắt từ thịt nạc, cá', 'Hạn chế trà, cà phê đặc'],
+  redFlags: ['Ra máu âm đạo', 'Đau bụng nhiều', 'Buồn bã, tuyệt vọng kéo dài'],
+  sources: ['NHS-WEEKS', 'ACOG-SCREENING']
+};
+W[10] = {
+  babyDevelopment: 'Các cơ quan chính đã hình thành và từ nay chủ yếu lớn lên, hoàn thiện. Móng tay bắt đầu có. Xương bắt đầu cứng dần.',
+  motherChanges: 'Mạch máu dưới da ngực, bụng có thể thấy rõ hơn. Nhiều mẹ thấy dịch âm đạo nhiều hơn, trong hoặc trắng nhạt, không mùi.',
+  commonSymptoms: ['Dịch âm đạo tăng', 'Nổi gân xanh ở ngực', 'Nghén', 'Mệt'],
+  todoThisWeek: ['Đặt lịch siêu âm đo độ mờ da gáy (11 tuần – 13 tuần 6 ngày)', 'Hỏi bác sĩ về double test hoặc NIPT', 'Giữ vệ sinh vùng kín bằng nước sạch'],
+  examsThisWeek: ['Có thể làm NIPT từ khoảng tuần 10 nếu bác sĩ tư vấn'],
+  nutritionFocus: ['Sữa và chế phẩm đã tiệt trùng', 'Canxi từ đậu phụ, cá nhỏ'],
+  redFlags: ['Dịch âm đạo có mùi hôi, ngứa rát', 'Ra máu', 'Sốt'],
+  sources: ['NHS-WEEKS', 'ACOG-SCREENING']
+};
+W[11] = {
+  babyDevelopment: 'Đầu vẫn chiếm khoảng một nửa chiều dài cơ thể. Bé có thể mở, nắm bàn tay và nấc nhẹ. Nang tóc và mầm răng bắt đầu hình thành.',
+  motherChanges: 'Với nhiều mẹ, nghén bắt đầu giảm dần. Da có thể đổ dầu hoặc nổi mụn do nội tiết.',
+  commonSymptoms: ['Nghén giảm dần', 'Da nhờn, nổi mụn', 'Táo bón', 'Ợ nóng nhẹ'],
+  todoThisWeek: ['Đi siêu âm đo độ mờ da gáy theo hẹn', 'Hỏi bác sĩ trước khi dùng thuốc trị mụn', 'Uống đủ nước'],
+  examsThisWeek: ['Siêu âm đo độ mờ da gáy (11 tuần – 13 tuần 6 ngày)', 'Double test hoặc sàng lọc khác theo tư vấn'],
+  nutritionFocus: ['Ăn đủ bữa khi đã đỡ nghén', 'Cá ít thủy ngân 2–3 bữa mỗi tuần'],
+  redFlags: ['Ra máu âm đạo', 'Đau bụng dữ dội', 'Sốt từ 38°C'],
+  sources: ['ACOG-SCREENING', 'NHS-WEEKS', 'MOH-RH-2016']
+};
+W[12] = {
+  babyDevelopment: 'Bé đã có hình dáng người hoàn chỉnh với mặt, tay, chân rõ ràng. Phản xạ mút và nắm tay bắt đầu có. Ruột dần chuyển vào trong ổ bụng.',
+  motherChanges: 'Tử cung bắt đầu nhô lên trên xương mu. Nguy cơ sảy thai giảm đáng kể so với các tuần đầu. Nhiều gia đình chọn thời điểm này để chia sẻ tin vui.',
+  commonSymptoms: ['Đỡ nghén', 'Chóng mặt nhẹ', 'Đau đầu nhẹ', 'Ra nhiều dịch âm đạo'],
+  todoThisWeek: ['Hoàn thành sàng lọc quý I nếu chưa làm', 'Bắt đầu tập bài tập sàn chậu (Kegel)', 'Tìm hiểu chế độ thai sản ở nơi làm việc'],
+  examsThisWeek: ['Siêu âm đo độ mờ da gáy (nếu chưa làm)'],
+  nutritionFocus: ['Sắt và folate tiếp tục quan trọng', 'Hạn chế đồ ngọt'],
+  redFlags: ['Ra máu âm đạo', 'Đau đầu dữ dội', 'Tiểu buốt, tiểu rắt'],
+  sources: ['NHS-WEEKS', 'ACOG-SCREENING']
+};
+W[13] = {
+  babyDevelopment: 'Đây là tuần cuối của tam cá nguyệt thứ nhất. Dây thanh âm bắt đầu hình thành. Bé có thể đưa tay lên miệng. Vân tay bắt đầu xuất hiện trên đầu ngón.',
+  motherChanges: 'Năng lượng thường quay trở lại. Bụng có thể hơi lộ ở những mẹ mang thai lần hai.',
+  commonSymptoms: ['Đỡ mệt', 'Tăng cảm giác thèm ăn', 'Táo bón'],
+  todoThisWeek: ['Ôn lại kết quả sàng lọc với bác sĩ', 'Bắt đầu theo dõi cân nặng mỗi tuần', 'Lên kế hoạch vận động nhẹ hằng ngày'],
+  examsThisWeek: ['Hạn cuối của siêu âm đo độ mờ da gáy là 13 tuần 6 ngày'],
+  nutritionFocus: ['Tăng nhẹ khẩu phần từ quý II, ưu tiên đạm và rau', 'Canxi từ sữa tiệt trùng, sữa chua'],
+  redFlags: ['Ra máu âm đạo', 'Đau bụng từng cơn', 'Ra nước âm đạo'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[14] = {
+  babyDevelopment: 'Bé có thể nheo mắt, nhăn mặt nhờ cơ mặt phát triển. Một lớp lông tơ mịn bắt đầu mọc trên da. Gan bắt đầu tạo mật.',
+  motherChanges: 'Bước vào tam cá nguyệt thứ hai, giai đoạn nhiều mẹ thấy dễ chịu nhất. Có thể xuất hiện đường sẫm màu dọc giữa bụng.',
+  commonSymptoms: ['Nhiều năng lượng hơn', 'Đường sẫm giữa bụng', 'Nghẹt mũi', 'Chảy máu chân răng'],
+  todoThisWeek: ['Đánh răng bằng bàn chải mềm, khám răng nếu chảy máu nhiều', 'Bắt đầu mặc áo ngực rộng hơn', 'Lên danh sách đồ bầu cần mua'],
+  examsThisWeek: [],
+  nutritionFocus: ['Thêm một bữa phụ nhỏ mỗi ngày', 'Sắt từ thịt bò, trứng'],
+  redFlags: ['Ra máu âm đạo', 'Sốt cao', 'Đau bụng nhiều'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[15] = {
+  babyDevelopment: 'Xương tiếp tục cứng chắc hơn, siêu âm có thể thấy rõ xương. Bé cử động chân tay liên tục, nhưng mẹ thường chưa cảm nhận được. Tai đã gần vào đúng vị trí.',
+  motherChanges: 'Bụng bắt đầu tròn hơn. Thể tích máu tăng có thể gây nghẹt mũi hoặc chảy máu cam nhẹ.',
+  commonSymptoms: ['Nghẹt mũi, chảy máu cam nhẹ', 'Ợ nóng', 'Thèm ăn'],
+  todoThisWeek: ['Hỏi bác sĩ về triple test nếu chưa sàng lọc quý I', 'Tìm hiểu lớp tiền sản', 'Ngủ đủ giấc'],
+  examsThisWeek: ['Triple test (khoảng 15–20 tuần) nếu được chỉ định'],
+  nutritionFocus: ['Vitamin C từ ổi, cam, bưởi giúp hấp thu sắt', 'Uống đủ nước'],
+  redFlags: ['Chảy máu cam không cầm', 'Ra máu âm đạo', 'Đau đầu dữ dội'],
+  sources: ['NHS-WEEKS', 'ACOG-SCREENING']
+};
+W[16] = {
+  babyDevelopment: 'Mắt bắt đầu cử động chậm dưới mí. Tim bơm một lượng máu lớn mỗi ngày. Hệ cơ xương phát triển giúp bé giữ đầu thẳng hơn.',
+  motherChanges: 'Một số mẹ mang thai lần hai có thể bắt đầu cảm nhận những rung động nhẹ như bong bóng. Da bụng căng có thể ngứa nhẹ.',
+  commonSymptoms: ['Ngứa da bụng nhẹ', 'Đau lưng nhẹ', 'Có thể cảm nhận thai máy đầu tiên'],
+  todoThisWeek: ['Đi khám định kỳ theo hẹn', 'Dưỡng ẩm da bụng', 'Tránh nằm ngửa lâu khi tập luyện từ nay'],
+  examsThisWeek: ['Khám định kỳ: huyết áp, cân nặng, nước tiểu', 'Triple test nếu được chỉ định'],
+  nutritionFocus: ['Canxi và vitamin D', 'Đạm từ cá, thịt, đậu'],
+  redFlags: ['Ra máu âm đạo', 'Đau bụng dữ dội', 'Sốt'],
+  sources: ['NHS-WEEKS', 'MOH-RH-2016']
+};
+W[17] = {
+  babyDevelopment: 'Lớp mỡ đầu tiên bắt đầu tích dưới da, giúp giữ ấm sau này. Dây rốn dày và chắc hơn. Bé tập nuốt nước ối.',
+  motherChanges: 'Tử cung đã cao giữa xương mu và rốn. Trọng tâm cơ thể thay đổi, mẹ có thể đau lưng hoặc mất thăng bằng hơn.',
+  commonSymptoms: ['Đau lưng', 'Mất thăng bằng nhẹ', 'Ra mồ hôi nhiều', 'Thèm ăn'],
+  todoThisWeek: ['Mang giày dép đế thấp, chống trơn', 'Tập ngồi thẳng lưng, kê gối sau lưng', 'Kiểm tra lịch tiêm uốn ván với nhân viên y tế'],
+  examsThisWeek: [],
+  nutritionFocus: ['Bữa phụ lành mạnh: sữa chua, trái cây, các loại hạt', 'Hạn chế đồ chiên rán'],
+  redFlags: ['Ra máu hoặc ra nước âm đạo', 'Đau bụng từng cơn', 'Té ngã, va đập vào bụng'],
+  sources: ['NHS-WEEKS', 'VN-EPI']
+};
+W[18] = {
+  babyDevelopment: 'Tai trong đã phát triển đủ để bé bắt đầu cảm nhận âm thanh, như nhịp tim mẹ và giọng nói. Bé có thể ngáp, nấc và đạp mạnh hơn.',
+  motherChanges: 'Nhiều mẹ mang thai lần đầu bắt đầu cảm thấy thai máy từ khoảng tuần 18–20. Huyết áp thường hơi thấp ở giai đoạn này.',
+  commonSymptoms: ['Thai máy nhẹ đầu tiên', 'Chóng mặt nhẹ', 'Chuột rút chân', 'Phù nhẹ bàn chân'],
+  todoThisWeek: ['Trò chuyện, hát cho bé nghe', 'Đứng dậy chậm để tránh chóng mặt', 'Duỗi chân, xoa bóp bắp chân trước khi ngủ'],
+  examsThisWeek: ['Triple test (nếu chưa làm và được chỉ định)'],
+  nutritionFocus: ['Canxi, magie từ rau xanh, hạt', 'Uống đủ nước'],
+  redFlags: ['Ngất', 'Ra máu âm đạo', 'Đau, sưng một bên bắp chân'],
+  sources: ['NHS-WEEKS', 'ACOG-SCREENING']
+};
+W[19] = {
+  babyDevelopment: 'Một lớp chất gây màu trắng bắt đầu phủ lên da để bảo vệ da trong nước ối. Các giác quan như vị giác, khứu giác, thị giác phát triển mạnh.',
+  motherChanges: 'Có thể thấy đau nhói hai bên bụng dưới khi đổi tư thế, do dây chằng tử cung bị kéo căng. Đây thường là bình thường nếu đau thoáng qua.',
+  commonSymptoms: ['Đau nhói dây chằng hai bên bụng', 'Đau lưng', 'Rạn da'],
+  todoThisWeek: ['Đặt lịch siêu âm hình thái tuần 20–22', 'Đổi tư thế chậm', 'Bắt đầu ngủ nghiêng'],
+  examsThisWeek: [],
+  nutritionFocus: ['Omega-3 từ cá ít thủy ngân', 'Sắt và vitamin C'],
+  redFlags: ['Đau bụng dữ dội hoặc kéo dài', 'Ra máu âm đạo', 'Sốt'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[20] = {
+  babyDevelopment: 'Đã đi được nửa chặng đường. Từ tuần này, chiều dài thường được đo từ đầu đến gót. Bé ngủ và thức theo chu kỳ, có thể mút ngón tay.',
+  motherChanges: 'Đáy tử cung lên gần ngang rốn. Thai máy rõ hơn. Mẹ có thể thấy hụt hơi nhẹ khi leo cầu thang.',
+  commonSymptoms: ['Thai máy rõ', 'Hụt hơi nhẹ', 'Đau lưng', 'Táo bón'],
+  todoThisWeek: ['Đi siêu âm hình thái theo hẹn', 'Rủ chồng đi cùng buổi siêu âm', 'Kiểm tra thời gian đóng BHXH'],
+  examsThisWeek: ['Siêu âm hình thái học (tuần 20–22)'],
+  nutritionFocus: ['Đạm, sắt, canxi đầy đủ', 'Chất xơ để giảm táo bón'],
+  redFlags: ['Ra máu âm đạo', 'Ra nước âm đạo', 'Cơn co bụng đều đặn'],
+  sources: ['NHS-WEEKS', 'MOH-RH-2016', 'WHO-ANC']
+};
+W[21] = {
+  babyDevelopment: 'Tủy xương bắt đầu tham gia sản xuất tế bào máu. Bé nuốt nước ối nhiều hơn, giúp hệ tiêu hóa tập hoạt động. Lông mày và mi mắt đã có.',
+  motherChanges: 'Có thể xuất hiện giãn tĩnh mạch ở chân hoặc vùng kín. Ngực có thể tiết ít sữa non.',
+  commonSymptoms: ['Giãn tĩnh mạch', 'Phù nhẹ chân', 'Tiết sữa non', 'Đau lưng'],
+  todoThisWeek: ['Kê chân cao khi ngồi nghỉ', 'Tránh đứng hoặc ngồi một chỗ quá lâu', 'Bắt đầu lên danh sách mua sắm cho bé'],
+  examsThisWeek: ['Siêu âm hình thái (nếu chưa làm)'],
+  nutritionFocus: ['Ăn nhạt vừa phải', 'Trái cây, rau giàu kali như chuối, rau dền'],
+  redFlags: ['Phù đột ngột ở mặt, tay', 'Đau, sưng nóng một bên chân', 'Ra máu âm đạo'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[22] = {
+  babyDevelopment: 'Bé trông giống trẻ sơ sinh thu nhỏ, da còn nhăn và đỏ. Mắt đã hình thành đầy đủ, mống mắt chưa có màu. Bé phản ứng với âm thanh lớn.',
+  motherChanges: 'Rốn có thể bắt đầu lồi ra. Mẹ có thể có cơn gò nhẹ không đau (gò sinh lý), thường tự hết khi nghỉ.',
+  commonSymptoms: ['Rốn lồi', 'Gò bụng nhẹ không đều', 'Chuột rút chân'],
+  todoThisWeek: ['Tìm hiểu cách phân biệt gò sinh lý và cơn co chuyển dạ', 'Uống nước, nghỉ ngơi khi thấy gò', 'Tham gia lớp tiền sản nếu có'],
+  examsThisWeek: ['Hạn cuối thường dùng cho siêu âm hình thái'],
+  nutritionFocus: ['Bữa phụ giàu canxi', 'Hạn chế muối'],
+  redFlags: ['Cơn co đều đặn, đau tăng dần', 'Ra nước hoặc máu âm đạo', 'Đau đầu dữ dội'],
+  sources: ['NHS-WEEKS', 'CDC-WARNING']
+};
+W[23] = {
+  babyDevelopment: 'Phổi đang phát triển các nhánh nhỏ và bắt đầu tạo chất giúp phế nang nở ra. Bé nghe rõ hơn tiếng động bên ngoài và có thể giật mình.',
+  motherChanges: 'Mẹ tăng cân đều hơn. Có thể phù nhẹ mắt cá chân về chiều.',
+  commonSymptoms: ['Phù mắt cá chân', 'Ợ nóng', 'Khó ngủ', 'Đau lưng'],
+  todoThisWeek: ['Đặt lịch tầm soát đái tháo đường thai kỳ tuần 24–28', 'Ngủ nghiêng, kê gối giữa hai chân', 'Ghi lại cân nặng tuần này'],
+  examsThisWeek: [],
+  nutritionFocus: ['Giảm nước ngọt, trà sữa trước khi tầm soát đường', 'Chọn ngũ cốc nguyên hạt'],
+  redFlags: ['Phù mặt, tay đột ngột', 'Nhìn mờ', 'Ra máu âm đạo'],
+  sources: ['NHS-WEEKS', 'MOH-GDM-2018']
+};
+W[24] = {
+  babyDevelopment: 'Mặt bé gần hoàn chỉnh với lông mi, lông mày và tóc. Phổi tiếp tục trưởng thành nhưng chưa sẵn sàng thở. Bé tăng cân đều đặn.',
+  motherChanges: 'Đáy tử cung đã trên rốn. Da bụng căng nhiều hơn, có thể ngứa và xuất hiện vết rạn.',
+  commonSymptoms: ['Ngứa da bụng', 'Rạn da', 'Ợ nóng', 'Táo bón'],
+  todoThisWeek: ['Đi tầm soát đái tháo đường thai kỳ theo hẹn', 'Dưỡng ẩm da bụng', 'Tìm hiểu bệnh viện dự định sinh'],
+  examsThisWeek: ['Nghiệm pháp dung nạp glucose (tuần 24–28)', 'Có thể xét nghiệm máu kiểm tra thiếu máu'],
+  nutritionFocus: ['Bữa ăn cân bằng tinh bột, đạm, rau', 'Hạn chế đồ ngọt'],
+  redFlags: ['Ngứa nhiều lòng bàn tay, bàn chân', 'Ra máu hoặc nước âm đạo', 'Cơn co đều đặn'],
+  sources: ['MOH-GDM-2018', 'NHS-WEEKS', 'WHO-ANC']
+};
+W[25] = {
+  babyDevelopment: 'Bé tích thêm mỡ, da bớt nhăn. Bàn tay đã khéo hơn, bé có thể nắm dây rốn. Bé phản ứng với giọng nói quen thuộc.',
+  motherChanges: 'Mẹ có thể bị hội chứng ống cổ tay: tê, ngứa ran ngón tay do giữ nước. Tóc có thể dày và bóng hơn.',
+  commonSymptoms: ['Tê tay, ngứa ran ngón tay', 'Phù nhẹ', 'Ngủ không sâu'],
+  todoThisWeek: ['Hoàn thành tầm soát đường huyết nếu chưa làm', 'Cử động cổ tay nhẹ nhàng, tránh gập tay lâu', 'Đọc truyện cho bé nghe'],
+  examsThisWeek: ['Tầm soát đái tháo đường thai kỳ (nếu chưa làm)'],
+  nutritionFocus: ['Sắt và canxi theo chỉ định', 'Rau xanh và trái cây ít ngọt'],
+  redFlags: ['Phù mặt, tay đột ngột', 'Đau đầu dữ dội', 'Thai máy giảm rõ'],
+  sources: ['NHS-WEEKS', 'MOH-GDM-2018']
+};
+W[26] = {
+  babyDevelopment: 'Mắt bé bắt đầu mở ra. Bé có thể phản ứng với ánh sáng mạnh chiếu vào bụng mẹ. Não bộ phát triển mạnh các vùng điều khiển cảm giác.',
+  motherChanges: 'Mẹ có thể khó ngủ hơn vì bụng lớn, đi tiểu đêm và chuột rút. Huyết áp cần được theo dõi đều.',
+  commonSymptoms: ['Khó ngủ', 'Chuột rút đêm', 'Đi tiểu nhiều', 'Đau lưng dưới'],
+  todoThisWeek: ['Lập thói quen ngủ: giờ cố định, phòng thoáng mát', 'Lên lịch tiêm Tdap từ tuần 27 theo tư vấn', 'Tìm hiểu dấu hiệu sinh non'],
+  examsThisWeek: ['Khám định kỳ: huyết áp, nước tiểu'],
+  nutritionFocus: ['Ăn tối sớm, nhẹ', 'Thực phẩm giàu magie như rau xanh, các loại đậu'],
+  redFlags: ['Đau đầu, nhìn mờ', 'Cơn co đều đặn trước 37 tuần', 'Ra nước âm đạo'],
+  sources: ['NHS-WEEKS', 'CDC-VAX-PREG', 'CDC-WARNING']
+};
+W[27] = {
+  babyDevelopment: 'Cuối tam cá nguyệt thứ hai. Bé có chu kỳ ngủ thức khá đều. Phổi, gan và hệ miễn dịch vẫn đang tiếp tục trưởng thành.',
+  motherChanges: 'Bụng lớn nhanh, mẹ dễ mỏi chân, đau lưng. Có thể bắt đầu thấy bé đạp theo giờ nhất định.',
+  commonSymptoms: ['Mỏi chân, đau lưng', 'Ợ nóng', 'Gò sinh lý'],
+  todoThisWeek: ['Hỏi bác sĩ về tiêm Tdap (bạch hầu – uốn ván – ho gà) trong khoảng tuần 27–36', 'Làm quen với nhịp thai máy của bé', 'Chồng đọc về dấu hiệu nguy hiểm'],
+  examsThisWeek: ['Tiêm Tdap theo chỉ định (khoảng tuần 27–36)'],
+  nutritionFocus: ['Đạm và sắt tăng thêm cho quý III', 'Bữa nhỏ để giảm ợ nóng'],
+  redFlags: ['Thai máy giảm rõ', 'Ra máu âm đạo', 'Đau bụng dữ dội'],
+  sources: ['CDC-VAX-PREG', 'NHS-WEEKS']
+};
+W[28] = {
+  babyDevelopment: 'Bước vào tam cá nguyệt thứ ba. Bé có thể chớp mắt. Não tiếp tục tăng thêm nếp gấp. Nếu sinh lúc này, bé cần được chăm sóc đặc biệt nhưng khả năng sống đã cao hơn nhiều.',
+  motherChanges: 'Mẹ có thể thấy khó thở hơn, mệt hơn như những tuần đầu. Từ nay bác sĩ thường hẹn khám dày hơn.',
+  commonSymptoms: ['Mệt mỏi', 'Khó thở nhẹ', 'Đau lưng', 'Tiểu nhiều'],
+  todoThisWeek: ['Bắt đầu để ý cử động thai hằng ngày', 'Hỏi bác sĩ về xét nghiệm thiếu máu và nhóm máu Rh', 'Đăng ký sinh tại bệnh viện đã chọn'],
+  examsThisWeek: ['Khám định kỳ, có thể xét nghiệm máu theo chỉ định', 'Mẹ Rh âm có thể được tư vấn tiêm dự phòng'],
+  nutritionFocus: ['Sắt, canxi, omega-3', 'Uống đủ nước'],
+  redFlags: ['Thai máy giảm hoặc không thấy thai máy', 'Phù mặt, tay, đau đầu', 'Ra máu âm đạo'],
+  sources: ['NHS-WEEKS', 'WHO-ANC', 'CDC-WARNING']
+};
+W[29] = {
+  babyDevelopment: 'Cơ và phổi tiếp tục trưởng thành. Đầu bé lớn dần để chứa não đang phát triển. Bé đạp và vươn vai mạnh, mẹ có thể thấy rõ qua thành bụng.',
+  motherChanges: 'Ợ nóng, táo bón và trĩ có thể xuất hiện do tử cung chèn ép. Mẹ hay mệt khi đi lại nhiều.',
+  commonSymptoms: ['Ợ nóng', 'Táo bón, trĩ', 'Đau lưng', 'Hụt hơi'],
+  todoThisWeek: ['Ăn nhiều chất xơ, uống đủ nước', 'Ngủ nghiêng trái hoặc phải đều được, tránh nằm ngửa lâu', 'Bắt đầu chuẩn bị đồ sơ sinh'],
+  examsThisWeek: [],
+  nutritionFocus: ['Chất xơ từ rau, khoai lang, trái cây', 'Tránh đồ cay nóng nếu ợ nóng'],
+  redFlags: ['Chảy máu hậu môn nhiều', 'Cơn co đều đặn', 'Thai máy giảm'],
+  sources: ['NHS-WEEKS']
+};
+W[30] = {
+  babyDevelopment: 'Bé tăng cân nhanh, khoảng 200 gam mỗi tuần trong thời gian tới. Lông tơ trên người bắt đầu rụng bớt. Tủy xương đảm nhận việc tạo hồng cầu.',
+  motherChanges: 'Có thể thấy khó ngủ, chuột rút và thay đổi tâm trạng. Bàn chân có thể to ra một chút.',
+  commonSymptoms: ['Khó ngủ', 'Chuột rút', 'Phù chân', 'Lo lắng về sinh nở'],
+  todoThisWeek: ['Đi siêu âm tăng trưởng theo hẹn (tuần 30–32)', 'Viết ra những điều mình lo lắng và hỏi bác sĩ', 'Làm thủ tục VNeID mức 2 nếu chưa có'],
+  examsThisWeek: ['Siêu âm đánh giá tăng trưởng thai (tuần 30–32)'],
+  nutritionFocus: ['Đạm và canxi đầy đủ', 'Ăn nhạt vừa phải'],
+  redFlags: ['Phù mặt, tay, đau đầu, nhìn mờ', 'Thai máy giảm', 'Ra nước âm đạo'],
+  sources: ['NHS-WEEKS', 'MOH-RH-2016', 'WHO-ANC']
+};
+W[31] = {
+  babyDevelopment: 'Bé có thể quay đầu sang hai bên. Các giác quan đã hoạt động, bé phản ứng với âm thanh, ánh sáng và chạm. Bé có nhiều thời gian ngủ sâu hơn.',
+  motherChanges: 'Gò Braxton Hicks có thể xuất hiện thường xuyên hơn. Mẹ có thể rỉ ít sữa non.',
+  commonSymptoms: ['Gò bụng không đều', 'Rỉ sữa non', 'Hụt hơi', 'Tiểu nhiều'],
+  todoThisWeek: ['Ôn lại cách phân biệt gò sinh lý và chuyển dạ', 'Chuẩn bị miếng lót thấm sữa', 'Chồng sắp xếp lịch nghỉ khi vợ sinh'],
+  examsThisWeek: ['Siêu âm tăng trưởng (nếu chưa làm)'],
+  nutritionFocus: ['Bữa nhỏ nhiều lần', 'Sắt theo chỉ định'],
+  redFlags: ['Cơn co đều đặn trước 37 tuần', 'Ra máu âm đạo', 'Sốt'],
+  sources: ['NHS-WEEKS', 'CDC-WARNING']
+};
+W[32] = {
+  babyDevelopment: 'Móng tay chân đã dài đến đầu ngón. Bé tập thở bằng cách hít nước ối. Nhiều bé bắt đầu xoay đầu xuống dưới, nhưng có thể còn xoay đổi.',
+  motherChanges: 'Tử cung đẩy lên cơ hoành nên mẹ hụt hơi hơn. Đau lưng, đau xương mu có thể tăng.',
+  commonSymptoms: ['Hụt hơi', 'Đau xương mu', 'Ợ nóng', 'Khó ngủ'],
+  todoThisWeek: ['Hỏi bác sĩ về vắc xin RSV (khoảng tuần 32–36) nếu có', 'Bắt đầu chuẩn bị túi đồ đi sinh', 'Ngồi thẳng, kê gối để dễ thở'],
+  examsThisWeek: ['Siêu âm tăng trưởng (hạn cuối thường dùng)'],
+  nutritionFocus: ['Đạm, canxi', 'Omega-3 từ cá ít thủy ngân'],
+  redFlags: ['Khó thở nặng, đau ngực', 'Đau đầu, nhìn mờ', 'Thai máy giảm'],
+  sources: ['NHS-WEEKS', 'CDC-VAX-PREG', 'NHS-BAG']
+};
+W[33] = {
+  babyDevelopment: 'Xương bé cứng dần, trừ xương sọ vẫn mềm và chưa liền để dễ đi qua đường sinh. Hệ miễn dịch nhận thêm kháng thể từ mẹ.',
+  motherChanges: 'Mẹ có thể đau, tê dọc mông và chân do chèn ép dây thần kinh. Mất ngủ thường gặp.',
+  commonSymptoms: ['Đau thần kinh tọa', 'Mất ngủ', 'Phù chân', 'Chuột rút'],
+  todoThisWeek: ['Tập hít thở chậm chuẩn bị cho chuyển dạ', 'Đọc bài "Túi đồ đi sinh"', 'Lưu số điện thoại bệnh viện'],
+  examsThisWeek: [],
+  nutritionFocus: ['Canxi, vitamin D', 'Uống đủ nước'],
+  redFlags: ['Ra nước âm đạo', 'Cơn co đều đặn', 'Phù mặt, tay đột ngột'],
+  sources: ['NHS-WEEKS', 'NHS-BAG']
+};
+W[34] = {
+  babyDevelopment: 'Hệ thần kinh trung ương và phổi tiếp tục trưởng thành. Lớp chất gây dày lên. Bé sinh từ tuần này trở đi, nếu khỏe mạnh, thường ít gặp vấn đề nặng hơn bé sinh sớm hơn.',
+  motherChanges: 'Mẹ dễ mệt, mắt có thể mờ nhẹ do giữ nước. Một số mẹ thấy bụng hơi tụt xuống khi bé xuống thấp.',
+  commonSymptoms: ['Mệt mỏi', 'Đi tiểu nhiều', 'Đau lưng', 'Ợ nóng'],
+  todoThisWeek: ['Hoàn thành túi đồ đi sinh, đủ giấy tờ', 'Thử đi đường đến bệnh viện', 'Đi khám định kỳ theo hẹn'],
+  examsThisWeek: ['Khám định kỳ: huyết áp, nước tiểu, tim thai'],
+  nutritionFocus: ['Bữa nhỏ dễ tiêu', 'Sắt và canxi theo chỉ định'],
+  redFlags: ['Nhìn mờ kèm đau đầu', 'Thai máy giảm', 'Ra máu âm đạo'],
+  sources: ['NHS-WEEKS', 'NHS-BAG', 'CDC-WARNING']
+};
+W[35] = {
+  babyDevelopment: 'Thận đã phát triển đầy đủ, gan có thể xử lý một số chất thải. Bé ít chỗ để xoay nên cử động chuyển sang kiểu cựa quậy, đẩy hơn là đạp mạnh.',
+  motherChanges: 'Tử cung ở vị trí cao nhất dưới xương sườn. Mẹ có thể tiểu són khi ho, hắt hơi.',
+  commonSymptoms: ['Tiểu són khi ho, hắt hơi', 'Hụt hơi', 'Đau xương mu', 'Gò bụng nhiều hơn'],
+  todoThisWeek: ['Tiếp tục tập sàn chậu', 'Theo dõi kiểu cử động của bé, báo bác sĩ nếu giảm', 'Chuẩn bị đồ ăn, nước uống cho ngày đi sinh'],
+  examsThisWeek: [],
+  nutritionFocus: ['Năng lượng từ ngũ cốc nguyên hạt', 'Uống đủ nước'],
+  redFlags: ['Thai máy giảm rõ', 'Ra nước âm đạo', 'Sốt'],
+  sources: ['NHS-WEEKS']
+};
+W[36] = {
+  babyDevelopment: 'Bé tích mỡ nhanh, má tròn hơn. Phần lớn bé đã quay đầu xuống. Từ đầu tuần 37, bé được coi là đủ tháng.',
+  motherChanges: 'Khi bé tụt xuống khung chậu, mẹ thở dễ hơn nhưng đi tiểu nhiều hơn và thấy nặng vùng chậu.',
+  commonSymptoms: ['Nặng vùng chậu', 'Đi tiểu nhiều', 'Khó ngủ', 'Gò bụng'],
+  todoThisWeek: ['Bắt đầu khám thai hằng tuần theo hẹn', 'Hỏi bác sĩ về xét nghiệm liên cầu nhóm B (GBS)', 'Ôn lại dấu hiệu chuyển dạ'],
+  examsThisWeek: ['Khám thai hằng tuần từ tuần 36', 'Xét nghiệm GBS theo chỉ định của cơ sở y tế'],
+  nutritionFocus: ['Bữa nhỏ, dễ tiêu', 'Đạm và sắt'],
+  redFlags: ['Ra máu âm đạo', 'Ra nước âm đạo', 'Thai máy giảm', 'Đau đầu, nhìn mờ'],
+  sources: ['NHS-WEEKS', 'WHO-ANC', 'CDC-WARNING']
+};
+W[37] = {
+  babyDevelopment: 'Bé đã đủ tháng sớm. Bé tập mút, nuốt, thở và nắm. Ruột chứa phân su, phân đầu tiên của bé sau sinh.',
+  motherChanges: 'Mẹ có thể ra nút nhầy cổ tử cung, dạng dịch nhầy có thể lẫn ít máu hồng. Đây là dấu hiệu cơ thể đang chuẩn bị, chưa chắc chuyển dạ ngay.',
+  commonSymptoms: ['Ra nút nhầy', 'Gò bụng nhiều', 'Đau lưng dưới', 'Mệt'],
+  todoThisWeek: ['Khám thai theo hẹn', 'Để túi đồ đi sinh ở nơi dễ lấy', 'Nghỉ ngơi, ngủ khi có thể'],
+  examsThisWeek: ['Khám thai hằng tuần, có thể đo monitor tim thai'],
+  nutritionFocus: ['Ăn đủ bữa để có sức', 'Uống đủ nước'],
+  redFlags: ['Ra máu tươi nhiều', 'Ra nước âm đạo', 'Cơn co đều 5 phút một lần, kéo dài ít nhất 1 phút trong 1 giờ', 'Thai máy giảm'],
+  sources: ['NHS-WEEKS', 'CDC-WARNING']
+};
+W[38] = {
+  babyDevelopment: 'Các cơ quan đã sẵn sàng hoạt động bên ngoài. Bé tiếp tục tích mỡ và lớn thêm. Lông tơ gần như đã rụng hết.',
+  motherChanges: 'Mẹ có thể hồi hộp, sốt ruột. Phù chân, mất ngủ và gò bụng thường gặp.',
+  commonSymptoms: ['Hồi hộp, lo lắng', 'Phù chân', 'Gò bụng', 'Mất ngủ'],
+  todoThisWeek: ['Khám thai theo hẹn', 'Chuẩn bị giấy tờ để làm khai sinh cho bé', 'Hít thở chậm khi lo lắng'],
+  examsThisWeek: ['Khám thai hằng tuần'],
+  nutritionFocus: ['Bữa nhẹ giàu năng lượng', 'Hạn chế đồ khó tiêu'],
+  redFlags: ['Ra nước âm đạo có màu xanh hoặc nâu', 'Thai máy giảm', 'Đau bụng liên tục, bụng cứng'],
+  sources: ['NHS-WEEKS', 'CDC-WARNING']
+};
+W[39] = {
+  babyDevelopment: 'Bé đã đủ tháng. Da dày lên, mịn hơn. Hệ miễn dịch đã nhận nhiều kháng thể từ mẹ để bảo vệ bé trong thời gian đầu.',
+  motherChanges: 'Cổ tử cung đang mềm và mở dần. Mẹ có thể thấy cơn co thường xuyên hơn, đôi khi đi ngoài phân lỏng.',
+  commonSymptoms: ['Cơn co nhiều hơn', 'Đi ngoài phân lỏng', 'Đau lưng', 'Mệt'],
+  todoThisWeek: ['Khám thai theo hẹn', 'Ghi giờ cơn co khi thấy đều đặn', 'Nhắc người thân sẵn sàng đưa đi viện'],
+  examsThisWeek: ['Khám thai hằng tuần'],
+  nutritionFocus: ['Ăn uống bình thường, đủ chất', 'Uống đủ nước'],
+  redFlags: ['Vỡ ối', 'Ra máu âm đạo', 'Thai máy giảm', 'Sốt'],
+  sources: ['NHS-WEEKS', 'CDC-WARNING']
+};
+W[40] = {
+  babyDevelopment: 'Đây là tuần của ngày dự sinh. Bé đã sẵn sàng ra đời. Chỉ một phần nhỏ trẻ sinh đúng ngày dự sinh; sinh trước hoặc sau vài ngày là bình thường.',
+  motherChanges: 'Mẹ có thể mệt mỏi và sốt ruột. Hãy nghỉ ngơi và giữ liên lạc với bác sĩ.',
+  commonSymptoms: ['Sốt ruột, mệt mỏi', 'Gò bụng', 'Nặng vùng chậu'],
+  todoThisWeek: ['Khám thai đúng ngày hẹn', 'Theo dõi cử động thai mỗi ngày', 'Đi bộ nhẹ nếu bác sĩ đồng ý'],
+  examsThisWeek: ['Khám thai, đánh giá tim thai và nước ối'],
+  nutritionFocus: ['Bữa nhỏ, dễ tiêu', 'Uống đủ nước'],
+  redFlags: ['Thai máy giảm hoặc không thấy', 'Vỡ ối', 'Ra máu âm đạo', 'Đau đầu dữ dội'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[41] = {
+  babyDevelopment: 'Bé tiếp tục lớn. Da có thể khô hơn khi sinh. Bánh nhau vẫn nuôi bé, nhưng bác sĩ cần theo dõi sát hơn khi thai quá ngày dự sinh.',
+  motherChanges: 'Mẹ có thể được hẹn khám dày hơn, đo monitor tim thai và siêu âm nước ối. Bác sĩ có thể tư vấn khởi phát chuyển dạ.',
+  commonSymptoms: ['Mệt, nặng nề', 'Lo lắng', 'Gò bụng'],
+  todoThisWeek: ['Tái khám đúng hẹn, không tự chờ ở nhà', 'Theo dõi cử động thai mỗi ngày', 'Trao đổi với bác sĩ về kế hoạch sinh'],
+  examsThisWeek: ['Theo dõi thai quá ngày: monitor tim thai, siêu âm nước ối theo chỉ định'],
+  nutritionFocus: ['Ăn uống bình thường', 'Uống đủ nước'],
+  redFlags: ['Thai máy giảm', 'Ra nước âm đạo', 'Ra máu âm đạo'],
+  sources: ['NHS-WEEKS', 'WHO-ANC']
+};
+W[42] = {
+  babyDevelopment: 'Thai 42 tuần là thai quá ngày. Phần lớn bé đã được sinh trước mốc này. Nếu chưa sinh, bác sĩ sẽ có kế hoạch cụ thể để đảm bảo an toàn.',
+  motherChanges: 'Mẹ cần theo hướng dẫn của bác sĩ về khởi phát chuyển dạ hoặc phương pháp sinh phù hợp.',
+  commonSymptoms: ['Mệt mỏi', 'Lo lắng'],
+  todoThisWeek: ['Đến bệnh viện theo hẹn của bác sĩ', 'Mang theo túi đồ đi sinh', 'Giữ liên lạc với người thân'],
+  examsThisWeek: ['Đánh giá và lên kế hoạch sinh tại bệnh viện'],
+  nutritionFocus: ['Ăn nhẹ, uống đủ nước theo hướng dẫn của bệnh viện'],
+  redFlags: ['Thai máy giảm hoặc không thấy', 'Ra nước âm đạo màu xanh', 'Ra máu âm đạo'],
+  sources: ['WHO-ANC', 'MOH-RH-2016']
+};
+
+module.exports = SIZE.map(([week, sizeCompare, lengthCm, weightG]) => ({
+  week,
+  image: `assets/images/weeks/week_${String(week).padStart(2, '0')}.webp`,
+  sizeCompare,
+  lengthCm,
+  weightG,
+  ...W[week],
+}));

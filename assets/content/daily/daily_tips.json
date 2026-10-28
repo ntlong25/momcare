@@ -1,0 +1,2360 @@
+{
+  "version": 1,
+  "type": "daily_tip",
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "items": [
+    {
+      "day": 1,
+      "week": 0,
+      "category": "prep",
+      "title": "Ghi ngày đầu kỳ kinh",
+      "body": "Ngày đầu kỳ kinh cuối là mốc để tính tuổi thai và ngày dự sinh. Hãy ghi lại trong app.",
+      "sources": []
+    },
+    {
+      "day": 2,
+      "week": 0,
+      "category": "nutrition",
+      "title": "Folate từ rau xanh",
+      "body": "Rau ngót, rau dền, cải bó xôi giàu folate. Ăn rau lá xanh đậm mỗi ngày là thói quen tốt trước khi mang thai.",
+      "sources": []
+    },
+    {
+      "day": 3,
+      "week": 0,
+      "category": "safety",
+      "title": "Hỏi bác sĩ về thuốc đang dùng",
+      "body": "Nếu đang dùng thuốc điều trị lâu dài, hãy hỏi bác sĩ trước khi có thai. Không tự ý ngừng thuốc.",
+      "sources": []
+    },
+    {
+      "day": 4,
+      "week": 0,
+      "category": "body",
+      "title": "Ngủ đủ giấc",
+      "body": "Ngủ 7–9 tiếng mỗi đêm giúp cân bằng nội tiết và tinh thần.",
+      "sources": []
+    },
+    {
+      "day": 5,
+      "week": 0,
+      "category": "mental",
+      "title": "Bớt áp lực \"phải có ngay\"",
+      "body": "Nhiều cặp đôi khỏe mạnh cần vài tháng mới có thai. Hãy kiên nhẫn với bản thân.",
+      "sources": []
+    },
+    {
+      "day": 6,
+      "week": 0,
+      "category": "prep",
+      "title": "Đặt lịch khám tiền thai",
+      "body": "Khám trước khi mang thai giúp phát hiện sớm thiếu máu, bệnh tuyến giáp hay nhiễm trùng.",
+      "sources": []
+    },
+    {
+      "day": 7,
+      "week": 0,
+      "category": "safety",
+      "title": "Nói không với thuốc lá",
+      "body": "Bỏ thuốc lá và tránh khói thuốc thụ động trước khi mang thai giúp bảo vệ thai nhi ngay từ đầu.",
+      "sources": []
+    },
+    {
+      "day": 8,
+      "week": 1,
+      "category": "nutrition",
+      "title": "Axit folic theo tư vấn",
+      "body": "Các tổ chức y tế khuyên bổ sung axit folic từ ít nhất 1 tháng trước khi thụ thai. Hỏi bác sĩ mức phù hợp với bạn.",
+      "sources": []
+    },
+    {
+      "day": 9,
+      "week": 1,
+      "category": "body",
+      "title": "Vận động 30 phút",
+      "body": "Đi bộ nhanh 30 phút, 5 ngày một tuần giúp cơ thể khỏe hơn khi bước vào thai kỳ.",
+      "sources": []
+    },
+    {
+      "day": 10,
+      "week": 1,
+      "category": "prep",
+      "title": "Kiểm tra sổ tiêm chủng",
+      "body": "Tìm sổ tiêm chủng để biết bạn đã tiêm rubella, thủy đậu, viêm gan B chưa.",
+      "sources": []
+    },
+    {
+      "day": 11,
+      "week": 1,
+      "category": "mental",
+      "title": "Một việc nhỏ cho mình",
+      "body": "Dành 10 phút mỗi ngày làm điều bạn thích: đọc sách, nghe nhạc, chăm cây.",
+      "sources": []
+    },
+    {
+      "day": 12,
+      "week": 1,
+      "category": "safety",
+      "title": "Ngừng rượu bia",
+      "body": "Không có lượng rượu bia nào được xem là an toàn khi đang cố gắng có thai.",
+      "sources": []
+    },
+    {
+      "day": 13,
+      "week": 1,
+      "category": "nutrition",
+      "title": "Dùng muối iốt",
+      "body": "Nấu ăn bằng muối iốt giúp cung cấp iốt cho tuyến giáp và sự phát triển não bộ của bé sau này.",
+      "sources": []
+    },
+    {
+      "day": 14,
+      "week": 1,
+      "category": "prep",
+      "title": "Kiểm tra BHYT",
+      "body": "Xem thẻ BHYT còn hạn và nơi đăng ký khám ban đầu.",
+      "sources": []
+    },
+    {
+      "day": 15,
+      "week": 2,
+      "category": "body",
+      "title": "Nhận biết ngày rụng trứng",
+      "body": "Dịch âm đạo trong, dai như lòng trắng trứng thường là dấu hiệu sắp rụng trứng.",
+      "sources": []
+    },
+    {
+      "day": 16,
+      "week": 2,
+      "category": "nutrition",
+      "title": "Giảm caffeine",
+      "body": "Hạn chế cà phê, trà đặc, nước tăng lực. Nhiều hướng dẫn khuyên dưới 200 mg caffeine mỗi ngày khi mang thai.",
+      "sources": []
+    },
+    {
+      "day": 17,
+      "week": 2,
+      "category": "mental",
+      "title": "Chia sẻ với chồng",
+      "body": "Nói với chồng cảm xúc của bạn về kế hoạch có con, kể cả những lo lắng.",
+      "sources": []
+    },
+    {
+      "day": 18,
+      "week": 2,
+      "category": "safety",
+      "title": "Tránh hóa chất",
+      "body": "Đeo găng khi dùng chất tẩy rửa mạnh và tránh thuốc trừ sâu.",
+      "sources": []
+    },
+    {
+      "day": 19,
+      "week": 2,
+      "category": "prep",
+      "title": "Tiêm phòng trước khi có thai",
+      "body": "Nếu cần tiêm MMR hoặc thủy đậu, hãy chờ khoảng 1 tháng sau tiêm mới thụ thai, theo hướng dẫn của nơi tiêm.",
+      "sources": []
+    },
+    {
+      "day": 20,
+      "week": 2,
+      "category": "nutrition",
+      "title": "Ăn sáng đủ chất",
+      "body": "Bữa sáng có tinh bột, đạm và rau giúp bạn đủ năng lượng cho cả buổi.",
+      "sources": []
+    },
+    {
+      "day": 21,
+      "week": 2,
+      "category": "body",
+      "title": "Uống đủ nước",
+      "body": "Uống nước đều trong ngày, ưu tiên nước lọc thay vì nước ngọt.",
+      "sources": []
+    },
+    {
+      "day": 22,
+      "week": 3,
+      "category": "safety",
+      "title": "Hỏi trước khi uống thuốc",
+      "body": "Nếu có khả năng đang mang thai, hãy báo dược sĩ hoặc bác sĩ trước khi dùng bất kỳ thuốc nào.",
+      "sources": []
+    },
+    {
+      "day": 23,
+      "week": 3,
+      "category": "body",
+      "title": "Máu báo là gì",
+      "body": "Một số người thấy vài giọt máu hồng hoặc nâu khi phôi làm tổ. Nếu ra máu nhiều kèm đau bụng, hãy đi khám.",
+      "sources": []
+    },
+    {
+      "day": 24,
+      "week": 3,
+      "category": "nutrition",
+      "title": "Ăn chín uống sôi",
+      "body": "Tập thói quen ăn chín uống sôi từ bây giờ để giảm nguy cơ nhiễm khuẩn qua thức ăn.",
+      "sources": []
+    },
+    {
+      "day": 25,
+      "week": 3,
+      "category": "mental",
+      "title": "Đừng thử thai quá sớm",
+      "body": "Thử quá sớm dễ cho kết quả âm tính giả và gây hồi hộp. Chờ đến ngày trễ kinh sẽ chính xác hơn.",
+      "sources": []
+    },
+    {
+      "day": 26,
+      "week": 3,
+      "category": "prep",
+      "title": "Chuẩn bị que thử",
+      "body": "Mua sẵn que thử thai và đọc kỹ hướng dẫn sử dụng.",
+      "sources": []
+    },
+    {
+      "day": 27,
+      "week": 3,
+      "category": "nutrition",
+      "title": "Rau và trái cây đa màu",
+      "body": "Mỗi bữa có rau, mỗi ngày có trái cây với nhiều màu sắc khác nhau.",
+      "sources": []
+    },
+    {
+      "day": 28,
+      "week": 3,
+      "category": "safety",
+      "title": "Tránh xông hơi, tắm quá nóng",
+      "body": "Nhiệt độ cơ thể quá cao trong giai đoạn đầu có thể không tốt cho thai. Tắm nước ấm vừa phải.",
+      "sources": []
+    },
+    {
+      "day": 29,
+      "week": 4,
+      "category": "prep",
+      "title": "Thử thai đúng lúc",
+      "body": "Thử thai từ ngày trễ kinh, tốt nhất bằng nước tiểu buổi sáng. Âm tính mà vẫn trễ kinh thì thử lại sau vài ngày.",
+      "sources": []
+    },
+    {
+      "day": 30,
+      "week": 4,
+      "category": "safety",
+      "title": "Đau bụng một bên cần đi khám",
+      "body": "Đau bụng dữ dội một bên, ra máu, chóng mặt có thể là dấu hiệu thai ngoài tử cung. Hãy đi cấp cứu ngay.",
+      "sources": []
+    },
+    {
+      "day": 31,
+      "week": 4,
+      "category": "nutrition",
+      "title": "Tiếp tục axit folic",
+      "body": "Khi đã có thai, tiếp tục bổ sung axit folic theo chỉ định của bác sĩ trong 3 tháng đầu.",
+      "sources": []
+    },
+    {
+      "day": 32,
+      "week": 4,
+      "category": "mental",
+      "title": "Cảm xúc lẫn lộn",
+      "body": "Vui mừng xen lo lắng khi biết có thai là điều rất bình thường.",
+      "sources": []
+    },
+    {
+      "day": 33,
+      "week": 4,
+      "category": "body",
+      "title": "Căng ngực",
+      "body": "Ngực căng, nhạy cảm là dấu hiệu sớm thường gặp. Mặc áo ngực mềm, vừa vặn.",
+      "sources": []
+    },
+    {
+      "day": 34,
+      "week": 4,
+      "category": "prep",
+      "title": "Đặt lịch khám thai đầu",
+      "body": "Hẹn khám thai lần đầu khoảng tuần 6–8 để siêu âm xác định thai và tim thai.",
+      "sources": []
+    },
+    {
+      "day": 35,
+      "week": 4,
+      "category": "safety",
+      "title": "Tránh mèo hoang và cát vệ sinh mèo",
+      "body": "Nhờ người khác dọn cát vệ sinh mèo, hoặc đeo găng và rửa tay kỹ để giảm nguy cơ nhiễm Toxoplasma.",
+      "sources": []
+    },
+    {
+      "day": 36,
+      "week": 5,
+      "category": "nutrition",
+      "title": "Chia nhỏ bữa ăn",
+      "body": "Ăn 5–6 bữa nhỏ trong ngày giúp giảm buồn nôn và tránh để bụng quá đói.",
+      "sources": []
+    },
+    {
+      "day": 37,
+      "week": 5,
+      "category": "body",
+      "title": "Mệt mỏi là bình thường",
+      "body": "Nội tiết tăng nhanh khiến bạn buồn ngủ. Hãy ngủ sớm và chợp mắt khi có thể.",
+      "sources": []
+    },
+    {
+      "day": 38,
+      "week": 5,
+      "category": "mental",
+      "title": "Báo tin khi bạn sẵn sàng",
+      "body": "Không có thời điểm \"đúng\" để báo tin. Hãy chia sẻ khi bạn thấy thoải mái.",
+      "sources": []
+    },
+    {
+      "day": 39,
+      "week": 5,
+      "category": "safety",
+      "title": "Không tự dùng thuốc nam",
+      "body": "Nhiều loại thuốc nam, thuốc bắc chưa rõ độ an toàn khi mang thai. Hãy hỏi bác sĩ trước.",
+      "sources": []
+    },
+    {
+      "day": 40,
+      "week": 5,
+      "category": "prep",
+      "title": "Chuẩn bị câu hỏi",
+      "body": "Viết sẵn câu hỏi cho buổi khám đầu: về thuốc, vi chất, lịch khám.",
+      "sources": []
+    },
+    {
+      "day": 41,
+      "week": 5,
+      "category": "nutrition",
+      "title": "Bánh quy nhạt buổi sáng",
+      "body": "Ăn vài miếng bánh quy nhạt trước khi rời giường có thể giúp đỡ buồn nôn.",
+      "sources": []
+    },
+    {
+      "day": 42,
+      "week": 5,
+      "category": "body",
+      "title": "Đi tiểu nhiều",
+      "body": "Tử cung lớn dần và nội tiết thay đổi khiến bạn đi tiểu nhiều hơn. Nếu tiểu buốt, rát, hãy đi khám.",
+      "sources": []
+    },
+    {
+      "day": 43,
+      "week": 6,
+      "category": "prep",
+      "title": "Mang gì khi khám thai đầu",
+      "body": "Mang CCCD, thẻ BHYT, sổ tiêm chủng, kết quả xét nghiệm cũ và danh sách thuốc đang dùng.",
+      "sources": []
+    },
+    {
+      "day": 44,
+      "week": 6,
+      "category": "nutrition",
+      "title": "Gừng giúp đỡ nghén",
+      "body": "Một ít gừng trong món ăn hoặc trà gừng loãng có thể giúp một số người đỡ buồn nôn.",
+      "sources": []
+    },
+    {
+      "day": 45,
+      "week": 6,
+      "category": "safety",
+      "title": "Nôn nhiều cần đi khám",
+      "body": "Nếu nôn không giữ được nước, tiểu ít, sụt cân, hãy đi khám sớm vì có thể bị nghén nặng.",
+      "sources": []
+    },
+    {
+      "day": 46,
+      "week": 6,
+      "category": "body",
+      "title": "Nhạy cảm với mùi",
+      "body": "Mở cửa thông thoáng khi nấu ăn và tránh các mùi khiến bạn khó chịu.",
+      "sources": []
+    },
+    {
+      "day": 47,
+      "week": 6,
+      "category": "mental",
+      "title": "Nhờ giúp đỡ",
+      "body": "Đừng ngại nhờ chồng, người thân chia sẻ việc nhà khi bạn mệt.",
+      "sources": []
+    },
+    {
+      "day": 48,
+      "week": 6,
+      "category": "nutrition",
+      "title": "Uống nước từng ngụm",
+      "body": "Uống nước từng ngụm nhỏ giữa các bữa thay vì uống nhiều cùng lúc trong bữa ăn.",
+      "sources": []
+    },
+    {
+      "day": 49,
+      "week": 6,
+      "category": "safety",
+      "title": "Thắt dây an toàn đúng cách",
+      "body": "Khi đi ô tô, thắt dây đai dưới bụng, vắt qua giữa ngực, không vắt ngang bụng.",
+      "sources": []
+    },
+    {
+      "day": 50,
+      "week": 7,
+      "category": "nutrition",
+      "title": "Ăn món mình ăn được",
+      "body": "Trong giai đoạn nghén, ăn được món nào sạch, chín là tốt. Đừng ép mình ăn món gây buồn nôn.",
+      "sources": []
+    },
+    {
+      "day": 51,
+      "week": 7,
+      "category": "body",
+      "title": "Tiết nhiều nước bọt",
+      "body": "Một số mẹ tiết nhiều nước bọt khi nghén. Súc miệng bằng nước sạch và ngậm kẹo gừng nhỏ có thể dễ chịu hơn.",
+      "sources": []
+    },
+    {
+      "day": 52,
+      "week": 7,
+      "category": "safety",
+      "title": "Xét nghiệm máu đầu thai kỳ",
+      "body": "Xét nghiệm nhóm máu, thiếu máu, viêm gan B, HIV, giang mai giúp bảo vệ mẹ và bé. Làm theo chỉ định của bác sĩ.",
+      "sources": []
+    },
+    {
+      "day": 53,
+      "week": 7,
+      "category": "mental",
+      "title": "Thay đổi cảm xúc",
+      "body": "Dễ khóc, dễ cáu là do nội tiết. Hãy nói với người thân để họ hiểu và thông cảm.",
+      "sources": []
+    },
+    {
+      "day": 54,
+      "week": 7,
+      "category": "prep",
+      "title": "Nhận sổ khám thai",
+      "body": "Giữ cẩn thận sổ khám thai và mang theo mỗi lần đi khám.",
+      "sources": []
+    },
+    {
+      "day": 55,
+      "week": 7,
+      "category": "nutrition",
+      "title": "Vitamin C từ trái cây",
+      "body": "Ổi, cam, bưởi giàu vitamin C giúp cơ thể hấp thu sắt tốt hơn.",
+      "sources": []
+    },
+    {
+      "day": 56,
+      "week": 7,
+      "category": "body",
+      "title": "Táo bón đầu thai kỳ",
+      "body": "Ăn thêm rau, trái cây, uống đủ nước và vận động nhẹ để giảm táo bón.",
+      "sources": []
+    },
+    {
+      "day": 57,
+      "week": 8,
+      "category": "body",
+      "title": "Chóng mặt khi đứng dậy",
+      "body": "Đứng dậy từ từ, nhất là sau khi nằm hoặc ngồi lâu. Ngồi xuống ngay nếu thấy choáng.",
+      "sources": []
+    },
+    {
+      "day": 58,
+      "week": 8,
+      "category": "nutrition",
+      "title": "Đạm từ trứng chín",
+      "body": "Trứng là nguồn đạm tốt; hãy nấu chín cả lòng trắng và lòng đỏ.",
+      "sources": []
+    },
+    {
+      "day": 59,
+      "week": 8,
+      "category": "prep",
+      "title": "Tính ngày dự sinh",
+      "body": "Bác sĩ sẽ tính ngày dự sinh dựa vào kỳ kinh cuối và siêu âm. Cập nhật vào app để theo dõi tuần thai.",
+      "sources": []
+    },
+    {
+      "day": 60,
+      "week": 8,
+      "category": "safety",
+      "title": "Ra máu cần đi khám",
+      "body": "Ra máu âm đạo khi mang thai cần được bác sĩ kiểm tra, đừng chờ.",
+      "sources": []
+    },
+    {
+      "day": 61,
+      "week": 8,
+      "category": "mental",
+      "title": "Không so sánh",
+      "body": "Mỗi thai kỳ khác nhau. Nghén nhiều hay ít không nói lên bé khỏe hay yếu.",
+      "sources": []
+    },
+    {
+      "day": 62,
+      "week": 8,
+      "category": "nutrition",
+      "title": "Hạn chế đồ ăn vặt nhiều đường",
+      "body": "Thay bánh kẹo bằng sữa chua, trái cây hoặc một nắm hạt nhỏ.",
+      "sources": []
+    },
+    {
+      "day": 63,
+      "week": 8,
+      "category": "safety",
+      "title": "Cẩn thận với gỏi, sushi",
+      "body": "Cá và hải sản sống có thể chứa vi khuẩn, ký sinh trùng. Khi mang thai, hãy ăn chín.",
+      "sources": []
+    },
+    {
+      "day": 64,
+      "week": 9,
+      "category": "nutrition",
+      "title": "Cá ít thủy ngân",
+      "body": "Cá hồi, cá nục, cá trích, tôm là lựa chọn tốt. Tránh cá kiếm, cá mập, cá thu vua.",
+      "sources": []
+    },
+    {
+      "day": 65,
+      "week": 9,
+      "category": "mental",
+      "title": "Viết ra nỗi lo",
+      "body": "Viết những điều làm bạn lo lắng, sau đó chọn một điều để hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "day": 66,
+      "week": 9,
+      "category": "body",
+      "title": "Nghẹt mũi",
+      "body": "Nội tiết làm niêm mạc mũi phù nề. Rửa mũi bằng nước muối sinh lý có thể giúp dễ thở hơn.",
+      "sources": []
+    },
+    {
+      "day": 67,
+      "week": 9,
+      "category": "prep",
+      "title": "Tìm hiểu sàng lọc quý I",
+      "body": "Siêu âm đo độ mờ da gáy cần làm trong khoảng 11 tuần đến 13 tuần 6 ngày. Hãy đặt lịch sớm.",
+      "sources": []
+    },
+    {
+      "day": 68,
+      "week": 9,
+      "category": "safety",
+      "title": "Tránh pa tê và gan với lượng lớn",
+      "body": "Gan và các sản phẩm từ gan chứa nhiều vitamin A. NHS khuyên tránh gan và pa tê gan khi mang thai.",
+      "sources": []
+    },
+    {
+      "day": 69,
+      "week": 9,
+      "category": "nutrition",
+      "title": "Sắt từ thịt đỏ",
+      "body": "Thịt bò, thịt lợn nạc nấu chín cung cấp sắt dễ hấp thu.",
+      "sources": []
+    },
+    {
+      "day": 70,
+      "week": 9,
+      "category": "body",
+      "title": "Mặc đồ rộng",
+      "body": "Quần áo rộng, chất liệu cotton giúp thoải mái khi vòng eo thay đổi.",
+      "sources": []
+    },
+    {
+      "day": 71,
+      "week": 10,
+      "category": "safety",
+      "title": "Dịch âm đạo bất thường",
+      "body": "Dịch trong hoặc trắng nhạt, không mùi là bình thường. Nếu ngứa, rát, có mùi hôi, hãy đi khám.",
+      "sources": []
+    },
+    {
+      "day": 72,
+      "week": 10,
+      "category": "nutrition",
+      "title": "Canxi từ sữa tiệt trùng",
+      "body": "Chọn sữa, sữa chua đã tiệt trùng hoặc thanh trùng. Tránh sữa tươi chưa qua xử lý nhiệt.",
+      "sources": []
+    },
+    {
+      "day": 73,
+      "week": 10,
+      "category": "prep",
+      "title": "Hỏi về NIPT",
+      "body": "NIPT có thể làm từ khoảng tuần 10 nếu bác sĩ tư vấn. Đây là xét nghiệm sàng lọc, không phải chẩn đoán.",
+      "sources": []
+    },
+    {
+      "day": 74,
+      "week": 10,
+      "category": "body",
+      "title": "Vệ sinh vùng kín",
+      "body": "Rửa bằng nước sạch, không thụt rửa sâu bên trong.",
+      "sources": []
+    },
+    {
+      "day": 75,
+      "week": 10,
+      "category": "mental",
+      "title": "Hít thở khi lo",
+      "body": "Hít vào chậm 4 nhịp, thở ra 6 nhịp, làm 5 lần khi thấy căng thẳng.",
+      "sources": []
+    },
+    {
+      "day": 76,
+      "week": 10,
+      "category": "nutrition",
+      "title": "Rau ngót nấu chín",
+      "body": "Canh rau ngót nấu chín là món quen thuộc và an toàn. Tránh ăn rau ngót sống hoặc uống nước ép rau ngót sống với lượng lớn.",
+      "sources": []
+    },
+    {
+      "day": 77,
+      "week": 10,
+      "category": "safety",
+      "title": "Không xoa bóp bụng mạnh",
+      "body": "Tránh xoa bóp, ấn mạnh vào bụng. Chạm nhẹ nhàng để trò chuyện với bé là đủ.",
+      "sources": []
+    },
+    {
+      "day": 78,
+      "week": 11,
+      "category": "prep",
+      "title": "Đi siêu âm độ mờ da gáy",
+      "body": "Nhớ đi siêu âm đúng hẹn trong cửa sổ 11 tuần – 13 tuần 6 ngày.",
+      "sources": []
+    },
+    {
+      "day": 79,
+      "week": 11,
+      "category": "body",
+      "title": "Mụn do nội tiết",
+      "body": "Rửa mặt nhẹ nhàng. Hỏi bác sĩ trước khi dùng thuốc trị mụn vì một số loại (như retinoid) không dùng khi mang thai.",
+      "sources": []
+    },
+    {
+      "day": 80,
+      "week": 11,
+      "category": "nutrition",
+      "title": "Ăn đủ bữa khi đỡ nghén",
+      "body": "Khi đã đỡ nghén, quay lại ăn đủ 3 bữa chính và 1–2 bữa phụ.",
+      "sources": []
+    },
+    {
+      "day": 81,
+      "week": 11,
+      "category": "mental",
+      "title": "Kết quả sàng lọc",
+      "body": "Kết quả \"nguy cơ cao\" chưa có nghĩa là bé có vấn đề. Bác sĩ sẽ tư vấn bước tiếp theo.",
+      "sources": []
+    },
+    {
+      "day": 82,
+      "week": 11,
+      "category": "safety",
+      "title": "Rửa rau quả kỹ",
+      "body": "Rửa rau dưới vòi nước chảy và ngâm rửa kỹ để giảm đất cát, vi khuẩn, ký sinh trùng.",
+      "sources": []
+    },
+    {
+      "day": 83,
+      "week": 11,
+      "category": "nutrition",
+      "title": "Nước dừa vừa phải",
+      "body": "Nước dừa giúp bù nước, nhưng có đường tự nhiên. Một cốc mỗi ngày là đủ.",
+      "sources": []
+    },
+    {
+      "day": 84,
+      "week": 11,
+      "category": "body",
+      "title": "Ợ nóng nhẹ",
+      "body": "Ăn chậm, tránh nằm ngay sau ăn để giảm ợ nóng.",
+      "sources": []
+    },
+    {
+      "day": 85,
+      "week": 12,
+      "category": "mental",
+      "title": "Tự khen mình",
+      "body": "Bạn sắp hoàn thành 3 tháng đầu. Hãy ghi nhận sự cố gắng của bản thân.",
+      "sources": []
+    },
+    {
+      "day": 86,
+      "week": 12,
+      "category": "body",
+      "title": "Bắt đầu tập Kegel",
+      "body": "Bài tập sàn chậu giúp giảm tiểu són khi mang thai và sau sinh. Siết nhẹ 3–5 giây, thả lỏng, làm 10 lần.",
+      "sources": []
+    },
+    {
+      "day": 87,
+      "week": 12,
+      "category": "nutrition",
+      "title": "Hạn chế đồ ngọt",
+      "body": "Giảm nước ngọt, trà sữa, bánh kẹo giúp kiểm soát cân nặng và đường huyết.",
+      "sources": []
+    },
+    {
+      "day": 88,
+      "week": 12,
+      "category": "prep",
+      "title": "Tìm hiểu chế độ thai sản",
+      "body": "Hỏi bộ phận nhân sự về chế độ nghỉ khám thai và nghỉ sinh.",
+      "sources": []
+    },
+    {
+      "day": 89,
+      "week": 12,
+      "category": "safety",
+      "title": "Tiểu buốt cần đi khám",
+      "body": "Nhiễm trùng đường tiểu thường gặp khi mang thai và cần điều trị. Đi khám nếu tiểu buốt, rắt.",
+      "sources": []
+    },
+    {
+      "day": 90,
+      "week": 12,
+      "category": "nutrition",
+      "title": "Trứng lòng đào chưa nên ăn",
+      "body": "Trứng chưa chín kỹ có nguy cơ nhiễm Salmonella. Hãy nấu chín cả lòng đỏ.",
+      "sources": []
+    },
+    {
+      "day": 91,
+      "week": 12,
+      "category": "body",
+      "title": "Đau đầu nhẹ",
+      "body": "Nghỉ ngơi, uống đủ nước. Hỏi bác sĩ trước khi dùng thuốc giảm đau. Đau đầu dữ dội cần đi khám.",
+      "sources": []
+    },
+    {
+      "day": 92,
+      "week": 13,
+      "category": "prep",
+      "title": "Theo dõi cân nặng",
+      "body": "Cân mỗi tuần vào cùng thời điểm và ghi vào app. Mức tăng phù hợp tùy cân nặng trước khi mang thai.",
+      "sources": []
+    },
+    {
+      "day": 93,
+      "week": 13,
+      "category": "nutrition",
+      "title": "Tăng khẩu phần vừa phải",
+      "body": "Từ quý II, thêm một bữa phụ nhỏ là đủ, không cần ăn gấp đôi.",
+      "sources": []
+    },
+    {
+      "day": 94,
+      "week": 13,
+      "category": "body",
+      "title": "Năng lượng trở lại",
+      "body": "Nhiều mẹ khỏe hơn từ giai đoạn này. Đây là lúc tốt để duy trì vận động đều.",
+      "sources": []
+    },
+    {
+      "day": 95,
+      "week": 13,
+      "category": "mental",
+      "title": "Chia sẻ tin vui",
+      "body": "Nếu bạn muốn, đây là thời điểm nhiều gia đình chia sẻ tin vui.",
+      "sources": []
+    },
+    {
+      "day": 96,
+      "week": 13,
+      "category": "safety",
+      "title": "Ra nước âm đạo",
+      "body": "Ra nước âm đạo bất thường ở bất kỳ tuần nào cũng cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 97,
+      "week": 13,
+      "category": "nutrition",
+      "title": "Sữa chua",
+      "body": "Sữa chua đã tiệt trùng cung cấp canxi và đạm, là bữa phụ tiện lợi.",
+      "sources": []
+    },
+    {
+      "day": 98,
+      "week": 13,
+      "category": "prep",
+      "title": "Lên kế hoạch vận động",
+      "body": "Chọn một hoạt động bạn thích: đi bộ, bơi hoặc yoga bầu có hướng dẫn.",
+      "sources": []
+    },
+    {
+      "day": 99,
+      "week": 14,
+      "category": "body",
+      "title": "Chảy máu chân răng",
+      "body": "Đánh răng bằng bàn chải mềm, dùng chỉ nha khoa. Khám răng nếu chảy máu nhiều.",
+      "sources": []
+    },
+    {
+      "day": 100,
+      "week": 14,
+      "category": "nutrition",
+      "title": "Bữa phụ lành mạnh",
+      "body": "Một quả chuối, một hộp sữa chua hoặc một cốc sữa là bữa phụ đơn giản.",
+      "sources": []
+    },
+    {
+      "day": 101,
+      "week": 14,
+      "category": "prep",
+      "title": "Mua áo ngực mới",
+      "body": "Ngực lớn dần, áo ngực rộng, không gọng giúp bạn thoải mái hơn.",
+      "sources": []
+    },
+    {
+      "day": 102,
+      "week": 14,
+      "category": "mental",
+      "title": "Giai đoạn dễ chịu",
+      "body": "Tận hưởng giai đoạn nhiều năng lượng này bằng những việc bạn yêu thích.",
+      "sources": []
+    },
+    {
+      "day": 103,
+      "week": 14,
+      "category": "safety",
+      "title": "Tránh rượu trong món ăn",
+      "body": "Rượu nếp, cơm rượu, món ngâm rượu và bánh có rượu vẫn chứa cồn. Khi mang thai, tốt nhất nên tránh.",
+      "sources": []
+    },
+    {
+      "day": 104,
+      "week": 14,
+      "category": "nutrition",
+      "title": "Sắt và vitamin C",
+      "body": "Ăn thịt bò kèm rau xanh và một quả cam để tăng hấp thu sắt.",
+      "sources": []
+    },
+    {
+      "day": 105,
+      "week": 14,
+      "category": "body",
+      "title": "Đường sẫm màu giữa bụng",
+      "body": "Đường sẫm dọc bụng là do nội tiết, thường mờ dần sau sinh.",
+      "sources": []
+    },
+    {
+      "day": 106,
+      "week": 15,
+      "category": "nutrition",
+      "title": "Uống đủ nước",
+      "body": "Thể tích máu tăng nên bạn cần uống đủ nước. Nhìn màu nước tiểu vàng nhạt là dấu hiệu đủ nước.",
+      "sources": []
+    },
+    {
+      "day": 107,
+      "week": 15,
+      "category": "safety",
+      "title": "Chảy máu cam",
+      "body": "Chảy máu cam nhẹ có thể gặp. Ngồi thẳng, cúi nhẹ đầu về trước, bóp cánh mũi 10 phút. Nếu không cầm, đi khám.",
+      "sources": []
+    },
+    {
+      "day": 108,
+      "week": 15,
+      "category": "prep",
+      "title": "Hỏi về triple test",
+      "body": "Nếu chưa làm sàng lọc quý I, hãy hỏi bác sĩ về triple test (khoảng 15–20 tuần).",
+      "sources": []
+    },
+    {
+      "day": 109,
+      "week": 15,
+      "category": "body",
+      "title": "Ợ nóng",
+      "body": "Ăn bữa nhỏ, tránh đồ quá cay, chua và nhiều dầu mỡ.",
+      "sources": []
+    },
+    {
+      "day": 110,
+      "week": 15,
+      "category": "mental",
+      "title": "Lớp tiền sản",
+      "body": "Tìm hiểu lớp tiền sản ở bệnh viện. Gặp gỡ các mẹ bầu khác giúp bạn bớt lo.",
+      "sources": []
+    },
+    {
+      "day": 111,
+      "week": 15,
+      "category": "nutrition",
+      "title": "Đậu phụ",
+      "body": "Đậu phụ cung cấp đạm và canxi, dễ chế biến thành nhiều món.",
+      "sources": []
+    },
+    {
+      "day": 112,
+      "week": 15,
+      "category": "safety",
+      "title": "Cẩn thận khi đi xe máy",
+      "body": "Đi chậm, tránh đường xấu và đường dài. Đội mũ bảo hiểm cài quai đúng cách.",
+      "sources": []
+    },
+    {
+      "day": 113,
+      "week": 16,
+      "category": "body",
+      "title": "Ngứa da bụng",
+      "body": "Dưỡng ẩm da bụng bằng kem không mùi. Ngứa nhiều ở lòng bàn tay, bàn chân cần báo bác sĩ.",
+      "sources": []
+    },
+    {
+      "day": 114,
+      "week": 16,
+      "category": "nutrition",
+      "title": "Canxi và vitamin D",
+      "body": "Sữa, sữa chua, cá nhỏ ăn cả xương và ánh nắng buổi sáng giúp đủ canxi, vitamin D.",
+      "sources": []
+    },
+    {
+      "day": 115,
+      "week": 16,
+      "category": "safety",
+      "title": "Tránh nằm ngửa lâu khi tập",
+      "body": "Từ giữa thai kỳ, tránh nằm ngửa lâu khi tập luyện. Chuyển sang tư thế nghiêng hoặc ngồi.",
+      "sources": []
+    },
+    {
+      "day": 116,
+      "week": 16,
+      "category": "prep",
+      "title": "Khám định kỳ",
+      "body": "Đi khám đúng hẹn để đo huyết áp, cân nặng và nước tiểu.",
+      "sources": []
+    },
+    {
+      "day": 117,
+      "week": 16,
+      "category": "mental",
+      "title": "Cảm nhận thai máy",
+      "body": "Một số mẹ bắt đầu thấy rung động như bong bóng. Chưa thấy cũng không sao.",
+      "sources": []
+    },
+    {
+      "day": 118,
+      "week": 16,
+      "category": "nutrition",
+      "title": "Hạn chế muối",
+      "body": "Ăn nhạt vừa phải giúp giảm phù và tốt cho huyết áp.",
+      "sources": []
+    },
+    {
+      "day": 119,
+      "week": 16,
+      "category": "body",
+      "title": "Đau lưng nhẹ",
+      "body": "Đứng thẳng, ngồi có tựa lưng và tránh mang giày cao gót.",
+      "sources": []
+    },
+    {
+      "day": 120,
+      "week": 17,
+      "category": "safety",
+      "title": "Té ngã cần đi khám",
+      "body": "Nếu bị ngã hoặc va đập vào bụng, hãy đi khám dù không thấy đau.",
+      "sources": []
+    },
+    {
+      "day": 121,
+      "week": 17,
+      "category": "body",
+      "title": "Mất thăng bằng",
+      "body": "Trọng tâm thay đổi khiến bạn dễ mất thăng bằng. Dùng giày đế thấp, chống trơn.",
+      "sources": []
+    },
+    {
+      "day": 122,
+      "week": 17,
+      "category": "nutrition",
+      "title": "Hạt và quả hạch",
+      "body": "Một nắm nhỏ hạt điều, óc chó hoặc lạc rang là bữa phụ giàu chất béo tốt. Tránh nếu bị dị ứng.",
+      "sources": []
+    },
+    {
+      "day": 123,
+      "week": 17,
+      "category": "prep",
+      "title": "Kiểm tra lịch tiêm uốn ván",
+      "body": "Hỏi nhân viên y tế về mũi uốn ván phù hợp với tiền sử tiêm của bạn.",
+      "sources": []
+    },
+    {
+      "day": 124,
+      "week": 17,
+      "category": "mental",
+      "title": "Nghỉ ngơi không có lỗi",
+      "body": "Nghỉ ngơi khi mệt là chăm sóc cho cả hai mẹ con, không phải lười biếng.",
+      "sources": []
+    },
+    {
+      "day": 125,
+      "week": 17,
+      "category": "nutrition",
+      "title": "Hạn chế đồ chiên rán",
+      "body": "Chọn món luộc, hấp, kho, canh nhiều hơn món chiên rán.",
+      "sources": []
+    },
+    {
+      "day": 126,
+      "week": 17,
+      "category": "body",
+      "title": "Ra mồ hôi nhiều",
+      "body": "Mặc đồ thoáng mát, uống đủ nước và tắm nước ấm vừa phải.",
+      "sources": []
+    },
+    {
+      "day": 127,
+      "week": 18,
+      "category": "mental",
+      "title": "Trò chuyện với bé",
+      "body": "Bé bắt đầu cảm nhận âm thanh. Trò chuyện với bé là cách để mẹ thư giãn và gắn kết.",
+      "sources": []
+    },
+    {
+      "day": 128,
+      "week": 18,
+      "category": "body",
+      "title": "Chuột rút chân",
+      "body": "Duỗi và xoa bóp bắp chân trước khi ngủ. Khi bị chuột rút, gập bàn chân về phía mình.",
+      "sources": []
+    },
+    {
+      "day": 129,
+      "week": 18,
+      "category": "nutrition",
+      "title": "Magie từ rau xanh",
+      "body": "Rau lá xanh, các loại đậu, hạt cung cấp magie, có thể giúp giảm chuột rút.",
+      "sources": []
+    },
+    {
+      "day": 130,
+      "week": 18,
+      "category": "prep",
+      "title": "Ghi lại lần đầu thấy thai máy",
+      "body": "Ghi ngày bạn cảm nhận thai máy lần đầu vào app.",
+      "sources": []
+    },
+    {
+      "day": 131,
+      "week": 18,
+      "category": "safety",
+      "title": "Sưng đau một bên bắp chân",
+      "body": "Bắp chân sưng, đau, nóng một bên có thể là cục máu đông. Hãy đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 132,
+      "week": 18,
+      "category": "nutrition",
+      "title": "Uống sữa đúng cách",
+      "body": "Uống sữa tiệt trùng, không cần uống quá nhiều. 2–3 phần sữa và chế phẩm mỗi ngày thường là đủ.",
+      "sources": []
+    },
+    {
+      "day": 133,
+      "week": 18,
+      "category": "body",
+      "title": "Phù nhẹ bàn chân",
+      "body": "Kê chân cao khi nghỉ. Phù đột ngột ở mặt, tay cần đi khám.",
+      "sources": []
+    },
+    {
+      "day": 134,
+      "week": 19,
+      "category": "prep",
+      "title": "Đặt lịch siêu âm hình thái",
+      "body": "Siêu âm hình thái thường làm ở tuần 20–22. Hãy đặt lịch sớm.",
+      "sources": []
+    },
+    {
+      "day": 135,
+      "week": 19,
+      "category": "body",
+      "title": "Đau dây chằng tròn",
+      "body": "Đau nhói hai bên bụng dưới khi đổi tư thế thường do dây chằng căng. Đổi tư thế chậm.",
+      "sources": []
+    },
+    {
+      "day": 136,
+      "week": 19,
+      "category": "nutrition",
+      "title": "Omega-3 từ cá",
+      "body": "Ăn cá ít thủy ngân 2–3 bữa mỗi tuần để có omega-3.",
+      "sources": []
+    },
+    {
+      "day": 137,
+      "week": 19,
+      "category": "safety",
+      "title": "Đau bụng kéo dài",
+      "body": "Đau bụng dữ dội hoặc không giảm khi nghỉ cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 138,
+      "week": 19,
+      "category": "mental",
+      "title": "Tạm rời mạng xã hội",
+      "body": "Nếu đọc tin tức về thai kỳ khiến bạn hoang mang, hãy tạm nghỉ và hỏi bác sĩ.",
+      "sources": []
+    },
+    {
+      "day": 139,
+      "week": 19,
+      "category": "body",
+      "title": "Ngủ nghiêng",
+      "body": "Tập ngủ nghiêng, kê gối giữa hai chân và sau lưng.",
+      "sources": []
+    },
+    {
+      "day": 140,
+      "week": 19,
+      "category": "nutrition",
+      "title": "Trái cây ít ngọt",
+      "body": "Ưu tiên ổi, bưởi, táo, cam; hạn chế trái cây rất ngọt như sầu riêng, mít với lượng lớn.",
+      "sources": []
+    },
+    {
+      "day": 141,
+      "week": 20,
+      "category": "prep",
+      "title": "Siêu âm hình thái",
+      "body": "Đây là buổi siêu âm quan trọng để đánh giá cấu trúc các cơ quan của bé. Rủ chồng đi cùng.",
+      "sources": []
+    },
+    {
+      "day": 142,
+      "week": 20,
+      "category": "mental",
+      "title": "Nửa chặng đường",
+      "body": "Bạn đã đi được nửa hành trình. Hãy dành thời gian ăn mừng nho nhỏ.",
+      "sources": []
+    },
+    {
+      "day": 143,
+      "week": 20,
+      "category": "nutrition",
+      "title": "Chất xơ",
+      "body": "Khoai lang, rau xanh, ngũ cốc nguyên hạt giúp giảm táo bón.",
+      "sources": []
+    },
+    {
+      "day": 144,
+      "week": 20,
+      "category": "body",
+      "title": "Hụt hơi nhẹ",
+      "body": "Tử cung lớn đẩy lên cơ hoành. Đi chậm và nghỉ khi leo cầu thang.",
+      "sources": []
+    },
+    {
+      "day": 145,
+      "week": 20,
+      "category": "safety",
+      "title": "Cơn co đều đặn",
+      "body": "Cơn co bụng đều đặn, đau tăng dần trước 37 tuần cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 146,
+      "week": 20,
+      "category": "prep",
+      "title": "Kiểm tra thời gian đóng BHXH",
+      "body": "Dùng ứng dụng VssID để xem quá trình đóng BHXH, chuẩn bị cho chế độ thai sản.",
+      "sources": []
+    },
+    {
+      "day": 147,
+      "week": 20,
+      "category": "nutrition",
+      "title": "Đủ đạm",
+      "body": "Mỗi bữa có một phần đạm: thịt, cá, trứng, đậu phụ.",
+      "sources": []
+    },
+    {
+      "day": 148,
+      "week": 21,
+      "category": "body",
+      "title": "Giãn tĩnh mạch",
+      "body": "Tránh đứng hoặc ngồi một chỗ quá lâu. Kê chân cao khi nghỉ.",
+      "sources": []
+    },
+    {
+      "day": 149,
+      "week": 21,
+      "category": "nutrition",
+      "title": "Kali từ chuối, rau dền",
+      "body": "Chuối, rau dền, khoai lang giàu kali, góp phần cân bằng dịch trong cơ thể.",
+      "sources": []
+    },
+    {
+      "day": 150,
+      "week": 21,
+      "category": "prep",
+      "title": "Lên danh sách đồ sơ sinh",
+      "body": "Ghi những đồ thật sự cần cho bé, có thể mượn lại đồ cũ còn tốt.",
+      "sources": []
+    },
+    {
+      "day": 151,
+      "week": 21,
+      "category": "safety",
+      "title": "Phù mặt, tay đột ngột",
+      "body": "Phù đột ngột ở mặt, tay kèm đau đầu, nhìn mờ có thể là dấu hiệu tiền sản giật. Đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 152,
+      "week": 21,
+      "category": "mental",
+      "title": "Một buổi chiều cho mình",
+      "body": "Dành một buổi chiều làm điều bạn thích mà không cảm thấy có lỗi.",
+      "sources": []
+    },
+    {
+      "day": 153,
+      "week": 21,
+      "category": "body",
+      "title": "Tiết sữa non",
+      "body": "Một số mẹ rỉ sữa non từ giữa thai kỳ. Dùng miếng lót thấm nếu cần. Không nặn sữa.",
+      "sources": []
+    },
+    {
+      "day": 154,
+      "week": 21,
+      "category": "nutrition",
+      "title": "Bữa tối nhẹ",
+      "body": "Ăn tối sớm và nhẹ giúp ngủ ngon hơn và giảm ợ nóng.",
+      "sources": []
+    },
+    {
+      "day": 155,
+      "week": 22,
+      "category": "body",
+      "title": "Gò sinh lý",
+      "body": "Gò nhẹ, không đều, không đau, hết khi nghỉ thường là gò sinh lý. Uống nước và nghỉ ngơi.",
+      "sources": []
+    },
+    {
+      "day": 156,
+      "week": 22,
+      "category": "safety",
+      "title": "Phân biệt gò và chuyển dạ",
+      "body": "Cơn co đều, mạnh dần, gần nhau dần trước 37 tuần cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 157,
+      "week": 22,
+      "category": "nutrition",
+      "title": "Canxi cho bữa phụ",
+      "body": "Một cốc sữa hoặc hũ sữa chua buổi chiều giúp bổ sung canxi.",
+      "sources": []
+    },
+    {
+      "day": 158,
+      "week": 22,
+      "category": "prep",
+      "title": "Đăng ký lớp tiền sản",
+      "body": "Lớp tiền sản giúp bạn hiểu về chuyển dạ, chăm sóc bé và cho con bú.",
+      "sources": []
+    },
+    {
+      "day": 159,
+      "week": 22,
+      "category": "mental",
+      "title": "Chấp nhận thay đổi cơ thể",
+      "body": "Cơ thể đang làm một việc kỳ diệu. Hãy nhìn bụng bầu bằng ánh mắt dịu dàng.",
+      "sources": []
+    },
+    {
+      "day": 160,
+      "week": 22,
+      "category": "body",
+      "title": "Rốn lồi",
+      "body": "Rốn lồi ra là do bụng căng, thường trở lại sau sinh.",
+      "sources": []
+    },
+    {
+      "day": 161,
+      "week": 22,
+      "category": "nutrition",
+      "title": "Ăn nhạt vừa phải",
+      "body": "Giảm nước chấm mặn, đồ ăn đóng gói nhiều muối.",
+      "sources": []
+    },
+    {
+      "day": 162,
+      "week": 23,
+      "category": "prep",
+      "title": "Đặt lịch tầm soát tiểu đường",
+      "body": "Nghiệm pháp dung nạp glucose thường làm ở tuần 24–28. Hỏi bác sĩ về cách nhịn ăn trước khi làm.",
+      "sources": []
+    },
+    {
+      "day": 163,
+      "week": 23,
+      "category": "nutrition",
+      "title": "Ngũ cốc nguyên hạt",
+      "body": "Gạo lứt, yến mạch, bánh mì nguyên cám giúp đường huyết ổn định hơn.",
+      "sources": []
+    },
+    {
+      "day": 164,
+      "week": 23,
+      "category": "body",
+      "title": "Khó ngủ",
+      "body": "Giữ giờ ngủ cố định, phòng thoáng mát, hạn chế điện thoại trước khi ngủ.",
+      "sources": []
+    },
+    {
+      "day": 165,
+      "week": 23,
+      "category": "safety",
+      "title": "Nhìn mờ, thấy đom đóm",
+      "body": "Rối loạn thị giác kèm đau đầu là dấu hiệu cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 166,
+      "week": 23,
+      "category": "mental",
+      "title": "Nói ra nỗi sợ",
+      "body": "Nếu sợ sinh nở, hãy nói với bác sĩ hoặc nữ hộ sinh. Hiểu rõ quá trình giúp bạn bớt sợ.",
+      "sources": []
+    },
+    {
+      "day": 167,
+      "week": 23,
+      "category": "nutrition",
+      "title": "Hạn chế trà sữa",
+      "body": "Trà sữa thường nhiều đường và có caffeine. Nếu thèm, chọn cốc nhỏ, ít đường, thỉnh thoảng.",
+      "sources": []
+    },
+    {
+      "day": 168,
+      "week": 23,
+      "category": "body",
+      "title": "Phù mắt cá chân",
+      "body": "Phù nhẹ mắt cá chân về chiều là thường gặp. Kê chân cao và đi lại nhẹ nhàng.",
+      "sources": []
+    },
+    {
+      "day": 169,
+      "week": 24,
+      "category": "prep",
+      "title": "Tầm soát đái tháo đường thai kỳ",
+      "body": "Làm nghiệm pháp theo hẹn. Đái tháo đường thai kỳ thường không có triệu chứng nên cần xét nghiệm để phát hiện.",
+      "sources": []
+    },
+    {
+      "day": 170,
+      "week": 24,
+      "category": "body",
+      "title": "Rạn da",
+      "body": "Rạn da phụ thuộc nhiều vào cơ địa. Dưỡng ẩm giúp đỡ ngứa, không chắc ngăn được rạn.",
+      "sources": []
+    },
+    {
+      "day": 171,
+      "week": 24,
+      "category": "safety",
+      "title": "Ngứa lòng bàn tay, bàn chân",
+      "body": "Ngứa nhiều ở lòng bàn tay, bàn chân, nhất là về đêm, cần báo bác sĩ để kiểm tra gan.",
+      "sources": []
+    },
+    {
+      "day": 172,
+      "week": 24,
+      "category": "nutrition",
+      "title": "Bữa ăn cân bằng",
+      "body": "Một nửa đĩa là rau, một phần tư là tinh bột, một phần tư là đạm.",
+      "sources": []
+    },
+    {
+      "day": 173,
+      "week": 24,
+      "category": "mental",
+      "title": "Chăm sóc mối quan hệ",
+      "body": "Dành thời gian riêng cho hai vợ chồng trước khi bé chào đời.",
+      "sources": []
+    },
+    {
+      "day": 174,
+      "week": 24,
+      "category": "prep",
+      "title": "Tìm hiểu nơi sinh",
+      "body": "So sánh 1–2 bệnh viện về khoảng cách, chi phí, khoa sơ sinh và BHYT.",
+      "sources": []
+    },
+    {
+      "day": 175,
+      "week": 24,
+      "category": "nutrition",
+      "title": "Kiểm tra thiếu máu",
+      "body": "Bác sĩ có thể xét nghiệm lại thiếu máu. Tiếp tục ăn thực phẩm giàu sắt và uống sắt theo chỉ định.",
+      "sources": []
+    },
+    {
+      "day": 176,
+      "week": 25,
+      "category": "body",
+      "title": "Tê tay",
+      "body": "Tê, ngứa ran ngón tay có thể do hội chứng ống cổ tay. Tránh gập cổ tay lâu và báo bác sĩ nếu tê nhiều.",
+      "sources": []
+    },
+    {
+      "day": 177,
+      "week": 25,
+      "category": "nutrition",
+      "title": "Rau xanh mỗi bữa",
+      "body": "Rau muống, cải, mồng tơi, bí xanh nấu chín cung cấp chất xơ và vitamin.",
+      "sources": []
+    },
+    {
+      "day": 178,
+      "week": 25,
+      "category": "safety",
+      "title": "Thai máy giảm",
+      "body": "Bắt đầu để ý nhịp cử động của bé. Nếu giảm rõ so với thường ngày, đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 179,
+      "week": 25,
+      "category": "mental",
+      "title": "Tìm người đồng hành",
+      "body": "Kết nối với một người bạn cũng đang mang thai hoặc mới sinh để chia sẻ.",
+      "sources": []
+    },
+    {
+      "day": 180,
+      "week": 25,
+      "category": "prep",
+      "title": "Đọc về chế độ thai sản",
+      "body": "Đọc bài \"Giấy tờ và quyền lợi khi sinh con\" trong mục Cẩm nang.",
+      "sources": []
+    },
+    {
+      "day": 181,
+      "week": 25,
+      "category": "nutrition",
+      "title": "Nước ép không thay rau",
+      "body": "Nước ép trái cây dễ nhiều đường. Ăn cả quả để có chất xơ.",
+      "sources": []
+    },
+    {
+      "day": 182,
+      "week": 25,
+      "category": "body",
+      "title": "Đau lưng dưới",
+      "body": "Ngồi có gối tựa, tránh cúi người nhấc vật nặng.",
+      "sources": []
+    },
+    {
+      "day": 183,
+      "week": 26,
+      "category": "mental",
+      "title": "Giấc ngủ và tâm trạng",
+      "body": "Ngủ không ngon dễ làm tâm trạng đi xuống. Chợp mắt ngắn buổi trưa nếu có thể.",
+      "sources": []
+    },
+    {
+      "day": 184,
+      "week": 26,
+      "category": "nutrition",
+      "title": "Bữa tối sớm",
+      "body": "Ăn tối cách giờ ngủ 2–3 tiếng giúp giảm ợ nóng.",
+      "sources": []
+    },
+    {
+      "day": 185,
+      "week": 26,
+      "category": "prep",
+      "title": "Hỏi về tiêm Tdap",
+      "body": "Hỏi bác sĩ về vắc xin bạch hầu – uốn ván – ho gà, thường tiêm khoảng tuần 27–36.",
+      "sources": []
+    },
+    {
+      "day": 186,
+      "week": 26,
+      "category": "safety",
+      "title": "Dấu hiệu sinh non",
+      "body": "Đau lưng dưới âm ỉ, cơn co đều, ra dịch nhiều hoặc ra nước trước 37 tuần cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 187,
+      "week": 26,
+      "category": "body",
+      "title": "Chuột rút ban đêm",
+      "body": "Duỗi chân, gập bàn chân về phía mình khi bị chuột rút. Uống đủ nước trong ngày.",
+      "sources": []
+    },
+    {
+      "day": 188,
+      "week": 26,
+      "category": "nutrition",
+      "title": "Thực phẩm giàu magie",
+      "body": "Đậu đen, đậu xanh, rau lá xanh, chuối giúp bổ sung magie.",
+      "sources": []
+    },
+    {
+      "day": 189,
+      "week": 26,
+      "category": "prep",
+      "title": "Theo dõi huyết áp",
+      "body": "Nếu có máy đo tại nhà, đo khi nghỉ ngơi và ghi lại. Mang kết quả đi khám.",
+      "sources": []
+    },
+    {
+      "day": 190,
+      "week": 27,
+      "category": "prep",
+      "title": "Tiêm Tdap theo chỉ định",
+      "body": "Tiêm Tdap khi mang thai giúp bé có kháng thể chống ho gà trong những tháng đầu đời.",
+      "sources": []
+    },
+    {
+      "day": 191,
+      "week": 27,
+      "category": "body",
+      "title": "Mỏi chân",
+      "body": "Ngâm chân nước ấm vừa phải và kê chân cao trước khi ngủ.",
+      "sources": []
+    },
+    {
+      "day": 192,
+      "week": 27,
+      "category": "nutrition",
+      "title": "Đạm cho quý III",
+      "body": "Bé tăng cân nhanh từ đây. Đảm bảo mỗi bữa có đạm.",
+      "sources": []
+    },
+    {
+      "day": 193,
+      "week": 27,
+      "category": "safety",
+      "title": "Lưu số khẩn cấp",
+      "body": "Lưu số 115 và số cấp cứu sản khoa của bệnh viện vào danh bạ yêu thích.",
+      "sources": []
+    },
+    {
+      "day": 194,
+      "week": 27,
+      "category": "mental",
+      "title": "Ăn mừng tam cá nguyệt II",
+      "body": "Bạn đã hoàn thành 2/3 hành trình. Hãy tự thưởng cho mình một điều nhỏ.",
+      "sources": []
+    },
+    {
+      "day": 195,
+      "week": 27,
+      "category": "nutrition",
+      "title": "Bữa nhỏ khi ợ nóng",
+      "body": "Chia bữa nhỏ, nhai chậm, tránh đồ quá cay nóng.",
+      "sources": []
+    },
+    {
+      "day": 196,
+      "week": 27,
+      "category": "body",
+      "title": "Nhịp cử động của bé",
+      "body": "Mỗi bé có nhịp riêng. Làm quen với giờ bé hay cựa quậy để nhận ra khi có thay đổi.",
+      "sources": []
+    },
+    {
+      "day": 197,
+      "week": 28,
+      "category": "safety",
+      "title": "Theo dõi thai máy mỗi ngày",
+      "body": "Từ tuần 28, để ý cử động thai mỗi ngày. Thai máy giảm rõ hoặc không thấy là lý do đi khám ngay, không chờ đến hôm sau.",
+      "sources": []
+    },
+    {
+      "day": 198,
+      "week": 28,
+      "category": "prep",
+      "title": "Đăng ký sinh",
+      "body": "Hỏi bệnh viện về thủ tục đăng ký sinh và các giấy tờ cần chuẩn bị.",
+      "sources": []
+    },
+    {
+      "day": 199,
+      "week": 28,
+      "category": "body",
+      "title": "Mệt trở lại",
+      "body": "Mệt mỏi có thể quay lại trong quý III. Nghỉ ngơi nhiều hơn và giảm việc không cần thiết.",
+      "sources": []
+    },
+    {
+      "day": 200,
+      "week": 28,
+      "category": "nutrition",
+      "title": "Sắt và canxi",
+      "body": "Tiếp tục uống sắt, canxi theo chỉ định, cách nhau ít nhất 2 giờ.",
+      "sources": []
+    },
+    {
+      "day": 201,
+      "week": 28,
+      "category": "mental",
+      "title": "Lịch khám dày hơn",
+      "body": "Khám dày hơn là để theo dõi sát, không có nghĩa là có vấn đề.",
+      "sources": []
+    },
+    {
+      "day": 202,
+      "week": 28,
+      "category": "prep",
+      "title": "Hỏi về nhóm máu Rh",
+      "body": "Nếu bạn có nhóm máu Rh âm, hãy hỏi bác sĩ về theo dõi và dự phòng.",
+      "sources": []
+    },
+    {
+      "day": 203,
+      "week": 28,
+      "category": "nutrition",
+      "title": "Uống đủ nước",
+      "body": "Đủ nước giúp giảm táo bón, nhiễm trùng tiểu và gò sinh lý.",
+      "sources": []
+    },
+    {
+      "day": 204,
+      "week": 29,
+      "category": "body",
+      "title": "Trĩ khi mang thai",
+      "body": "Ăn nhiều chất xơ, uống đủ nước, không ngồi rặn lâu. Báo bác sĩ nếu đau hoặc chảy máu nhiều.",
+      "sources": []
+    },
+    {
+      "day": 205,
+      "week": 29,
+      "category": "nutrition",
+      "title": "Khoai lang",
+      "body": "Khoai lang luộc giàu chất xơ và vitamin A dạng an toàn (beta-caroten).",
+      "sources": []
+    },
+    {
+      "day": 206,
+      "week": 29,
+      "category": "prep",
+      "title": "Chuẩn bị đồ sơ sinh",
+      "body": "Giặt quần áo sơ sinh bằng nước giặt dịu nhẹ, phơi khô và cất nơi sạch.",
+      "sources": []
+    },
+    {
+      "day": 207,
+      "week": 29,
+      "category": "safety",
+      "title": "Không nằm ngửa lâu",
+      "body": "Nằm ngửa lâu ở cuối thai kỳ có thể gây chóng mặt. Nằm nghiêng bên nào thoải mái cũng được.",
+      "sources": []
+    },
+    {
+      "day": 208,
+      "week": 29,
+      "category": "mental",
+      "title": "Chuẩn bị cho vai trò mới",
+      "body": "Nói chuyện với chồng về cách chia việc chăm bé sau sinh.",
+      "sources": []
+    },
+    {
+      "day": 209,
+      "week": 29,
+      "category": "nutrition",
+      "title": "Tránh đồ cay khi ợ nóng",
+      "body": "Nếu ợ nóng, giảm ớt, tiêu, đồ chua và nước có ga.",
+      "sources": []
+    },
+    {
+      "day": 210,
+      "week": 29,
+      "category": "body",
+      "title": "Hụt hơi",
+      "body": "Ngồi thẳng, kê gối cao khi ngủ giúp dễ thở hơn.",
+      "sources": []
+    },
+    {
+      "day": 211,
+      "week": 30,
+      "category": "prep",
+      "title": "Siêu âm tăng trưởng",
+      "body": "Siêu âm tuần 30–32 giúp đánh giá cân nặng ước tính, ngôi thai và nước ối.",
+      "sources": []
+    },
+    {
+      "day": 212,
+      "week": 30,
+      "category": "mental",
+      "title": "Lo lắng về sinh nở",
+      "body": "Viết những điều bạn lo và mang đến buổi khám. Hỏi bác sĩ là cách tốt nhất để bớt lo.",
+      "sources": []
+    },
+    {
+      "day": 213,
+      "week": 30,
+      "category": "nutrition",
+      "title": "Ăn nhạt vừa phải",
+      "body": "Giảm muối giúp hạn chế phù, nhưng không cần ăn kiêng muối hoàn toàn.",
+      "sources": []
+    },
+    {
+      "day": 214,
+      "week": 30,
+      "category": "safety",
+      "title": "Đau đầu kèm phù",
+      "body": "Đau đầu dữ dội, phù mặt, nhìn mờ là dấu hiệu cần đi cấp cứu.",
+      "sources": []
+    },
+    {
+      "day": 215,
+      "week": 30,
+      "category": "body",
+      "title": "Bàn chân to ra",
+      "body": "Bàn chân có thể to ra một chút. Chọn giày rộng, thoáng.",
+      "sources": []
+    },
+    {
+      "day": 216,
+      "week": 30,
+      "category": "prep",
+      "title": "Kích hoạt VNeID",
+      "body": "VNeID mức 2 giúp làm thủ tục khai sinh, BHYT cho bé qua dịch vụ công thuận tiện hơn.",
+      "sources": []
+    },
+    {
+      "day": 217,
+      "week": 30,
+      "category": "nutrition",
+      "title": "Đạm từ cá",
+      "body": "Cá kho, cá hấp là món giàu đạm, dễ ăn.",
+      "sources": []
+    },
+    {
+      "day": 218,
+      "week": 31,
+      "category": "body",
+      "title": "Gò Braxton Hicks",
+      "body": "Gò sinh lý có thể nhiều hơn. Thay đổi tư thế và uống nước thường giúp cơn gò dịu đi.",
+      "sources": []
+    },
+    {
+      "day": 219,
+      "week": 31,
+      "category": "prep",
+      "title": "Chuẩn bị miếng lót sữa",
+      "body": "Chuẩn bị vài miếng lót thấm sữa cho cuối thai kỳ và sau sinh.",
+      "sources": []
+    },
+    {
+      "day": 220,
+      "week": 31,
+      "category": "safety",
+      "title": "Sốt khi mang thai",
+      "body": "Sốt từ 38°C trở lên cần đi khám để tìm nguyên nhân. Không tự dùng thuốc ngoài chỉ định.",
+      "sources": []
+    },
+    {
+      "day": 221,
+      "week": 31,
+      "category": "nutrition",
+      "title": "Bữa nhỏ nhiều lần",
+      "body": "Dạ dày bị chèn ép nên ăn bữa nhỏ sẽ dễ chịu hơn.",
+      "sources": []
+    },
+    {
+      "day": 222,
+      "week": 31,
+      "category": "mental",
+      "title": "Nhờ người thân hỗ trợ sau sinh",
+      "body": "Bàn trước với gia đình ai sẽ hỗ trợ bạn trong tháng đầu sau sinh.",
+      "sources": []
+    },
+    {
+      "day": 223,
+      "week": 31,
+      "category": "prep",
+      "title": "Chồng sắp xếp lịch nghỉ",
+      "body": "Chồng hỏi nơi làm việc về chế độ nghỉ khi vợ sinh con.",
+      "sources": []
+    },
+    {
+      "day": 224,
+      "week": 31,
+      "category": "nutrition",
+      "title": "Sắt theo chỉ định",
+      "body": "Uống sắt khi bụng đói hoặc theo hướng dẫn, kèm nước cam giúp hấp thu tốt hơn.",
+      "sources": []
+    },
+    {
+      "day": 225,
+      "week": 32,
+      "category": "prep",
+      "title": "Bắt đầu chuẩn bị túi đồ đi sinh",
+      "body": "Chuẩn bị dần giấy tờ, đồ cho mẹ và đồ cho bé. Xem danh sách trong mục Cẩm nang.",
+      "sources": []
+    },
+    {
+      "day": 226,
+      "week": 32,
+      "category": "body",
+      "title": "Đau xương mu",
+      "body": "Đau xương mu có thể tăng khi đi lại. Bước ngắn, khép chân khi lên xuống xe. Báo bác sĩ nếu đau nhiều.",
+      "sources": []
+    },
+    {
+      "day": 227,
+      "week": 32,
+      "category": "nutrition",
+      "title": "Omega-3",
+      "body": "Tiếp tục ăn cá ít thủy ngân 2–3 bữa mỗi tuần.",
+      "sources": []
+    },
+    {
+      "day": 228,
+      "week": 32,
+      "category": "safety",
+      "title": "Khó thở nặng, đau ngực",
+      "body": "Khó thở nặng, đau ngực, tim đập nhanh cần gọi 115 hoặc đi cấp cứu ngay.",
+      "sources": []
+    },
+    {
+      "day": 229,
+      "week": 32,
+      "category": "mental",
+      "title": "Tập thư giãn",
+      "body": "Thực hành hít thở chậm mỗi ngày để dùng khi chuyển dạ.",
+      "sources": []
+    },
+    {
+      "day": 230,
+      "week": 32,
+      "category": "prep",
+      "title": "Hỏi về vắc xin RSV",
+      "body": "Ở một số nơi, vắc xin RSV được tư vấn trong khoảng tuần 32–36. Hỏi bác sĩ về sự sẵn có và phù hợp.",
+      "sources": []
+    },
+    {
+      "day": 231,
+      "week": 32,
+      "category": "nutrition",
+      "title": "Canxi đầy đủ",
+      "body": "Sữa, sữa chua, đậu phụ, tôm tép nhỏ giúp đủ canxi.",
+      "sources": []
+    },
+    {
+      "day": 232,
+      "week": 33,
+      "category": "body",
+      "title": "Đau thần kinh tọa",
+      "body": "Đau dọc mông xuống chân có thể do chèn ép. Thay đổi tư thế thường xuyên, chườm ấm nhẹ. Báo bác sĩ nếu đau nhiều.",
+      "sources": []
+    },
+    {
+      "day": 233,
+      "week": 33,
+      "category": "prep",
+      "title": "Lưu số bệnh viện",
+      "body": "Lưu số điện thoại cấp cứu sản khoa của bệnh viện bạn đăng ký sinh.",
+      "sources": []
+    },
+    {
+      "day": 234,
+      "week": 33,
+      "category": "safety",
+      "title": "Ra nước âm đạo",
+      "body": "Ra nước âm đạo, dù ít, có thể là rỉ ối. Đến bệnh viện để kiểm tra.",
+      "sources": []
+    },
+    {
+      "day": 235,
+      "week": 33,
+      "category": "nutrition",
+      "title": "Vitamin D",
+      "body": "Ra nắng nhẹ buổi sáng 10–15 phút và ăn cá, trứng giúp bổ sung vitamin D.",
+      "sources": []
+    },
+    {
+      "day": 236,
+      "week": 33,
+      "category": "mental",
+      "title": "Mất ngủ",
+      "body": "Nếu không ngủ được, dậy làm việc nhẹ nhàng một lúc rồi quay lại giường. Tránh lo lắng vì mất ngủ.",
+      "sources": []
+    },
+    {
+      "day": 237,
+      "week": 33,
+      "category": "nutrition",
+      "title": "Đủ nước",
+      "body": "Mang theo bình nước khi ra ngoài.",
+      "sources": []
+    },
+    {
+      "day": 238,
+      "week": 33,
+      "category": "body",
+      "title": "Chuột rút",
+      "body": "Duỗi chân trước khi ngủ và đi lại nhẹ nhàng trong ngày.",
+      "sources": []
+    },
+    {
+      "day": 239,
+      "week": 34,
+      "category": "prep",
+      "title": "Hoàn thành túi đồ đi sinh",
+      "body": "Đảm bảo có CCCD, thẻ BHYT, sổ khám thai và kết quả xét nghiệm trong túi.",
+      "sources": []
+    },
+    {
+      "day": 240,
+      "week": 34,
+      "category": "safety",
+      "title": "Nhìn mờ kèm đau đầu",
+      "body": "Đây là dấu hiệu nguy hiểm cần đi cấp cứu ngay.",
+      "sources": []
+    },
+    {
+      "day": 241,
+      "week": 34,
+      "category": "body",
+      "title": "Tiểu nhiều",
+      "body": "Bé xuống thấp chèn bàng quang. Đi tiểu khi buồn, không nhịn.",
+      "sources": []
+    },
+    {
+      "day": 242,
+      "week": 34,
+      "category": "nutrition",
+      "title": "Bữa nhỏ dễ tiêu",
+      "body": "Cháo, súp, cơm mềm là lựa chọn dễ tiêu khi bụng nặng nề.",
+      "sources": []
+    },
+    {
+      "day": 243,
+      "week": 34,
+      "category": "mental",
+      "title": "Hình dung tích cực",
+      "body": "Hình dung ngày gặp con một cách bình tĩnh giúp bạn tự tin hơn.",
+      "sources": []
+    },
+    {
+      "day": 244,
+      "week": 34,
+      "category": "prep",
+      "title": "Thử đường đến viện",
+      "body": "Đi thử đường đến bệnh viện vào các giờ khác nhau.",
+      "sources": []
+    },
+    {
+      "day": 245,
+      "week": 34,
+      "category": "nutrition",
+      "title": "Tránh ăn quá no",
+      "body": "Ăn quá no dễ gây ợ nóng và khó thở. Dừng khi thấy vừa đủ.",
+      "sources": []
+    },
+    {
+      "day": 246,
+      "week": 35,
+      "category": "body",
+      "title": "Tiểu són",
+      "body": "Tiểu són khi ho, hắt hơi khá thường gặp. Tập Kegel đều đặn giúp cải thiện.",
+      "sources": []
+    },
+    {
+      "day": 247,
+      "week": 35,
+      "category": "safety",
+      "title": "Thai máy thay đổi",
+      "body": "Bé ít chỗ nên cử động khác đi, nhưng không được giảm rõ. Thai máy giảm cần đi khám ngay.",
+      "sources": []
+    },
+    {
+      "day": 248,
+      "week": 35,
+      "category": "prep",
+      "title": "Đồ ăn cho ngày đi sinh",
+      "body": "Chuẩn bị nước, đồ ăn nhẹ dễ mang theo vào viện.",
+      "sources": []
+    },
+    {
+      "day": 249,
+      "week": 35,
+      "category": "nutrition",
+      "title": "Năng lượng từ ngũ cốc",
+      "body": "Cơm, xôi, bánh mì cung cấp năng lượng; ăn kèm đạm và rau.",
+      "sources": []
+    },
+    {
+      "day": 250,
+      "week": 35,
+      "category": "mental",
+      "title": "Đọc về cho con bú",
+      "body": "Hiểu trước về cho con bú giúp bạn bớt bỡ ngỡ sau sinh.",
+      "sources": []
+    },
+    {
+      "day": 251,
+      "week": 35,
+      "category": "body",
+      "title": "Gò nhiều hơn",
+      "body": "Ghi lại giờ các cơn gò nếu thấy đều đặn.",
+      "sources": []
+    },
+    {
+      "day": 252,
+      "week": 35,
+      "category": "nutrition",
+      "title": "Hạn chế đồ uống có ga",
+      "body": "Nước có ga dễ gây đầy hơi, ợ nóng.",
+      "sources": []
+    },
+    {
+      "day": 253,
+      "week": 36,
+      "category": "prep",
+      "title": "Khám hằng tuần",
+      "body": "Từ tuần 36, nhiều nơi hẹn khám mỗi tuần. Hãy đi đúng hẹn.",
+      "sources": []
+    },
+    {
+      "day": 254,
+      "week": 36,
+      "category": "safety",
+      "title": "Khi nào đến viện",
+      "body": "Đến viện khi vỡ ối, ra máu, thai máy giảm, đau bụng liên tục hoặc cơn co đều theo hướng dẫn của bác sĩ.",
+      "sources": []
+    },
+    {
+      "day": 255,
+      "week": 36,
+      "category": "body",
+      "title": "Bé tụt xuống",
+      "body": "Khi bé xuống khung chậu, bạn dễ thở hơn nhưng đi tiểu nhiều hơn.",
+      "sources": []
+    },
+    {
+      "day": 256,
+      "week": 36,
+      "category": "nutrition",
+      "title": "Bữa nhỏ, đủ chất",
+      "body": "Duy trì ăn uống đủ chất để có sức cho chuyển dạ.",
+      "sources": []
+    },
+    {
+      "day": 257,
+      "week": 36,
+      "category": "mental",
+      "title": "Hồi hộp là bình thường",
+      "body": "Cảm giác hồi hộp khi gần ngày sinh là điều tự nhiên. Chia sẻ với người thân.",
+      "sources": []
+    },
+    {
+      "day": 258,
+      "week": 36,
+      "category": "prep",
+      "title": "Hỏi về xét nghiệm GBS",
+      "body": "Hỏi bác sĩ về xét nghiệm liên cầu khuẩn nhóm B theo quy trình của bệnh viện.",
+      "sources": []
+    },
+    {
+      "day": 259,
+      "week": 36,
+      "category": "safety",
+      "title": "Không tự dùng thuốc giục sinh",
+      "body": "Không tự uống thuốc, lá cây hay mẹo dân gian để giục sinh.",
+      "sources": []
+    },
+    {
+      "day": 260,
+      "week": 37,
+      "category": "body",
+      "title": "Nút nhầy",
+      "body": "Ra nút nhầy có thể lẫn ít máu hồng là dấu hiệu cơ thể đang chuẩn bị. Chảy máu tươi nhiều cần đi viện ngay.",
+      "sources": []
+    },
+    {
+      "day": 261,
+      "week": 37,
+      "category": "prep",
+      "title": "Túi đồ ở gần cửa",
+      "body": "Để túi đồ đi sinh ở nơi dễ lấy và báo cho người thân biết.",
+      "sources": []
+    },
+    {
+      "day": 262,
+      "week": 37,
+      "category": "safety",
+      "title": "Quy tắc 5-1-1",
+      "body": "Một hướng dẫn thường dùng: cơn co cách nhau 5 phút, mỗi cơn 1 phút, kéo dài 1 giờ thì đến viện. Hãy hỏi bác sĩ về hướng dẫn riêng của bạn.",
+      "sources": []
+    },
+    {
+      "day": 263,
+      "week": 37,
+      "category": "nutrition",
+      "title": "Ăn đủ để có sức",
+      "body": "Ăn uống bình thường, đủ bữa để chuẩn bị cho chuyển dạ.",
+      "sources": []
+    },
+    {
+      "day": 264,
+      "week": 37,
+      "category": "mental",
+      "title": "Nghỉ ngơi khi có thể",
+      "body": "Ngủ và nghỉ ngơi khi có thể để tích sức.",
+      "sources": []
+    },
+    {
+      "day": 265,
+      "week": 37,
+      "category": "prep",
+      "title": "Sạc đầy điện thoại",
+      "body": "Giữ điện thoại có pin và mang theo sạc dự phòng.",
+      "sources": []
+    },
+    {
+      "day": 266,
+      "week": 37,
+      "category": "nutrition",
+      "title": "Uống đủ nước",
+      "body": "Uống nước đều trong ngày.",
+      "sources": []
+    },
+    {
+      "day": 267,
+      "week": 38,
+      "category": "safety",
+      "title": "Nước ối màu xanh hoặc nâu",
+      "body": "Nếu vỡ ối và nước có màu xanh, nâu hoặc có mùi, hãy đến viện ngay.",
+      "sources": []
+    },
+    {
+      "day": 268,
+      "week": 38,
+      "category": "prep",
+      "title": "Giấy tờ khai sinh",
+      "body": "Chuẩn bị CCCD của bố mẹ, giấy đăng ký kết hôn để làm khai sinh cho bé.",
+      "sources": []
+    },
+    {
+      "day": 269,
+      "week": 38,
+      "category": "mental",
+      "title": "Hít thở khi lo",
+      "body": "Thở ra dài hơn hít vào giúp bạn bình tĩnh lại.",
+      "sources": []
+    },
+    {
+      "day": 270,
+      "week": 38,
+      "category": "body",
+      "title": "Phù chân",
+      "body": "Phù chân nhẹ thường gặp. Phù mặt, tay đột ngột cần đi khám.",
+      "sources": []
+    },
+    {
+      "day": 271,
+      "week": 38,
+      "category": "nutrition",
+      "title": "Bữa nhẹ năng lượng",
+      "body": "Chuối, bánh mì, sữa chua là đồ ăn nhẹ tiện lợi.",
+      "sources": []
+    },
+    {
+      "day": 272,
+      "week": 38,
+      "category": "prep",
+      "title": "Ôn lại kế hoạch",
+      "body": "Cùng chồng ôn lại ai đưa đi viện, ai trông nhà, ai báo tin.",
+      "sources": []
+    },
+    {
+      "day": 273,
+      "week": 38,
+      "category": "safety",
+      "title": "Bụng cứng liên tục",
+      "body": "Đau bụng liên tục, bụng cứng không giãn giữa các cơn là dấu hiệu cần cấp cứu.",
+      "sources": []
+    },
+    {
+      "day": 274,
+      "week": 39,
+      "category": "prep",
+      "title": "Ghi giờ cơn co",
+      "body": "Dùng app hoặc giấy để ghi giờ bắt đầu và độ dài mỗi cơn co.",
+      "sources": []
+    },
+    {
+      "day": 275,
+      "week": 39,
+      "category": "body",
+      "title": "Đi ngoài phân lỏng",
+      "body": "Một số mẹ đi ngoài phân lỏng khi gần chuyển dạ. Uống đủ nước.",
+      "sources": []
+    },
+    {
+      "day": 276,
+      "week": 39,
+      "category": "safety",
+      "title": "Vỡ ối",
+      "body": "Khi vỡ ối, dù không đau, hãy đến bệnh viện.",
+      "sources": []
+    },
+    {
+      "day": 277,
+      "week": 39,
+      "category": "nutrition",
+      "title": "Ăn uống bình thường",
+      "body": "Không cần kiêng khem đặc biệt, ăn đủ chất và uống đủ nước.",
+      "sources": []
+    },
+    {
+      "day": 278,
+      "week": 39,
+      "category": "mental",
+      "title": "Kiên nhẫn",
+      "body": "Chỉ một phần nhỏ trẻ sinh đúng ngày dự sinh. Hãy kiên nhẫn với cơ thể.",
+      "sources": []
+    },
+    {
+      "day": 279,
+      "week": 39,
+      "category": "prep",
+      "title": "Báo người thân sẵn sàng",
+      "body": "Nhắc người sẽ đưa bạn đi viện luôn giữ liên lạc.",
+      "sources": []
+    },
+    {
+      "day": 280,
+      "week": 39,
+      "category": "body",
+      "title": "Nghỉ ngơi",
+      "body": "Ngủ trưa ngắn và đi lại nhẹ nhàng nếu thấy khỏe.",
+      "sources": []
+    },
+    {
+      "day": 281,
+      "week": 40,
+      "category": "prep",
+      "title": "Khám đúng ngày hẹn",
+      "body": "Ở tuần dự sinh, hãy tái khám đúng hẹn để bác sĩ đánh giá tim thai và nước ối.",
+      "sources": []
+    },
+    {
+      "day": 282,
+      "week": 40,
+      "category": "safety",
+      "title": "Thai máy giảm",
+      "body": "Thai máy giảm hoặc không thấy là lý do đến viện ngay, kể cả ban đêm.",
+      "sources": []
+    },
+    {
+      "day": 283,
+      "week": 40,
+      "category": "mental",
+      "title": "Đối diện sốt ruột",
+      "body": "Câu hỏi \"sinh chưa?\" có thể làm bạn mệt. Nhờ chồng trả lời giúp hoặc đặt trạng thái trả lời chung.",
+      "sources": []
+    },
+    {
+      "day": 284,
+      "week": 40,
+      "category": "body",
+      "title": "Đi lại nhẹ",
+      "body": "Đi bộ nhẹ nếu bác sĩ đồng ý, nghỉ khi mệt.",
+      "sources": []
+    },
+    {
+      "day": 285,
+      "week": 40,
+      "category": "nutrition",
+      "title": "Bữa nhỏ dễ tiêu",
+      "body": "Ăn bữa nhỏ, dễ tiêu để luôn có năng lượng.",
+      "sources": []
+    },
+    {
+      "day": 286,
+      "week": 40,
+      "category": "prep",
+      "title": "Kiểm tra túi đồ lần cuối",
+      "body": "Kiểm tra lại giấy tờ và đồ dùng trong túi đi sinh.",
+      "sources": []
+    },
+    {
+      "day": 287,
+      "week": 40,
+      "category": "safety",
+      "title": "Đau đầu dữ dội",
+      "body": "Đau đầu dữ dội, nhìn mờ cuối thai kỳ cần đi cấp cứu.",
+      "sources": []
+    },
+    {
+      "day": 288,
+      "week": 41,
+      "category": "prep",
+      "title": "Theo dõi thai quá ngày",
+      "body": "Thai quá ngày cần được theo dõi sát. Tái khám đúng hẹn, không tự chờ ở nhà.",
+      "sources": []
+    },
+    {
+      "day": 289,
+      "week": 41,
+      "category": "safety",
+      "title": "Đếm cử động mỗi ngày",
+      "body": "Tiếp tục để ý cử động thai mỗi ngày. Giảm rõ thì đi viện ngay.",
+      "sources": []
+    },
+    {
+      "day": 290,
+      "week": 41,
+      "category": "mental",
+      "title": "Trao đổi kế hoạch sinh",
+      "body": "Hỏi bác sĩ về các lựa chọn như khởi phát chuyển dạ để chuẩn bị tâm lý.",
+      "sources": []
+    },
+    {
+      "day": 291,
+      "week": 41,
+      "category": "body",
+      "title": "Nghỉ ngơi",
+      "body": "Ưu tiên nghỉ ngơi, ngủ đủ.",
+      "sources": []
+    },
+    {
+      "day": 292,
+      "week": 41,
+      "category": "nutrition",
+      "title": "Ăn uống bình thường",
+      "body": "Ăn đủ bữa, uống đủ nước theo hướng dẫn của bệnh viện.",
+      "sources": []
+    },
+    {
+      "day": 293,
+      "week": 41,
+      "category": "prep",
+      "title": "Mang túi đồ khi đi khám",
+      "body": "Mang theo túi đồ khi tái khám phòng trường hợp phải nhập viện.",
+      "sources": []
+    },
+    {
+      "day": 294,
+      "week": 41,
+      "category": "safety",
+      "title": "Ra máu âm đạo",
+      "body": "Ra máu tươi nhiều cần đến viện ngay.",
+      "sources": []
+    }
+  ]
+}

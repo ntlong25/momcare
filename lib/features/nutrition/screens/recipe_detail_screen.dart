@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/chip_colors.dart';
 import '../../../core/models/recipe_model.dart';
 import '../../../core/services/database_service.dart';
 
@@ -123,8 +124,12 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       children: _recipe.nutritionBenefits!.map((benefit) {
                         return Chip(
                           label: Text(benefit),
-                          backgroundColor: Colors.green.withValues(alpha: 0.1),
-                          labelStyle: TextStyle(color: Colors.green[800]),
+                          backgroundColor: ChipColors.positiveBackground(
+                            context,
+                          ),
+                          labelStyle: TextStyle(
+                            color: ChipColors.positiveText(context),
+                          ),
                         );
                       }).toList(),
                     ),

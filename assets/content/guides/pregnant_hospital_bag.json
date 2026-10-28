@@ -1,0 +1,198 @@
+{
+  "id": "pregnant_hospital_bag",
+  "stage": "pregnant",
+  "category": "hospital_bag",
+  "title": "Túi đồ đi sinh",
+  "summary": "Chuẩn bị túi đồ từ khoảng tuần 34–36 để sẵn sàng khi chuyển dạ. Gồm giấy tờ, đồ cho mẹ và đồ cho bé.",
+  "order": 50,
+  "weekFrom": 32,
+  "weekTo": 40,
+  "sections": [
+    {
+      "heading": "Khi nào chuẩn bị",
+      "body": "Nên chuẩn bị xong túi đồ trước tuần 36, sớm hơn nếu bác sĩ nói có nguy cơ sinh non. Để túi ở nơi dễ lấy và báo cho người thân biết. Hỏi bệnh viện xem họ đã cung cấp những gì để tránh mang thừa.",
+      "bullets": []
+    },
+    {
+      "heading": "Giấy tờ",
+      "body": "",
+      "bullets": [
+        "Căn cước công dân (CCCD) của mẹ, và của chồng nếu cần",
+        "Thẻ BHYT hoặc ứng dụng VNeID có tích hợp BHYT",
+        "Sổ khám thai",
+        "Kết quả siêu âm, xét nghiệm (nhóm máu, viêm gan B, HIV, giang mai, đường huyết…)",
+        "Giấy chuyển tuyến nếu có",
+        "Tiền mặt hoặc thẻ thanh toán"
+      ]
+    },
+    {
+      "heading": "Đồ cho mẹ",
+      "body": "",
+      "bullets": [
+        "2–3 bộ quần áo rộng, cài trước để tiện cho con bú",
+        "Áo ngực cho con bú, miếng lót thấm sữa",
+        "Băng vệ sinh sau sinh, quần lót dùng một lần",
+        "Khăn, bàn chải, kem đánh răng, đồ vệ sinh cá nhân",
+        "Dép đi trong phòng, tất",
+        "Bình nước, ống hút, đồ ăn nhẹ",
+        "Sạc điện thoại"
+      ]
+    },
+    {
+      "heading": "Đồ cho bé",
+      "body": "",
+      "bullets": [
+        "3–4 bộ quần áo sơ sinh",
+        "Mũ, bao tay, bao chân",
+        "Tã/bỉm sơ sinh",
+        "Khăn quấn, khăn sữa",
+        "Chăn mỏng hoặc khăn ủ"
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_bag_id",
+      "text": "CCCD của mẹ (và của chồng nếu cần)",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_bhyt",
+      "text": "Thẻ BHYT hoặc VNeID có BHYT",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_record",
+      "text": "Sổ khám thai",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_tests",
+      "text": "Kết quả siêu âm và xét nghiệm",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_transfer",
+      "text": "Giấy chuyển tuyến (nếu có)",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_money",
+      "text": "Tiền mặt / thẻ thanh toán",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_mom_clothes",
+      "text": "Quần áo rộng cài trước cho mẹ",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_mom_bra",
+      "text": "Áo ngực cho con bú, miếng lót sữa",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_mom_pads",
+      "text": "Băng vệ sinh sau sinh, quần lót dùng một lần",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_mom_toiletry",
+      "text": "Đồ vệ sinh cá nhân",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_mom_slippers",
+      "text": "Dép, tất",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_mom_snack",
+      "text": "Nước uống, đồ ăn nhẹ",
+      "weekDue": 36,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_charger",
+      "text": "Sạc điện thoại",
+      "weekDue": 36,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_baby_clothes",
+      "text": "Quần áo sơ sinh 3–4 bộ",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_baby_hat",
+      "text": "Mũ, bao tay, bao chân cho bé",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_baby_diapers",
+      "text": "Tã/bỉm sơ sinh",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_bag_baby_swaddle",
+      "text": "Khăn quấn, khăn sữa, chăn mỏng",
+      "weekDue": 35,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "NHS-BAG",
+    "MOH-RH-2016"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

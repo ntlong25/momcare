@@ -1,0 +1,78 @@
+{
+  "id": "pre_mental",
+  "stage": "pre",
+  "category": "mental",
+  "title": "Chuẩn bị tinh thần trước khi có em bé",
+  "summary": "Sẵn sàng về tinh thần giúp mẹ đón nhận thai kỳ nhẹ nhàng hơn, dù hành trình có nhanh hay chậm.",
+  "order": 40,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Cảm xúc lẫn lộn là bình thường",
+      "body": "Háo hức, lo lắng, sợ hãi hay hoài nghi bản thân đều là cảm xúc thường gặp khi chuẩn bị làm mẹ. Gọi tên cảm xúc và chia sẻ với người tin cậy giúp bạn nhẹ lòng hơn.",
+      "bullets": []
+    },
+    {
+      "heading": "Khi chưa có thai như mong muốn",
+      "body": "Nhiều cặp đôi khỏe mạnh cần vài tháng đến một năm mới có thai. Áp lực từ gia đình hay mạng xã hội có thể khiến bạn mệt mỏi. Hãy đặt giới hạn cho những câu hỏi khiến bạn khó chịu, và đi khám khi đã đến mốc thời gian bác sĩ khuyên.",
+      "bullets": []
+    },
+    {
+      "heading": "Những việc nhỏ giúp tinh thần vững hơn",
+      "body": "",
+      "bullets": [
+        "Ngủ đủ giấc, giữ giờ giấc đều đặn",
+        "Dành 10 phút mỗi ngày đi bộ, hít thở hoặc làm điều mình thích",
+        "Nói chuyện thẳng thắn với chồng về mong muốn, nỗi lo và cách chia việc nhà",
+        "Hạn chế so sánh bản thân với người khác trên mạng xã hội"
+      ]
+    },
+    {
+      "heading": "Khi nào cần tìm hỗ trợ",
+      "body": "Nếu bạn từng bị trầm cảm, lo âu, hoặc đang buồn bã, mất ngủ, mất hứng thú kéo dài trên 2 tuần, hãy gặp bác sĩ hoặc chuyên gia sức khỏe tâm thần. Nếu có ý nghĩ tự làm hại bản thân, hãy gọi 115 hoặc đến cơ sở y tế gần nhất ngay.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_mental_talk",
+      "text": "Dành một buổi trò chuyện với chồng về kế hoạch có em bé",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_mental_routine",
+      "text": "Chọn một thói quen thư giãn để làm mỗi ngày",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_mental_history",
+      "text": "Nói với bác sĩ nếu từng có vấn đề sức khỏe tâm thần",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_mental_support",
+      "text": "Ghi lại tên 2–3 người bạn có thể chia sẻ khi cần",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "NHS-MENTAL",
+    "WHO-ANC"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

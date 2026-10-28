@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/utils/date_picker_utils.dart';
 import '../../../core/utils/health_validators.dart';
 import '../../home/screens/main_navigation.dart';
 
@@ -191,31 +192,39 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
   }
 
   Future<void> _selectDueDate(BuildContext context) async {
-    final picked = await showDatePicker(
+    final now = DateTime.now();
+    final picked = await DatePickerUtils.pickDate(
       context: context,
-      initialDate: DateTime.now().add(const Duration(days: 280)),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
+      initialDate: _dueDate ?? now.add(const Duration(days: 200)),
+      firstDate: now.subtract(const Duration(days: 14)),
+      lastDate: now.add(const Duration(days: PregnancyModel.gestationDays)),
     );
 
     if (picked != null) {
       setState(() {
+        // Due date and LMP are linked (+/- 280 days) so the current week and
+        // days-left counter always agree.
         _dueDate = picked;
+        _lastPeriodDate = PregnancyModel.lastPeriodFromDueDate(picked);
       });
     }
   }
 
   Future<void> _selectLastPeriodDate(BuildContext context) async {
-    final picked = await showDatePicker(
+    final now = DateTime.now();
+    final picked = await DatePickerUtils.pickDate(
       context: context,
-      initialDate: DateTime.now().subtract(const Duration(days: 90)),
-      firstDate: DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now(),
+      initialDate: _lastPeriodDate ?? now.subtract(const Duration(days: 90)),
+      firstDate: now.subtract(
+        const Duration(days: PregnancyModel.gestationDays + 14),
+      ),
+      lastDate: now,
     );
 
     if (picked != null) {
       setState(() {
         _lastPeriodDate = picked;
+        _dueDate = PregnancyModel.dueDateFromLastPeriod(picked);
       });
     }
   }
@@ -236,20 +245,19 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
     final pregnancy = PregnancyModel(
       id: const Uuid().v4(),
       dueDate: _dueDate!,
-      motherName: _nameController.text.isEmpty ? null : _nameController.text,
-      prePregnancyWeight: _weightController.text.isEmpty
+      motherName: _nameController.text.trim().isEmpty
           ? null
-          : double.parse(_weightController.text),
-      height: _heightController.text.isEmpty
-          ? null
-          : double.parse(_heightController.text),
-      lastPeriodDate: _lastPeriodDate,
+          : _nameController.text.trim(),
+      prePregnancyWeight: HealthValidators.parseDecimal(_weightController.text),
+      height: HealthValidators.parseDecimal(_heightController.text),
+      lastPeriodDate: PregnancyModel.lastPeriodFromDueDate(_dueDate!),
       isActive: true,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
 
-    await DatabaseService.savePregnancy(pregnancy);
+    // Marks any previously active pregnancy as inactive.
+    await DatabaseService.saveNewActivePregnancy(pregnancy);
     await ref.read(appModeProvider.notifier).setMode(AppMode.pregnancy);
 
     if (!mounted) return;
