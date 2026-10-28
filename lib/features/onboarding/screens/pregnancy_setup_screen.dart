@@ -9,7 +9,12 @@ import '../../../core/utils/health_validators.dart';
 import '../../home/screens/main_navigation.dart';
 
 class PregnancySetupScreen extends ConsumerStatefulWidget {
-  const PregnancySetupScreen({super.key});
+  /// Opened from the pre-pregnancy "Tôi đã có thai" flow: the app stays in
+  /// pre-pregnancy mode unless the pregnancy is saved, so skipping just pops
+  /// back, and saving replaces the whole stack with a single MainNavigation.
+  final bool fromModeSwitch;
+
+  const PregnancySetupScreen({super.key, this.fromModeSwitch = false});
 
   @override
   ConsumerState<PregnancySetupScreen> createState() =>
@@ -174,6 +179,10 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
                 Center(
                   child: TextButton(
                     onPressed: () {
+                      if (widget.fromModeSwitch) {
+                        Navigator.of(context).pop();
+                        return;
+                      }
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const MainNavigation(),
@@ -261,6 +270,15 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
     await ref.read(appModeProvider.notifier).setMode(AppMode.pregnancy);
 
     if (!mounted) return;
+
+    if (widget.fromModeSwitch) {
+      ref.read(navigationIndexProvider.notifier).state = 0;
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const MainNavigation()),
+        (_) => false,
+      );
+      return;
+    }
 
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const MainNavigation()),
