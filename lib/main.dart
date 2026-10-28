@@ -11,6 +11,7 @@ import 'core/services/encryption_service.dart';
 import 'core/services/health_service.dart';
 import 'core/services/maternal_habit_service.dart';
 import 'core/services/appointment_reminder_service.dart';
+import 'core/services/thai_giao_reminder_service.dart';
 import 'core/utils/app_logger.dart';
 import 'core/data/content_pack_service.dart';
 import 'core/data/pregnancy_weeks_data.dart';
@@ -61,6 +62,7 @@ Future<void> _rescheduleReminders() async {
   try {
     await MaternalHabitService.rescheduleEnabledReminders();
     await AppointmentReminderService.rescheduleAll();
+    await ThaiGiaoReminderService.rescheduleIfEnabled();
   } catch (e, stackTrace) {
     AppLogger.instance.warning(
       'Could not reschedule reminders',

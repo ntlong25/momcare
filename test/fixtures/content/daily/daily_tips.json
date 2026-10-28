@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "type": "daily_tip",
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "approved",
+  "items": [
+    {
+      "day": 1,
+      "week": 0,
+      "category": "prep",
+      "title": "Mẹo ngày 1",
+      "body": "Nội dung mẹo ngày 1",
+      "sources": []
+    },
+    {
+      "day": 2,
+      "week": 0,
+      "category": "nutrition",
+      "title": "Mẹo ngày 2",
+      "body": "Nội dung mẹo ngày 2",
+      "sources": []
+    },
+    {
+      "day": 3,
+      "week": 0,
+      "category": "safety",
+      "title": "Mẹo ngày 3",
+      "body": "Nội dung mẹo ngày 3",
+      "sources": []
+    },
+    {
+      "day": 4,
+      "week": 0,
+      "category": "body",
+      "title": "Mẹo ngày 4",
+      "body": "Nội dung mẹo ngày 4",
+      "sources": []
+    },
+    {
+      "day": 5,
+      "week": 0,
+      "category": "mental",
+      "title": "Mẹo ngày 5",
+      "body": "Nội dung mẹo ngày 5",
+      "sources": []
+    },
+    {
+      "day": 6,
+      "week": 0,
+      "category": "prep",
+      "title": "Mẹo ngày 6",
+      "body": "Nội dung mẹo ngày 6",
+      "sources": []
+    },
+    {
+      "day": 7,
+      "week": 0,
+      "category": "safety",
+      "title": "Mẹo ngày 7",
+      "body": "Nội dung mẹo ngày 7",
+      "sources": []
+    }
+  ]
+}

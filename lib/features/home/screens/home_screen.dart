@@ -12,12 +12,52 @@ import '../widgets/pregnancy_progress_card.dart';
 import '../widgets/quick_actions_grid.dart';
 import '../widgets/upcoming_appointments_card.dart';
 import '../widgets/maternal_habits_card.dart';
+import '../widgets/pregnancy_day_card.dart';
+import '../widgets/today_thai_giao_card.dart';
+import '../widgets/today_tip_card.dart';
+import '../widgets/week_todo_card.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with WidgetsBindingObserver {
+  /// Calendar date the daily cards were last built for.
+  DateTime? _builtDate;
+
+  static DateTime _today() {
+    final now = DateTime.now();
+    return DateTime(now.year, now.month, now.day);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Recompute the content day when the app resumes on a new date.
+    if (state == AppLifecycleState.resumed &&
+        _builtDate != null &&
+        _builtDate != _today()) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Rebuild when pregnancy/appointment data changes in another tab.
     return HiveBoxesListener(
       boxNames: const [AppConstants.pregnancyBox, AppConstants.appointmentBox],
@@ -85,6 +125,9 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildPregnancyView(BuildContext context, PregnancyModel pregnancy) {
+    final now = DateTime.now();
+    _builtDate = DateTime(now.year, now.month, now.day);
+    final contentDay = pregnancy.contentDayAt(now);
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -92,6 +135,14 @@ class HomeScreen extends ConsumerWidget {
         children: [
           _buildGreeting(context, pregnancy),
           const SizedBox(height: 24),
+          PregnancyDayCard(pregnancy: pregnancy, now: now),
+          const SizedBox(height: 16),
+          TodayThaiGiaoCard(day: contentDay),
+          const SizedBox(height: 16),
+          TodayTipCard(day: contentDay),
+          const SizedBox(height: 16),
+          WeekTodoCard(week: pregnancy.currentWeekAt(now)),
+          const SizedBox(height: 16),
           PregnancyProgressCard(pregnancy: pregnancy),
           const SizedBox(height: 16),
           const MaternalHabitsCard(),
@@ -101,8 +152,6 @@ class HomeScreen extends ConsumerWidget {
           const QuickActionsGrid(),
           const SizedBox(height: 24),
           const UpcomingAppointmentsCard(),
-          const SizedBox(height: 24),
-          _buildDailyTip(context),
         ],
       ),
     );
@@ -141,39 +190,6 @@ class HomeScreen extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildDailyTip(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.lightbulb_outline,
-                  color: Theme.of(context).primaryColor,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  l10n.dailyTip,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              l10n.dailyTipMessage,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

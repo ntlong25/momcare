@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "type": "thai_giao",
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "items": [
+    {
+      "day": 1,
+      "week": 0,
+      "category": "talk",
+      "title": "Hoạt động ngày 1",
+      "body": "Nội dung thử ngày 1",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 2,
+      "week": 0,
+      "category": "music",
+      "title": "Hoạt động ngày 2",
+      "body": "Nội dung thử ngày 2",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 3,
+      "week": 0,
+      "category": "movement",
+      "title": "Hoạt động ngày 3",
+      "body": "Nội dung thử ngày 3",
+      "durationMin": 20,
+      "sources": []
+    },
+    {
+      "day": 4,
+      "week": 0,
+      "category": "reading",
+      "title": "Hoạt động ngày 4",
+      "body": "Nội dung thử ngày 4",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 5,
+      "week": 0,
+      "category": "breathing",
+      "title": "Hoạt động ngày 5",
+      "body": "Nội dung thử ngày 5",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 6,
+      "week": 0,
+      "category": "partner",
+      "title": "Hoạt động ngày 6",
+      "body": "Nội dung thử ngày 6",
+      "durationMin": 15,
+      "sources": []
+    },
+    {
+      "day": 7,
+      "week": 0,
+      "category": "journal",
+      "title": "Hoạt động ngày 7",
+      "body": "Nội dung thử ngày 7",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 8,
+      "week": 1,
+      "category": "talk",
+      "title": "Hoạt động ngày 8",
+      "body": "Nội dung thử ngày 8",
+      "durationMin": 3,
+      "sources": []
+    },
+    {
+      "day": 9,
+      "week": 1,
+      "category": "music",
+      "title": "Hoạt động ngày 9",
+      "body": "Nội dung thử ngày 9",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 11,
+      "week": 1,
+      "category": "reading",
+      "title": "Hoạt động ngày 11",
+      "body": "Nội dung thử ngày 11",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 12,
+      "week": 1,
+      "category": "breathing",
+      "title": "Hoạt động ngày 12",
+      "body": "Nội dung thử ngày 12",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 13,
+      "week": 1,
+      "category": "partner",
+      "title": "Hoạt động ngày 13",
+      "body": "Nội dung thử ngày 13",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 14,
+      "week": 1,
+      "category": "journal",
+      "title": "Hoạt động ngày 14",
+      "body": "Nội dung thử ngày 14",
+      "durationMin": 10,
+      "sources": []
+    },
+    {
+      "day": 15,
+      "week": 2,
+      "category": "talk",
+      "title": "Hoạt động ngày 15",
+      "body": "Nội dung thử ngày 15",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 16,
+      "week": 2,
+      "category": "music",
+      "title": "Hoạt động ngày 16",
+      "body": "Nội dung thử ngày 16",
+      "durationMin": 6,
+      "sources": []
+    },
+    {
+      "day": 17,
+      "week": 2,
+      "category": "movement",
+      "title": "Hoạt động ngày 17",
+      "body": "Nội dung thử ngày 17",
+      "durationMin": 25,
+      "sources": []
+    },
+    {
+      "day": 18,
+      "week": 2,
+      "category": "reading",
+      "title": "Hoạt động ngày 18",
+      "body": "Nội dung thử ngày 18",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 19,
+      "week": 2,
+      "category": "breathing",
+      "title": "Hoạt động ngày 19",
+      "body": "Nội dung thử ngày 19",
+      "durationMin": 5,
+      "sources": []
+    },
+    {
+      "day": 20,
+      "week": 2,
+      "category": "partner",
+      "title": "Hoạt động ngày 20",
+      "body": "Nội dung thử ngày 20",
+      "durationMin": 30,
+      "sources": []
+    },
+    {
+      "day": 21,
+      "week": 2,
+      "category": "journal",
+      "title": "Hoạt động ngày 21",
+      "body": "Nội dung thử ngày 21",
+      "durationMin": 10,
+      "sources": []
+    }
+  ]
+}

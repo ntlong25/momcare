@@ -76,6 +76,14 @@ class PregnancyModel extends HiveObject {
     return weeks.clamp(0, 42);
   }
 
+  /// Raw pregnancy day (day 1 = [pregnancyStartDate]); may be < 1 or > 280.
+  int pregnancyDayAt(DateTime now) =>
+      calendarDaysBetween(pregnancyStartDate, now) + 1;
+
+  /// Content day for the daily packs, clamped to 1..294 (weeks 0..41). Day
+  /// `d` belongs to week `(d - 1) ~/ 7`, matching [currentWeekAt].
+  int contentDayAt(DateTime now) => pregnancyDayAt(now).clamp(1, 294);
+
   int daysUntilDueAt(DateTime now) => calendarDaysBetween(now, dueDate);
 
   int get currentWeek => currentWeekAt(DateTime.now());
