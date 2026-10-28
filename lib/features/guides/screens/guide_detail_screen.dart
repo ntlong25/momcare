@@ -58,9 +58,7 @@ class GuideDetailScreen extends ConsumerWidget {
               children: [
                 Expanded(
                   child: Text(
-                    guide.tracksProgress
-                        ? 'Việc cần làm'
-                        : 'Dấu hiệu cần lưu ý',
+                    guide.tracksProgress ? 'Việc cần làm' : 'Việc nên làm',
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -151,19 +149,29 @@ class _SectionView extends StatelessWidget {
             const SizedBox(height: 6),
             Text(section.body!, style: theme.textTheme.bodyMedium),
           ],
-          for (final bullet in section.bullets)
-            Padding(
-              padding: const EdgeInsets.only(top: 6, left: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('•  '),
-                  Expanded(
-                    child: Text(bullet, style: theme.textTheme.bodyMedium),
-                  ),
-                ],
-              ),
-            ),
+          for (final bullet in section.bullets) _Bullet(text: bullet),
+        ],
+      ),
+    );
+  }
+}
+
+/// Plain bullet shared by section bullets and non-tickable checklist items.
+class _Bullet extends StatelessWidget {
+  final String text;
+
+  const _Bullet({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme.bodyMedium;
+    return Padding(
+      padding: const EdgeInsets.only(top: 6, left: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('•  ', style: style),
+          Expanded(child: Text(text, style: style)),
         ],
       ),
     );
@@ -218,21 +226,7 @@ class _ChecklistTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (!tickable)
-          Padding(
-            padding: const EdgeInsets.only(top: 10, left: 4),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('•  '),
-                Expanded(
-                  child: Text(
-                    item.text,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ],
-            ),
-          )
+          _Bullet(text: item.text)
         else
           CheckboxListTile(
             contentPadding: EdgeInsets.zero,

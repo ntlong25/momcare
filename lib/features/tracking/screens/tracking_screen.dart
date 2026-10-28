@@ -4,7 +4,9 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
+import '../../../core/data/content_pack_service.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../../core/models/week_detail_model.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../widgets/baby_development_card.dart';
 import '../widgets/mother_changes_card.dart';
@@ -43,6 +45,8 @@ class TrackingScreen extends ConsumerWidget {
 
     final currentWeek = pregnancy.currentWeek;
     final weekData = PregnancyWeeksDatabase.getWeekData(currentWeek);
+    // Same resolver as the week pages so both show identical baby stats.
+    final weekDetail = ContentPackService.weekDetail(currentWeek);
 
     return Scaffold(
       appBar: showAppBar
@@ -67,7 +71,7 @@ class TrackingScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildWeekHeader(context, pregnancy, weekData),
+              _buildWeekHeader(context, pregnancy, weekData, weekDetail),
               const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
@@ -78,7 +82,7 @@ class TrackingScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              BabyDevelopmentCard(weekData: weekData),
+              BabyDevelopmentCard(weekData: weekData, weekDetail: weekDetail),
               const SizedBox(height: 16),
               MotherChangesCard(weekData: weekData),
               const SizedBox(height: 16),
@@ -138,6 +142,7 @@ class TrackingScreen extends ConsumerWidget {
     BuildContext context,
     PregnancyModel pregnancy,
     PregnancyWeekData weekData,
+    WeekDetail weekDetail,
   ) {
     final header = Container(
       padding: const EdgeInsets.all(20),
@@ -224,7 +229,7 @@ class TrackingScreen extends ConsumerWidget {
               _buildStatItem(
                 context,
                 'Kích thước',
-                weekData.babySize,
+                WeekDetail.statText(weekDetail.sizeCompare, weekData.babySize),
                 Icons.spa,
               ),
               Container(
@@ -235,7 +240,7 @@ class TrackingScreen extends ConsumerWidget {
               _buildStatItem(
                 context,
                 'Cân nặng',
-                weekData.babyWeight,
+                WeekDetail.statText(weekDetail.weightText, weekData.babyWeight),
                 Icons.monitor_weight,
               ),
             ],

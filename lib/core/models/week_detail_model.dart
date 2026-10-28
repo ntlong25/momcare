@@ -86,6 +86,17 @@ class WeekDetail {
   String? get weightText =>
       weightG != null ? '${_formatNumber(weightG!)} g' : weightLabel;
 
+  /// Display text for a baby stat, shared by the Tuần thai tab and the week
+  /// pages: [value] (from [lengthText]/[weightText]/[sizeCompare]), else the
+  /// non-empty legacy [fallback], else `—` (never `null`).
+  static String statText(String? value, [String? fallback]) {
+    final primary = value?.trim();
+    if (primary != null && primary.isNotEmpty) return primary;
+    final legacy = fallback?.trim();
+    if (legacy != null && legacy.isNotEmpty) return legacy;
+    return '—';
+  }
+
   static String _formatNumber(double value) {
     if (value == value.roundToDouble()) return value.round().toString();
     return value

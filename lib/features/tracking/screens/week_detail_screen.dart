@@ -4,6 +4,7 @@ import '../../../core/data/content_pack_service.dart';
 import '../../../core/data/week_content_parser.dart';
 import '../../../core/models/guide_models.dart';
 import '../../../core/models/week_detail_model.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import '../../references/widgets/draft_content_note.dart';
@@ -107,14 +108,19 @@ class _WeekDetailScreenState extends State<WeekDetailScreen> {
                   child: Center(
                     child: isCurrent
                         ? Chip(
-                            avatar: const Icon(
+                            key: const ValueKey('week-current-chip'),
+                            avatar: Icon(
                               Icons.favorite,
                               size: 16,
-                              color: Colors.white,
+                              color: theme.colorScheme.onSurface,
                             ),
                             label: const Text('Tuần hiện tại'),
-                            backgroundColor: theme.primaryColor,
-                            labelStyle: const TextStyle(color: Colors.white),
+                            backgroundColor: AppTheme.primaryTint(
+                              theme.colorScheme,
+                            ),
+                            labelStyle: TextStyle(
+                              color: theme.colorScheme.onSurface,
+                            ),
                           )
                         : TextButton.icon(
                             onPressed: () => _goTo(_currentWeek),
