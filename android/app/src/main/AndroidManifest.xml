@@ -81,6 +81,12 @@
             <action android:name="android.intent.action.DIAL" />
             <data android:scheme="tel" />
         </intent>
+        <!-- image_picker: "Chụp ảnh" in the bump photo journal uses the
+             IMAGE_CAPTURE intent; no CAMERA permission is declared on purpose
+             (declaring it without granting it makes the intent fail). -->
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
         <package android:name="com.google.android.apps.healthdata" />
         <intent>
             <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"/>

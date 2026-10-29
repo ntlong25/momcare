@@ -16,6 +16,8 @@ import '../../features/references/screens/references_screen.dart';
 import '../../features/tracking/screens/week_detail_screen.dart';
 import '../../features/tools/screens/contraction_timer_screen.dart';
 import '../../features/tools/screens/kick_counter_screen.dart';
+import '../../features/bump_journal/screens/bump_journal_screen.dart';
+import '../../features/health_diary/screens/health_report_export_screen.dart';
 
 class NavigationHelper {
   static Future<T?> toPregnancySetup<T>(BuildContext context) {
@@ -133,6 +135,28 @@ class NavigationHelper {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(builder: (_) => const ContractionTimerScreen()),
+    );
+  }
+
+  static Future<T?> toBumpJournal<T>(BuildContext context, {int? week}) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => BumpJournalScreen(initialWeek: week)),
+    );
+  }
+
+  /// [includePregnancy] false (pre-pregnancy mode) hides the "Từ đầu thai kỳ"
+  /// range.
+  static Future<T?> toHealthReportExport<T>(
+    BuildContext context, {
+    bool includePregnancy = true,
+  }) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            HealthReportExportScreen(includePregnancy: includePregnancy),
+      ),
     );
   }
 

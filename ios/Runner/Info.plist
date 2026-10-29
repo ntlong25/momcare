@@ -31,7 +31,7 @@
 		<string>_dartobservatory._tcp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Ứng dụng cần quyền truy cập camera để chụp ảnh ghi lại các khoảnh khắc quan trọng</string>
+	<string>MomCare+ dùng camera để bạn chụp ảnh bụng bầu cho nhật ký ảnh. Ảnh chỉ được lưu trên thiết bị này.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>MomCare+ chỉ đọc dữ liệu chu kỳ kinh nguyệt từ Apple Health để hỗ trợ theo dõi chu kỳ. Dữ liệu được lưu trên thiết bị này và không tự chia sẻ ra bên ngoài.</string>
 	<key>NSHealthUpdateUsageDescription</key>
@@ -41,9 +41,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Ứng dụng cần quyền truy cập microphone để ghi âm</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Ứng dụng cần quyền lưu ảnh vào thư viện của bạn</string>
+	<string>MomCare+ chỉ lưu ảnh khi bạn chọn lưu thẻ cột mốc.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Ứng dụng cần quyền truy cập thư viện ảnh để chọn ảnh</string>
+	<string>MomCare+ cần truy cập thư viện ảnh để bạn chọn ảnh bụng bầu cho nhật ký ảnh. Ảnh được sao chép và lưu trên thiết bị này.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

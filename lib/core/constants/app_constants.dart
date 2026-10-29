@@ -32,6 +32,7 @@ class AppConstants {
   static const String myClinicKey = 'my_clinic_profile';
   static const String kickSessionsKey = 'kick_sessions';
   static const String contractionsKey = 'contraction_log';
+  static const String bumpPhotosKey = 'bump_photos';
 
   // Pregnancy Weeks
   static const int pregnancyTotalWeeks = 42;
