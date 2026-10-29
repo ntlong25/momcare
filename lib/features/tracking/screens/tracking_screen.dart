@@ -115,12 +115,12 @@ class TrackingScreen extends ConsumerWidget {
             Icon(
               Icons.track_changes_outlined,
               size: 100,
-              color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 24),
             Text(
               'Chưa có thai kỳ đang theo dõi',
-              style: Theme.of(context).textTheme.displaySmall,
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
@@ -147,25 +147,13 @@ class TrackingScreen extends ConsumerWidget {
     PregnancyWeekData weekData,
     WeekDetail weekDetail,
   ) {
+    final scheme = Theme.of(context).colorScheme;
+    final fg = scheme.onPrimaryContainer;
     final header = Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).primaryColor,
-            Theme.of(context).primaryColor.withValues(alpha: 0.7),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: scheme.primaryContainer,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         children: [
@@ -177,35 +165,35 @@ class TrackingScreen extends ConsumerWidget {
                 children: [
                   Text(
                     'Tuần ${pregnancy.currentWeek}',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      color: Colors.white,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: fg,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     pregnancy.trimester,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.9),
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleMedium?.copyWith(color: fg),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
+                  color: scheme.primary,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
                   children: [
-                    const Icon(Icons.favorite, color: Colors.white, size: 32),
+                    Icon(Icons.favorite, color: scheme.onPrimary, size: 32),
                     const SizedBox(height: 4),
                     Text(
                       'Em bé',
                       style: Theme.of(
                         context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.white),
+                      ).textTheme.bodySmall?.copyWith(color: scheme.onPrimary),
                     ),
                   ],
                 ),
@@ -213,7 +201,7 @@ class TrackingScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Divider(color: Colors.white.withValues(alpha: 0.3)),
+          Divider(color: scheme.outline),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -224,22 +212,14 @@ class TrackingScreen extends ConsumerWidget {
                 '${pregnancy.daysUntilDue < 0 ? 0 : pregnancy.daysUntilDue} ngày',
                 Icons.calendar_today,
               ),
-              Container(
-                width: 1,
-                height: 40,
-                color: Colors.white.withValues(alpha: 0.3),
-              ),
+              Container(width: 1, height: 40, color: scheme.outline),
               _buildStatItem(
                 context,
                 'Kích thước',
                 WeekDetail.statText(weekDetail.sizeCompare, weekData.babySize),
                 Icons.spa,
               ),
-              Container(
-                width: 1,
-                height: 40,
-                color: Colors.white.withValues(alpha: 0.3),
-              ),
+              Container(width: 1, height: 40, color: scheme.outline),
               _buildStatItem(
                 context,
                 'Cân nặng',
@@ -273,22 +253,21 @@ class TrackingScreen extends ConsumerWidget {
     String value,
     IconData icon,
   ) {
+    final fg = Theme.of(context).colorScheme.onPrimaryContainer;
     return Column(
       children: [
-        Icon(icon, color: Colors.white, size: 20),
+        Icon(icon, color: fg, size: 20),
         const SizedBox(height: 4),
         Text(
           value,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Colors.white,
+            color: fg,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Colors.white.withValues(alpha: 0.8),
-          ),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(color: fg),
         ),
       ],
     );
@@ -328,13 +307,15 @@ class TrackingScreen extends ConsumerWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         color: isPassed
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey[300],
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.outlineVariant,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         milestone['icon'] as IconData,
-                        color: isPassed ? Colors.white : Colors.grey[600],
+                        color: isPassed
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
                         size: 20,
                       ),
                     ),
@@ -348,7 +329,7 @@ class TrackingScreen extends ConsumerWidget {
                             style: Theme.of(context).textTheme.titleMedium
                                 ?.copyWith(
                                   color: isPassed
-                                      ? Theme.of(context).primaryColor
+                                      ? Theme.of(context).colorScheme.primary
                                       : null,
                                   fontWeight: isCurrent
                                       ? FontWeight.bold
@@ -365,8 +346,10 @@ class TrackingScreen extends ConsumerWidget {
                     if (isCurrent)
                       Chip(
                         label: const Text('Hiện tại'),
-                        backgroundColor: Theme.of(context).primaryColor,
-                        labelStyle: const TextStyle(color: Colors.white),
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        labelStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                       ),
                   ],
                 ),

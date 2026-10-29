@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/models/milestone_schedule.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_formatter.dart';
 
 /// Vietnamese labels shared by the guide timeline and the Hôm nay card.
@@ -35,21 +35,20 @@ class MilestoneLabels {
       m.isVaccination ? 'Đánh dấu đã tiêm' : 'Đánh dấu đã khám';
 }
 
-/// Small status pill. Pale tints over the surface with onSurface text keep
-/// >= 4.5:1 contrast in light and dark themes (see `AppTheme.primaryTint`).
+/// Small status pill. Container roles with onSurface text keep >= 4.5:1
+/// contrast in light and dark themes.
 class MilestoneStatusChip extends StatelessWidget {
   final ScheduledMilestone milestone;
 
   const MilestoneStatusChip({super.key, required this.milestone});
 
   static Color background(ColorScheme scheme, MilestoneStatus status) {
-    Color tint(Color color, double alpha) =>
-        Color.alphaBlend(color.withValues(alpha: alpha), scheme.surface);
+    final semantic = AppSemanticColors.of(scheme);
     return switch (status) {
-      MilestoneStatus.dueNow => AppTheme.primaryTint(scheme, 0.35),
-      MilestoneStatus.upcoming => tint(AppTheme.infoColor, 0.25),
-      MilestoneStatus.past => tint(scheme.onSurface, 0.08),
-      MilestoneStatus.done => tint(AppTheme.successColor, 0.3),
+      MilestoneStatus.dueNow => scheme.secondaryContainer,
+      MilestoneStatus.upcoming => semantic.infoContainer,
+      MilestoneStatus.past => scheme.surfaceContainerHighest,
+      MilestoneStatus.done => semantic.successContainer,
     };
   }
 

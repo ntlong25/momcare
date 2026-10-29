@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/health_log_model.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class HealthLogList extends StatelessWidget {
   final List<HealthLogModel> healthLogs;
@@ -70,17 +71,17 @@ class HealthLogList extends StatelessWidget {
                       context,
                       Icons.monitor_weight,
                       '${log.weight!.toStringAsFixed(1)} kg',
-                      Colors.blue,
+                      AppTone.info,
                     ),
                   if (log.systolicBP != null && log.diastolicBP != null)
                     _buildChip(
                       context,
                       Icons.favorite,
                       '${log.systolicBP}/${log.diastolicBP}',
-                      Colors.red,
+                      AppTone.danger,
                     ),
                   if (log.mood != null)
-                    _buildChip(context, Icons.mood, log.mood!, Colors.orange),
+                    _buildChip(context, Icons.mood, log.mood!, AppTone.warning),
                 ],
               ),
               if (log.symptoms != null && log.symptoms!.isNotEmpty) ...[
@@ -93,7 +94,9 @@ class HealthLogList extends StatelessWidget {
                       label: Text(symptom),
                       labelStyle: Theme.of(context).textTheme.bodySmall,
                       visualDensity: VisualDensity.compact,
-                      backgroundColor: Colors.grey[200],
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.surfaceContainerHighest,
                     );
                   }).toList(),
                 ),
@@ -118,23 +121,24 @@ class HealthLogList extends StatelessWidget {
     BuildContext context,
     IconData icon,
     String label,
-    Color color,
+    AppTone tone,
   ) {
+    final colors = tone.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: colors.container,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: color),
+          Icon(icon, size: 16, color: colors.onContainer),
           const SizedBox(width: 6),
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: color,
+              color: colors.onContainer,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -159,8 +163,14 @@ class HealthLogList extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.delete, color: Colors.red),
-              title: const Text('Xóa', style: TextStyle(color: Colors.red)),
+              leading: Icon(
+                Icons.delete,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              title: Text(
+                'Xóa',
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
               onTap: () {
                 Navigator.pop(context);
                 _confirmDelete(context, log);
@@ -187,7 +197,9 @@ class HealthLogList extends StatelessWidget {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Xóa'),
           ),
         ],

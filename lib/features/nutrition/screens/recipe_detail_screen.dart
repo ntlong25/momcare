@@ -30,7 +30,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           IconButton(
             icon: Icon(
               _recipe.isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: _recipe.isFavorite ? Colors.red : null,
+              color: _recipe.isFavorite
+                  ? Theme.of(context).colorScheme.error
+                  : null,
             ),
             onPressed: () async {
               final updated = _recipe.copyWith(
@@ -53,11 +55,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.orange, Colors.orange.withValues(alpha: 0.7)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: Theme.of(context).colorScheme.tertiaryContainer,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,13 +66,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.3),
+                      color: Theme.of(context).colorScheme.tertiary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       _recipe.category,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onTertiary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -82,8 +80,8 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   const SizedBox(height: 16),
                   Text(
                     _recipe.title,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      color: Colors.white,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -151,7 +149,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             width: 6,
                             height: 6,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -182,14 +180,16 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             width: 32,
                             height: 32,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                               shape: BoxShape.circle,
                             ),
                             child: Center(
                               child: Text(
                                 '${entry.key + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -219,21 +219,22 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   Widget _buildInfoChip(IconData icon, String label) {
+    final scheme = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.3),
+        color: scheme.tertiary,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: Colors.white),
+          Icon(icon, size: 16, color: scheme.onTertiary),
           const SizedBox(width: 6),
           Text(
             label,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: scheme.onTertiary,
               fontWeight: FontWeight.w600,
             ),
           ),

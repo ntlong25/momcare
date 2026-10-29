@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/chip_colors.dart';
 import '../../../core/models/nutrition_model.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class NutritionCard extends StatelessWidget {
   final NutritionModel nutrition;
@@ -29,10 +30,14 @@ class NutritionCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.green.withValues(alpha: 0.1),
+                      color: context.semantic.successContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(Icons.eco, color: Colors.green, size: 28),
+                    child: Icon(
+                      Icons.eco,
+                      color: context.semantic.onSuccessContainer,
+                      size: 28,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -53,14 +58,16 @@ class NutritionCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Theme.of(
                               context,
-                            ).primaryColor.withValues(alpha: 0.1),
+                            ).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             nutrition.category,
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimaryContainer,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -68,7 +75,10 @@ class NutritionCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: Colors.grey),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ],
               ),
               const SizedBox(height: 12),

@@ -7,13 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/models/kick_session.dart';
 import '../../../core/services/kick_counter_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/duration_format.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../tool_guidance.dart';
+import '../widgets/tool_button_styles.dart';
 import '../widgets/tool_confirm_dialog.dart';
 import '../widgets/tool_guidance_card.dart';
+import '../../../core/widgets/empty_state.dart';
 
 /// "Đếm cử động thai" (Phase 20, B10): counts movements and records how
 /// long they took. It never interprets the result.
@@ -80,9 +81,11 @@ class _KickCounterScreenState extends ConsumerState<KickCounterScreen> {
           _buildHistoryHeader(context, notifier, history),
           const SizedBox(height: 4),
           if (history.isEmpty)
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12),
-              child: Text('Chưa có lượt đếm nào.'),
+            const Center(
+              child: AppEmptyState.compact(
+                icon: Icons.child_care,
+                title: 'Chưa có lượt đếm nào.',
+              ),
             )
           else
             ...history.map((s) => _buildHistoryRow(context, notifier, s)),
@@ -118,6 +121,7 @@ class _KickCounterScreenState extends ConsumerState<KickCounterScreen> {
               width: double.infinity,
               child: FilledButton.icon(
                 key: const ValueKey('kick-start'),
+                style: ToolButtonStyles.mainAction(context),
                 onPressed: notifier.start,
                 icon: const Icon(Icons.play_arrow),
                 label: const Text('Bắt đầu đếm'),
@@ -147,7 +151,7 @@ class _KickCounterScreenState extends ConsumerState<KickCounterScreen> {
             Text(
               formatClock(session.elapsed(notifier.now())),
               key: const ValueKey('kick-elapsed'),
-              style: theme.textTheme.headlineMedium?.copyWith(
+              style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 fontFeatures: const [FontFeature.tabularFigures()],
               ),
@@ -161,7 +165,7 @@ class _KickCounterScreenState extends ConsumerState<KickCounterScreen> {
                 style: FilledButton.styleFrom(
                   shape: const CircleBorder(),
                   backgroundColor: scheme.primary,
-                  foregroundColor: AppTheme.textPrimaryColor,
+                  foregroundColor: scheme.onPrimary,
                   padding: const EdgeInsets.all(16),
                 ),
                 onPressed: () {
@@ -176,14 +180,14 @@ class _KickCounterScreenState extends ConsumerState<KickCounterScreen> {
                       key: const ValueKey('kick-count'),
                       style: theme.textTheme.displaySmall?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: AppTheme.textPrimaryColor,
+                        color: scheme.onPrimary,
                       ),
                     ),
                     Text(
                       'Bé đạp',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.titleMedium?.copyWith(
-                        color: AppTheme.textPrimaryColor,
+                        color: scheme.onPrimary,
                       ),
                     ),
                   ],
@@ -207,13 +211,14 @@ class _KickCounterScreenState extends ConsumerState<KickCounterScreen> {
               children: [
                 OutlinedButton.icon(
                   key: const ValueKey('kick-undo'),
+                  style: ToolButtonStyles.secondaryOutlined(),
                   onPressed: session.count > 0 ? notifier.undo : null,
                   icon: const Icon(Icons.undo),
                   label: const Text('Hoàn tác'),
                 ),
                 FilledButton.tonalIcon(
                   key: const ValueKey('kick-stop'),
-                  style: AppTheme.tonalButtonStyle(scheme),
+                  style: ToolButtonStyles.secondaryTonal(),
                   onPressed: notifier.stop,
                   icon: const Icon(Icons.stop),
                   label: const Text('Kết thúc'),

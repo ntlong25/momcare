@@ -5,8 +5,8 @@ import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/daily_item_model.dart';
 import '../../../core/services/thai_giao_progress_service.dart';
 import '../../../core/services/thai_giao_reminder_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../references/widgets/draft_content_note.dart';
+import '../../../core/widgets/app_card.dart';
 
 /// Today's thai giáo activity with a "Đã làm" toggle, streak and an opt-in
 /// daily reminder. Hidden when the pack has no item.
@@ -73,91 +73,80 @@ class _TodayThaiGiaoCardState extends ConsumerState<TodayThaiGiaoCard> {
     final theme = Theme.of(context);
     final label = TodayThaiGiaoCard.categoryLabels[item.category];
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.child_care, color: theme.primaryColor),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Thai giáo hôm nay',
-                    style: theme.textTheme.titleLarge,
-                  ),
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.child_care, color: theme.colorScheme.primary),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Thai giáo hôm nay',
+                  style: theme.textTheme.titleLarge,
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                if (label != null)
-                  Chip(
-                    label: Text(label),
-                    visualDensity: VisualDensity.compact,
-                  ),
-                if (item.durationMin != null)
-                  Text(
-                    '~${item.durationMin} phút',
-                    style: theme.textTheme.bodySmall,
-                  ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(item.title, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 4),
-            Text(item.body, style: theme.textTheme.bodyMedium),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 12,
-              runSpacing: 8,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                FilterChip(
-                  key: const ValueKey('thai-giao-done'),
-                  label: const Text('Đã làm'),
-                  selected: done,
-                  // Pale tint + onSurface keeps >= 4.5:1 in both themes (the
-                  // default secondaryContainer is light-on-light in dark).
-                  selectedColor: AppTheme.primaryTint(theme.colorScheme),
-                  checkmarkColor: theme.colorScheme.onSurface,
-                  labelStyle: TextStyle(color: theme.colorScheme.onSurface),
-                  // Read the clock at tap time: the card may have been built
-                  // before midnight.
-                  onSelected: (value) => progress.setDone(_now(), value),
-                ),
-                if (streak > 0)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.local_fire_department,
-                        color: Colors.orange,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        'Chuỗi $streak ngày',
-                        style: theme.textTheme.labelLarge,
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-            const Divider(height: 24),
-            _buildReminderRow(context),
-            if (pack.isDraft) ...[
-              const SizedBox(height: 12),
-              const DraftContentNote(),
+              ),
             ],
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              if (label != null)
+                Chip(label: Text(label), visualDensity: VisualDensity.compact),
+              if (item.durationMin != null)
+                Text(
+                  '~${item.durationMin} phút',
+                  style: theme.textTheme.bodySmall,
+                ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(item.title, style: theme.textTheme.titleMedium),
+          const SizedBox(height: 4),
+          Text(item.body, style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              FilterChip(
+                key: const ValueKey('thai-giao-done'),
+                label: const Text('Đã làm'),
+                selected: done,
+                // Read the clock at tap time: the card may have been built
+                // before midnight.
+                onSelected: (value) => progress.setDone(_now(), value),
+              ),
+              if (streak > 0)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.local_fire_department,
+                      color: theme.colorScheme.tertiary,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Chuỗi $streak ngày',
+                      style: theme.textTheme.labelLarge,
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          const Divider(height: 24),
+          _buildReminderRow(context),
+          if (pack.isDraft) ...[
+            const SizedBox(height: 12),
+            const DraftContentNote(),
           ],
-        ),
+        ],
       ),
     );
   }
@@ -171,7 +160,7 @@ class _TodayThaiGiaoCardState extends ConsumerState<TodayThaiGiaoCard> {
           _reminder.enabled
               ? Icons.notifications_active
               : Icons.notifications_none,
-          color: theme.primaryColor,
+          color: theme.colorScheme.primary,
         ),
         const SizedBox(width: 8),
         Expanded(

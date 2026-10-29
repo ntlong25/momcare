@@ -74,13 +74,61 @@ class MainNavigation extends ConsumerWidget {
 
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: screens),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: (index) {
-          ref.read(navigationIndexProvider.notifier).state = index;
-        },
-        destinations: destinations,
+      bottomNavigationBar: SingleLineNavigationLabels(
+        child: NavigationBar(
+          selectedIndex: currentIndex,
+          onDestinationSelected: (index) {
+            ref.read(navigationIndexProvider.notifier).state = index;
+          },
+          destinations: destinations,
+        ),
       ),
+    );
+  }
+}
+
+/// Keeps the [NavigationBar] labels on one line (P18-R2-01): limits the
+/// label text scale to the largest factor (at most the NavigationBar's own
+/// 1.3 cap) at which the widest label fits its destination. On a 412 dp
+/// phone labels keep the full 1.3 scale; on a 360 dp phone at font scale
+/// 1.5 they are drawn at about 1.15.
+class SingleLineNavigationLabels extends StatelessWidget {
+  /// The NavigationBar's own label text-scale cap.
+  static const double maxLabelScale = 1.3;
+
+  final NavigationBar child;
+
+  const SingleLineNavigationLabels({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final theme = Theme.of(context);
+        final style =
+            theme.navigationBarTheme.labelTextStyle?.resolve({
+              WidgetState.selected,
+            }) ??
+            theme.textTheme.labelMedium;
+        final slot = constraints.maxWidth / child.destinations.length - 2;
+        var widest = 0.0;
+        for (final destination in child.destinations) {
+          if (destination is! NavigationDestination) continue;
+          final painter = TextPainter(
+            text: TextSpan(text: destination.label, style: style),
+            textDirection: TextDirection.ltr,
+            maxLines: 1,
+          )..layout();
+          if (painter.width > widest) widest = painter.width;
+          painter.dispose();
+        }
+        if (widest == 0 || !slot.isFinite) return child;
+        final fit = (slot / widest).clamp(1.0, maxLabelScale);
+        return MediaQuery.withClampedTextScaling(
+          maxScaleFactor: fit,
+          child: child,
+        );
+      },
     );
   }
 }
@@ -93,34 +141,38 @@ class _TrackTabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Cycle tracking is only offered in pre-pregnancy mode.
-    return DefaultTabController(
+    return TabbedScaffold(
       key: ValueKey(isPrePregnancy),
-      length: 2,
-      child: _CollapsibleTabScaffold(
-        title: isPrePregnancy ? 'Chu kỳ & sức khỏe' : 'Tuần thai & sức khỏe',
-        tabBar: TabBar(
-          tabs: isPrePregnancy
-              ? const [
-                  Tab(text: 'Chu kỳ', icon: Icon(Icons.calendar_month)),
-                  Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
-                ]
-              : const [
-                  Tab(text: 'Thai kỳ', icon: Icon(Icons.track_changes)),
-                  Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
-                ],
-        ),
-        body: TabBarView(
-          children: isPrePregnancy
-              ? const [
-                  FertilityPlannerScreen(showAppBar: false),
-                  HealthDiaryScreen(showAppBar: false),
-                ]
-              : const [
-                  TrackingScreen(showAppBar: false),
-                  HealthDiaryScreen(showAppBar: false),
-                ],
-        ),
-      ),
+      title: isPrePregnancy ? 'Chu kỳ & sức khỏe' : 'Tuần thai & sức khỏe',
+      pages: isPrePregnancy
+          ? const [
+              TabbedPage(
+                id: 'cycle',
+                label: 'Chu kỳ',
+                icon: Icons.calendar_month,
+                child: FertilityPlannerScreen(showAppBar: false),
+              ),
+              TabbedPage(
+                id: 'health',
+                label: 'Sức khỏe',
+                icon: Icons.favorite,
+                child: HealthDiaryScreen(showAppBar: false),
+              ),
+            ]
+          : const [
+              TabbedPage(
+                id: 'pregnancy',
+                label: 'Thai kỳ',
+                icon: Icons.track_changes,
+                child: TrackingScreen(showAppBar: false),
+              ),
+              TabbedPage(
+                id: 'health',
+                label: 'Sức khỏe',
+                icon: Icons.favorite,
+                child: HealthDiaryScreen(showAppBar: false),
+              ),
+            ],
     );
   }
 }
@@ -132,77 +184,115 @@ class _ToolsTabScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isPrePregnancy = ref.watch(appModeProvider) == AppMode.prePregnancy;
     // "Bộ đếm" (kick counter, contraction timer) is pregnancy-only.
-    return DefaultTabController(
+    return TabbedScaffold(
       key: ValueKey(isPrePregnancy),
-      length: isPrePregnancy ? 3 : 4,
-      child: _CollapsibleTabScaffold(
-        title: 'Công cụ',
-        actions: [
-          IconButton(
-            key: const ValueKey('tools-find-hospital'),
-            tooltip: 'Tìm bệnh viện gần tôi',
-            icon: const Icon(Icons.local_hospital_outlined),
-            onPressed: () => MyClinicCard.findNearbyHospital(context),
-          ),
-        ],
-        tabBar: TabBar(
-          isScrollable: true,
-          tabAlignment: TabAlignment.center,
-          tabs: [
-            const Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
-            const Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
-            if (!isPrePregnancy)
-              const Tab(text: 'Bộ đếm', icon: Icon(Icons.timer_outlined)),
-            const Tab(
-              text: 'Cần khám',
-              icon: Icon(Icons.warning_amber_rounded),
-            ),
-          ],
+      title: 'Công cụ',
+      actions: [
+        IconButton(
+          key: const ValueKey('tools-find-hospital'),
+          tooltip: 'Tìm bệnh viện gần tôi',
+          icon: const Icon(Icons.local_hospital_outlined),
+          onPressed: () => MyClinicCard.findNearbyHospital(context),
         ),
-        body: TabBarView(
-          children: [
-            const NutritionScreen(showAppBar: false),
-            const AppointmentsScreen(showAppBar: false),
-            if (!isPrePregnancy) const CounterToolsScreen(),
-            const EmergencyWarningScreen(showAppBar: false),
-          ],
+      ],
+      pages: [
+        const TabbedPage(
+          id: 'nutrition',
+          label: 'Dinh dưỡng',
+          icon: Icons.restaurant_menu,
+          child: NutritionScreen(showAppBar: false),
         ),
-      ),
+        const TabbedPage(
+          id: 'appointments',
+          label: 'Lịch hẹn',
+          icon: Icons.calendar_today,
+          child: AppointmentsScreen(showAppBar: false),
+        ),
+        if (!isPrePregnancy) toolsCounterPage,
+        toolsEmergencyPage,
+      ],
     );
   }
 }
 
-class _CollapsibleTabScaffold extends StatelessWidget {
+/// "Bộ đếm" tab of Công cụ (pregnancy mode).
+const TabbedPage toolsCounterPage = TabbedPage(
+  id: 'counters',
+  label: 'Bộ đếm',
+  icon: Icons.timer_outlined,
+  child: CounterToolsScreen(),
+);
+
+/// "Cần khám" tab of Công cụ.
+const TabbedPage toolsEmergencyPage = TabbedPage(
+  id: 'emergency',
+  label: 'Cần khám',
+  icon: Icons.warning_amber_rounded,
+  child: EmergencyWarningScreen(showAppBar: false),
+);
+
+/// One tab of a [TabbedScaffold].
+class TabbedPage {
+  /// Stable id, used for the tab's [PageStorageKey].
+  final String id;
+  final String label;
+  final IconData icon;
+  final Widget child;
+
+  const TabbedPage({
+    required this.id,
+    required this.label,
+    required this.icon,
+    required this.child,
+  });
+}
+
+/// Scaffold with an AppBar whose bottom is a scrollable [TabBar]. Each tab
+/// owns its scroll position (a [PageStorageKey] per tab), so scrolling one
+/// tab never moves another (P20-R2-02), and labels are never clipped at
+/// large font scales (P18-R2-01).
+class TabbedScaffold extends StatelessWidget {
   final String title;
-  final TabBar tabBar;
-  final Widget body;
+  final List<TabbedPage> pages;
   final List<Widget>? actions;
 
-  const _CollapsibleTabScaffold({
+  const TabbedScaffold({
+    super.key,
     required this.title,
-    required this.tabBar,
-    required this.body,
+    required this.pages,
     this.actions,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            SliverAppBar(
-              title: Text(title),
-              actions: actions,
-              floating: true,
-              snap: true,
-              forceElevated: innerBoxIsScrolled,
-              bottom: tabBar,
-            ),
-          ];
-        },
-        body: body,
+    return DefaultTabController(
+      length: pages.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+          actions: actions,
+          bottom: TabBar(
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            tabs: [
+              for (final page in pages)
+                Tab(
+                  key: ValueKey('tab-${page.id}'),
+                  text: page.label,
+                  icon: Icon(page.icon),
+                ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            for (final page in pages)
+              KeyedSubtree(
+                key: PageStorageKey<String>('tab-page-${page.id}'),
+                child: page.child,
+              ),
+          ],
+        ),
       ),
     );
   }

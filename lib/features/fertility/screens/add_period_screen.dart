@@ -51,7 +51,9 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Xóa'),
           ),
         ],
@@ -85,10 +87,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
 
     if (_startDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Vui lòng chọn ngày bắt đầu'),
-          backgroundColor: Colors.red,
-        ),
+        const SnackBar(content: Text('Vui lòng chọn ngày bắt đầu')),
       );
       return;
     }
@@ -103,10 +102,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
     );
     if (duplicate) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Đã có kỳ kinh bắt đầu vào ngày này'),
-          backgroundColor: Colors.red,
-        ),
+        const SnackBar(content: Text('Đã có kỳ kinh bắt đầu vào ngày này')),
       );
       return;
     }
@@ -183,7 +179,10 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
               // Start Date
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.calendar_today, color: Colors.red),
+                leading: Icon(
+                  Icons.calendar_today,
+                  color: Theme.of(context).colorScheme.error,
+                ),
                 title: const Text('Ngày bắt đầu *'),
                 subtitle: Text(
                   _startDate != null
@@ -217,7 +216,10 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
               // End Date
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.event, color: Colors.red),
+                leading: Icon(
+                  Icons.event,
+                  color: Theme.of(context).colorScheme.error,
+                ),
                 title: const Text('Ngày kết thúc (không bắt buộc)'),
                 subtitle: Text(
                   _endDate != null

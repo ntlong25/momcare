@@ -20,6 +20,7 @@ import 'core/providers/theme_provider.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/providers/app_mode_provider.dart';
 import 'core/constants/app_constants.dart';
+import 'core/widgets/brand_mark.dart';
 import 'features/home/screens/main_navigation.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
 import 'features/onboarding/screens/mode_selection_screen.dart';
@@ -79,7 +80,7 @@ class _StartupErrorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.light(),
       home: const Scaffold(
         body: SafeArea(
           child: Padding(
@@ -119,8 +120,8 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'MomCare+',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       locale: locale,
       localizationsDelegates: const [
@@ -146,28 +147,11 @@ class AppInitializer extends ConsumerWidget {
       future: _checkOnboardingStatus(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          // Same mark and position as the splash, so nothing jumps while the
+          // onboarding check finishes.
+          return const Scaffold(
             body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    size: 80,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'MomCare+',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  const CircularProgressIndicator(),
-                ],
-              ),
+              child: BrandMark(key: ValueKey('app-initializer-brand-mark')),
             ),
           );
         }

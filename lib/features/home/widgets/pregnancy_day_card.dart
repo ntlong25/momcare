@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/models/pregnancy_model.dart';
+import '../../../core/theme/app_tokens.dart';
+import '../../../core/utils/date_formatter.dart';
+import '../../../core/widgets/app_card.dart';
 
-/// "Ngày X/280" counter at the top of the Hôm nay tab.
+/// Hero "Ngày X/280" counter at the top of the Hôm nay tab, with the week,
+/// the time left until the due date and a progress bar.
 class PregnancyDayCard extends StatelessWidget {
   final PregnancyModel pregnancy;
 
@@ -21,55 +25,56 @@ class PregnancyDayCard extends StatelessWidget {
     final dayOfWeek = (day - 1) % 7 + 1;
     final progress = (day / PregnancyModel.gestationDays).clamp(0.0, 1.0);
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final fg = scheme.onPrimaryContainer;
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.today_outlined, color: theme.primaryColor),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    overdue
-                        ? 'Ngày $day'
-                        : 'Ngày $day/${PregnancyModel.gestationDays}',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      color: theme.primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return AppCard(
+      variant: AppCardVariant.hero,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.today_outlined, color: fg),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: Text(
+                  overdue
+                      ? 'Ngày $day'
+                      : 'Ngày $day/${PregnancyModel.gestationDays}',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    color: fg,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Tuần $week · ngày $dayOfWeek',
-              style: theme.textTheme.bodyLarge,
-            ),
-            if (overdue) ...[
-              const SizedBox(height: 4),
-              Text(
-                'Đã qua ngày dự sinh',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.error,
                 ),
               ),
             ],
-            const SizedBox(height: 12),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: LinearProgressIndicator(
-                value: progress,
-                minHeight: 8,
-                backgroundColor: theme.primaryColor.withValues(alpha: 0.15),
-              ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            'Tuần $week · ngày $dayOfWeek',
+            style: theme.textTheme.bodyLarge?.copyWith(color: fg),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            DateFormatter.formatDaysRemaining(pregnancy.daysUntilDueAt(today)),
+            key: const ValueKey('pregnancy-day-remaining'),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: fg,
+              fontWeight: overdue ? FontWeight.w600 : null,
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(AppRadius.sm),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 8,
+              color: scheme.primary,
+              backgroundColor: scheme.surface,
+            ),
+          ),
+        ],
       ),
     );
   }

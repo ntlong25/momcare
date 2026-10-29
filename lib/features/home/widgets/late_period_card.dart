@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/health_service.dart';
@@ -8,6 +9,7 @@ import '../../../core/utils/date_formatter.dart';
 import '../../fertility/screens/add_period_screen.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import 'pregnant_switch_card.dart';
+import '../../../core/widgets/app_card.dart';
 
 /// Guide opened from the late-period and early-signs cards.
 const String earlySignsGuideId = 'pre_early_signs';
@@ -39,7 +41,7 @@ class LatePeriodCard extends ConsumerWidget {
     if (!isVisible(cycles, today)) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
     final stale = HealthService.isCycleDataStale(cycles, today: today);
     final hasGuide = ContentPackService.guideById(earlySignsGuideId) != null;
 
@@ -53,24 +55,21 @@ class LatePeriodCard extends ConsumerWidget {
     );
 
     if (stale) {
-      return Card(
+      return AppCard(
         key: const ValueKey('late-period-card'),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _header(theme, Icons.update, 'Đã lâu bạn chưa ghi kỳ kinh mới'),
-              const SizedBox(height: 8),
-              Text(
-                'Hãy cập nhật ngày bắt đầu kỳ kinh gần nhất để MomCare+ '
-                'ước tính chu kỳ chính xác hơn.',
-                style: theme.textTheme.bodyMedium?.copyWith(color: muted),
-              ),
-              const SizedBox(height: 12),
-              SizedBox(width: double.infinity, child: addPeriodButton()),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _header(theme, Icons.update, 'Đã lâu bạn chưa ghi kỳ kinh mới'),
+            const SizedBox(height: 8),
+            Text(
+              'Hãy cập nhật ngày bắt đầu kỳ kinh gần nhất để MomCare+ '
+              'ước tính chu kỳ chính xác hơn.',
+              style: theme.textTheme.bodyMedium?.copyWith(color: muted),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(width: double.infinity, child: addPeriodButton()),
+          ],
         ),
       );
     }
@@ -80,71 +79,68 @@ class LatePeriodCard extends ConsumerWidget {
     final average = HealthService.calculateAverageCycleLength(cycles);
     final regularity = HealthService.cycleRegularity(cycles);
 
-    return Card(
+    return AppCard(
       key: const ValueKey('late-period-card'),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _header(
-              theme,
-              Icons.event_busy,
-              'Trễ kinh $late ngày → có thể thử thai',
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Kỳ kinh dự kiến: ${DateFormatter.formatDate(expected)} '
-              '(theo chu kỳ trung bình $average ngày)',
-              style: theme.textTheme.bodyMedium,
-            ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _header(
+            theme,
+            Icons.event_busy,
+            'Trễ kinh $late ngày → có thể thử thai',
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Kỳ kinh dự kiến: ${DateFormatter.formatDate(expected)} '
+            '(theo chu kỳ trung bình $average ngày)',
+            style: theme.textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Đây chỉ là ước tính từ dữ liệu bạn đã ghi. Chu kỳ có thể '
+            'thay đổi vì nhiều lý do; nếu chưa chắc, bạn có thể thử thai '
+            'hoặc hỏi bác sĩ.',
+            style: theme.textTheme.bodySmall?.copyWith(color: muted),
+          ),
+          if (regularity != CycleRegularity.regular) ...[
             const SizedBox(height: 6),
             Text(
-              'Đây chỉ là ước tính từ dữ liệu bạn đã ghi. Chu kỳ có thể '
-              'thay đổi vì nhiều lý do; nếu chưa chắc, bạn có thể thử thai '
-              'hoặc hỏi bác sĩ.',
+              regularity == CycleRegularity.irregular
+                  ? 'Chu kỳ của bạn chưa đều nên ngày dự kiến có thể lệch '
+                        'nhiều hơn.'
+                  : 'Chưa đủ dữ liệu chu kỳ nên ngày dự kiến có thể lệch '
+                        'nhiều hơn. Ghi thêm kỳ kinh giúp ước tính tốt hơn.',
+              key: const ValueKey('late-period-regularity-note'),
               style: theme.textTheme.bodySmall?.copyWith(color: muted),
             ),
-            if (regularity != CycleRegularity.regular) ...[
-              const SizedBox(height: 6),
-              Text(
-                regularity == CycleRegularity.irregular
-                    ? 'Chu kỳ của bạn chưa đều nên ngày dự kiến có thể lệch '
-                          'nhiều hơn.'
-                    : 'Chưa đủ dữ liệu chu kỳ nên ngày dự kiến có thể lệch '
-                          'nhiều hơn. Ghi thêm kỳ kinh giúp ước tính tốt hơn.',
-                key: const ValueKey('late-period-regularity-note'),
-                style: theme.textTheme.bodySmall?.copyWith(color: muted),
-              ),
-            ],
-            const SizedBox(height: 12),
-            if (hasGuide) ...[
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton.icon(
-                  key: const ValueKey('late-period-guide'),
-                  onPressed: () => _openEarlySigns(context),
-                  icon: const Icon(Icons.menu_book),
-                  label: const Text('Xem dấu hiệu & cách thử thai'),
-                ),
-              ),
-              const SizedBox(height: 8),
-            ],
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                OutlinedButton.icon(
-                  key: const ValueKey('late-period-pregnant'),
-                  onPressed: () => confirmAndSwitchToPregnancy(context, ref),
-                  icon: const Icon(Icons.pregnant_woman),
-                  label: const Text('Tôi đã có thai'),
-                ),
-                addPeriodButton(),
-              ],
-            ),
           ],
-        ),
+          const SizedBox(height: 12),
+          if (hasGuide) ...[
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                key: const ValueKey('late-period-guide'),
+                onPressed: () => _openEarlySigns(context),
+                icon: const Icon(Icons.menu_book),
+                label: const Text('Xem dấu hiệu & cách thử thai'),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              OutlinedButton.icon(
+                key: const ValueKey('late-period-pregnant'),
+                onPressed: () => confirmAndSwitchToPregnancy(context, ref),
+                icon: const Icon(Icons.pregnant_woman),
+                label: const Text('Tôi đã có thai'),
+              ),
+              addPeriodButton(),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -152,7 +148,7 @@ class LatePeriodCard extends ConsumerWidget {
   Widget _header(ThemeData theme, IconData icon, String title) {
     return Row(
       children: [
-        Icon(icon, color: Colors.deepOrange),
+        Icon(icon, color: theme.semantic.warning),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
@@ -178,12 +174,12 @@ class EarlySignsEntryCard extends StatelessWidget {
     if (guide == null) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
     return Card(
       key: const ValueKey('early-signs-card'),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        leading: const Icon(Icons.search, color: Colors.pink),
+        leading: Icon(Icons.search, color: theme.colorScheme.primary),
         title: Text(
           'Dấu hiệu mang thai sớm',
           style: theme.textTheme.titleMedium?.copyWith(

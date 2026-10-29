@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../../core/widgets/app_card.dart';
 
 class EmergencyEntryCard extends StatelessWidget {
   const EmergencyEntryCard({super.key});
@@ -7,51 +9,45 @@ class EmergencyEntryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final danger = AppTone.danger.of(context);
 
-    return Card(
-      color: Colors.red.withValues(alpha: 0.06),
-      child: InkWell(
-        onTap: () => NavigationHelper.toEmergencyWarning(context),
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.red.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.warning_amber_rounded,
-                  color: Colors.red,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dấu hiệu cần đi khám ngay',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red.shade700,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Xem các dấu hiệu bất thường cần liên hệ bác sĩ hoặc cơ sở y tế.',
-                      style: theme.textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(Icons.chevron_right, color: Colors.red),
-            ],
+    return AppCard(
+      variant: AppCardVariant.alert,
+      onTap: () => NavigationHelper.toEmergencyWarning(context),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: danger.main,
+              borderRadius: BorderRadius.circular(AppRadius.md),
+            ),
+            child: Icon(Icons.warning_amber_rounded, color: danger.onMain),
           ),
-        ),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Dấu hiệu cần đi khám ngay',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: danger.onContainer,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  'Xem các dấu hiệu bất thường cần liên hệ bác sĩ hoặc cơ sở y tế.',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: danger.onContainer,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right, color: danger.onContainer),
+        ],
       ),
     );
   }

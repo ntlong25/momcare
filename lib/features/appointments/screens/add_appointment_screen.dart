@@ -224,7 +224,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[300]!),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -232,7 +232,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                Icon(
+                  Icons.calendar_today,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
                 const SizedBox(width: 8),
                 Text('Ngày', style: Theme.of(context).textTheme.bodySmall),
               ],
@@ -254,7 +258,7 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[300]!),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -262,7 +266,11 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.access_time, size: 16, color: Colors.grey[600]),
+                Icon(
+                  Icons.access_time,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
                 const SizedBox(width: 8),
                 Text('Giờ', style: Theme.of(context).textTheme.bodySmall),
               ],
@@ -359,7 +367,9 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Xóa'),
           ),
         ],

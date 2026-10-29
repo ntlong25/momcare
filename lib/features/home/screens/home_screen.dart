@@ -4,9 +4,9 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
-import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../emergency/widgets/emergency_app_bar_button.dart';
 import '../../emergency/widgets/emergency_entry_card.dart';
 import '../widgets/pregnancy_progress_card.dart';
 import '../widgets/quick_actions_grid.dart';
@@ -76,7 +76,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
+          const EmergencyAppBarButton(),
           IconButton(
+            tooltip: 'Thông báo',
             icon: const Icon(Icons.notifications_outlined),
             onPressed: () => NavigationHelper.showNotificationsDialog(context),
           ),
@@ -100,12 +102,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             Icon(
               Icons.favorite_outline,
               size: 100,
-              color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 24),
             Text(
               l10n.welcomeToMomCare,
-              style: Theme.of(context).textTheme.displaySmall,
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
@@ -130,42 +132,63 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final now = DateTime.now();
     _builtDate = DateTime(now.year, now.month, now.day);
     final contentDay = pregnancy.contentDayAt(now);
+    // Order (Phase 22.5): greeting, hero day card, time-bound actions,
+    // today's content, habits, quick actions, emergency + clinic, progress.
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildGreeting(context, pregnancy),
+          const SizedBox(height: 12),
+          PregnancyDayCard(
+            key: const ValueKey('home-day-card'),
+            pregnancy: pregnancy,
+            now: now,
+          ),
+          NextMilestoneCard(
+            key: const ValueKey('home-next-milestone'),
+            pregnancy: pregnancy,
+            now: now,
+          ),
+          const SizedBox(height: 16),
+          const UpcomingAppointmentsCard(key: ValueKey('home-appointments')),
+          const SizedBox(height: 16),
+          TodayThaiGiaoCard(
+            key: const ValueKey('home-thai-giao'),
+            day: contentDay,
+          ),
+          const SizedBox(height: 16),
+          TodayTipCard(key: const ValueKey('home-tip'), day: contentDay),
+          const SizedBox(height: 16),
+          WeekTodoCard(
+            key: const ValueKey('home-week-todo'),
+            week: pregnancy.currentWeekAt(now),
+          ),
+          const SizedBox(height: 16),
+          const MaternalHabitsCard(key: ValueKey('home-habits')),
           const SizedBox(height: 24),
-          PregnancyDayCard(pregnancy: pregnancy, now: now),
-          const SizedBox(height: 16),
-          TodayThaiGiaoCard(day: contentDay),
-          const SizedBox(height: 16),
-          TodayTipCard(day: contentDay),
-          const SizedBox(height: 16),
-          WeekTodoCard(week: pregnancy.currentWeekAt(now)),
-          NextMilestoneCard(pregnancy: pregnancy, now: now),
-          const SizedBox(height: 16),
-          PregnancyProgressCard(pregnancy: pregnancy),
-          const SizedBox(height: 16),
-          const MaternalHabitsCard(),
-          const SizedBox(height: 16),
-          const EmergencyEntryCard(),
-          const SizedBox(height: 16),
-          const MyClinicCard(),
+          const QuickActionsGrid(key: ValueKey('home-quick-actions')),
           const SizedBox(height: 24),
-          const QuickActionsGrid(),
-          const SizedBox(height: 24),
-          const UpcomingAppointmentsCard(),
+          const EmergencyEntryCard(key: ValueKey('home-emergency-card')),
+          const SizedBox(height: 16),
+          const MyClinicCard(key: ValueKey('home-clinic')),
+          const SizedBox(height: 16),
+          PregnancyProgressCard(
+            key: const ValueKey('home-progress'),
+            pregnancy: pregnancy,
+          ),
         ],
       ),
     );
   }
 
+  /// One-line greeting, e.g. "Chào buổi chiều, An". The time left until
+  /// the due date is shown in [PregnancyDayCard].
   Widget _buildGreeting(BuildContext context, PregnancyModel pregnancy) {
     final l10n = AppLocalizations.of(context)!;
     final hour = DateTime.now().hour;
-    String greeting;
+    final String greeting;
     if (hour < 12) {
       greeting = l10n.goodMorning;
     } else if (hour < 17) {
@@ -173,28 +196,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     } else {
       greeting = l10n.goodEvening;
     }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(greeting, style: Theme.of(context).textTheme.headlineMedium),
-        if (pregnancy.motherName != null) ...[
-          const SizedBox(height: 4),
-          Text(
-            pregnancy.motherName!,
-            style: Theme.of(context).textTheme.displaySmall?.copyWith(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-        ],
-        const SizedBox(height: 8),
-        Text(
-          DateFormatter.formatDaysRemaining(pregnancy.daysUntilDue),
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            color: Theme.of(context).textTheme.bodySmall?.color,
-          ),
-        ),
-      ],
+    final name = pregnancy.motherName?.trim();
+    return Text(
+      name == null || name.isEmpty ? greeting : '$greeting, $name',
+      key: const ValueKey('home-greeting'),
+      style: Theme.of(context).textTheme.titleLarge,
     );
   }
 }

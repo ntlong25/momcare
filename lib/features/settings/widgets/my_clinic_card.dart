@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/my_clinic.dart';
 import '../../../core/services/my_clinic_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../guides/guide_actions.dart';
+import '../../../core/widgets/app_card.dart';
 
 /// Quick actions for "Nơi khám của tôi" on Hôm nay and the emergency screen
 /// (B9). [emergency] adds "Tìm bệnh viện gần tôi" and a red call button.
@@ -24,55 +24,53 @@ class MyClinicCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final clinic = ref.watch(myClinicProvider);
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
 
-    return Card(
+    return AppCard(
       key: const ValueKey('my-clinic-card'),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.local_hospital_outlined,
-                    color: theme.colorScheme.primary,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.local_hospital_outlined,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Nơi khám của tôi',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Nơi khám của tôi',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            if (clinic.isEmpty)
-              Text(
-                'Lưu tên và số điện thoại nơi khám để gọi nhanh khi cần',
-                style: theme.textTheme.bodyMedium,
-              )
-            else
-              ..._details(theme, clinic, muted),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: _actions(context, theme, clinic),
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          if (clinic.isEmpty)
+            Text(
+              'Lưu tên và số điện thoại nơi khám để gọi nhanh khi cần',
+              style: theme.textTheme.bodyMedium,
+            )
+          else
+            ..._details(theme, clinic, muted),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            children: _actions(context, theme, clinic),
+          ),
+        ],
       ),
     );
   }
@@ -113,12 +111,10 @@ class MyClinicCard extends ConsumerWidget {
     MyClinic clinic,
   ) {
     final mapsQuery = clinic.mapsQuery;
-    final tonalStyle = AppTheme.tonalButtonStyle(theme.colorScheme);
     return [
       if (clinic.isEmpty)
         FilledButton.tonalIcon(
           key: const ValueKey('my-clinic-add'),
-          style: tonalStyle,
           onPressed: () => NavigationHelper.toMyClinic(context),
           icon: const Icon(Icons.add),
           label: const Text('Thêm nơi khám'),
@@ -128,7 +124,10 @@ class MyClinicCard extends ConsumerWidget {
           emergency
               ? FilledButton.icon(
                   key: const ValueKey('my-clinic-call'),
-                  style: FilledButton.styleFrom(backgroundColor: Colors.red),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    foregroundColor: Theme.of(context).colorScheme.onError,
+                  ),
                   onPressed: () => GuideActions.launchUri(
                     context,
                     GuideActions.phoneUri(clinic.phone),
@@ -138,7 +137,6 @@ class MyClinicCard extends ConsumerWidget {
                 )
               : FilledButton.tonalIcon(
                   key: const ValueKey('my-clinic-call'),
-                  style: tonalStyle,
                   onPressed: () => GuideActions.launchUri(
                     context,
                     GuideActions.phoneUri(clinic.phone),

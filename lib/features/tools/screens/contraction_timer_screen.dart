@@ -7,15 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/models/contraction.dart';
 import '../../../core/services/contraction_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/duration_format.dart';
 import '../../guides/guide_actions.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../../settings/widgets/my_clinic_card.dart';
 import '../tool_guidance.dart';
+import '../widgets/tool_button_styles.dart';
 import '../widgets/tool_confirm_dialog.dart';
 import '../widgets/tool_guidance_card.dart';
+import '../../../core/widgets/empty_state.dart';
 
 /// "Đếm cơn co" (Phase 20, B10): times contractions and the gaps between
 /// them. It never interprets the result beyond the neutral 5-1-1 hint.
@@ -107,7 +108,6 @@ class _ContractionTimerScreenState
     DateTime now,
   ) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
     final active = notifier.active;
     final last = entries.isEmpty ? null : entries.last;
     final summary = ContractionService.summarize(entries, now);
@@ -130,7 +130,7 @@ class _ContractionTimerScreenState
               Text(
                 formatClock(active.elapsed(now)),
                 key: const ValueKey('contraction-running'),
-                style: theme.textTheme.headlineMedium?.copyWith(
+                style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontFeatures: const [FontFeature.tabularFigures()],
                 ),
@@ -140,7 +140,7 @@ class _ContractionTimerScreenState
               Text(
                 formatClock(now.difference(last.startedAt)),
                 key: const ValueKey('contraction-since-last'),
-                style: theme.textTheme.headlineMedium?.copyWith(
+                style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontFeatures: const [FontFeature.tabularFigures()],
                 ),
@@ -157,17 +157,9 @@ class _ContractionTimerScreenState
               width: double.infinity,
               child: FilledButton.icon(
                 key: const ValueKey('contraction-toggle'),
-                style: FilledButton.styleFrom(
-                  minimumSize: const Size.fromHeight(64),
-                  backgroundColor: active == null
-                      ? scheme.primary
-                      : Colors.red.shade700,
-                  foregroundColor: active == null
-                      ? AppTheme.textPrimaryColor
-                      : Colors.white,
-                  textStyle: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                style: ToolButtonStyles.mainAction(
+                  context,
+                  danger: active != null,
                 ),
                 onPressed: () {
                   HapticFeedback.mediumImpact();
@@ -202,9 +194,8 @@ class _ContractionTimerScreenState
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.08),
+        color: scheme.errorContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +204,7 @@ class _ContractionTimerScreenState
             'Các cơn co gần đây khớp mốc 5-1-1',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: scheme.onSurface,
+              color: scheme.onErrorContainer,
             ),
           ),
           const SizedBox(height: 8),
@@ -223,7 +214,7 @@ class _ContractionTimerScreenState
             'dùng để khuyên đến viện. Hãy liên hệ bác sĩ hoặc nơi bạn dự định '
             'đến khám, hoặc gọi 115 nếu cần hỗ trợ khẩn cấp.',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: scheme.onSurface,
+              color: scheme.onErrorContainer,
             ),
           ),
           const SizedBox(height: 12),
@@ -233,8 +224,8 @@ class _ContractionTimerScreenState
               key: const ValueKey('contraction-call-115'),
               style: FilledButton.styleFrom(
                 minimumSize: const Size.fromHeight(56),
-                backgroundColor: Colors.red.shade700,
-                foregroundColor: Colors.white,
+                backgroundColor: scheme.error,
+                foregroundColor: scheme.onError,
               ),
               onPressed: () =>
                   GuideActions.launchUri(context, GuideActions.phoneUri('115')),
@@ -292,9 +283,11 @@ class _ContractionTimerScreenState
       ),
       const SizedBox(height: 4),
       if (entries.isEmpty)
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Text('Chưa có cơn co nào được ghi.'),
+        const Center(
+          child: AppEmptyState.compact(
+            icon: Icons.timer_outlined,
+            title: 'Chưa có cơn co nào được ghi.',
+          ),
         ),
       for (final day in byDay.entries) ...[
         Padding(

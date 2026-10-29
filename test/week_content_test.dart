@@ -483,12 +483,10 @@ void main() {
     }.entries) {
       test('placeholder and current-week chip are >= 4.5:1 (${entry.key})', () {
         final scheme = entry.value;
-        for (final alpha in [0.3, 0.12]) {
-          expect(
-            contrast(scheme.onSurface, AppTheme.primaryTint(scheme, alpha)),
-            greaterThanOrEqualTo(4.5),
-          );
-        }
+        expect(
+          contrast(scheme.onSecondaryContainer, scheme.secondaryContainer),
+          greaterThanOrEqualTo(4.5),
+        );
       });
 
       testWidgets('week page uses readable colors (${entry.key})', (
@@ -511,8 +509,8 @@ void main() {
         final chip = tester.widget<Chip>(
           find.byKey(const ValueKey('week-current-chip')),
         );
-        expect(chip.labelStyle?.color, scheme.onSurface);
-        expect((chip.avatar! as Icon).color, scheme.onSurface);
+        expect(chip.labelStyle?.color, scheme.onSecondaryContainer);
+        expect((chip.avatar! as Icon).color, scheme.onSecondaryContainer);
         expect(
           contrast(chip.labelStyle!.color!, chip.backgroundColor!),
           greaterThanOrEqualTo(4.5),
@@ -524,11 +522,11 @@ void main() {
         final label = tester.widget<Text>(
           find.descendant(of: placeholder, matching: find.text('Tuần 0')),
         );
-        expect(label.style?.color, scheme.onSurface);
+        expect(label.style?.color, scheme.onSecondaryContainer);
         final icon = tester.widget<Icon>(
           find.descendant(of: placeholder, matching: find.byType(Icon)),
         );
-        expect(icon.color, scheme.onSurface);
+        expect(icon.color, scheme.onSecondaryContainer);
       });
     }
   });

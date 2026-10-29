@@ -6,12 +6,16 @@ import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/models/pre_readiness.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../emergency/widgets/emergency_app_bar_button.dart';
 import '../../emergency/widgets/emergency_entry_card.dart';
 import '../widgets/late_period_card.dart';
 import '../widgets/pre_readiness_card.dart';
+import '../widgets/quick_actions_grid.dart';
 import '../widgets/pregnant_switch_card.dart';
 import '../../settings/widgets/my_clinic_card.dart';
+import '../../../core/widgets/app_card.dart';
 
 class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
   /// Fixed cycles instead of the Hive box (tests only).
@@ -88,7 +92,9 @@ class _PrePregnancyHomeScreenState
       appBar: AppBar(
         title: const Text('MomCare+'),
         actions: [
+          const EmergencyAppBarButton(),
           IconButton(
+            tooltip: 'Thông báo',
             icon: const Icon(Icons.notifications_outlined),
             onPressed: () => NavigationHelper.showNotificationsDialog(context),
           ),
@@ -102,18 +108,17 @@ class _PrePregnancyHomeScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Order (Phase 22.5): greeting, late period, cycle
+              // predictions, readiness, early signs, tips, quick actions,
+              // emergency + clinic, "Tôi đã có thai".
               _buildGreeting(theme),
-              const SizedBox(height: 24),
-              const EmergencyEntryCard(),
-              const SizedBox(height: 16),
-              const MyClinicCard(),
               const SizedBox(height: 16),
               if (showLatePeriod) ...[
-                LatePeriodCard(cycles: _cycles, today: today),
-                const SizedBox(height: 16),
-              ],
-              if (showReadiness) ...[
-                const PreReadinessCard(),
+                LatePeriodCard(
+                  key: const ValueKey('pre-home-late-period'),
+                  cycles: _cycles,
+                  today: today,
+                ),
                 const SizedBox(height: 16),
               ],
               // While late or stale, rolled-forward predictions would
@@ -139,15 +144,31 @@ class _PrePregnancyHomeScreenState
                 ),
                 const SizedBox(height: 16),
               ],
-              if (showEarlySigns) ...[
-                const EarlySignsEntryCard(),
+              if (showReadiness) ...[
+                const PreReadinessCard(key: ValueKey('pre-home-readiness')),
                 const SizedBox(height: 16),
               ],
-              _DailyTipsWidget(theme: theme),
+              if (showEarlySigns) ...[
+                const EarlySignsEntryCard(
+                  key: ValueKey('pre-home-early-signs'),
+                ),
+                const SizedBox(height: 16),
+              ],
+              _DailyTipsWidget(
+                key: const ValueKey('pre-home-tips'),
+                theme: theme,
+              ),
               const SizedBox(height: 16),
-              _buildQuickActions(context),
+              KeyedSubtree(
+                key: const ValueKey('pre-home-quick-actions'),
+                child: _buildQuickActions(context),
+              ),
               const SizedBox(height: 16),
-              const PregnantSwitchCard(),
+              const EmergencyEntryCard(key: ValueKey('pre-home-emergency')),
+              const SizedBox(height: 16),
+              const MyClinicCard(key: ValueKey('pre-home-clinic')),
+              const SizedBox(height: 16),
+              const PregnantSwitchCard(key: ValueKey('pre-home-switch')),
               const SizedBox(height: 24),
             ],
           ),
@@ -165,6 +186,7 @@ class _PrePregnancyHomeScreenState
         : 'Chào buổi tối';
 
     return Column(
+      key: const ValueKey('pre-home-greeting'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -176,43 +198,30 @@ class _PrePregnancyHomeScreenState
         const SizedBox(height: 4),
         Text(
           'Chúc bạn một ngày tràn đầy năng lượng!',
-          style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
       ],
     );
   }
 
   Widget _buildQuickActions(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Truy cập nhanh',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+    return QuickActionTileGrid(
+      tiles: [
+        QuickActionTile(
+          key: const ValueKey('pre-quick-cycle'),
+          icon: Icons.calendar_month,
+          title: 'Theo dõi chu kỳ',
+          tone: AppTone.primary,
+          onTap: () => NavigationHelper.toFertilityPlanner(context),
         ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(
-              child: _QuickActionButton(
-                icon: Icons.calendar_month,
-                label: 'Theo dõi\nchu kỳ',
-                color: Colors.purple,
-                onTap: () => NavigationHelper.toFertilityPlanner(context),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: _QuickActionButton(
-                icon: Icons.restaurant_menu,
-                label: 'Dinh\ndưỡng',
-                color: Colors.orange,
-                onTap: () => NavigationHelper.toNutrition(context),
-              ),
-            ),
-          ],
+        QuickActionTile(
+          key: const ValueKey('pre-quick-nutrition'),
+          icon: Icons.restaurant_menu,
+          title: 'Dinh dưỡng',
+          tone: AppTone.tertiary,
+          onTap: () => NavigationHelper.toNutrition(context),
         ),
       ],
     );
@@ -236,114 +245,123 @@ class _FertileWindowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final success = AppTone.success.of(context);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.green.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Icon(Icons.eco, color: Colors.green),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Cửa sổ thụ thai',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            if (!hasCycles) ...[
-              Text(
-                'Chưa có dữ liệu chu kỳ',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey[600],
-                ),
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: onAddPeriod,
-                  icon: const Icon(Icons.add),
-                  label: const Text('Thêm kỳ kinh'),
-                ),
-              ),
-            ] else if (fertileWindow != null && fertileWindow!.isNotEmpty) ...[
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.05),
+                  color: success.container,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Colors.green.withValues(alpha: 0.3),
+                ),
+                child: Icon(Icons.eco, color: success.onContainer),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Cửa sổ thụ thai',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          if (!hasCycles) ...[
+            Text(
+              'Chưa có dữ liệu chu kỳ',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: onAddPeriod,
+                icon: const Icon(Icons.add),
+                label: const Text('Thêm kỳ kinh'),
+              ),
+            ),
+          ] else if (fertileWindow != null && fertileWindow!.isNotEmpty) ...[
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: success.container,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
                       children: [
                         Text(
                           '${fertileWindow!.first.day}/${fertileWindow!.first.month}',
                           style: theme.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            color: success.onContainer,
                           ),
                         ),
-                        const Text('Bắt đầu'),
+                        Text(
+                          'Bắt đầu',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: success.onContainer),
+                        ),
                       ],
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24),
-                      child: Icon(Icons.arrow_forward, color: Colors.green),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: success.onContainer,
                     ),
-                    Column(
+                  ),
+                  Expanded(
+                    child: Column(
                       children: [
                         Text(
                           '${fertileWindow!.last.day}/${fertileWindow!.last.month}',
                           style: theme.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            color: success.onContainer,
                           ),
                         ),
-                        const Text('Kết thúc'),
+                        Text(
+                          'Kết thúc',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: success.onContainer),
+                        ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Đây là khoảng thời gian có khả năng thụ thai cao hơn trong chu kỳ.',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
-                  fontStyle: FontStyle.italic,
-                ),
-                textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Đây là khoảng thời gian có khả năng thụ thai cao hơn trong chu kỳ.',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                fontStyle: FontStyle.italic,
               ),
-            ] else ...[
-              Text(
-                'Cần thêm dữ liệu để dự đoán.',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey[600],
-                ),
+              textAlign: TextAlign.center,
+            ),
+          ] else ...[
+            Text(
+              'Cần thêm dữ liệu để dự đoán.',
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
               ),
-            ],
+            ),
           ],
-        ),
+        ],
       ),
     );
   }
@@ -372,100 +390,101 @@ class _OvulationCountdownWidget extends StatelessWidget {
     final daysUntilOvulation = nextOvulation!.difference(DateTime.now()).inDays;
     final isToday = daysUntilOvulation == 0;
     final isPast = daysUntilOvulation < 0;
+    final info = AppTone.info.of(context);
+    final scheme = theme.colorScheme;
+    final boxBg = isToday
+        ? info.main
+        : isPast
+        ? scheme.surfaceContainerHighest
+        : info.container;
+    final boxFg = isToday
+        ? info.onMain
+        : isPast
+        ? scheme.onSurfaceVariant
+        : info.onContainer;
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Icon(Icons.egg_alt, color: Colors.blue),
+    return AppCard(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: info.container,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
+                child: Icon(Icons.egg_alt, color: info.onContainer),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Ngày rụng trứng dự kiến',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: boxBg,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  isToday
+                      ? 'Hôm nay'
+                      : isPast
+                      ? 'Đã qua'
+                      : '$daysUntilOvulation',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: boxFg,
+                  ),
+                ),
+                if (!isToday && !isPast)
+                  Text(
+                    'ngày nữa',
+                    style: TextStyle(color: boxFg, fontWeight: FontWeight.w500),
+                  ),
+                const SizedBox(height: 4),
+                Text(
+                  '${nextOvulation!.day}/${nextOvulation!.month}/${nextOvulation!.year}',
+                  style: TextStyle(color: boxFg),
+                ),
+              ],
+            ),
+          ),
+          if (nextPeriod != null) ...[
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.calendar_today,
+                  size: 16,
+                  color: theme.colorScheme.error,
+                ),
+                const SizedBox(width: 8),
+                Flexible(
                   child: Text(
-                    'Ngày rụng trứng dự kiến',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                    'Kỳ kinh tiếp theo: ${nextPeriod!.day}/${nextPeriod!.month}',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.error,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: isToday
-                      ? [Colors.blue, Colors.blue.shade700]
-                      : isPast
-                      ? [Colors.grey, Colors.grey.shade600]
-                      : [Colors.blue.shade100, Colors.blue.shade200],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    isToday
-                        ? 'Hôm nay'
-                        : isPast
-                        ? 'Đã qua'
-                        : '$daysUntilOvulation',
-                    style: theme.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isToday || isPast ? Colors.white : Colors.blue,
-                    ),
-                  ),
-                  if (!isToday && !isPast)
-                    Text(
-                      'ngày nữa',
-                      style: TextStyle(
-                        color: Colors.blue.shade700,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '${nextOvulation!.day}/${nextOvulation!.month}/${nextOvulation!.year}',
-                    style: TextStyle(
-                      color: isToday || isPast
-                          ? Colors.white70
-                          : Colors.blue.shade600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (nextPeriod != null) ...[
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.calendar_today, size: 16, color: Colors.red),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Kỳ kinh tiếp theo: ${nextPeriod!.day}/${nextPeriod!.month}',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.red,
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ],
-        ),
+        ],
       ),
     );
   }
@@ -474,7 +493,7 @@ class _OvulationCountdownWidget extends StatelessWidget {
 class _DailyTipsWidget extends StatelessWidget {
   final ThemeData theme;
 
-  const _DailyTipsWidget({required this.theme});
+  const _DailyTipsWidget({super.key, required this.theme});
 
   @override
   Widget build(BuildContext context) {
@@ -484,35 +503,35 @@ class _DailyTipsWidget extends StatelessWidget {
         title: 'Bổ sung axit folic',
         content:
             'Bạn có thể trao đổi với bác sĩ về việc bổ sung axit folic trước khi mang thai.',
-        color: Colors.purple,
+        tone: AppTone.primary,
       ),
       _Tip(
         icon: Icons.no_drinks,
         title: 'Tránh rượu bia',
         content:
             'Nên hạn chế rượu bia khi đang lên kế hoạch mang thai để hỗ trợ sức khỏe sinh sản.',
-        color: Colors.red,
+        tone: AppTone.danger,
       ),
       _Tip(
         icon: Icons.fitness_center,
         title: 'Duy trì cân nặng phù hợp',
         content:
             'Cân nặng quá thấp hoặc quá cao có thể ảnh hưởng đến chu kỳ và khả năng thụ thai.',
-        color: Colors.green,
+        tone: AppTone.success,
       ),
       _Tip(
         icon: Icons.local_cafe,
         title: 'Theo dõi lượng caffeine',
         content:
             'Nếu dùng nhiều caffeine, bạn có thể cân nhắc giảm dần và hỏi bác sĩ khi cần.',
-        color: Colors.brown,
+        tone: AppTone.tertiary,
       ),
       _Tip(
         icon: Icons.medical_services,
         title: 'Khám tiền sản',
         content:
             'Một buổi khám trước mang thai có thể giúp bạn kiểm tra sức khỏe tổng quát và tiêm chủng cần thiết.',
-        color: Colors.blue,
+        tone: AppTone.info,
       ),
     ];
 
@@ -520,52 +539,50 @@ class _DailyTipsWidget extends StatelessWidget {
         .difference(DateTime(DateTime.now().year, 1, 1))
         .inDays;
     final todayTip = tips[dayOfYear % tips.length];
+    final tipTone = todayTip.tone.of(context);
 
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: todayTip.color.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(todayTip.icon, color: todayTip.color),
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: tipTone.container,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Gợi ý hôm nay',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: Colors.grey,
-                        ),
+                child: Icon(todayTip.icon, color: tipTone.onContainer),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Gợi ý hôm nay',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
-                      Text(
-                        todayTip.title,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                    Text(
+                      todayTip.title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(
-              todayTip.content,
-              style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            todayTip.content,
+            style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
+          ),
+        ],
       ),
     );
   }
@@ -575,57 +592,12 @@ class _Tip {
   final IconData icon;
   final String title;
   final String content;
-  final Color color;
+  final AppTone tone;
 
   _Tip({
     required this.icon,
     required this.title,
     required this.content,
-    required this.color,
+    required this.tone,
   });
-}
-
-class _QuickActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _QuickActionButton({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: color, size: 28),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                label,
-                style: Theme.of(context).textTheme.bodySmall,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

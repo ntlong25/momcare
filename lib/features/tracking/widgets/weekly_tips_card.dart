@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
 import '../../references/widgets/source_metadata_card.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class WeeklyTipsCard extends StatelessWidget {
   final PregnancyWeekData weekData;
@@ -21,12 +22,12 @@ class WeeklyTipsCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.orange.withValues(alpha: 0.1),
+                    color: Theme.of(context).colorScheme.tertiaryContainer,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.lightbulb,
-                    color: Colors.orange,
+                    color: Theme.of(context).colorScheme.onTertiaryContainer,
                     size: 28,
                   ),
                 ),
@@ -46,7 +47,7 @@ class WeeklyTipsCard extends StatelessWidget {
                 Icons.restaurant_menu,
                 'Trọng tâm dinh dưỡng',
                 weekData.nutritionFocus,
-                Colors.green,
+                AppTone.success,
               ),
               const SizedBox(height: 16),
             ],
@@ -62,7 +63,7 @@ class WeeklyTipsCard extends StatelessWidget {
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: Colors.orange.withValues(alpha: 0.2),
+                        color: Theme.of(context).colorScheme.tertiaryContainer,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Center(
@@ -70,7 +71,9 @@ class WeeklyTipsCard extends StatelessWidget {
                           '${index + 1}',
                           style: Theme.of(context).textTheme.bodySmall
                               ?.copyWith(
-                                color: Colors.orange[800],
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onTertiaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
@@ -104,18 +107,19 @@ class WeeklyTipsCard extends StatelessWidget {
     IconData icon,
     String title,
     String body,
-    Color color,
+    AppTone tone,
   ) {
+    final colors = tone.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: colors.container,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: color),
+          Icon(icon, color: colors.onContainer),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -123,12 +127,18 @@ class WeeklyTipsCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colors.onContainer,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(body, style: Theme.of(context).textTheme.bodyMedium),
+                Text(
+                  body,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: colors.onContainer),
+                ),
               ],
             ),
           ),
@@ -141,7 +151,7 @@ class WeeklyTipsCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.08),
+        color: Theme.of(context).colorScheme.errorContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -149,7 +159,10 @@ class WeeklyTipsCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.warning_amber_rounded, color: Colors.red),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
               const SizedBox(width: 8),
               Text(
                 'Cần đi khám ngay nếu có',

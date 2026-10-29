@@ -141,7 +141,7 @@ class GuideDetailScreen extends ConsumerWidget {
                   Text(
                     '${(progress * 100).round()}%',
                     style: theme.textTheme.titleMedium?.copyWith(
-                      color: theme.primaryColor,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
               ],
@@ -398,7 +398,7 @@ class _BoughtTotal extends StatelessWidget {
           Text(
             'Ghi giá để xem tổng chi phí',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
         ],
@@ -528,7 +528,7 @@ class _TimelineTile extends StatelessWidget {
               Text(
                 item.weekLabel!,
                 style: theme.textTheme.labelLarge?.copyWith(
-                  color: theme.primaryColor,
+                  color: theme.colorScheme.primary,
                 ),
               ),
             Text(
@@ -557,7 +557,7 @@ class _TimelineTile extends StatelessWidget {
 
   Widget _buildScheduled(BuildContext context, ScheduledMilestone m) {
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
     return Card(
       key: ValueKey('milestone-${item.id}'),
       margin: const EdgeInsets.only(bottom: 10),
@@ -575,7 +575,7 @@ class _TimelineTile extends StatelessWidget {
                   Text(
                     item.weekLabel!,
                     style: theme.textTheme.labelLarge?.copyWith(
-                      color: theme.primaryColor,
+                      color: theme.colorScheme.primary,
                     ),
                   ),
                 Text(

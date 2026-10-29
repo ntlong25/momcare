@@ -47,9 +47,7 @@ class SourceMetadataCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Theme.of(context).dividerColor.withValues(alpha: 0.4),
-        ),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: DefaultTextStyle.merge(
         style: Theme.of(context).textTheme.bodySmall,
@@ -58,7 +56,10 @@ class SourceMetadataCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.source, color: Theme.of(context).primaryColor),
+                Icon(
+                  Icons.source,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(

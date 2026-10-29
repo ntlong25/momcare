@@ -134,12 +134,15 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[300]!),
+          border: Border.all(color: Theme.of(context).colorScheme.outline),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           children: [
-            Icon(Icons.calendar_today, color: Theme.of(context).primaryColor),
+            Icon(
+              Icons.calendar_today,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,7 +242,6 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
               _selectedMood = selected ? mood : null;
             });
           },
-          selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.3),
         );
       }).toList(),
     );
@@ -263,7 +265,6 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
               }
             });
           },
-          selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.3),
         );
       }).toList(),
     );
@@ -358,7 +359,9 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Xóa'),
           ),
         ],

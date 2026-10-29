@@ -4,6 +4,7 @@ import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/utils/bmi_calculator.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class WeightGainChart extends StatelessWidget {
   final PregnancyModel pregnancy;
@@ -30,12 +31,12 @@ class WeightGainChart extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.blue.withValues(alpha: 0.1),
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.trending_up,
-                        color: Colors.blue,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                         size: 28,
                       ),
                     ),
@@ -79,13 +80,17 @@ class WeightGainChart extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.show_chart, size: 48, color: Colors.grey[400]),
+          Icon(
+            Icons.show_chart,
+            size: 48,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
           const SizedBox(height: 12),
           Text(
             'Chưa có dữ liệu cân nặng',
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 8),
           TextButton.icon(
@@ -110,7 +115,7 @@ class WeightGainChart extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.blue.withValues(alpha: 0.05),
+        color: Theme.of(context).colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -122,21 +127,31 @@ class WeightGainChart extends StatelessWidget {
                 context,
                 'Hiện tại',
                 '${currentWeight.toStringAsFixed(1)} kg',
-                Colors.blue,
+                context.semantic.info,
               ),
-              Container(width: 1, height: 40, color: Colors.grey[300]),
+              Container(
+                width: 1,
+                height: 40,
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
               _buildStatColumn(
                 context,
                 'Đã tăng',
                 '${weightGain >= 0 ? '+' : ''}${weightGain.toStringAsFixed(1)} kg',
-                weightGain >= 0 ? Colors.green : Colors.red,
+                weightGain >= 0
+                    ? context.semantic.success
+                    : context.semantic.danger,
               ),
-              Container(width: 1, height: 40, color: Colors.grey[300]),
+              Container(
+                width: 1,
+                height: 40,
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
               _buildStatColumn(
                 context,
                 'Mục tiêu',
                 '${recommendedGain['min']?.toStringAsFixed(1)}-${recommendedGain['max']?.toStringAsFixed(1)} kg',
-                Colors.orange,
+                context.semantic.warning,
               ),
             ],
           ),
@@ -163,9 +178,9 @@ class WeightGainChart extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
       ],
     );
@@ -173,6 +188,10 @@ class WeightGainChart extends StatelessWidget {
 
   Widget _buildChart(BuildContext context, List healthLogs) {
     final sortedLogs = healthLogs.reversed.toList();
+    final scheme = Theme.of(context).colorScheme;
+    final axisStyle = Theme.of(
+      context,
+    ).textTheme.bodySmall?.copyWith(color: scheme.onSurfaceVariant);
     final spots = sortedLogs.asMap().entries.map((entry) {
       return FlSpot(entry.key.toDouble(), entry.value.weight);
     }).toList();
@@ -184,7 +203,10 @@ class WeightGainChart extends StatelessWidget {
           drawVerticalLine: false,
           horizontalInterval: 5,
           getDrawingHorizontalLine: (value) {
-            return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
+            return FlLine(
+              color: Theme.of(context).colorScheme.outlineVariant,
+              strokeWidth: 1,
+            );
           },
         ),
         titlesData: FlTitlesData(
@@ -206,10 +228,7 @@ class WeightGainChart extends StatelessWidget {
                 }
                 return Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    '${value.toInt() + 1}',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
+                  child: Text('${value.toInt() + 1}', style: axisStyle),
                 );
               },
             ),
@@ -220,10 +239,7 @@ class WeightGainChart extends StatelessWidget {
               interval: 5,
               reservedSize: 42,
               getTitlesWidget: (value, meta) {
-                return Text(
-                  value.toInt().toString(),
-                  style: Theme.of(context).textTheme.bodySmall,
-                );
+                return Text(value.toInt().toString(), style: axisStyle);
               },
             ),
           ),
@@ -231,8 +247,8 @@ class WeightGainChart extends StatelessWidget {
         borderData: FlBorderData(
           show: true,
           border: Border(
-            left: BorderSide(color: Colors.grey[300]!),
-            bottom: BorderSide(color: Colors.grey[300]!),
+            left: BorderSide(color: scheme.outline),
+            bottom: BorderSide(color: scheme.outline),
           ),
         ),
         minX: 0,
@@ -243,7 +259,7 @@ class WeightGainChart extends StatelessWidget {
           LineChartBarData(
             spots: spots,
             isCurved: true,
-            color: Colors.blue,
+            color: scheme.primary,
             barWidth: 3,
             isStrokeCapRound: true,
             dotData: FlDotData(
@@ -251,15 +267,15 @@ class WeightGainChart extends StatelessWidget {
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
                   radius: 4,
-                  color: Colors.white,
+                  color: scheme.surface,
                   strokeWidth: 2,
-                  strokeColor: Colors.blue,
+                  strokeColor: scheme.primary,
                 );
               },
             ),
             belowBarData: BarAreaData(
               show: true,
-              color: Colors.blue.withValues(alpha: 0.1),
+              color: scheme.primary.withValues(alpha: 0.12),
             ),
           ),
         ],

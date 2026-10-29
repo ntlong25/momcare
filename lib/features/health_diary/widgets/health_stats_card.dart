@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/health_log_model.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class HealthStatsCard extends StatelessWidget {
   final List<HealthLogModel> healthLogs;
@@ -32,7 +33,7 @@ class HealthStatsCard extends StatelessWidget {
                           ? '${latestLog.weight!.toStringAsFixed(1)} kg'
                           : 'Chưa có',
                       Icons.monitor_weight,
-                      Colors.blue,
+                      AppTone.info,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -45,7 +46,7 @@ class HealthStatsCard extends StatelessWidget {
                           ? '${latestLog.systolicBP}/${latestLog.diastolicBP}'
                           : 'Chưa có',
                       Icons.favorite,
-                      Colors.red,
+                      AppTone.danger,
                     ),
                   ),
                 ],
@@ -59,7 +60,7 @@ class HealthStatsCard extends StatelessWidget {
                       'Tâm trạng',
                       latestLog.mood ?? 'Chưa theo dõi',
                       Icons.mood,
-                      Colors.orange,
+                      AppTone.warning,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -69,7 +70,7 @@ class HealthStatsCard extends StatelessWidget {
                       'Tổng ghi nhận',
                       '${healthLogs.length}',
                       Icons.list,
-                      Colors.green,
+                      AppTone.success,
                     ),
                   ),
                 ],
@@ -92,12 +93,13 @@ class HealthStatsCard extends StatelessWidget {
     String label,
     String value,
     IconData icon,
-    Color color,
+    AppTone tone,
   ) {
+    final colors = tone.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: colors.container,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -105,14 +107,14 @@ class HealthStatsCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, size: 20, color: color),
+              Icon(icon, size: 20, color: colors.onContainer),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   label,
                   style: Theme.of(
                     context,
-                  ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                  ).textTheme.bodySmall?.copyWith(color: colors.onContainer),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -123,7 +125,7 @@ class HealthStatsCard extends StatelessWidget {
             value,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: color,
+              color: colors.onContainer,
             ),
           ),
         ],

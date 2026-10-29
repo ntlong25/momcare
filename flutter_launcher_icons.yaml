@@ -1,0 +1,14 @@
+# Launcher icons (Phase 22.8). Sources and SVG masters: assets/branding/.
+# Regenerate with: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/branding/app_icon_1024.png"
+  remove_alpha_ios: true
+  # Brand primary (AppBrandColors.primary).
+  adaptive_icon_background: "#894A68"
+  adaptive_icon_foreground: "assets/branding/app_icon_foreground_432.png"
+  adaptive_icon_monochrome: "assets/branding/app_icon_monochrome_432.png"
+  # The 432 px foreground already keeps the glyph inside the 66 dp safe zone.
+  adaptive_icon_foreground_inset: 0
+  min_sdk_android: 26

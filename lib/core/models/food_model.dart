@@ -20,23 +20,6 @@ extension FoodVerdictX on FoodVerdict {
     }
   }
 
-  /// Base colour of the verdict (green / orange / red).
-  MaterialColor get color {
-    switch (this) {
-      case FoodVerdict.ok:
-        return Colors.green;
-      case FoodVerdict.limit:
-        return Colors.orange;
-      case FoodVerdict.avoid:
-        return Colors.red;
-    }
-  }
-
-  /// Readable foreground shade of [color] for the given theme brightness.
-  Color colorFor(Brightness brightness) => brightness == Brightness.dark
-      ? color.shade300
-      : (this == FoodVerdict.limit ? color.shade900 : color.shade800);
-
   IconData get icon {
     switch (this) {
       case FoodVerdict.ok:

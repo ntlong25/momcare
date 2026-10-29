@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../legal/screens/medical_disclaimer_screen.dart';
 import 'mode_selection_screen.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -21,35 +22,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       description:
           'Người bạn đồng hành giúp bạn theo dõi thai kỳ khỏe mạnh và an tâm hơn.',
       icon: Icons.favorite,
-      color: const Color(0xFFFF9A9E),
+      tone: AppTone.primary,
     ),
     OnboardingPage(
       title: 'Theo dõi hành trình',
       description:
           'Theo dõi thai kỳ theo từng tuần và lưu lại các mốc phát triển quan trọng.',
       icon: Icons.track_changes,
-      color: const Color(0xFFFAD0C4),
+      tone: AppTone.secondary,
     ),
     OnboardingPage(
       title: 'Gợi ý dinh dưỡng',
       description:
           'Xem hướng dẫn dinh dưỡng và công thức phù hợp theo từng giai đoạn.',
       icon: Icons.restaurant_menu,
-      color: const Color(0xFFFFC3A0),
+      tone: AppTone.tertiary,
     ),
     OnboardingPage(
       title: 'Sắp xếp lịch hẹn',
       description:
           'Lưu lịch khám và nhận nhắc nhở để không bỏ lỡ những mốc cần nhớ.',
       icon: Icons.calendar_today,
-      color: const Color(0xFFFFB74D),
+      tone: AppTone.primary,
     ),
     OnboardingPage(
       title: 'Lưu ý y tế',
       description:
           'MomCare+ chỉ cung cấp thông tin tham khảo, không chẩn đoán, điều trị hoặc thay thế bác sĩ.',
       icon: Icons.medical_information,
-      color: const Color(0xFF4DB6AC),
+      tone: AppTone.secondary,
       showDisclaimerLink: true,
     ),
   ];
@@ -137,25 +138,41 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget _buildPage(OnboardingPage page) {
-    return Padding(
-      padding: const EdgeInsets.all(40.0),
+    // Scrolls when the page is taller than the viewport (small screens,
+    // large font scale); stays centred otherwise.
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        padding: const EdgeInsets.all(40.0),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: (constraints.maxHeight - 80).clamp(0.0, double.infinity),
+          ),
+          child: _buildPageContent(page),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPageContent(OnboardingPage page) {
+    final colors = page.tone.of(context);
+    return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             padding: const EdgeInsets.all(40),
             decoration: BoxDecoration(
-              color: page.color.withValues(alpha: 0.1),
+              color: colors.container,
               shape: BoxShape.circle,
             ),
-            child: Icon(page.icon, size: 100, color: page.color),
+            child: Icon(page.icon, size: 100, color: colors.onContainer),
           ),
           const SizedBox(height: 48),
           Text(
             page.title,
             style: Theme.of(
               context,
-            ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
@@ -190,8 +207,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       height: 8,
       decoration: BoxDecoration(
         color: _currentPage == index
-            ? Theme.of(context).primaryColor
-            : Colors.grey[300],
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.outlineVariant,
         borderRadius: BorderRadius.circular(4),
       ),
     );
@@ -219,14 +236,16 @@ class OnboardingPage {
   final String title;
   final String description;
   final IconData icon;
-  final Color color;
+
+  /// Colour family of the page illustration.
+  final AppTone tone;
   final bool showDisclaimerLink;
 
   OnboardingPage({
     required this.title,
     required this.description,
     required this.icon,
-    required this.color,
+    required this.tone,
     this.showDisclaimerLink = false,
   });
 }

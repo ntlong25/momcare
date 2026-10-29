@@ -4,7 +4,6 @@ import '../../../core/data/content_pack_service.dart';
 import '../../../core/data/week_content_parser.dart';
 import '../../../core/models/guide_models.dart';
 import '../../../core/models/week_detail_model.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import '../../milestone_card/screens/milestone_card_screen.dart';
@@ -134,14 +133,13 @@ class _WeekDetailScreenState extends State<WeekDetailScreen> {
                             avatar: Icon(
                               Icons.favorite,
                               size: 16,
-                              color: theme.colorScheme.onSurface,
+                              color: theme.colorScheme.onSecondaryContainer,
                             ),
                             label: const Text('Tuần hiện tại'),
-                            backgroundColor: AppTheme.primaryTint(
-                              theme.colorScheme,
-                            ),
+                            backgroundColor:
+                                theme.colorScheme.secondaryContainer,
                             labelStyle: TextStyle(
-                              color: theme.colorScheme.onSurface,
+                              color: theme.colorScheme.onSecondaryContainer,
                             ),
                           )
                         : TextButton.icon(
@@ -284,13 +282,13 @@ class _StatChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: theme.primaryColor.withValues(alpha: 0.08),
+        color: theme.colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 18, color: theme.primaryColor),
+          Icon(icon, size: 18, color: theme.colorScheme.primary),
           const SizedBox(width: 6),
           Flexible(
             child: Column(
@@ -322,7 +320,7 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final tint = color ?? theme.primaryColor;
+    final tint = color ?? theme.colorScheme.primary;
     return Row(
       children: [
         Icon(icon, size: 22, color: tint),
@@ -425,14 +423,14 @@ class _RedFlagsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final red = Colors.red.shade700;
+    final scheme = Theme.of(context).colorScheme;
+    final red = scheme.onErrorContainer;
     return Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
       decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.06),
+        color: scheme.errorContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

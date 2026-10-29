@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/models/week_detail_model.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../milestone_card_text.dart';
 
 /// Shareable 4:5 milestone card, laid out at [width] x [height] logical
@@ -13,8 +13,8 @@ class MilestoneCard extends StatelessWidget {
   static const double height = 450;
   static const String fontFamily = 'BeVietnamPro';
 
-  static const Color _ink = AppTheme.textPrimaryColor;
-  static const Color _inkSoft = Color(0xFF5C4A4D);
+  static const Color _ink = AppBrandColors.ink;
+  static const Color _inkSoft = AppBrandColors.inkSoft;
 
   final WeekDetail detail;
 
@@ -39,7 +39,10 @@ class MilestoneCard extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xFFFFF1F2), Color(0xFFFFDDE0)],
+              colors: [
+                AppBrandColors.background,
+                AppBrandColors.backgroundAccent,
+              ],
             ),
           ),
           child: Column(
@@ -47,11 +50,7 @@ class MilestoneCard extends StatelessWidget {
             children: [
               const Row(
                 children: [
-                  Icon(
-                    Icons.favorite,
-                    color: AppTheme.primaryDarkColor,
-                    size: 22,
-                  ),
+                  Icon(Icons.favorite, color: AppBrandColors.primary, size: 22),
                   SizedBox(width: 8),
                   Text(
                     'Hành trình của mẹ',
@@ -120,7 +119,7 @@ class MilestoneCard extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.child_care,
-                    color: AppTheme.primaryDarkColor,
+                    color: AppBrandColors.primary,
                     size: 20,
                   ),
                   SizedBox(width: 6),

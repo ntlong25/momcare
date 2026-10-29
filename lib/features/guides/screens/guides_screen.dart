@@ -80,7 +80,7 @@ class GuidesScreen extends ConsumerWidget {
                       GuideEnums.categoryLabel(entry.key),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
@@ -115,8 +115,11 @@ class _FoodLookupEntryCard extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundColor: theme.primaryColor.withValues(alpha: 0.15),
-                child: Icon(Icons.restaurant_menu, color: theme.primaryColor),
+                backgroundColor: theme.colorScheme.primaryContainer,
+                child: Icon(
+                  Icons.restaurant_menu,
+                  color: theme.colorScheme.primary,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -234,7 +237,7 @@ class _EmptyGuides extends StatelessWidget {
             Icon(
               Icons.menu_book_outlined,
               size: 80,
-              color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 16),
             Text(
