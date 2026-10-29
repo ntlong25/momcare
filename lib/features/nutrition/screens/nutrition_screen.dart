@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/models/nutrition_model.dart';
+import '../../../core/models/recipe_model.dart';
+import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/nutrition_seed_service.dart';
 import '../../../core/utils/nutrition_filter.dart';
 import '../widgets/nutrition_card.dart';
 import '../widgets/recipe_card.dart';
+import '../widgets/weekly_nutrition_focus_card.dart';
+import 'food_lookup_screen.dart';
 import 'recipe_detail_screen.dart';
 import 'nutrition_detail_screen.dart';
 
@@ -12,10 +17,16 @@ class NutritionScreen extends ConsumerStatefulWidget {
   final int initialTab;
   final bool showAppBar;
 
+  /// Overrides the week of the weekly focus card (tests); null resolves it
+  /// from the app mode and the active pregnancy.
+  @visibleForTesting
+  final int? focusWeek;
+
   const NutritionScreen({
     super.key,
     this.initialTab = 0,
     this.showAppBar = true,
+    this.focusWeek,
   });
 
   @override
@@ -32,11 +43,34 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   void initState() {
     super.initState();
     _tabController = TabController(
-      length: 2,
+      length: 3,
       vsync: this,
-      initialIndex: widget.initialTab.clamp(0, 1),
+      initialIndex: widget.initialTab.clamp(0, 2),
     );
     _initializeSampleData();
+  }
+
+  /// Week for the "Dinh dưỡng tuần X" card: 0 before pregnancy, the active
+  /// pregnancy's current week otherwise, null (no card) without a pregnancy.
+  int? _focusWeek() {
+    if (widget.focusWeek != null) return widget.focusWeek;
+    if (ref.watch(appModeProvider) == AppMode.prePregnancy) return 0;
+    try {
+      return DatabaseService.getActivePregnancy()?.currentWeekAt(
+        DateTime.now(),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Hive reads that degrade to an empty list when a box is unavailable.
+  static List<T> _safeList<T>(List<T> Function() read) {
+    try {
+      return read();
+    } catch (_) {
+      return <T>[];
+    }
   }
 
   Future<void> _initializeSampleData() async {
@@ -55,14 +89,21 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   Widget build(BuildContext context) {
     final tabBar = TabBar(
       controller: _tabController,
+      isScrollable: true,
+      tabAlignment: TabAlignment.center,
       tabs: const [
         Tab(icon: Icon(Icons.lightbulb), text: 'Hướng dẫn'),
         Tab(icon: Icon(Icons.restaurant), text: 'Công thức'),
+        Tab(icon: Icon(Icons.search), text: 'Ăn được không?'),
       ],
     );
     final tabBarView = TabBarView(
       controller: _tabController,
-      children: [_buildGuidesTab(), _buildRecipesTab()],
+      children: [
+        _buildGuidesTab(),
+        _buildRecipesTab(),
+        const FoodLookupScreen(showAppBar: false),
+      ],
     );
 
     return Scaffold(
@@ -81,7 +122,9 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   }
 
   Widget _buildGuidesTab() {
-    final allNutrition = DatabaseService.getAllNutrition();
+    final allNutrition = _safeList<NutritionModel>(
+      DatabaseService.getAllNutrition,
+    );
     final chips = NutritionFilter.chipsFor(allNutrition.map((n) => n.category));
     final selected = chips.contains(_guideCategory)
         ? _guideCategory
@@ -89,6 +132,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
     final filteredNutrition = allNutrition
         .where((n) => NutritionFilter.matches(n.category, selected))
         .toList();
+    final focusWeek = _focusWeek();
 
     return Column(
       children: [
@@ -98,39 +142,47 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
           (chip) => setState(() => _guideCategory = chip),
         ),
         Expanded(
-          child: filteredNutrition.isEmpty
-              ? _buildEmptyState('Chưa có hướng dẫn dinh dưỡng')
-              : RefreshIndicator(
-                  onRefresh: () async {
-                    setState(() {});
-                    await Future.delayed(const Duration(milliseconds: 500));
+          child: RefreshIndicator(
+            onRefresh: () async {
+              setState(() {});
+              await Future.delayed(const Duration(milliseconds: 500));
+            },
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              // Item 0 is the weekly focus card (or the empty state).
+              itemCount: filteredNutrition.length + 1,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return Column(
+                    children: [
+                      WeeklyNutritionFocusCard(week: focusWeek),
+                      if (filteredNutrition.isEmpty)
+                        _buildEmptyState('Chưa có hướng dẫn dinh dưỡng'),
+                    ],
+                  );
+                }
+                final nutrition = filteredNutrition[index - 1];
+                return NutritionCard(
+                  nutrition: nutrition,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            NutritionDetailScreen(nutrition: nutrition),
+                      ),
+                    );
                   },
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: filteredNutrition.length,
-                    itemBuilder: (context, index) {
-                      final nutrition = filteredNutrition[index];
-                      return NutritionCard(
-                        nutrition: nutrition,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NutritionDetailScreen(nutrition: nutrition),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
+                );
+              },
+            ),
+          ),
         ),
       ],
     );
   }
 
   Widget _buildRecipesTab() {
-    final allRecipes = DatabaseService.getAllRecipes();
+    final allRecipes = _safeList<RecipeModel>(DatabaseService.getAllRecipes);
     final chips = NutritionFilter.chipsFor(allRecipes.map((r) => r.category));
     final selected = chips.contains(_recipeCategory)
         ? _recipeCategory

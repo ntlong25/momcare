@@ -5,11 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/daily_item_model.dart';
+import '../models/food_model.dart';
 import '../models/guide_models.dart';
 import '../models/nutrition_model.dart';
 import '../models/recipe_model.dart';
 import '../models/week_detail_model.dart';
 import 'daily_content_parser.dart';
+import 'food_content_parser.dart';
 import 'guide_content_parser.dart';
 import 'pregnancy_weeks_data.dart';
 import 'sample_nutrition_data.dart';
@@ -24,6 +26,7 @@ class ContentPackService {
   static const String sourcesAssetPath = GuideContentParser.sourcesAssetPath;
   static const String guidesIndexAssetPath =
       GuideContentParser.guidesIndexAssetPath;
+  static const String foodsAssetPath = FoodContentParser.foodsAssetPath;
 
   static Map<int, PregnancyWeekData>? _pregnancyWeeks;
   static List<NutritionModel>? _nutritionGuides;
@@ -38,6 +41,7 @@ class ContentPackService {
   static DailyPack _dailyTipsPack = const DailyPack.empty(
     DailyPack.dailyTipType,
   );
+  static FoodPack _foodPack = const FoodPack.empty();
 
   static Map<int, PregnancyWeekData> get pregnancyWeeks =>
       _pregnancyWeeks ?? _buildFallbackPregnancyWeeks();
@@ -98,6 +102,13 @@ class ContentPackService {
   @visibleForTesting
   static set debugDailyTipsPack(DailyPack value) => _dailyTipsPack = value;
 
+  /// "Bầu ăn được không?" foods (empty when the pack is missing/invalid).
+  static FoodPack get foodPack => _foodPack;
+
+  /// Replaces the loaded food pack (tests only).
+  @visibleForTesting
+  static set debugFoodPack(FoodPack value) => _foodPack = value;
+
   static WeekDetail resolveWeekDetail(int week, Map<int, WeekDetail> details) {
     final clamped = week.clamp(
       WeekContentParser.minWeek,
@@ -119,6 +130,7 @@ class ContentPackService {
     _weekDetails = await loadWeekDetails(rootBundle);
     _thaiGiaoPack = await DailyContentParser.loadThaiGiao(rootBundle);
     _dailyTipsPack = await DailyContentParser.loadDailyTips(rootBundle);
+    _foodPack = await FoodContentParser.loadFoods(rootBundle);
   }
 
   /// Loads `weeks_v2.json`; never throws (missing/invalid -> empty map).

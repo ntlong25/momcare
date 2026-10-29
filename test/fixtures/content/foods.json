@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "foods": [
+    {
+      "id": "rau_ngot",
+      "name": "Rau ngót",
+      "aliases": ["bồ ngót"],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Lý do rau ngót",
+      "tip": "Lời khuyên rau ngót",
+      "sources": ["WHO-ANC"]
+    },
+    {
+      "id": "dau_bap",
+      "name": "Đậu bắp",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "ok",
+      "reason": "Lý do đậu bắp",
+      "tip": "Lời khuyên đậu bắp",
+      "sources": []
+    },
+    {
+      "id": "ngot_ngao",
+      "name": "Chè ngọt",
+      "aliases": ["ngọt ngào"],
+      "group": "sweet",
+      "verdict": "limit",
+      "reason": "Lý do chè",
+      "tip": "Lời khuyên chè",
+      "sources": ["MOH-MCH"]
+    },
+    {
+      "id": "pate",
+      "name": "Pa tê",
+      "aliases": ["pate gan"],
+      "group": "meat",
+      "verdict": "avoid",
+      "reason": "Lý do pa tê",
+      "tip": "Lời khuyên pa tê",
+      "sources": ["WHO-ANC", "UNKNOWN-SRC"]
+    },
+    {
+      "id": "thit_bo",
+      "name": "Thịt bò",
+      "aliases": [],
+      "group": "meat",
+      "verdict": "ok",
+      "reason": "Lý do thịt bò",
+      "tip": "Lời khuyên thịt bò",
+      "sources": ["MOH-MCH"]
+    },
+    {
+      "id": "ca_kiem",
+      "name": "Cá kiếm",
+      "aliases": [],
+      "group": "seafood",
+      "verdict": "avoid",
+      "reason": "Lý do cá kiếm",
+      "tip": "Lời khuyên cá kiếm",
+      "sources": ["WHO-ANC"]
+    },
+    {
+      "id": "unknown_verdict",
+      "name": "Món lạ",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "maybe",
+      "reason": "",
+      "tip": "",
+      "sources": []
+    },
+    {
+      "id": "empty_name",
+      "name": "  ",
+      "aliases": [],
+      "group": "dish",
+      "verdict": "ok",
+      "reason": "",
+      "tip": "",
+      "sources": []
+    },
+    {
+      "id": "rau_ngot",
+      "name": "Rau ngót trùng",
+      "aliases": [],
+      "group": "vegetable",
+      "verdict": "avoid",
+      "reason": "",
+      "tip": "",
+      "sources": []
+    },
+    "không phải object"
+  ]
+}
