@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers/app_mode_provider.dart';
 import '../../home/screens/main_navigation.dart';
 import 'pregnancy_setup_screen.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class ModeSelectionScreen extends ConsumerWidget {
   const ModeSelectionScreen({super.key});
@@ -22,28 +23,21 @@ class ModeSelectionScreen extends ConsumerWidget {
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      theme.primaryColor,
-                      theme.primaryColor.withValues(alpha: 0.6),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: theme.colorScheme.primary,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.favorite,
                   size: 50,
-                  color: Colors.white,
+                  color: theme.colorScheme.onPrimary,
                 ),
               ),
               const SizedBox(height: 24),
               Text(
                 'Chào mừng đến với MomCare+',
-                style: theme.textTheme.headlineMedium?.copyWith(
+                style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: theme.primaryColor,
+                  color: theme.colorScheme.primary,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -51,14 +45,14 @@ class ModeSelectionScreen extends ConsumerWidget {
               Text(
                 'Bạn đang ở giai đoạn nào?',
                 style: theme.textTheme.titleMedium?.copyWith(
-                  color: Colors.grey[600],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 48),
               _ModeCard(
                 icon: Icons.eco,
-                iconColor: Colors.green,
+                tone: AppTone.success,
                 title: 'Đang lên kế hoạch mang thai',
                 subtitle:
                     'Theo dõi chu kỳ, dinh dưỡng chuẩn bị và gợi ý thụ thai',
@@ -76,7 +70,7 @@ class ModeSelectionScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _ModeCard(
                 icon: Icons.pregnant_woman,
-                iconColor: Colors.pink,
+                tone: AppTone.primary,
                 title: 'Đã mang thai',
                 subtitle: 'Theo dõi thai kỳ, sức khỏe và dinh dưỡng theo tuần',
                 onTap: () async {
@@ -95,7 +89,9 @@ class ModeSelectionScreen extends ConsumerWidget {
               const Spacer(),
               Text(
                 'Bạn có thể thay đổi lựa chọn này sau trong Cài đặt',
-                style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -109,14 +105,14 @@ class ModeSelectionScreen extends ConsumerWidget {
 
 class _ModeCard extends StatelessWidget {
   final IconData icon;
-  final Color iconColor;
+  final AppTone tone;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
 
   const _ModeCard({
     required this.icon,
-    required this.iconColor,
+    required this.tone,
     required this.title,
     required this.subtitle,
     required this.onTap,
@@ -124,6 +120,7 @@ class _ModeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = tone.of(context);
     return Card(
       elevation: 2,
       child: InkWell(
@@ -137,10 +134,10 @@ class _ModeCard extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: iconColor.withValues(alpha: 0.1),
+                  color: colors.container,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon, size: 32, color: iconColor),
+                child: Icon(icon, size: 32, color: colors.onContainer),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -156,14 +153,17 @@ class _ModeCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, color: Colors.grey[400]),
+              Icon(
+                Icons.chevron_right,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ],
           ),
         ),

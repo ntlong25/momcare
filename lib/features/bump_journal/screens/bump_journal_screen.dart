@@ -9,11 +9,11 @@ import 'package:image_picker/image_picker.dart';
 import '../../../core/models/bump_photo.dart';
 import '../../../core/services/bump_photo_service.dart';
 import '../../../core/services/database_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/app_logger.dart';
 import '../bump_image_source.dart';
 import 'bump_photo_viewer.dart';
+import '../../../core/widgets/empty_state.dart';
 
 /// "Nhật ký ảnh bụng bầu": photos per pregnancy week, stored on the device
 /// only (Phase 21, B10).
@@ -155,7 +155,6 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
               Expanded(
                 child: FilledButton.tonalIcon(
                   key: const ValueKey('bump-camera'),
-                  style: AppTheme.tonalButtonStyle(theme.colorScheme),
                   onPressed: _busy ? null : _takePhoto,
                   icon: const Icon(Icons.photo_camera_outlined),
                   label: const Text('Chụp ảnh', textAlign: TextAlign.center),
@@ -165,7 +164,6 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
               Expanded(
                 child: FilledButton.tonalIcon(
                   key: const ValueKey('bump-gallery'),
-                  style: AppTheme.tonalButtonStyle(theme.colorScheme),
                   onPressed: _busy ? null : _pickFromGallery,
                   icon: const Icon(Icons.photo_library_outlined),
                   label: const Text(
@@ -201,23 +199,13 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
           ),
           const SizedBox(height: 16),
           if (groups.isEmpty)
-            Padding(
-              key: const ValueKey('bump-empty'),
-              padding: const EdgeInsets.symmetric(vertical: 32),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.photo_outlined,
-                    size: 64,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Chưa có ảnh nào. Chụp hoặc chọn ảnh để lưu lại hành trình của mẹ.',
-                    style: theme.textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+            const Center(
+              key: ValueKey('bump-empty'),
+              child: AppEmptyState(
+                icon: Icons.photo_outlined,
+                title: 'Chưa có ảnh nào',
+                message: 'Chụp hoặc chọn ảnh để lưu lại hành trình của mẹ.',
+                padding: EdgeInsets.symmetric(vertical: 32),
               ),
             )
           else

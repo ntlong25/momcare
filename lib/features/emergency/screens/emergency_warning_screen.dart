@@ -78,14 +78,17 @@ class EmergencyWarningScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.08),
+        color: theme.colorScheme.errorContainer,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.25)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.warning_amber_rounded, color: Colors.red, size: 32),
+          Icon(
+            Icons.warning_amber_rounded,
+            color: theme.colorScheme.onErrorContainer,
+            size: 32,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -95,13 +98,15 @@ class EmergencyWarningScreen extends StatelessWidget {
                   'Đừng chờ nếu có dấu hiệu bất thường',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Colors.red.shade700,
+                    color: theme.colorScheme.onErrorContainer,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Nội dung này chỉ giúp bạn nhận biết dấu hiệu cần đi khám. MomCare+ không thay thế bác sĩ, cơ sở y tế hoặc dịch vụ cấp cứu.',
-                  style: theme.textTheme.bodyMedium,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onErrorContainer,
+                  ),
                 ),
               ],
             ),
@@ -121,8 +126,8 @@ class EmergencyWarningScreen extends StatelessWidget {
           key: const ValueKey('emergency-call-115'),
           style: FilledButton.styleFrom(
             minimumSize: const Size.fromHeight(56),
-            backgroundColor: Colors.red.shade700,
-            foregroundColor: Colors.white,
+            backgroundColor: theme.colorScheme.error,
+            foregroundColor: theme.colorScheme.onError,
             textStyle: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -136,7 +141,7 @@ class EmergencyWarningScreen extends StatelessWidget {
         Text(
           'Nút này chỉ mở màn hình gọi điện với số 115. Bạn cần tự bấm gọi.',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
+            color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
       ],
@@ -195,12 +200,13 @@ class _WarningGroup extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Theme.of(
-                      context,
-                    ).primaryColor.withValues(alpha: 0.1),
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(icon, color: Theme.of(context).primaryColor),
+                  child: Icon(
+                    icon,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -220,7 +226,7 @@ class _WarningGroup extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.circle, size: 7, color: Colors.red),
+                    Icon(Icons.circle, size: 7, color: theme.colorScheme.error),
                     const SizedBox(width: 10),
                     Expanded(child: Text(item)),
                   ],

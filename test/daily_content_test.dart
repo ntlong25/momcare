@@ -688,15 +688,8 @@ void main() {
     }
 
     for (final entry in {
-      // The app's color schemes (AppTheme.*Theme fetch Google Fonts in tests).
-      'light': ThemeData(
-        colorScheme: AppTheme.lightColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
-      'dark': ThemeData(
-        colorScheme: AppTheme.darkColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
     }.entries) {
       testWidgets('selected Đã làm chip is readable in ${entry.key} theme', (
         tester,
@@ -709,7 +702,9 @@ void main() {
 
         final chip = tester.widget<FilterChip>(chipFinder);
         expect(chip.selected, isTrue);
-        final background = chip.selectedColor!;
+        // Phase 22: colours come from the theme chipTheme.
+        expect(chip.selectedColor, isNull);
+        final background = entry.value.chipTheme.selectedColor!;
         expect(background.a, 1.0);
         final label = tester.widget<RichText>(
           find.descendant(
@@ -722,7 +717,7 @@ void main() {
           greaterThanOrEqualTo(4.5),
         );
         expect(
-          contrast(chip.checkmarkColor!, background),
+          contrast(entry.value.chipTheme.checkmarkColor!, background),
           greaterThanOrEqualTo(4.5),
         );
       });

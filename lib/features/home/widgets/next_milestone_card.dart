@@ -8,6 +8,7 @@ import '../../../core/services/milestone_progress_service.dart';
 import '../../guides/guide_actions.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import '../../guides/widgets/milestone_status_chip.dart';
+import '../../../core/widgets/app_card.dart';
 
 /// "Mốc khám tiếp theo": the next checkup milestone of the active pregnancy,
 /// plus how many vaccines to ask about now. Hidden when nothing is due.
@@ -58,123 +59,108 @@ class NextMilestoneCard extends ConsumerWidget {
     if (next == null && vaccinesDue == 0) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
 
     return Padding(
       padding: const EdgeInsets.only(top: 16),
-      child: Card(
+      child: AppCard(
         key: const ValueKey('next-milestone-card'),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.event_note, color: theme.primaryColor),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Mốc khám tiếp theo',
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                ],
-              ),
-              if (next != null) ...[
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 4,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    if (next.item.weekLabel != null)
-                      Text(
-                        next.item.weekLabel!,
-                        style: theme.textTheme.labelLarge?.copyWith(
-                          color: theme.primaryColor,
-                        ),
-                      ),
-                    Text(
-                      MilestoneLabels.dateRange(next),
-                      style: theme.textTheme.labelMedium?.copyWith(
-                        color: muted,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  next.item.title,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                MilestoneStatusChip(milestone: next),
-              ],
-              if (vaccinesDue > 0) ...[
-                const SizedBox(height: 8),
-                InkWell(
-                  key: const ValueKey('next-milestone-vaccines'),
-                  onTap: () => _openGuide(context, vaccinationGuideId),
-                  borderRadius: BorderRadius.circular(8),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Icon(Icons.vaccines_outlined, size: 18, color: muted),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            'Tiêm phòng: $vaccinesDue mũi nên hỏi bác sĩ lúc này',
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                        ),
-                        Icon(Icons.chevron_right, size: 18, color: muted),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+        icon: Icons.event_note,
+        title: 'Mốc khám tiếp theo',
+        titleStyle: theme.textTheme.titleLarge,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (next != null) ...[
               Wrap(
-                spacing: 4,
+                spacing: 8,
+                runSpacing: 4,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  if (next != null && next.canAddAppointment)
-                    TextButton.icon(
-                      key: const ValueKey('next-milestone-add'),
-                      onPressed: () => GuideActions.run(
-                        context,
-                        type: next.item.actionType,
-                        title: next.item.title,
-                        value: next.item.actionValue,
-                        week: next.item.weekFrom,
-                      ),
-                      icon: Icon(
-                        GuideActions.icon(next.item.actionType),
-                        size: 18,
-                      ),
-                      label: Text(
-                        GuideActions.defaultLabel(next.item.actionType),
+                  if (next.item.weekLabel != null)
+                    Text(
+                      next.item.weekLabel!,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: theme.colorScheme.primary,
                       ),
                     ),
-                  if (checkups != null)
-                    TextButton(
-                      key: const ValueKey('next-milestone-open'),
-                      onPressed: () => _openGuide(context, checkupsGuideId),
-                      child: const Text('Xem lịch khám'),
-                    ),
+                  Text(
+                    MilestoneLabels.dateRange(next),
+                    style: theme.textTheme.labelMedium?.copyWith(color: muted),
+                  ),
                 ],
               ),
-              if ((next != null && checkups!.isDraft) ||
-                  (vaccinesDue > 0 && vaccination!.isDraft))
-                Text(
-                  'Lịch tham khảo, đang chờ bác sĩ duyệt. '
-                  'Hãy theo lịch hẹn của bác sĩ.',
-                  style: theme.textTheme.bodySmall?.copyWith(color: muted),
+              const SizedBox(height: 2),
+              Text(
+                next.item.title,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
                 ),
+              ),
+              const SizedBox(height: 6),
+              MilestoneStatusChip(milestone: next),
             ],
-          ),
+            if (vaccinesDue > 0) ...[
+              const SizedBox(height: 8),
+              InkWell(
+                key: const ValueKey('next-milestone-vaccines'),
+                onTap: () => _openGuide(context, vaccinationGuideId),
+                borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: Row(
+                    children: [
+                      Icon(Icons.vaccines_outlined, size: 18, color: muted),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Tiêm phòng: $vaccinesDue mũi nên hỏi bác sĩ lúc này',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, size: 18, color: muted),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+            Wrap(
+              spacing: 4,
+              children: [
+                if (next != null && next.canAddAppointment)
+                  TextButton.icon(
+                    key: const ValueKey('next-milestone-add'),
+                    onPressed: () => GuideActions.run(
+                      context,
+                      type: next.item.actionType,
+                      title: next.item.title,
+                      value: next.item.actionValue,
+                      week: next.item.weekFrom,
+                    ),
+                    icon: Icon(
+                      GuideActions.icon(next.item.actionType),
+                      size: 18,
+                    ),
+                    label: Text(
+                      GuideActions.defaultLabel(next.item.actionType),
+                    ),
+                  ),
+                if (checkups != null)
+                  TextButton(
+                    key: const ValueKey('next-milestone-open'),
+                    onPressed: () => _openGuide(context, checkupsGuideId),
+                    child: const Text('Xem lịch khám'),
+                  ),
+              ],
+            ),
+            if ((next != null && checkups!.isDraft) ||
+                (vaccinesDue > 0 && vaccination!.isDraft))
+              Text(
+                'Lịch tham khảo, đang chờ bác sĩ duyệt. '
+                'Hãy theo lịch hẹn của bác sĩ.',
+                style: theme.textTheme.bodySmall?.copyWith(color: muted),
+              ),
+          ],
         ),
       ),
     );

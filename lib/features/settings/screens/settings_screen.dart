@@ -24,6 +24,7 @@ import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../onboarding/screens/pregnancy_setup_screen.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -69,7 +70,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
             ListTile(
               leading: Icon(
                 isPregnancyMode ? Icons.pregnant_woman : Icons.eco,
-                color: isPregnancyMode ? Colors.pink : Colors.green,
+                color: isPregnancyMode
+                    ? Theme.of(context).colorScheme.primary
+                    : context.semantic.success,
               ),
               title: const Text('Chế độ hiện tại'),
               subtitle: Text(
@@ -162,26 +165,32 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
               onTap: () => _showLocalDataExplanation(context),
             ),
             if (EncryptionService.isFallbackActive)
-              const ListTile(
+              ListTile(
                 leading: Icon(
                   Icons.warning_amber_rounded,
-                  color: Colors.orange,
+                  color: context.semantic.warning,
                 ),
-                title: Text('Dữ liệu chưa được mã hóa'),
-                subtitle: Text(
+                title: const Text('Dữ liệu chưa được mã hóa'),
+                subtitle: const Text(
                   'Thiết bị chưa cho phép dùng kho khóa bảo mật nên dữ liệu đang được lưu không mã hóa. Hãy bật khóa màn hình để tăng bảo vệ.',
                 ),
               ),
             ListTile(
-              leading: const Icon(Icons.delete_forever, color: Colors.red),
-              title: const Text(
+              leading: Icon(
+                Icons.delete_forever,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              title: Text(
                 'Xóa toàn bộ dữ liệu',
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
               ),
               subtitle: const Text(
                 'Xóa dữ liệu trên thiết bị và đặt lại ứng dụng',
               ),
-              trailing: const Icon(Icons.chevron_right, color: Colors.red),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: Theme.of(context).colorScheme.error,
+              ),
               onTap: () => _showDeleteAllDataFlow(context),
             ),
           ]),
@@ -247,7 +256,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -393,7 +402,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       applicationIcon: Icon(
         Icons.favorite,
         size: 48,
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).colorScheme.primary,
       ),
       children: [
         const Text(
@@ -440,7 +449,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
             child: const Text('Hủy'),
           ),
           FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+            ),
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Tiếp tục'),
           ),
@@ -518,38 +530,42 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
               'Chọn giai đoạn hiện tại của bạn:',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 16),
             RadioListTile<AppMode>(
-              title: const Row(
+              title: Row(
                 children: [
-                  Icon(Icons.eco, color: Colors.green, size: 20),
-                  SizedBox(width: 8),
-                  Expanded(child: Text('Chuẩn bị mang thai')),
+                  Icon(Icons.eco, color: context.semantic.success, size: 20),
+                  const SizedBox(width: 8),
+                  const Expanded(child: Text('Chuẩn bị mang thai')),
                 ],
               ),
               subtitle: const Text(
                 'Theo dõi chu kỳ và gợi ý chuẩn bị thụ thai',
-                style: TextStyle(fontSize: 12),
               ),
               value: AppMode.prePregnancy,
               groupValue: currentMode,
               onChanged: (value) => Navigator.pop(context, value),
             ),
             RadioListTile<AppMode>(
-              title: const Row(
+              title: Row(
                 children: [
-                  Icon(Icons.pregnant_woman, color: Colors.pink, size: 20),
-                  SizedBox(width: 8),
-                  Expanded(child: Text('Đang mang thai')),
+                  Icon(
+                    Icons.pregnant_woman,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  const Expanded(child: Text('Đang mang thai')),
                 ],
               ),
               subtitle: const Text(
                 'Theo dõi thai kỳ, sức khỏe và dinh dưỡng theo tuần',
-                style: TextStyle(fontSize: 12),
               ),
               value: AppMode.pregnancy,
               groupValue: currentMode,
@@ -677,7 +693,10 @@ class _DeleteAllDataConfirmationDialogState
           child: const Text('Hủy'),
         ),
         FilledButton(
-          style: FilledButton.styleFrom(backgroundColor: Colors.red),
+          style: FilledButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.error,
+            foregroundColor: Theme.of(context).colorScheme.onError,
+          ),
           onPressed: () {
             final token = _controller.text.trim().toUpperCase();
             Navigator.pop(context, token == 'XOA');

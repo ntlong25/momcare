@@ -21,12 +21,12 @@ class MotherChangesCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.purple.withValues(alpha: 0.1),
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.person,
-                    color: Colors.purple,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                     size: 28,
                   ),
                 ),
@@ -58,7 +58,7 @@ class MotherChangesCard extends StatelessWidget {
                       width: 6,
                       height: 6,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.primary,
                         shape: BoxShape.circle,
                       ),
                     ),

@@ -3,6 +3,7 @@ import '../../../core/theme/chip_colors.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/models/nutrition_model.dart';
 import '../../references/widgets/source_metadata_card.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class NutritionDetailScreen extends StatelessWidget {
   final NutritionModel nutrition;
@@ -21,14 +22,7 @@ class NutritionDetailScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).primaryColor.withValues(alpha: 0.7),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: Theme.of(context).colorScheme.primaryContainer,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,13 +33,13 @@ class NutritionDetailScreen extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.3),
+                      color: Theme.of(context).colorScheme.primary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       nutrition.category,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -53,8 +47,8 @@ class NutritionDetailScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     nutrition.title,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      color: Colors.white,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -89,7 +83,7 @@ class NutritionDetailScreen extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.check_circle,
-                            color: Colors.green[600],
+                            color: context.semantic.success,
                             size: 24,
                           ),
                           const SizedBox(width: 12),

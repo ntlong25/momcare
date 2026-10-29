@@ -57,7 +57,9 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
             child: const Text('Bỏ thay đổi'),
           ),
         ],
@@ -90,7 +92,7 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
               children: [
                 Text(
                   'Bắt đầu nhé!',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -243,10 +245,7 @@ class _PregnancySetupScreenState extends ConsumerState<PregnancySetupScreen> {
 
     if (_dueDate == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Vui lòng chọn ngày dự sinh'),
-          backgroundColor: Colors.red,
-        ),
+        const SnackBar(content: Text('Vui lòng chọn ngày dự sinh')),
       );
       return;
     }

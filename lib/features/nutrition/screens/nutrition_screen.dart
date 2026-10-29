@@ -261,10 +261,6 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
               label: Text(category),
               selected: isSelected,
               onSelected: (_) => onSelected(category),
-              selectedColor: Theme.of(
-                context,
-              ).primaryColor.withValues(alpha: 0.3),
-              checkmarkColor: Theme.of(context).primaryColor,
             ),
           );
         },
@@ -282,7 +278,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
             Icon(
               Icons.restaurant_menu_outlined,
               size: 100,
-              color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 24),
             Text(

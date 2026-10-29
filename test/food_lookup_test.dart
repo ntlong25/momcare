@@ -19,6 +19,7 @@ import 'package:momcare/features/nutrition/screens/food_lookup_screen.dart';
 import 'package:momcare/features/nutrition/screens/nutrition_screen.dart';
 import 'package:momcare/features/nutrition/widgets/food_detail_sheet.dart';
 import 'package:momcare/features/nutrition/widgets/weekly_nutrition_focus_card.dart';
+import 'package:momcare/features/nutrition/widgets/food_verdict_badge.dart';
 
 const _fixtureRoot = 'test/fixtures/content';
 const _bundledRoot = 'assets/content';
@@ -154,7 +155,7 @@ void main() {
       expect(FoodVerdict.limit.label, 'Hạn chế');
       expect(FoodVerdict.avoid.label, 'Tránh');
       expect(
-        FoodVerdict.values.map((v) => v.color).toSet(),
+        FoodVerdict.values.map((v) => v.tone).toSet(),
         hasLength(FoodVerdict.values.length),
       );
       expect(FoodGroups.labels, hasLength(13));

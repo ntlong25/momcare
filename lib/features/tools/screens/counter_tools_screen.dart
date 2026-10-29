@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/services/contraction_service.dart';
 import '../../../core/services/kick_counter_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/duration_format.dart';
 import '../../../core/utils/navigation_helper.dart';
@@ -93,10 +92,10 @@ class _ToolCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryTint(scheme),
+                  color: scheme.secondaryContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon, color: scheme.onSurface),
+                child: Icon(icon, color: scheme.onSecondaryContainer),
               ),
               const SizedBox(width: 12),
               Expanded(

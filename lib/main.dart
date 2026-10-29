@@ -79,7 +79,7 @@ class _StartupErrorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.light(),
       home: const Scaffold(
         body: SafeArea(
           child: Padding(
@@ -119,8 +119,8 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'MomCare+',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       locale: locale,
       localizationsDelegates: const [
@@ -154,13 +154,13 @@ class AppInitializer extends ConsumerWidget {
                   Icon(
                     Icons.favorite,
                     size: 80,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 24),
                   Text(
                     'MomCare+',
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      color: Theme.of(context).primaryColor,
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -94,7 +94,10 @@ class _MyClinicScreenState extends ConsumerState<MyClinicScreen> {
             child: const Text('Hủy'),
           ),
           FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+            ),
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Xóa'),
           ),
@@ -176,7 +179,7 @@ class _MyClinicScreenState extends ConsumerState<MyClinicScreen> {
                 Icon(
                   Icons.phonelink_lock,
                   size: 16,
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
                 const SizedBox(width: 6),
                 Expanded(
@@ -198,7 +201,9 @@ class _MyClinicScreenState extends ConsumerState<MyClinicScreen> {
               const SizedBox(height: 8),
               OutlinedButton.icon(
                 key: const ValueKey('clinic-clear'),
-                style: OutlinedButton.styleFrom(foregroundColor: Colors.red),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.error,
+                ),
                 onPressed: _clear,
                 icon: const Icon(Icons.delete_outline),
                 label: const Text('Xóa thông tin'),

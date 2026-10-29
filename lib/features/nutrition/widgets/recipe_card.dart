@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/recipe_model.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class RecipeCard extends StatelessWidget {
   final RecipeModel recipe;
@@ -30,12 +31,12 @@ class RecipeCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.orange.withValues(alpha: 0.1),
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.restaurant,
-                      color: Colors.orange,
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
                       size: 28,
                     ),
                   ),
@@ -58,14 +59,16 @@ class RecipeCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Theme.of(
                               context,
-                            ).primaryColor.withValues(alpha: 0.1),
+                            ).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
                             recipe.category,
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimaryContainer,
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -78,7 +81,9 @@ class RecipeCard extends StatelessWidget {
                       recipe.isFavorite
                           ? Icons.favorite
                           : Icons.favorite_border,
-                      color: recipe.isFavorite ? Colors.red : Colors.grey,
+                      color: recipe.isFavorite
+                          ? Theme.of(context).colorScheme.error
+                          : Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                     onPressed: onFavoriteToggle,
                   ),
@@ -98,14 +103,14 @@ class RecipeCard extends StatelessWidget {
                     context,
                     Icons.timer,
                     '${recipe.totalTime} phút',
-                    Colors.blue,
+                    AppTone.info,
                   ),
                   const SizedBox(width: 8),
                   _buildInfoChip(
                     context,
                     Icons.restaurant_menu,
                     '${recipe.servings} khẩu phần',
-                    Colors.green,
+                    AppTone.success,
                   ),
                 ],
               ),
@@ -120,23 +125,24 @@ class RecipeCard extends StatelessWidget {
     BuildContext context,
     IconData icon,
     String label,
-    Color color,
+    AppTone tone,
   ) {
+    final colors = tone.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: colors.container,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 14, color: color),
+          Icon(icon, size: 14, color: colors.onContainer),
           const SizedBox(width: 4),
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: color,
+              color: colors.onContainer,
               fontWeight: FontWeight.w600,
             ),
           ),

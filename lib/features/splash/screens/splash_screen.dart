@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../../../core/widgets/brand_mark.dart';
+
 class SplashScreen extends StatefulWidget {
   final Widget nextScreen;
 
@@ -14,7 +16,6 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
-  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
@@ -30,13 +31,6 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.0, 0.6, curve: Curves.easeIn),
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.0, 0.6, curve: Curves.elasticOut),
       ),
     );
 
@@ -70,101 +64,59 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isDark
-                ? [
-                    theme.primaryColor.withValues(alpha: 0.3),
-                    theme.scaffoldBackgroundColor,
-                  ]
-                : [theme.primaryColor.withValues(alpha: 0.1), Colors.white],
-          ),
-        ),
-        child: Center(
-          child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return FadeTransition(
+      // Same flat surface as the native launch background (no flash).
+      backgroundColor: theme.colorScheme.surface,
+      body: LayoutBuilder(
+        builder: (context, constraints) => Stack(
+          fit: StackFit.expand,
+          children: [
+            // The brand mark sits exactly where the Android 12 system splash
+            // draws the launcher icon (160 dp, centred on the screen) and is
+            // shown at full size from the first frame, so there is no jump.
+            const Center(child: BrandMark(key: ValueKey('splash-brand-mark'))),
+            Positioned(
+              left: 24,
+              right: 24,
+              // 80 dp = half the mark, then a 32 dp gap.
+              top: constraints.maxHeight / 2 + 80 + 32,
+              child: FadeTransition(
                 opacity: _fadeAnimation,
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // App Icon with gradient
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              theme.primaryColor,
-                              theme.primaryColor.withValues(alpha: 0.6),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: theme.primaryColor.withValues(alpha: 0.3),
-                              blurRadius: 20,
-                              spreadRadius: 5,
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          Icons.favorite,
-                          size: 60,
-                          color: Colors.white,
-                        ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'MomCare+',
+                      style: theme.textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
+                        letterSpacing: 1.2,
                       ),
-                      const SizedBox(height: 32),
-
-                      // App Name
-                      Text(
-                        'MomCare+',
-                        style: theme.textTheme.displayLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.primaryColor,
-                          letterSpacing: 1.2,
-                        ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Người bạn đồng hành thai kỳ',
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        fontWeight: FontWeight.w400,
                       ),
-                      const SizedBox(height: 8),
-
-                      // Tagline
-                      Text(
-                        'Your Pregnancy Companion',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: theme.textTheme.bodySmall?.color,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    ),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: theme.colorScheme.primary,
                       ),
-                      const SizedBox(height: 48),
-
-                      // Loading indicator
-                      SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 3,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            theme.primaryColor.withValues(alpha: 0.6),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

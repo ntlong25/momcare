@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../core/models/health_log_model.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/app_logger.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/share_helper.dart';
@@ -165,28 +164,14 @@ class _HealthReportExportScreenState extends State<HealthReportExportScreen> {
     final preview = HealthReport.rowsFor(selected.take(3).toList());
     final count = selected.length;
 
-    // Local colours: the stock dark-mode selected chip (pale secondary
-    // container with light text) is unreadable. onSurface on the surface /
-    // primary tint keeps >= 4.5:1 in both themes.
-    final scheme = theme.colorScheme;
+    // Chip colours come from the theme (selected secondaryContainer /
+    // onSecondaryContainer, unselected outline), >= 4.5:1 in both themes.
     Widget chip(HealthReportPreset preset, String label) {
-      final selected = _preset == preset;
       return ChoiceChip(
         key: ValueKey('health-export-${preset.name}'),
         label: Text(label),
-        selected: selected,
+        selected: _preset == preset,
         onSelected: _busy ? null : (_) => _select(preset),
-        color: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected)
-              ? AppTheme.primaryTint(scheme)
-              : scheme.surface,
-        ),
-        labelStyle: TextStyle(
-          color: scheme.onSurface,
-          fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-        ),
-        checkmarkColor: scheme.onSurface,
-        side: BorderSide(color: selected ? scheme.primary : scheme.outline),
       );
     }
 
@@ -251,7 +236,6 @@ class _HealthReportExportScreenState extends State<HealthReportExportScreen> {
           Builder(
             builder: (buttonContext) => FilledButton.tonalIcon(
               key: const ValueKey('health-export-share'),
-              style: AppTheme.tonalButtonStyle(theme.colorScheme),
               onPressed: count == 0 || _busy
                   ? null
                   : () => _share(buttonContext),
