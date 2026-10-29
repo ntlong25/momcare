@@ -4,10 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/daily_item_model.dart';
 import '../models/guide_models.dart';
 import '../models/nutrition_model.dart';
 import '../models/recipe_model.dart';
 import '../models/week_detail_model.dart';
+import 'daily_content_parser.dart';
 import 'guide_content_parser.dart';
 import 'pregnancy_weeks_data.dart';
 import 'sample_nutrition_data.dart';
@@ -30,6 +32,12 @@ class ContentPackService {
   static List<GuideArticle> _guides = const [];
   static Map<String, ContentSource> _sources = const {};
   static Map<int, WeekDetail> _weekDetails = const {};
+  static DailyPack _thaiGiaoPack = const DailyPack.empty(
+    DailyPack.thaiGiaoType,
+  );
+  static DailyPack _dailyTipsPack = const DailyPack.empty(
+    DailyPack.dailyTipType,
+  );
 
   static Map<int, PregnancyWeekData> get pregnancyWeeks =>
       _pregnancyWeeks ?? _buildFallbackPregnancyWeeks();
@@ -64,6 +72,20 @@ class ContentPackService {
   static set debugWeekDetails(Map<int, WeekDetail> value) =>
       _weekDetails = value;
 
+  /// Daily thai giáo activities (empty when the pack is missing/invalid).
+  static DailyPack get thaiGiaoPack => _thaiGiaoPack;
+
+  /// Daily tips (empty when the pack is missing/invalid).
+  static DailyPack get dailyTipsPack => _dailyTipsPack;
+
+  /// Replaces the loaded thai giáo pack (tests only).
+  @visibleForTesting
+  static set debugThaiGiaoPack(DailyPack value) => _thaiGiaoPack = value;
+
+  /// Replaces the loaded daily tips pack (tests only).
+  @visibleForTesting
+  static set debugDailyTipsPack(DailyPack value) => _dailyTipsPack = value;
+
   static WeekDetail resolveWeekDetail(int week, Map<int, WeekDetail> details) {
     final clamped = week.clamp(
       WeekContentParser.minWeek,
@@ -83,6 +105,8 @@ class ContentPackService {
     _sources = await loadSources(rootBundle);
     _guides = await loadGuides(rootBundle);
     _weekDetails = await loadWeekDetails(rootBundle);
+    _thaiGiaoPack = await DailyContentParser.loadThaiGiao(rootBundle);
+    _dailyTipsPack = await DailyContentParser.loadDailyTips(rootBundle);
   }
 
   /// Loads `weeks_v2.json`; never throws (missing/invalid -> empty map).
