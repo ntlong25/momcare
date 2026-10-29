@@ -7,9 +7,11 @@ import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/notification_service.dart';
+import '../../../core/services/contraction_service.dart';
 import '../../../core/services/encryption_service.dart';
 import '../../../core/services/guide_price_service.dart';
 import '../../../core/services/guide_progress_service.dart';
+import '../../../core/services/kick_counter_service.dart';
 import '../../../core/services/my_clinic_service.dart';
 import '../../../core/services/milestone_progress_service.dart';
 import '../../../core/services/thai_giao_progress_service.dart';
@@ -407,7 +409,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Dữ liệu của bạn được lưu trên thiết bị'),
         content: const Text(
-          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn và cài đặt trên thiết bị này.\n\n'
+          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, lịch sử đếm cử động thai, cơn co và cài đặt trên thiết bị này.\n\n'
           'Hiện tại dữ liệu chưa được sao lưu trực tuyến. Nếu bạn xóa ứng dụng, đổi thiết bị hoặc xóa toàn bộ dữ liệu trong app, dữ liệu có thể không khôi phục được.\n\n'
           'MomCare+ không tự chia sẻ dữ liệu sức khỏe của bạn ra bên ngoài.',
         ),
@@ -427,7 +429,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Xóa toàn bộ dữ liệu?'),
         content: const Text(
-          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
+          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, lịch sử đếm cử động thai và cơn co, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
           'Sau khi xóa, MomCare+ sẽ quay về màn hình bắt đầu như lần cài đặt mới.',
         ),
         actions: [
@@ -483,6 +485,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     ref.read(guidePriceProvider.notifier).resetLocal();
     await prefs.remove(AppConstants.myClinicKey);
     ref.read(myClinicProvider.notifier).resetLocal();
+    await prefs.remove(AppConstants.kickSessionsKey);
+    ref.read(kickCounterProvider.notifier).resetLocal();
+    await prefs.remove(AppConstants.contractionsKey);
+    ref.read(contractionProvider.notifier).resetLocal();
     await prefs.remove('locale');
 
     if (!mounted) {

@@ -30,6 +30,8 @@ class AppConstants {
   static const String thaiGiaoReminderKey = 'thai_giao_reminder';
   static const String guidePricesKey = 'guide_item_prices';
   static const String myClinicKey = 'my_clinic_profile';
+  static const String kickSessionsKey = 'kick_sessions';
+  static const String contractionsKey = 'contraction_log';
 
   // Pregnancy Weeks
   static const int pregnancyTotalWeeks = 42;

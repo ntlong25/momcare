@@ -14,6 +14,8 @@ import '../../features/legal/screens/medical_disclaimer_screen.dart';
 import '../../features/emergency/screens/emergency_warning_screen.dart';
 import '../../features/references/screens/references_screen.dart';
 import '../../features/tracking/screens/week_detail_screen.dart';
+import '../../features/tools/screens/contraction_timer_screen.dart';
+import '../../features/tools/screens/kick_counter_screen.dart';
 
 class NavigationHelper {
   static Future<T?> toPregnancySetup<T>(BuildContext context) {
@@ -117,6 +119,20 @@ class NavigationHelper {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(builder: (_) => const MyClinicScreen()),
+    );
+  }
+
+  static Future<T?> toKickCounter<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const KickCounterScreen()),
+    );
+  }
+
+  static Future<T?> toContractionTimer<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const ContractionTimerScreen()),
     );
   }
 

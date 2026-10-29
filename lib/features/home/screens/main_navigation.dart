@@ -12,6 +12,7 @@ import '../../settings/screens/settings_screen.dart';
 import '../../fertility/screens/fertility_planner_screen.dart';
 import '../../guides/screens/guides_screen.dart';
 import '../../settings/widgets/my_clinic_card.dart';
+import '../../tools/screens/counter_tools_screen.dart';
 
 final navigationIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -124,13 +125,16 @@ class _TrackTabScreen extends StatelessWidget {
   }
 }
 
-class _ToolsTabScreen extends StatelessWidget {
+class _ToolsTabScreen extends ConsumerWidget {
   const _ToolsTabScreen();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isPrePregnancy = ref.watch(appModeProvider) == AppMode.prePregnancy;
+    // "Bộ đếm" (kick counter, contraction timer) is pregnancy-only.
     return DefaultTabController(
-      length: 3,
+      key: ValueKey(isPrePregnancy),
+      length: isPrePregnancy ? 3 : 4,
       child: _CollapsibleTabScaffold(
         title: 'Công cụ',
         actions: [
@@ -141,18 +145,26 @@ class _ToolsTabScreen extends StatelessWidget {
             onPressed: () => MyClinicCard.findNearbyHospital(context),
           ),
         ],
-        tabBar: const TabBar(
+        tabBar: TabBar(
+          isScrollable: true,
+          tabAlignment: TabAlignment.center,
           tabs: [
-            Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
-            Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
-            Tab(text: 'Cần khám', icon: Icon(Icons.warning_amber_rounded)),
+            const Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
+            const Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
+            if (!isPrePregnancy)
+              const Tab(text: 'Bộ đếm', icon: Icon(Icons.timer_outlined)),
+            const Tab(
+              text: 'Cần khám',
+              icon: Icon(Icons.warning_amber_rounded),
+            ),
           ],
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            NutritionScreen(showAppBar: false),
-            AppointmentsScreen(showAppBar: false),
-            EmergencyWarningScreen(showAppBar: false),
+            const NutritionScreen(showAppBar: false),
+            const AppointmentsScreen(showAppBar: false),
+            if (!isPrePregnancy) const CounterToolsScreen(),
+            const EmergencyWarningScreen(showAppBar: false),
           ],
         ),
       ),

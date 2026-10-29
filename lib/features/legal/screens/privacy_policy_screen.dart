@@ -27,7 +27,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           const _PolicySection(
             title: '1. Dữ liệu được lưu trên thiết bị',
             body:
-                'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, dinh dưỡng yêu thích và lịch hẹn trên thiết bị của bạn.',
+                'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, dinh dưỡng yêu thích, lịch hẹn và lịch sử đếm cử động thai, cơn co trên thiết bị của bạn.',
           ),
           const _PolicySection(
             title: '2. Chưa có sao lưu trực tuyến',

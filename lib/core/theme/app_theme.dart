@@ -27,6 +27,15 @@ class AppTheme {
   static Color primaryTint(ColorScheme scheme, [double alpha = 0.3]) =>
       Color.alphaBlend(scheme.primary.withValues(alpha: alpha), scheme.surface);
 
+  /// Style for `FilledButton.tonal` / `tonalIcon`. The dark scheme leaves
+  /// secondaryContainer at its pale default, so the stock tonal colours are
+  /// unreadable there; use the primary tint with onSurface text instead.
+  static ButtonStyle tonalButtonStyle(ColorScheme scheme) =>
+      FilledButton.styleFrom(
+        backgroundColor: primaryTint(scheme),
+        foregroundColor: scheme.onSurface,
+      );
+
   static const ColorScheme lightColorScheme = ColorScheme.light(
     primary: primaryColor,
     secondary: secondaryColor,
