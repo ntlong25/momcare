@@ -205,4 +205,25 @@ class GuideArticle {
     final done = checklist.where((item) => tickedIds.contains(item.id)).length;
     return done / checklist.length;
   }
+
+  /// Whether checklist items take an optional price (VND) and show a total
+  /// for bought (ticked) items: shopping and hospital-bag guides only.
+  bool get tracksPrices =>
+      tracksProgress &&
+      (category == GuideCategory.shopping ||
+          category == GuideCategory.hospitalBag);
+
+  /// Sum of [prices] for ticked items of this guide's checklist; ids from
+  /// other guides are ignored.
+  int boughtTotal(Set<String> tickedIds, Map<String, int> prices) {
+    var total = 0;
+    for (final item in checklist) {
+      if (tickedIds.contains(item.id)) total += prices[item.id] ?? 0;
+    }
+    return total;
+  }
+
+  /// Number of this guide's checklist items that have a price.
+  int pricedCount(Map<String, int> prices) =>
+      checklist.where((item) => prices.containsKey(item.id)).length;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
 import '../../references/widgets/source_metadata_card.dart';
+import '../../settings/widgets/my_clinic_card.dart';
 
 class EmergencyWarningScreen extends StatelessWidget {
   final bool showAppBar;
@@ -55,6 +56,8 @@ class EmergencyWarningScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _buildActionCard(context),
+          const SizedBox(height: 16),
+          const MyClinicCard(emergency: true),
           const SizedBox(height: 16),
           const SourceMetadataCard(
             group: MedicalReferenceGroup.urgentWarning,

@@ -8,6 +8,13 @@ import '../appointments/screens/add_appointment_screen.dart';
 
 /// Handles content-engine actions (`addAppointment`, `openMaps`, `call`).
 class GuideActions {
+  /// Maps search used by "Tìm bệnh viện gần tôi" (no location permission).
+  static const String nearbyHospitalQuery = 'bệnh viện phụ sản';
+
+  /// Replaces `launchUrl` in tests; returns whether the URI opened.
+  @visibleForTesting
+  static Future<bool> Function(Uri uri)? debugLauncher;
+
   /// Estimated date for pregnancy [week] based on the active pregnancy:
   /// pregnancy start (due date - 280 days) + week * 7 days. Dates in the past
   /// are moved to today. Returns null without a pregnancy or week.
@@ -75,20 +82,24 @@ class GuideActions {
         return;
       case GuideActionType.openMaps:
         final query = (value == null || value.isEmpty) ? title : value;
-        await _launch(context, mapsSearchUri(query));
+        await launchUri(context, mapsSearchUri(query));
         return;
       case GuideActionType.call:
         if (value == null || value.isEmpty) return;
-        await _launch(context, phoneUri(value));
+        await launchUri(context, phoneUri(value));
         return;
     }
   }
 
-  static Future<void> _launch(BuildContext context, Uri uri) async {
+  /// Opens [uri] in an external app; shows a snackbar when nothing opens.
+  static Future<void> launchUri(BuildContext context, Uri uri) async {
     final messenger = ScaffoldMessenger.maybeOf(context);
     var opened = false;
     try {
-      opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      final launcher = debugLauncher;
+      opened = launcher != null
+          ? await launcher(uri)
+          : await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (_) {
       opened = false;
     }

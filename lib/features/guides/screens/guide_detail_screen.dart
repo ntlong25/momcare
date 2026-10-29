@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants/app_constants.dart';
@@ -7,13 +8,16 @@ import '../../../core/models/guide_models.dart';
 import '../../../core/models/milestone_schedule.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/services/guide_price_service.dart';
 import '../../../core/services/guide_progress_service.dart';
 import '../../../core/services/milestone_progress_service.dart';
 import '../../../core/utils/date_picker_utils.dart';
+import '../../../core/utils/vnd_format.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../guide_actions.dart';
+import '../widgets/guide_updated_banner.dart';
 import '../widgets/milestone_status_chip.dart';
 
 /// Generic renderer for a content-engine guide: sections, checklist with
@@ -54,6 +58,21 @@ class GuideDetailScreen extends ConsumerWidget {
         .markDone(milestone.id, picked);
   }
 
+  /// Opens the "Giá (VND)" dialog for [item] and stores the result.
+  static Future<void> editPrice(
+    BuildContext context,
+    WidgetRef ref,
+    GuideChecklistItem item,
+    int? current,
+  ) async {
+    final result = await showDialog<_PriceResult>(
+      context: context,
+      builder: (_) => _PriceDialog(itemText: item.text, initial: current),
+    );
+    if (result == null) return;
+    await ref.read(guidePriceProvider.notifier).setPrice(item.id, result.price);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Rebuild when the due date is edited in another tab.
@@ -66,6 +85,10 @@ class GuideDetailScreen extends ConsumerWidget {
   Widget _buildContent(BuildContext context, WidgetRef ref) {
     final ticked = ref.watch(guideChecklistProvider);
     final done = ref.watch(milestoneProgressProvider);
+    final tracksPrices = guide.tracksPrices;
+    final prices = tracksPrices
+        ? ref.watch(guidePriceProvider)
+        : const <String, int>{};
     final theme = Theme.of(context);
     final progress = guide.progress(ticked);
     final pregnancy = guide.stage == GuideStage.pregnant
@@ -95,6 +118,10 @@ class GuideDetailScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             Text(guide.summary, style: theme.textTheme.bodyLarge),
           ],
+          if (guide.category == GuideCategory.documents) ...[
+            const SizedBox(height: 12),
+            GuideUpdatedBanner(lastUpdated: guide.lastUpdated),
+          ],
           if (guide.isDraft) ...[
             const SizedBox(height: 12),
             const DraftContentNote(),
@@ -123,12 +150,20 @@ class GuideDetailScreen extends ConsumerWidget {
               const SizedBox(height: 8),
               LinearProgressIndicator(value: progress, minHeight: 6),
             ],
+            if (tracksPrices) ...[
+              const SizedBox(height: 8),
+              _BoughtTotal(guide: guide, ticked: ticked, prices: prices),
+            ],
             const SizedBox(height: 4),
             for (final item in guide.checklist)
               _ChecklistTile(
                 item: item,
                 tickable: guide.tracksProgress,
                 checked: ticked.contains(item.id),
+                price: prices[item.id],
+                onPrice: tracksPrices
+                    ? () => editPrice(context, ref, item, prices[item.id])
+                    : null,
                 onChanged: (value) => ref
                     .read(guideChecklistProvider.notifier)
                     .toggle(item.id, value),
@@ -265,12 +300,20 @@ class _ChecklistTile extends StatelessWidget {
   final ValueChanged<bool> onChanged;
   final VoidCallback onAction;
 
+  /// Saved price (VND) shown on the price button.
+  final int? price;
+
+  /// Non-null shows the price button (shopping / hospital-bag guides).
+  final VoidCallback? onPrice;
+
   const _ChecklistTile({
     required this.item,
     this.tickable = true,
     required this.checked,
     required this.onChanged,
     required this.onAction,
+    this.price,
+    this.onPrice,
   });
 
   @override
@@ -305,6 +348,147 @@ class _ChecklistTile extends StatelessWidget {
               onPressed: onAction,
             ),
           ),
+        if (tickable && onPrice != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 40),
+            child: TextButton.icon(
+              key: ValueKey('price-${item.id}'),
+              onPressed: onPrice,
+              icon: const Icon(Icons.sell_outlined, size: 18),
+              label: Text(price == null ? 'Thêm giá' : formatVnd(price!)),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// "Đã mua X/Y món · Đã chi Z" line for guides that track prices.
+class _BoughtTotal extends StatelessWidget {
+  final GuideArticle guide;
+  final Set<String> ticked;
+  final Map<String, int> prices;
+
+  const _BoughtTotal({
+    required this.guide,
+    required this.ticked,
+    required this.prices,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final bought = guide.checklist
+        .where((item) => ticked.contains(item.id))
+        .length;
+    final total = guide.boughtTotal(ticked, prices);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Đã mua $bought/${guide.checklist.length} món · '
+          'Đã chi ${formatVnd(total)}',
+          key: const ValueKey('guide-bought-total'),
+          style: theme.textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        if (guide.pricedCount(prices) == 0) ...[
+          const SizedBox(height: 2),
+          Text(
+            'Ghi giá để xem tổng chi phí',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Result of [_PriceDialog]; a null [price] removes the saved price.
+class _PriceResult {
+  final int? price;
+
+  const _PriceResult(this.price);
+}
+
+class _PriceDialog extends StatefulWidget {
+  final String itemText;
+  final int? initial;
+
+  const _PriceDialog({required this.itemText, this.initial});
+
+  @override
+  State<_PriceDialog> createState() => _PriceDialogState();
+}
+
+class _PriceDialogState extends State<_PriceDialog> {
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.initial?.toString() ?? '',
+  );
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final parsed = parseVndInput(_controller.text);
+    return AlertDialog(
+      title: const Text('Giá (VND)'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.itemText, style: theme.textTheme.bodyMedium),
+            const SizedBox(height: 12),
+            TextField(
+              key: const ValueKey('price-input'),
+              controller: _controller,
+              autofocus: true,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(vndMaxDigits),
+              ],
+              decoration: const InputDecoration(
+                labelText: 'Số tiền',
+                hintText: 'Ví dụ: 350000',
+                suffixText: 'đ',
+              ),
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              parsed == null ? 'Nhập số tiền lớn hơn 0' : formatVnd(parsed),
+              key: const ValueKey('price-preview'),
+              style: theme.textTheme.titleSmall,
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Hủy'),
+        ),
+        if (widget.initial != null)
+          TextButton(
+            onPressed: () => Navigator.pop(context, const _PriceResult(null)),
+            child: const Text('Xóa giá'),
+          ),
+        TextButton(
+          onPressed: parsed == null
+              ? null
+              : () => Navigator.pop(context, _PriceResult(parsed)),
+          child: const Text('Lưu'),
+        ),
       ],
     );
   }
