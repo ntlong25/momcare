@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
+import '../../guides/guide_actions.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../../settings/widgets/my_clinic_card.dart';
 
@@ -18,6 +19,8 @@ class EmergencyWarningScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           _buildHeader(context),
+          const SizedBox(height: 16),
+          _buildCall115(context),
           const SizedBox(height: 16),
           _WarningGroup(
             icon: Icons.pregnant_woman,
@@ -108,6 +111,38 @@ class EmergencyWarningScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildCall115(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        FilledButton.icon(
+          key: const ValueKey('emergency-call-115'),
+          style: FilledButton.styleFrom(
+            minimumSize: const Size.fromHeight(56),
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
+            textStyle: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onPressed: () =>
+              GuideActions.launchUri(context, GuideActions.phoneUri('115')),
+          icon: const Icon(Icons.call),
+          label: const Text('Gọi 115 (cấp cứu)'),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Nút này chỉ mở màn hình gọi điện với số 115. Bạn cần tự bấm gọi.',
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildActionCard(BuildContext context) {
     final theme = Theme.of(context);
 
@@ -125,7 +160,7 @@ class EmergencyWarningScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Nếu bạn đang có một trong các dấu hiệu trên, hãy liên hệ bác sĩ đang theo dõi thai kỳ hoặc đến cơ sở y tế gần nhất. Nếu tình trạng có vẻ khẩn cấp, hãy gọi số cấp cứu tại địa phương.',
+              'Nếu bạn đang có một trong các dấu hiệu trên, hãy liên hệ bác sĩ đang theo dõi thai kỳ hoặc đến cơ sở y tế gần nhất. Nếu tình trạng có vẻ khẩn cấp, hãy gọi 115 hoặc số cấp cứu tại địa phương.',
             ),
           ],
         ),

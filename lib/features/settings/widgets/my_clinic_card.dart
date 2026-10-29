@@ -113,12 +113,7 @@ class MyClinicCard extends ConsumerWidget {
     MyClinic clinic,
   ) {
     final mapsQuery = clinic.mapsQuery;
-    // The dark scheme leaves secondaryContainer at its pale default, so the
-    // stock tonal colours are unreadable there; use the primary tint instead.
-    final tonalStyle = FilledButton.styleFrom(
-      backgroundColor: AppTheme.primaryTint(theme.colorScheme),
-      foregroundColor: theme.colorScheme.onSurface,
-    );
+    final tonalStyle = AppTheme.tonalButtonStyle(theme.colorScheme);
     return [
       if (clinic.isEmpty)
         FilledButton.tonalIcon(
