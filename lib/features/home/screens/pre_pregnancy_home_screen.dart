@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
+import '../../../core/models/pre_readiness.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../emergency/widgets/emergency_entry_card.dart';
+import '../widgets/late_period_card.dart';
+import '../widgets/pre_readiness_card.dart';
+import '../widgets/pregnant_switch_card.dart';
 
 class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
-  const PrePregnancyHomeScreen({super.key});
+  /// Fixed cycles instead of the Hive box (tests only).
+  @visibleForTesting
+  final List<MenstrualCycleModel>? debugCycles;
+
+  /// Fixed "today" for the late-period check (tests only).
+  @visibleForTesting
+  final DateTime? debugToday;
+
+  const PrePregnancyHomeScreen({super.key, this.debugCycles, this.debugToday});
 
   @override
   ConsumerState<PrePregnancyHomeScreen> createState() =>
@@ -41,7 +54,14 @@ class _PrePregnancyHomeScreenState
 
   Future<void> _loadCycles() async {
     if (!mounted) return;
-    final cycles = DatabaseService.getAllMenstrualCycles();
+    List<MenstrualCycleModel> cycles;
+    try {
+      cycles = widget.debugCycles ?? DatabaseService.getAllMenstrualCycles();
+    } catch (_) {
+      // Box not open (e.g. in isolated widget tests).
+      cycles = [];
+    }
+    if (!mounted) return;
     setState(() {
       _cycles = cycles;
     });
@@ -53,6 +73,15 @@ class _PrePregnancyHomeScreenState
     final nextOvulation = HealthService.predictNextOvulation(_cycles);
     final fertileWindow = HealthService.predictFertileWindow(_cycles);
     final nextPeriod = HealthService.predictNextPeriod(_cycles);
+    final now = widget.debugToday ?? DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final showLatePeriod = LatePeriodCard.isVisible(_cycles, today);
+    final showReadiness = !PreReadiness.compute(
+      ContentPackService.guides,
+      const <String>{},
+    ).isEmpty;
+    final showEarlySigns =
+        ContentPackService.guideById(earlySignsGuideId) != null;
 
     return Scaffold(
       appBar: AppBar(
@@ -76,25 +105,46 @@ class _PrePregnancyHomeScreenState
               const SizedBox(height: 24),
               const EmergencyEntryCard(),
               const SizedBox(height: 16),
-              _FertileWindowWidget(
-                fertileWindow: fertileWindow,
-                nextOvulation: nextOvulation,
-                hasCycles: _cycles.isNotEmpty,
-                onAddPeriod: () async {
-                  await NavigationHelper.toFertilityPlanner(context);
-                  _loadCycles();
-                },
-              ),
-              const SizedBox(height: 16),
-              _OvulationCountdownWidget(
-                nextOvulation: nextOvulation,
-                nextPeriod: nextPeriod,
-                hasCycles: _cycles.isNotEmpty,
-              ),
-              const SizedBox(height: 16),
+              if (showLatePeriod) ...[
+                LatePeriodCard(cycles: _cycles, today: today),
+                const SizedBox(height: 16),
+              ],
+              if (showReadiness) ...[
+                const PreReadinessCard(),
+                const SizedBox(height: 16),
+              ],
+              // While late or stale, rolled-forward predictions would
+              // contradict the late-period card; they return once a new
+              // period is logged.
+              if (!showLatePeriod) ...[
+                _FertileWindowWidget(
+                  key: const ValueKey('pre-fertile-window-card'),
+                  fertileWindow: fertileWindow,
+                  nextOvulation: nextOvulation,
+                  hasCycles: _cycles.isNotEmpty,
+                  onAddPeriod: () async {
+                    await NavigationHelper.toFertilityPlanner(context);
+                    _loadCycles();
+                  },
+                ),
+                const SizedBox(height: 16),
+                _OvulationCountdownWidget(
+                  key: const ValueKey('pre-ovulation-card'),
+                  nextOvulation: nextOvulation,
+                  nextPeriod: nextPeriod,
+                  hasCycles: _cycles.isNotEmpty,
+                ),
+                const SizedBox(height: 16),
+              ],
+              if (showEarlySigns) ...[
+                const EarlySignsEntryCard(),
+                const SizedBox(height: 16),
+              ],
               _DailyTipsWidget(theme: theme),
               const SizedBox(height: 16),
               _buildQuickActions(context),
+              const SizedBox(height: 16),
+              const PregnantSwitchCard(),
               const SizedBox(height: 24),
             ],
           ),
@@ -173,6 +223,7 @@ class _FertileWindowWidget extends StatelessWidget {
   final VoidCallback onAddPeriod;
 
   const _FertileWindowWidget({
+    super.key,
     this.fertileWindow,
     this.nextOvulation,
     required this.hasCycles,
@@ -301,6 +352,7 @@ class _OvulationCountdownWidget extends StatelessWidget {
   final bool hasCycles;
 
   const _OvulationCountdownWidget({
+    super.key,
     this.nextOvulation,
     this.nextPeriod,
     required this.hasCycles,

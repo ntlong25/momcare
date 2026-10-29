@@ -376,6 +376,43 @@ class HealthService {
     return next;
   }
 
+  /// Expected start of the period after the most recent recorded one: last
+  /// start + average cycle length. Unlike [predictNextPeriod] it never rolls
+  /// forward, so it can be in the past (used for the late-period estimate).
+  static DateTime? expectedPeriodDate(List<MenstrualCycleModel> cycles) {
+    if (cycles.isEmpty) return null;
+    final lastStart = _dateOnly(sortedByStart(cycles).last.startDate);
+    final averageLength = calculateAverageCycleLength(cycles);
+    return DateTime(
+      lastStart.year,
+      lastStart.month,
+      lastStart.day + averageLength,
+    );
+  }
+
+  /// Days past [expectedPeriodDate] as of [today] (default: now); 0 when not
+  /// late or when there are no cycles.
+  static int daysLate(List<MenstrualCycleModel> cycles, {DateTime? today}) {
+    final expected = expectedPeriodDate(cycles);
+    if (expected == null) return 0;
+    final late = _daysBetween(expected, _dateOnly(today ?? DateTime.now()));
+    return late > 0 ? late : 0;
+  }
+
+  /// Whether the cycle data is too old to estimate a late period: more than
+  /// two average cycles have passed since the last recorded start (e.g. on a
+  /// 28-day average, 56 days is still an estimate and 57 asks the user to
+  /// update their cycle data).
+  static bool isCycleDataStale(
+    List<MenstrualCycleModel> cycles, {
+    DateTime? today,
+  }) {
+    if (cycles.isEmpty) return false;
+    final lastStart = _dateOnly(sortedByStart(cycles).last.startDate);
+    final elapsed = _daysBetween(lastStart, _dateOnly(today ?? DateTime.now()));
+    return elapsed > 2 * calculateAverageCycleLength(cycles);
+  }
+
   /// Get next predicted ovulation date
   static DateTime? predictNextOvulation(
     List<MenstrualCycleModel> cycles, {
