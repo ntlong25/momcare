@@ -9,6 +9,7 @@ import '../../../core/services/database_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/encryption_service.dart';
 import '../../../core/services/guide_progress_service.dart';
+import '../../../core/services/milestone_progress_service.dart';
 import '../../../core/services/thai_giao_progress_service.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/date_picker_utils.dart';
@@ -460,6 +461,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     await prefs.remove(AppConstants.thaiGiaoDoneKey);
     await prefs.remove(AppConstants.thaiGiaoReminderKey);
     ref.read(thaiGiaoProgressProvider.notifier).resetLocal();
+    await prefs.remove(AppConstants.milestoneDoneKey);
+    ref.read(milestoneProgressProvider.notifier).resetLocal();
     await prefs.remove('locale');
 
     if (!mounted) {

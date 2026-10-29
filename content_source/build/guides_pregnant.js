@@ -78,13 +78,14 @@ module.exports = [
     ],
     checklist: [
       c('chk_preg_vax_record', 'Mang sổ tiêm chủng đến buổi khám thai đầu tiên'),
-      c('chk_preg_vax_flu', 'Hỏi bác sĩ về tiêm cúm trong thai kỳ', null, 'addAppointment', 'Thêm lịch tiêm', null),
-      c('chk_preg_vax_tdap', 'Tiêm Tdap (bạch hầu – uốn ván – ho gà) theo chỉ định, khoảng tuần 27–36', 27, 'addAppointment', 'Thêm lịch tiêm', null),
-      c('chk_preg_vax_tetanus', 'Kiểm tra lịch tiêm uốn ván theo tiền sử', 16, 'addAppointment', 'Thêm lịch tiêm', null),
-      c('chk_preg_vax_rsv', 'Hỏi bác sĩ về vắc xin RSV (khoảng tuần 32–36) nếu có', 32),
       c('chk_preg_vax_family', 'Nhắc người thân sẽ chăm bé kiểm tra tiêm cúm và ho gà')
     ],
-    timeline: [],
+    timeline: [
+      t('tl_vax_flu', 0, 40, 'Tiêm vắc xin cúm (bất hoạt)', 'Có thể tiêm ở bất kỳ giai đoạn nào của thai kỳ, đặc biệt trước mùa cúm. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.'),
+      t('tl_vax_tetanus', 16, 36, 'Tiêm phòng uốn ván (VAT/Td)', 'Số mũi và thời điểm tùy tiền sử tiêm của bạn; chương trình tiêm chủng ở Việt Nam có lịch riêng cho phụ nữ có thai, hãy hỏi trạm y tế. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.'),
+      t('tl_vax_tdap', 27, 36, 'Tiêm Tdap (bạch hầu – uốn ván – ho gà)', 'CDC khuyên tiêm mỗi lần mang thai, thời điểm tốt nhất khoảng 27–36 tuần để bé nhận kháng thể ho gà từ mẹ. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.'),
+      t('tl_vax_rsv', 32, 36, 'Hỏi về vắc xin RSV', 'Một số nước khuyến nghị tiêm trong khoảng 32–36 tuần; hỏi xem vắc xin này có sẵn và phù hợp với bạn không. Chỉ tiêm theo chỉ định của bác sĩ / nhân viên y tế.', 'none')
+    ],
     sources: ['CDC-VAX-PREG', 'VN-EPI', 'NHS-VACCINES'],
   },
   {

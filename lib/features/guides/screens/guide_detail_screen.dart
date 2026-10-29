@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/constants/app_constants.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/guide_models.dart';
+import '../../../core/models/milestone_schedule.dart';
+import '../../../core/models/pregnancy_model.dart';
+import '../../../core/services/database_service.dart';
 import '../../../core/services/guide_progress_service.dart';
+import '../../../core/services/milestone_progress_service.dart';
+import '../../../core/utils/date_picker_utils.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../guide_actions.dart';
+import '../widgets/milestone_status_chip.dart';
 
 /// Generic renderer for a content-engine guide: sections, checklist with
 /// persisted ticks, timeline and actions.
@@ -26,11 +34,51 @@ class GuideDetailScreen extends ConsumerWidget {
     return ids.map((id) => sources[id]?.organization ?? id).toSet().toList();
   }
 
+  /// Opens a date picker (LMP..today) and stores the chosen done date.
+  static Future<void> markMilestoneDone(
+    BuildContext context,
+    WidgetRef ref,
+    PregnancyModel pregnancy,
+    ScheduledMilestone milestone,
+  ) async {
+    final now = DateTime.now();
+    final picked = await DatePickerUtils.pickDate(
+      context: context,
+      initialDate: now,
+      firstDate: pregnancy.pregnancyStartDate,
+      lastDate: now,
+    );
+    if (picked == null || !context.mounted) return;
+    await ref
+        .read(milestoneProgressProvider.notifier)
+        .markDone(milestone.id, picked);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Rebuild when the due date is edited in another tab.
+    return HiveBoxesListener(
+      boxNames: const [AppConstants.pregnancyBox],
+      builder: (context) => _buildContent(context, ref),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, WidgetRef ref) {
     final ticked = ref.watch(guideChecklistProvider);
+    final done = ref.watch(milestoneProgressProvider);
     final theme = Theme.of(context);
     final progress = guide.progress(ticked);
+    final pregnancy = guide.stage == GuideStage.pregnant
+        ? DatabaseService.getActivePregnancy()
+        : null;
+    final schedule = pregnancy == null
+        ? null
+        : MilestoneSchedule.build(
+            guide: guide,
+            pregnancy: pregnancy,
+            now: DateTime.now(),
+            done: done,
+          );
 
     return Scaffold(
       appBar: AppBar(title: Text(GuideEnums.categoryLabel(guide.category))),
@@ -100,6 +148,11 @@ class GuideDetailScreen extends ConsumerWidget {
             for (final item in guide.timeline)
               _TimelineTile(
                 item: item,
+                milestone: schedule?.byId(item.id),
+                onMarkDone: (m) =>
+                    markMilestoneDone(context, ref, pregnancy!, m),
+                onUnmark: (m) =>
+                    ref.read(milestoneProgressProvider.notifier).unmark(m.id),
                 onAction: () => GuideActions.run(
                   context,
                   type: item.actionType,
@@ -259,12 +312,26 @@ class _ChecklistTile extends StatelessWidget {
 
 class _TimelineTile extends StatelessWidget {
   final GuideTimelineItem item;
+
+  /// Calendar placement for the active pregnancy; null renders the plain
+  /// tile (no pregnancy, or not a pregnant-stage guide).
+  final ScheduledMilestone? milestone;
+  final ValueChanged<ScheduledMilestone> onMarkDone;
+  final ValueChanged<ScheduledMilestone> onUnmark;
   final VoidCallback onAction;
 
-  const _TimelineTile({required this.item, required this.onAction});
+  const _TimelineTile({
+    required this.item,
+    required this.onAction,
+    required this.onMarkDone,
+    required this.onUnmark,
+    this.milestone,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final m = milestone;
+    if (m != null) return _buildScheduled(context, m);
     final theme = Theme.of(context);
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
@@ -298,6 +365,94 @@ class _TimelineTile extends StatelessWidget {
               )
             else
               const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScheduled(BuildContext context, ScheduledMilestone m) {
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    return Card(
+      key: ValueKey('milestone-${item.id}'),
+      margin: const EdgeInsets.only(bottom: 10),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 12, 14, 6),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                if (item.weekLabel != null)
+                  Text(
+                    item.weekLabel!,
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                Text(
+                  MilestoneLabels.dateRange(m),
+                  style: theme.textTheme.labelMedium?.copyWith(color: muted),
+                ),
+              ],
+            ),
+            const SizedBox(height: 2),
+            Text(
+              item.title,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 6),
+            MilestoneStatusChip(milestone: m),
+            if (m.isVaccination) ...[
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Icon(Icons.medical_services_outlined, size: 16, color: muted),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      MilestoneLabels.doctorAdvice,
+                      style: theme.textTheme.bodySmall?.copyWith(color: muted),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            if (item.description != null) ...[
+              const SizedBox(height: 6),
+              Text(item.description!, style: theme.textTheme.bodyMedium),
+            ],
+            Wrap(
+              spacing: 4,
+              children: [
+                if (m.canAddAppointment)
+                  _ActionButton(
+                    type: item.actionType,
+                    label: item.actionLabel,
+                    onPressed: onAction,
+                  ),
+                if (m.isDone)
+                  TextButton.icon(
+                    key: ValueKey('milestone-unmark-${item.id}'),
+                    onPressed: () => onUnmark(m),
+                    icon: const Icon(Icons.undo, size: 18),
+                    label: const Text(MilestoneLabels.unmark),
+                  )
+                else
+                  TextButton.icon(
+                    key: ValueKey('milestone-done-${item.id}'),
+                    onPressed: () => onMarkDone(m),
+                    icon: const Icon(Icons.check, size: 18),
+                    label: Text(MilestoneLabels.markDone(m)),
+                  ),
+              ],
+            ),
           ],
         ),
       ),

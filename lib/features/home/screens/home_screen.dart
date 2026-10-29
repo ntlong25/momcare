@@ -12,6 +12,7 @@ import '../widgets/pregnancy_progress_card.dart';
 import '../widgets/quick_actions_grid.dart';
 import '../widgets/upcoming_appointments_card.dart';
 import '../widgets/maternal_habits_card.dart';
+import '../widgets/next_milestone_card.dart';
 import '../widgets/pregnancy_day_card.dart';
 import '../widgets/today_thai_giao_card.dart';
 import '../widgets/today_tip_card.dart';
@@ -142,6 +143,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           TodayTipCard(day: contentDay),
           const SizedBox(height: 16),
           WeekTodoCard(week: pregnancy.currentWeekAt(now)),
+          NextMilestoneCard(pregnancy: pregnancy, now: now),
           const SizedBox(height: 16),
           PregnancyProgressCard(pregnancy: pregnancy),
           const SizedBox(height: 16),

@@ -56,6 +56,18 @@ class ContentPackService {
   /// Cẩm nang guides (empty when the guide pack is missing or invalid).
   static List<GuideArticle> get guides => _guides;
 
+  /// Guide with [id], or null when it is not loaded.
+  static GuideArticle? guideById(String id) {
+    for (final guide in _guides) {
+      if (guide.id == id) return guide;
+    }
+    return null;
+  }
+
+  /// Replaces the loaded guides (tests only).
+  @visibleForTesting
+  static set debugGuides(List<GuideArticle> value) => _guides = value;
+
   /// Source metadata by id from `sources.json` (empty when missing).
   static Map<String, ContentSource> get sources => _sources;
 

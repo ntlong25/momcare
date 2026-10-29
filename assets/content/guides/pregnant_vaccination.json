@@ -45,38 +45,6 @@
       "actionValue": null
     },
     {
-      "id": "chk_preg_vax_flu",
-      "text": "Hỏi bác sĩ về tiêm cúm trong thai kỳ",
-      "weekDue": null,
-      "actionType": "addAppointment",
-      "actionLabel": "Thêm lịch tiêm",
-      "actionValue": null
-    },
-    {
-      "id": "chk_preg_vax_tdap",
-      "text": "Tiêm Tdap (bạch hầu – uốn ván – ho gà) theo chỉ định, khoảng tuần 27–36",
-      "weekDue": 27,
-      "actionType": "addAppointment",
-      "actionLabel": "Thêm lịch tiêm",
-      "actionValue": null
-    },
-    {
-      "id": "chk_preg_vax_tetanus",
-      "text": "Kiểm tra lịch tiêm uốn ván theo tiền sử",
-      "weekDue": 16,
-      "actionType": "addAppointment",
-      "actionLabel": "Thêm lịch tiêm",
-      "actionValue": null
-    },
-    {
-      "id": "chk_preg_vax_rsv",
-      "text": "Hỏi bác sĩ về vắc xin RSV (khoảng tuần 32–36) nếu có",
-      "weekDue": 32,
-      "actionType": "none",
-      "actionLabel": null,
-      "actionValue": null
-    },
-    {
       "id": "chk_preg_vax_family",
       "text": "Nhắc người thân sẽ chăm bé kiểm tra tiêm cúm và ho gà",
       "weekDue": null,
@@ -85,7 +53,40 @@
       "actionValue": null
     }
   ],
-  "timeline": [],
+  "timeline": [
+    {
+      "id": "tl_vax_flu",
+      "weekFrom": 0,
+      "weekTo": 40,
+      "title": "Tiêm vắc xin cúm (bất hoạt)",
+      "description": "Có thể tiêm ở bất kỳ giai đoạn nào của thai kỳ, đặc biệt trước mùa cúm. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_vax_tetanus",
+      "weekFrom": 16,
+      "weekTo": 36,
+      "title": "Tiêm phòng uốn ván (VAT/Td)",
+      "description": "Số mũi và thời điểm tùy tiền sử tiêm của bạn; chương trình tiêm chủng ở Việt Nam có lịch riêng cho phụ nữ có thai, hãy hỏi trạm y tế. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_vax_tdap",
+      "weekFrom": 27,
+      "weekTo": 36,
+      "title": "Tiêm Tdap (bạch hầu – uốn ván – ho gà)",
+      "description": "CDC khuyên tiêm mỗi lần mang thai, thời điểm tốt nhất khoảng 27–36 tuần để bé nhận kháng thể ho gà từ mẹ. Tiêm theo chỉ định của bác sĩ / nhân viên y tế.",
+      "actionType": "addAppointment"
+    },
+    {
+      "id": "tl_vax_rsv",
+      "weekFrom": 32,
+      "weekTo": 36,
+      "title": "Hỏi về vắc xin RSV",
+      "description": "Một số nước khuyến nghị tiêm trong khoảng 32–36 tuần; hỏi xem vắc xin này có sẵn và phù hợp với bạn không. Chỉ tiêm theo chỉ định của bác sĩ / nhân viên y tế.",
+      "actionType": "none"
+    }
+  ],
   "sources": [
     "CDC-VAX-PREG",
     "VN-EPI",
