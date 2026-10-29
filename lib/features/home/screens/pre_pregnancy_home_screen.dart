@@ -11,6 +11,7 @@ import '../../emergency/widgets/emergency_entry_card.dart';
 import '../widgets/late_period_card.dart';
 import '../widgets/pre_readiness_card.dart';
 import '../widgets/pregnant_switch_card.dart';
+import '../../settings/widgets/my_clinic_card.dart';
 
 class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
   /// Fixed cycles instead of the Hive box (tests only).
@@ -104,6 +105,8 @@ class _PrePregnancyHomeScreenState
               _buildGreeting(theme),
               const SizedBox(height: 24),
               const EmergencyEntryCard(),
+              const SizedBox(height: 16),
+              const MyClinicCard(),
               const SizedBox(height: 16),
               if (showLatePeriod) ...[
                 LatePeriodCard(cycles: _cycles, today: today),

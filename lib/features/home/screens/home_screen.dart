@@ -17,6 +17,7 @@ import '../widgets/pregnancy_day_card.dart';
 import '../widgets/today_thai_giao_card.dart';
 import '../widgets/today_tip_card.dart';
 import '../widgets/week_todo_card.dart';
+import '../../settings/widgets/my_clinic_card.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -150,6 +151,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           const MaternalHabitsCard(),
           const SizedBox(height: 16),
           const EmergencyEntryCard(),
+          const SizedBox(height: 16),
+          const MyClinicCard(),
           const SizedBox(height: 24),
           const QuickActionsGrid(),
           const SizedBox(height: 24),

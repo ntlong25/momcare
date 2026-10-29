@@ -8,7 +8,9 @@ import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/encryption_service.dart';
+import '../../../core/services/guide_price_service.dart';
 import '../../../core/services/guide_progress_service.dart';
+import '../../../core/services/my_clinic_service.dart';
 import '../../../core/services/milestone_progress_service.dart';
 import '../../../core/services/thai_giao_progress_service.dart';
 import '../../../core/utils/date_formatter.dart';
@@ -52,6 +54,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     final appMode = ref.watch(appModeProvider);
     final effectiveAppMode = _resolveCurrentMode(appMode);
     final isPregnancyMode = effectiveAppMode == AppMode.pregnancy;
+    final myClinic = ref.watch(myClinicProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Cài đặt')),
@@ -122,6 +125,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
             ]),
             const Divider(),
           ],
+          _buildSection(context, 'Nơi khám của tôi', [
+            ListTile(
+              key: const ValueKey('settings-my-clinic'),
+              leading: const Icon(Icons.local_hospital_outlined),
+              title: const Text('Bệnh viện / phòng khám'),
+              subtitle: Text(
+                myClinic.name.isNotEmpty ? myClinic.name : 'Chưa cài đặt',
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.toMyClinic(context),
+            ),
+          ]),
+          const Divider(),
           _buildSection(context, 'Thông báo', [
             ListTile(
               leading: const Icon(Icons.notifications),
@@ -411,7 +427,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Xóa toàn bộ dữ liệu?'),
         content: const Text(
-          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
+          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
           'Sau khi xóa, MomCare+ sẽ quay về màn hình bắt đầu như lần cài đặt mới.',
         ),
         actions: [
@@ -463,6 +479,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     ref.read(thaiGiaoProgressProvider.notifier).resetLocal();
     await prefs.remove(AppConstants.milestoneDoneKey);
     ref.read(milestoneProgressProvider.notifier).resetLocal();
+    await prefs.remove(AppConstants.guidePricesKey);
+    ref.read(guidePriceProvider.notifier).resetLocal();
+    await prefs.remove(AppConstants.myClinicKey);
+    ref.read(myClinicProvider.notifier).resetLocal();
     await prefs.remove('locale');
 
     if (!mounted) {

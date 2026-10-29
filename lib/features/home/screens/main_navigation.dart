@@ -11,6 +11,7 @@ import '../../emergency/screens/emergency_warning_screen.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../../fertility/screens/fertility_planner_screen.dart';
 import '../../guides/screens/guides_screen.dart';
+import '../../settings/widgets/my_clinic_card.dart';
 
 final navigationIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -128,18 +129,26 @@ class _ToolsTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 3,
       child: _CollapsibleTabScaffold(
         title: 'Công cụ',
-        tabBar: TabBar(
+        actions: [
+          IconButton(
+            key: const ValueKey('tools-find-hospital'),
+            tooltip: 'Tìm bệnh viện gần tôi',
+            icon: const Icon(Icons.local_hospital_outlined),
+            onPressed: () => MyClinicCard.findNearbyHospital(context),
+          ),
+        ],
+        tabBar: const TabBar(
           tabs: [
             Tab(text: 'Dinh dưỡng', icon: Icon(Icons.restaurant_menu)),
             Tab(text: 'Lịch hẹn', icon: Icon(Icons.calendar_today)),
             Tab(text: 'Cần khám', icon: Icon(Icons.warning_amber_rounded)),
           ],
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             NutritionScreen(showAppBar: false),
             AppointmentsScreen(showAppBar: false),
@@ -155,11 +164,13 @@ class _CollapsibleTabScaffold extends StatelessWidget {
   final String title;
   final TabBar tabBar;
   final Widget body;
+  final List<Widget>? actions;
 
   const _CollapsibleTabScaffold({
     required this.title,
     required this.tabBar,
     required this.body,
+    this.actions,
   });
 
   @override
@@ -171,6 +182,7 @@ class _CollapsibleTabScaffold extends StatelessWidget {
           return [
             SliverAppBar(
               title: Text(title),
+              actions: actions,
               floating: true,
               snap: true,
               forceElevated: innerBoxIsScrolled,

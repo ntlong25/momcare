@@ -5,6 +5,7 @@ import '../../features/health_diary/screens/add_health_log_screen.dart';
 import '../../features/appointments/screens/appointments_screen.dart';
 import '../../features/appointments/screens/add_appointment_screen.dart';
 import '../../features/nutrition/screens/nutrition_screen.dart';
+import '../../features/settings/screens/my_clinic_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/guide/screens/guide_screen.dart';
 import '../../features/fertility/screens/fertility_planner_screen.dart';
@@ -109,6 +110,13 @@ class NavigationHelper {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(builder: (_) => WeekDetailScreen(initialWeek: week)),
+    );
+  }
+
+  static Future<T?> toMyClinic<T>(BuildContext context) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => const MyClinicScreen()),
     );
   }
 
