@@ -7,6 +7,7 @@ import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/notification_service.dart';
+import '../../../core/services/bump_photo_service.dart';
 import '../../../core/services/contraction_service.dart';
 import '../../../core/services/encryption_service.dart';
 import '../../../core/services/guide_price_service.dart';
@@ -18,6 +19,7 @@ import '../../../core/services/thai_giao_progress_service.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/date_picker_utils.dart';
 import '../../../core/utils/health_validators.dart';
+import '../../../core/utils/share_helper.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
@@ -409,9 +411,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Dữ liệu của bạn được lưu trên thiết bị'),
         content: const Text(
-          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, lịch sử đếm cử động thai, cơn co và cài đặt trên thiết bị này.\n\n'
+          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, lịch sử đếm cử động thai, cơn co, ảnh bụng bầu và cài đặt trên thiết bị này.\n\n'
           'Hiện tại dữ liệu chưa được sao lưu trực tuyến. Nếu bạn xóa ứng dụng, đổi thiết bị hoặc xóa toàn bộ dữ liệu trong app, dữ liệu có thể không khôi phục được.\n\n'
-          'MomCare+ không tự chia sẻ dữ liệu sức khỏe của bạn ra bên ngoài.',
+          'MomCare+ không tự chia sẻ dữ liệu sức khỏe của bạn ra bên ngoài. Ảnh, thẻ cột mốc và file PDF chỉ rời khỏi thiết bị khi bạn tự chọn chia sẻ.',
         ),
         actions: [
           TextButton(
@@ -429,7 +431,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Xóa toàn bộ dữ liệu?'),
         content: const Text(
-          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, lịch sử đếm cử động thai và cơn co, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
+          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, lịch sử đếm cử động thai và cơn co, ảnh bụng bầu, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
           'Sau khi xóa, MomCare+ sẽ quay về màn hình bắt đầu như lần cài đặt mới.',
         ),
         actions: [
@@ -489,6 +491,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     ref.read(kickCounterProvider.notifier).resetLocal();
     await prefs.remove(AppConstants.contractionsKey);
     ref.read(contractionProvider.notifier).resetLocal();
+    // Removes the bump_photos key and folder; never throws.
+    await BumpPhotoService.clearAll();
+    ref.read(bumpPhotoProvider.notifier).resetLocal();
+    // Generated milestone cards and PDFs in the temp folder; never throws.
+    await ShareHelper.clearTempFiles();
     await prefs.remove('locale');
 
     if (!mounted) {

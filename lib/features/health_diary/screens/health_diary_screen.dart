@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/providers/app_mode_provider.dart';
+import '../../../core/utils/navigation_helper.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/models/health_log_model.dart';
@@ -120,6 +122,20 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                key: const ValueKey('health-export-pdf'),
+                onPressed: () => NavigationHelper.toHealthReportExport(
+                  context,
+                  includePregnancy:
+                      ref.read(appModeProvider) != AppMode.prePregnancy,
+                ),
+                icon: const Icon(Icons.picture_as_pdf_outlined),
+                label: const Text('Xuất PDF cho bác sĩ'),
+              ),
+            ),
+            const SizedBox(height: 16),
             HealthStatsCard(healthLogs: healthLogs),
             const SizedBox(height: 16),
             HealthLogList(

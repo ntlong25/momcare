@@ -7,6 +7,7 @@ import '../../../core/models/week_detail_model.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../guides/screens/guide_detail_screen.dart';
+import '../../milestone_card/screens/milestone_card_screen.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../widgets/week_image.dart';
@@ -90,7 +91,28 @@ class _WeekDetailScreenState extends State<WeekDetailScreen> {
     final isCurrent = _week == _currentWeek;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Tuần $_week')),
+      appBar: AppBar(
+        title: Text('Tuần $_week'),
+        actions: [
+          IconButton(
+            key: const ValueKey('week-bump-photos'),
+            tooltip: 'Ảnh bụng bầu tuần này',
+            icon: const Icon(Icons.photo_camera_outlined),
+            onPressed: () =>
+                NavigationHelper.toBumpJournal(context, week: _week),
+          ),
+          IconButton(
+            key: const ValueKey('week-share-card'),
+            tooltip: 'Chia sẻ thẻ cột mốc',
+            icon: const Icon(Icons.ios_share),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => MilestoneCardScreen(detail: _detail(_week)),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(
