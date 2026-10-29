@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "sources": [
+    { "id": "WHO-ANC", "title": "WHO recommendations on antenatal care", "organization": "World Health Organization", "url": "https://www.who.int/" },
+    { "id": "MOH-MCH", "title": "Hướng dẫn chuyên môn", "organization": "Cục Bà mẹ và Trẻ em - Bộ Y tế Việt Nam" },
+    { "title": "Thiếu id nên bị bỏ qua" },
+    "không phải object"
+  ]
+}

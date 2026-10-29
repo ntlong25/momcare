@@ -1,0 +1,81 @@
+{
+  "id": "pregnant_partner",
+  "stage": "pregnant",
+  "category": "partner",
+  "title": "Chồng đồng hành cùng vợ bầu",
+  "summary": "Những việc cụ thể bố có thể làm trong từng giai đoạn thai kỳ.",
+  "order": 85,
+  "weekFrom": 0,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "3 tháng đầu",
+      "body": "Vợ có thể mệt và nghén. Chồng giúp nấu những món vợ ăn được, tránh mùi gây buồn nôn, không hút thuốc gần vợ, và cùng đi khám thai lần đầu.",
+      "bullets": []
+    },
+    {
+      "heading": "3 tháng giữa",
+      "body": "Cùng vợ đi siêu âm hình thái, trò chuyện với bé, cùng lên ngân sách và danh sách mua sắm.",
+      "bullets": []
+    },
+    {
+      "heading": "3 tháng cuối",
+      "body": "Học các dấu hiệu chuyển dạ và dấu hiệu nguy hiểm, lưu số điện thoại bệnh viện, chuẩn bị phương tiện đến viện và túi đồ đi sinh. Sắp xếp công việc để nghỉ khi vợ sinh.",
+      "bullets": []
+    },
+    {
+      "heading": "Lắng nghe",
+      "body": "Hỏi vợ \"Hôm nay em thấy thế nào?\" và lắng nghe mà không vội đưa lời khuyên. Để ý dấu hiệu buồn bã, lo âu kéo dài và động viên vợ đi khám khi cần.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_partner_visit",
+      "text": "Chồng đi cùng ít nhất một buổi khám thai",
+      "weekDue": 8,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_partner_anomaly",
+      "text": "Chồng đi cùng buổi siêu âm hình thái",
+      "weekDue": 20,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_partner_signs",
+      "text": "Chồng đọc bài \"Dấu hiệu nguy hiểm khi mang thai\"",
+      "weekDue": 24,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_partner_route",
+      "text": "Chồng biết đường và phương tiện đến bệnh viện",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_partner_leave",
+      "text": "Chồng sắp xếp nghỉ khi vợ sinh",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "WHO-ANC",
+    "NHS-MENTAL"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

@@ -4,7 +4,7 @@ import 'package:momcare/features/legal/screens/medical_disclaimer_screen.dart';
 import 'package:momcare/features/legal/screens/privacy_policy_screen.dart';
 
 void main() {
-  testWidgets('Privacy policy screen renders required V1 statements', (
+  testWidgets('Privacy policy screen renders user-friendly data statements', (
     tester,
   ) async {
     await tester.pumpWidget(const MaterialApp(home: PrivacyPolicyScreen()));
@@ -14,7 +14,7 @@ void main() {
       find.textContaining('Dữ liệu được lưu trên thiết bị'),
       findsOneWidget,
     );
-    expect(find.textContaining('Chưa có đồng bộ cloud'), findsOneWidget);
+    expect(find.textContaining('Chưa có sao lưu trực tuyến'), findsOneWidget);
 
     await tester.drag(find.byType(ListView), const Offset(0, -700));
     await tester.pumpAndSettle();

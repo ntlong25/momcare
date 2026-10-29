@@ -1,0 +1,78 @@
+{
+  "id": "pregnant_warning_signs",
+  "stage": "pregnant",
+  "category": "warning",
+  "title": "Dấu hiệu nguy hiểm cần đi khám ngay",
+  "summary": "Nếu có bất kỳ dấu hiệu nào dưới đây, đừng chờ đến lịch hẹn. Gọi 115 hoặc đến cơ sở y tế gần nhất.",
+  "order": 5,
+  "weekFrom": 0,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Gọi 115 hoặc đến cấp cứu ngay",
+      "body": "",
+      "bullets": [
+        "Ra máu âm đạo, đặc biệt ra nhiều hoặc kèm đau bụng",
+        "Đau bụng dữ dội hoặc đau bụng không dứt",
+        "Ra nước âm đạo (nghi vỡ ối) trước khi chuyển dạ",
+        "Đau đầu dữ dội, nhìn mờ, thấy đom đóm",
+        "Phù đột ngột ở mặt, tay",
+        "Co giật, ngất",
+        "Khó thở, đau ngực, tim đập nhanh",
+        "Sốt từ 38°C trở lên",
+        "Thai máy giảm rõ hoặc không thấy thai máy (từ khoảng tuần 28)",
+        "Cơn co tử cung đều đặn trước 37 tuần",
+        "Có ý nghĩ tự làm hại bản thân hoặc em bé"
+      ]
+    },
+    {
+      "heading": "Cần đi khám sớm trong ngày",
+      "body": "",
+      "bullets": [
+        "Nôn nhiều, không ăn uống được",
+        "Tiểu buốt, tiểu rắt, đau hông lưng",
+        "Ngứa nhiều lòng bàn tay, bàn chân",
+        "Đau, sưng, nóng một bên bắp chân"
+      ]
+    },
+    {
+      "heading": "Khi gọi cấp cứu",
+      "body": "Nói rõ: đang mang thai bao nhiêu tuần, triệu chứng gì, bắt đầu từ lúc nào, địa chỉ. Mang theo sổ khám thai nếu kịp.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_warn_call",
+      "text": "Gọi cấp cứu 115",
+      "weekDue": null,
+      "actionType": "call",
+      "actionLabel": "Gọi 115",
+      "actionValue": "115"
+    },
+    {
+      "id": "chk_warn_save",
+      "text": "Lưu số điện thoại bệnh viện vào danh bạ",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_warn_share",
+      "text": "Chia sẻ danh sách dấu hiệu này với chồng và người thân",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "CDC-WARNING",
+    "WHO-ANC",
+    "MOH-RH-2016"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

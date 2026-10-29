@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
@@ -18,13 +19,28 @@ class _PrePregnancyHomeScreenState
     extends ConsumerState<PrePregnancyHomeScreen> {
   List<MenstrualCycleModel> _cycles = [];
 
+  Listenable? _cycleListenable;
+
   @override
   void initState() {
     super.initState();
     _loadCycles();
+    try {
+      _cycleListenable = DatabaseService.menstrualCycleBox.listenable();
+      _cycleListenable!.addListener(_loadCycles);
+    } catch (_) {
+      // Box not open (e.g. in isolated widget tests).
+    }
+  }
+
+  @override
+  void dispose() {
+    _cycleListenable?.removeListener(_loadCycles);
+    super.dispose();
   }
 
   Future<void> _loadCycles() async {
+    if (!mounted) return;
     final cycles = DatabaseService.getAllMenstrualCycles();
     setState(() {
       _cycles = cycles;

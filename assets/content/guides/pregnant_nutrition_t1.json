@@ -1,0 +1,99 @@
+{
+  "id": "pregnant_nutrition_t1",
+  "stage": "pregnant",
+  "category": "nutrition",
+  "title": "Dinh dưỡng 3 tháng đầu",
+  "summary": "Chưa cần ăn nhiều hơn, nhưng cần ăn an toàn, đủ folate và xoay xở với ốm nghén.",
+  "order": 30,
+  "weekFrom": 1,
+  "weekTo": 13,
+  "sections": [
+    {
+      "heading": "Nhu cầu năng lượng",
+      "body": "Trong 3 tháng đầu, phần lớn mẹ chưa cần ăn thêm nhiều. Quan trọng là ăn đa dạng và đủ chất. Quan niệm \"ăn cho hai người\" dễ dẫn đến tăng cân quá nhanh.",
+      "bullets": []
+    },
+    {
+      "heading": "Vi chất quan trọng",
+      "body": "",
+      "bullets": [
+        "Axit folic: tiếp tục bổ sung theo tư vấn của bác sĩ",
+        "Sắt: thịt nạc, cá, trứng, đậu, rau lá xanh đậm",
+        "Iốt: dùng muối iốt khi nấu ăn",
+        "Viên đa vi chất hoặc sắt – folic chỉ dùng theo chỉ định của bác sĩ / nhân viên y tế"
+      ]
+    },
+    {
+      "heading": "Đối phó với ốm nghén",
+      "body": "",
+      "bullets": [
+        "Chia nhỏ 5–6 bữa, tránh để bụng quá đói",
+        "Ăn bánh quy nhạt hoặc bánh mì khô trước khi rời giường buổi sáng",
+        "Uống nước từng ngụm nhỏ giữa các bữa",
+        "Tránh mùi gây buồn nôn, đồ quá béo hoặc nhiều dầu mỡ",
+        "Gừng có thể giúp một số người đỡ buồn nôn; dùng lượng vừa phải như trong nấu ăn"
+      ]
+    },
+    {
+      "heading": "An toàn thực phẩm",
+      "body": "Ăn chín uống sôi; tránh gỏi, sushi, tiết canh, trứng lòng đào, pa tê, sữa và phô mai chưa tiệt trùng; hạn chế cá có hàm lượng thủy ngân cao. Tra cứu chi tiết trong mục \"Bầu ăn được không?\".",
+      "bullets": []
+    },
+    {
+      "heading": "Khi nào cần đi khám",
+      "body": "Nôn nhiều đến mức không giữ được nước, tiểu ít, sụt cân, chóng mặt hoặc nôn ra máu cần đi khám sớm vì có thể bị nghén nặng hoặc mất nước.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_nut1_folic",
+      "text": "Tiếp tục bổ sung axit folic theo tư vấn",
+      "weekDue": 1,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut1_meals",
+      "text": "Chia nhỏ bữa ăn trong ngày",
+      "weekDue": 5,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut1_water",
+      "text": "Uống đủ nước, từng ngụm nhỏ",
+      "weekDue": 5,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut1_safe",
+      "text": "Đọc danh sách thực phẩm cần tránh",
+      "weekDue": 4,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut1_caffeine",
+      "text": "Giảm cà phê, trà đặc, trà sữa",
+      "weekDue": 4,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "WHO-ANC",
+    "VN-NIN",
+    "CDC-FOOD-PREG",
+    "NHS-FOODS"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

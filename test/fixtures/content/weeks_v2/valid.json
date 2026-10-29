@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "weeks": [
+    {
+      "week": 0,
+      "image": "assets/images/weeks/week_00.webp",
+      "sizeCompare": null,
+      "lengthCm": null,
+      "weightG": null,
+      "babyDevelopment": "Chưa có em bé.",
+      "motherChanges": "Mẹ đang trong kỳ kinh.",
+      "commonSymptoms": ["Hành kinh"],
+      "todoThisWeek": ["Ghi ngày đầu kỳ kinh"],
+      "examsThisWeek": [],
+      "nutritionFocus": ["Rau lá xanh"],
+      "redFlags": ["Ra máu rất nhiều"],
+      "sources": ["WHO-ANC"]
+    },
+    {
+      "week": 20,
+      "image": "assets/images/weeks/week_20.webp",
+      "sizeCompare": "quả chuối",
+      "lengthCm": 25.6,
+      "weightG": 300,
+      "babyDevelopment": "Đã đi được nửa chặng đường.",
+      "motherChanges": "Thai máy rõ hơn.",
+      "commonSymptoms": ["Đau lưng", "", 5, "Táo bón"],
+      "todoThisWeek": ["Đi siêu âm hình thái theo hẹn"],
+      "examsThisWeek": ["Siêu âm hình thái học (tuần 20–22)"],
+      "nutritionFocus": ["Đạm, sắt, canxi"],
+      "redFlags": ["Ra máu âm đạo"],
+      "sources": ["WHO-ANC", "UNKNOWN-SRC"]
+    },
+    {
+      "week": 21,
+      "sizeCompare": "củ cà rốt lớn",
+      "lengthCm": 27,
+      "weightG": 360.5
+    },
+    { "week": 20, "sizeCompare": "duplicate ignored" },
+    { "sizeCompare": "no week" },
+    { "week": -1, "sizeCompare": "too small" },
+    { "week": 43, "sizeCompare": "too big" },
+    { "week": "abc" },
+    "not an object"
+  ]
+}

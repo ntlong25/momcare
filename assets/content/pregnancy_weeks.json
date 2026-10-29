@@ -1,0 +1,24 @@
+{
+  "lastUpdated": "2026-09-12",
+  "sourceRefs": ["MOH-MCH", "WHO-ANC", "CDC-WARNING"],
+  "reviewStatus": "draft_requires_medical_review",
+  "weeks": [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+    30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+    40, 41, 42
+  ],
+  "redFlags": [
+    "Ra máu âm đạo, đau bụng dữ dội hoặc đau đầu nặng",
+    "Sốt cao, khó thở, đau ngực hoặc co giật",
+    "Phù mặt/tay đột ngột, nhìn mờ hoặc thai máy giảm rõ",
+    "Buồn bã tuyệt vọng, ý nghĩ tự làm hại bản thân hoặc em bé"
+  ],
+  "nutritionFocusByTrimester": {
+    "0": "Chuẩn bị axit folic, ăn đa dạng, tránh rượu bia và thuốc lá.",
+    "1": "Ưu tiên bữa nhỏ dễ tiêu, axit folic, sắt và thực phẩm an toàn.",
+    "2": "Tăng chú ý sắt, đạm, canxi, vitamin D và chất xơ từ thực phẩm phù hợp.",
+    "3": "Duy trì canxi, sắt, đạm, omega-3 từ nguồn ít thủy ngân và đủ nước."
+  }
+}

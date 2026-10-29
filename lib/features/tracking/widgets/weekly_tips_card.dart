@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../references/widgets/source_metadata_card.dart';
 
 class WeeklyTipsCard extends StatelessWidget {
   final PregnancyWeekData weekData;
@@ -38,6 +40,16 @@ class WeeklyTipsCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
+            if (weekData.nutritionFocus.isNotEmpty) ...[
+              _buildInfoBlock(
+                context,
+                Icons.restaurant_menu,
+                'Trọng tâm dinh dưỡng',
+                weekData.nutritionFocus,
+                Colors.green,
+              ),
+              const SizedBox(height: 16),
+            ],
             ...weekData.tips.asMap().entries.map((entry) {
               final index = entry.key;
               final tip = entry.value;
@@ -75,8 +87,91 @@ class WeeklyTipsCard extends StatelessWidget {
                 ),
               );
             }),
+            if (weekData.redFlags.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              _buildWarningBlock(context),
+            ],
+            const SizedBox(height: 4),
+            const SourceMetadataCard(group: MedicalReferenceGroup.pregnancy),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoBlock(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String body,
+    Color color,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: color),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 4),
+                Text(body, style: Theme.of(context).textTheme.bodyMedium),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWarningBlock(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.warning_amber_rounded, color: Colors.red),
+              const SizedBox(width: 8),
+              Text(
+                'Cần đi khám ngay nếu có',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ...weekData.redFlags
+              .take(3)
+              .map(
+                (flag) => Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(
+                    '• $flag',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ),
+        ],
       ),
     );
   }

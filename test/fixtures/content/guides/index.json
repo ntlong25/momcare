@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "guides": [
+    "valid_pregnant.json",
+    "valid_pre.json",
+    "missing_fields.json",
+    "invalid_json.json",
+    "unknown_enum.json",
+    "does_not_exist.json",
+    "../escape.json"
+  ]
+}

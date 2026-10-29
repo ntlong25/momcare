@@ -32,8 +32,12 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Ứng dụng cần quyền truy cập camera để chụp ảnh ghi lại các khoảnh khắc quan trọng</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>MomCare+ chỉ đọc dữ liệu chu kỳ kinh nguyệt từ Apple Health để hỗ trợ theo dõi chu kỳ. Dữ liệu được lưu trên thiết bị này và không tự chia sẻ ra bên ngoài.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>MomCare+ không ghi dữ liệu sức khỏe lên Apple Health.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Allow Flutter observatory debugger to be discovered on the local network.</string>
+	<string>Cho phép công cụ phát triển kết nối với ứng dụng trong quá trình kiểm thử.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Ứng dụng cần quyền truy cập microphone để ghi âm</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

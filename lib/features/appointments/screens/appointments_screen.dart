@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../core/services/appointment_reminder_service.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/models/appointment_model.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../widgets/appointment_card.dart';
@@ -17,7 +20,10 @@ class AppointmentsScreen extends ConsumerStatefulWidget {
 }
 
 class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, HiveRefreshMixin {
+  @override
+  List<String> get watchedBoxes => const [AppConstants.appointmentBox];
+
   late TabController _tabController;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
@@ -198,7 +204,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                   appointment: apt,
                   onTap: () => _viewAppointment(apt),
                   onDelete: () async {
-                    await DatabaseService.deleteAppointment(apt.id);
+                    await AppointmentReminderService.delete(apt.id);
                     setState(() {});
                   },
                 );
@@ -271,7 +277,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                   appointment: apt,
                   onTap: () => _viewAppointment(apt),
                   onDelete: () async {
-                    await DatabaseService.deleteAppointment(apt.id);
+                    await AppointmentReminderService.delete(apt.id);
                     setState(() {});
                   },
                 );
@@ -293,7 +299,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                   isPast: true,
                   onTap: () => _viewAppointment(apt),
                   onDelete: () async {
-                    await DatabaseService.deleteAppointment(apt.id);
+                    await AppointmentReminderService.delete(apt.id);
                     setState(() {});
                   },
                 );

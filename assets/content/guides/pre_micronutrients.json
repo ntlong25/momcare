@@ -1,0 +1,90 @@
+{
+  "id": "pre_micronutrients",
+  "stage": "pre",
+  "category": "nutrition",
+  "title": "Vi chất cần chuẩn bị: axit folic, sắt, iốt",
+  "summary": "Một số vi chất cần có đủ ngay từ trước khi thụ thai. Hãy bổ sung theo tư vấn của bác sĩ hoặc nhân viên y tế.",
+  "order": 20,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Axit folic (folate)",
+      "body": "Ống thần kinh của bé hình thành rất sớm, thường trước khi mẹ biết mình có thai. Vì vậy các tổ chức y tế khuyến nghị phụ nữ dự định mang thai bổ sung axit folic từ ít nhất 1 tháng (tốt nhất 2–3 tháng) trước khi thụ thai và tiếp tục trong 3 tháng đầu. Mức bổ sung phổ biến được WHO và CDC công bố cho người không có nguy cơ đặc biệt là 400 microgam mỗi ngày; người có tiền sử thai bị dị tật ống thần kinh, đái tháo đường, đang dùng một số thuốc chống động kinh hoặc béo phì có thể cần mức khác. Hãy hỏi bác sĩ mức phù hợp với bạn.",
+      "bullets": [
+        "Thực phẩm giàu folate: rau lá xanh đậm (rau ngót, rau dền, cải bó xôi), đậu các loại, bông cải xanh, cam, bơ",
+        "Viên bổ sung chỉ dùng theo chỉ định của bác sĩ / nhân viên y tế"
+      ]
+    },
+    {
+      "heading": "Sắt",
+      "body": "Thiếu máu thiếu sắt khá thường gặp ở phụ nữ Việt Nam độ tuổi sinh đẻ. Có dự trữ sắt tốt trước khi mang thai giúp mẹ đỡ mệt và giảm nguy cơ thiếu máu khi thai lớn. Xét nghiệm máu sẽ cho biết bạn có cần bổ sung hay không.",
+      "bullets": [
+        "Nguồn sắt dễ hấp thu: thịt bò, thịt lợn nạc, cá, trứng",
+        "Nguồn sắt thực vật: đậu, rau lá xanh đậm; ăn kèm trái cây giàu vitamin C (ổi, cam, bưởi) để hấp thu tốt hơn",
+        "Tránh uống trà, cà phê ngay sau bữa ăn giàu sắt"
+      ]
+    },
+    {
+      "heading": "Iốt",
+      "body": "Iốt cần cho tuyến giáp của mẹ và sự phát triển não bộ của bé. Ở Việt Nam, cách đơn giản là dùng muối iốt hoặc gia vị có bổ sung iốt khi nấu ăn, ăn thêm cá biển và rong biển ở mức vừa phải. Người có bệnh tuyến giáp cần hỏi bác sĩ trước khi dùng thêm iốt.",
+      "bullets": []
+    },
+    {
+      "heading": "Lưu ý chung",
+      "body": "Không tự mua nhiều loại viên bổ sung cùng lúc vì có thể bị thừa một số chất, ví dụ vitamin A liều cao có thể gây hại cho thai. Mang theo các sản phẩm đang dùng khi đi khám để bác sĩ xem giúp.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_micro_folic",
+      "text": "Hỏi bác sĩ và bắt đầu bổ sung axit folic theo tư vấn, ít nhất 1 tháng trước khi thụ thai",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_micro_anemia",
+      "text": "Kiểm tra thiếu máu bằng xét nghiệm máu theo chỉ định",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_micro_salt",
+      "text": "Dùng muối iốt khi nấu ăn hằng ngày",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_micro_review",
+      "text": "Mang các loại thuốc bổ đang dùng đến để bác sĩ xem lại",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_micro_greens",
+      "text": "Ăn rau lá xanh đậm mỗi ngày",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "WHO-ANC",
+    "CDC-FOLIC",
+    "VN-NIN",
+    "NHS-PLANNING"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

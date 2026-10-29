@@ -15,6 +15,32 @@ class HealthValidators {
   static const double minHeight = 100.0;
   static const double maxHeight = 250.0;
 
+  /// Parses a decimal number typed with either "." or the Vietnamese decimal
+  /// comma (e.g. "55,5"). Returns null for empty or invalid input.
+  static double? parseDecimal(String? value) {
+    if (value == null) return null;
+    final normalized = value.trim().replaceAll(' ', '').replaceAll(',', '.');
+    if (normalized.isEmpty) return null;
+    return double.tryParse(normalized);
+  }
+
+  /// A health diary entry must contain at least one piece of information.
+  static bool hasHealthLogContent({
+    double? weight,
+    int? systolicBP,
+    int? diastolicBP,
+    String? mood,
+    List<String>? symptoms,
+    String? notes,
+  }) {
+    return weight != null ||
+        systolicBP != null ||
+        diastolicBP != null ||
+        (mood != null && mood.isNotEmpty) ||
+        (symptoms != null && symptoms.isNotEmpty) ||
+        (notes != null && notes.trim().isNotEmpty);
+  }
+
   /// Validate weight input
   /// Returns error message if invalid, null if valid
   static String? validateWeight(String? value) {
@@ -22,7 +48,7 @@ class HealthValidators {
       return null; // Optional field
     }
 
-    final weight = double.tryParse(value);
+    final weight = parseDecimal(value);
     if (weight == null) {
       return 'Vui lòng nhập số hợp lệ';
     }
@@ -41,7 +67,7 @@ class HealthValidators {
       return null; // Optional field
     }
 
-    final height = double.tryParse(value);
+    final height = parseDecimal(value);
     if (height == null) {
       return 'Vui lòng nhập số hợp lệ';
     }

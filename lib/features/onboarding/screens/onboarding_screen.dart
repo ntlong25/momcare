@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../legal/screens/medical_disclaimer_screen.dart';
-import 'pregnancy_setup_screen.dart';
+import 'mode_selection_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -204,7 +204,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     if (!mounted) return;
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const PregnancySetupScreen()),
+      MaterialPageRoute(builder: (context) => const ModeSelectionScreen()),
     );
   }
 

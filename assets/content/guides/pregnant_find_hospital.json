@@ -1,0 +1,86 @@
+{
+  "id": "pregnant_find_hospital",
+  "stage": "pregnant",
+  "category": "checkup",
+  "title": "Chọn nơi khám và nơi sinh",
+  "summary": "Gợi ý cách chọn bệnh viện, phòng khám sản và mở bản đồ tìm nơi gần bạn.",
+  "order": 90,
+  "weekFrom": 0,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Cân nhắc khi chọn",
+      "body": "",
+      "bullets": [
+        "Khoảng cách và thời gian di chuyển, kể cả lúc tắc đường hay ban đêm",
+        "Có khoa sản, phòng mổ và khoa sơ sinh hoạt động 24/7",
+        "Có tiếp nhận BHYT của bạn hay không, chi phí dự kiến",
+        "Nếu thai kỳ có nguy cơ cao, nên chọn bệnh viện có đơn vị hồi sức sơ sinh"
+      ]
+    },
+    {
+      "heading": "Hỏi trước khi đăng ký sinh",
+      "body": "",
+      "bullets": [
+        "Thủ tục đăng ký sinh và thời điểm nên đăng ký",
+        "Chính sách người nhà đi cùng",
+        "Bệnh viện đã chuẩn bị sẵn những đồ gì cho mẹ và bé",
+        "Số điện thoại cấp cứu sản khoa của bệnh viện"
+      ]
+    },
+    {
+      "heading": "Lưu thông tin",
+      "body": "Lưu tên, địa chỉ và số điện thoại nơi khám của bạn trong app để gọi nhanh khi cần. Khi có dấu hiệu nguy hiểm, hãy đến cơ sở y tế gần nhất hoặc gọi 115.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_hosp_find",
+      "text": "Tìm bệnh viện phụ sản gần nhà",
+      "weekDue": null,
+      "actionType": "openMaps",
+      "actionLabel": "Mở bản đồ",
+      "actionValue": "bệnh viện phụ sản"
+    },
+    {
+      "id": "chk_hosp_clinic",
+      "text": "Tìm phòng khám sản gần nhà",
+      "weekDue": null,
+      "actionType": "openMaps",
+      "actionLabel": "Mở bản đồ",
+      "actionValue": "phòng khám sản"
+    },
+    {
+      "id": "chk_hosp_save",
+      "text": "Lưu số điện thoại nơi khám vào \"Nơi khám của tôi\"",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_hosp_register",
+      "text": "Đăng ký sinh tại bệnh viện đã chọn",
+      "weekDue": 30,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_hosp_route",
+      "text": "Thử đi đường đến bệnh viện và ước tính thời gian",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "MOH-RH-2016",
+    "WHO-ANC"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

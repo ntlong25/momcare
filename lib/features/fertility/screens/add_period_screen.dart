@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/utils/date_picker_utils.dart';
 
 class AddPeriodScreen extends StatefulWidget {
-  const AddPeriodScreen({super.key});
+  /// When provided, the screen edits this period entry instead of adding one.
+  final MenstrualCycleModel? cycle;
+
+  const AddPeriodScreen({super.key, this.cycle});
 
   @override
   State<AddPeriodScreen> createState() => _AddPeriodScreenState();
@@ -18,6 +22,45 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
   DateTime? _endDate;
   String _flowIntensity = 'medium';
   final List<String> _selectedSymptoms = [];
+
+  bool get _isEdit => widget.cycle != null;
+
+  @override
+  void initState() {
+    super.initState();
+    final cycle = widget.cycle;
+    if (cycle != null) {
+      _startDate = cycle.startDate;
+      _endDate = cycle.endDate;
+      _flowIntensity = cycle.flowIntensity ?? 'medium';
+      _selectedSymptoms.addAll(cycle.symptoms ?? const []);
+      _notesController.text = cycle.notes ?? '';
+    }
+  }
+
+  Future<void> _confirmDelete() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Xóa kỳ kinh'),
+        content: const Text('Bạn có chắc muốn xóa kỳ kinh này không?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Hủy'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Xóa'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    await DatabaseService.deleteMenstrualCycle(widget.cycle!.id);
+    if (mounted) Navigator.pop(context, true);
+  }
 
   final List<String> _availableSymptoms = [
     'Chuột rút',
@@ -50,34 +93,56 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
       return;
     }
 
-    // Calculate cycle length if there's a previous cycle
-    final lastCycle = DatabaseService.getLastMenstrualCycle();
-    int? cycleLength;
-    if (lastCycle != null) {
-      cycleLength = _startDate!.difference(lastCycle.startDate).inDays;
+    // Another entry already starts on this day: avoid duplicates.
+    final duplicate = DatabaseService.getAllMenstrualCycles().any(
+      (c) =>
+          c.id != widget.cycle?.id &&
+          c.startDate.year == _startDate!.year &&
+          c.startDate.month == _startDate!.month &&
+          c.startDate.day == _startDate!.day,
+    );
+    if (duplicate) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Đã có kỳ kinh bắt đầu vào ngày này'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
     }
 
     // Calculate period length if end date is selected
     int? periodLength;
     if (_endDate != null) {
-      periodLength = _endDate!.difference(_startDate!).inDays + 1;
+      periodLength =
+          DateTime.utc(_endDate!.year, _endDate!.month, _endDate!.day)
+              .difference(
+                DateTime.utc(
+                  _startDate!.year,
+                  _startDate!.month,
+                  _startDate!.day,
+                ),
+              )
+              .inDays +
+          1;
     }
 
+    // Cycle lengths are recomputed from sorted start dates when saving, so
+    // entering an older period after a newer one never yields negative values.
     final cycle = MenstrualCycleModel(
-      id: const Uuid().v4(),
+      id: widget.cycle?.id ?? const Uuid().v4(),
       startDate: _startDate!,
       endDate: _endDate,
-      cycleLengthDays: cycleLength,
       periodLengthDays: periodLength,
       flowIntensity: _flowIntensity,
       symptoms: _selectedSymptoms.isNotEmpty ? _selectedSymptoms : null,
       notes: _notesController.text.isEmpty ? null : _notesController.text,
-      isFromHealthKit: false,
-      createdAt: DateTime.now(),
+      isFromHealthKit: widget.cycle?.isFromHealthKit ?? false,
+      createdAt: widget.cycle?.createdAt ?? DateTime.now(),
       updatedAt: DateTime.now(),
     );
 
-    await DatabaseService.saveMenstrualCycle(cycle);
+    await DatabaseService.saveMenstrualCycleAndRecompute(cycle);
 
     if (mounted) {
       Navigator.pop(context, true);
@@ -89,7 +154,17 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Thêm kỳ kinh')),
+      appBar: AppBar(
+        title: Text(_isEdit ? 'Sửa kỳ kinh' : 'Thêm kỳ kinh'),
+        actions: [
+          if (_isEdit)
+            IconButton(
+              icon: const Icon(Icons.delete),
+              tooltip: 'Xóa kỳ kinh',
+              onPressed: _confirmDelete,
+            ),
+        ],
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -117,13 +192,14 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () async {
-                  final picked = await showDatePicker(
+                  final picked = await DatePickerUtils.pickDate(
                     context: context,
                     initialDate: _startDate ?? DateTime.now(),
                     firstDate: DateTime.now().subtract(
                       const Duration(days: 365),
                     ),
                     lastDate: DateTime.now(),
+                    includeInitial: _isEdit,
                   );
                   if (picked != null) {
                     setState(() {
@@ -161,7 +237,7 @@ class _AddPeriodScreenState extends State<AddPeriodScreen> {
                 onTap: _startDate == null
                     ? null
                     : () async {
-                        final picked = await showDatePicker(
+                        final picked = await DatePickerUtils.pickDate(
                           context: context,
                           initialDate:
                               _endDate ??

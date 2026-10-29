@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/services/database_service.dart';
-import '../../../core/data/sample_nutrition_data.dart';
-import '../../../core/constants/app_constants.dart';
+import '../../../core/services/nutrition_seed_service.dart';
+import '../../../core/utils/nutrition_filter.dart';
 import '../widgets/nutrition_card.dart';
 import '../widgets/recipe_card.dart';
 import 'recipe_detail_screen.dart';
@@ -25,8 +25,8 @@ class NutritionScreen extends ConsumerStatefulWidget {
 class _NutritionScreenState extends ConsumerState<NutritionScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  String _selectedCategory = 'Tất cả';
-  bool _initialized = false;
+  String _guideCategory = NutritionFilter.all;
+  String _recipeCategory = NutritionFilter.all;
 
   @override
   void initState() {
@@ -40,26 +40,8 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
   }
 
   Future<void> _initializeSampleData() async {
-    if (_initialized) return;
-
-    final existingNutrition = DatabaseService.getAllNutrition();
-    final existingRecipes = DatabaseService.getAllRecipes();
-
-    if (existingNutrition.isEmpty) {
-      final sampleNutrition = SampleNutritionData.getNutritionGuides();
-      for (var nutrition in sampleNutrition) {
-        await DatabaseService.saveNutrition(nutrition);
-      }
-    }
-
-    if (existingRecipes.isEmpty) {
-      final sampleRecipes = SampleNutritionData.getRecipes();
-      for (var recipe in sampleRecipes) {
-        await DatabaseService.saveRecipe(recipe);
-      }
-    }
-
-    _initialized = true;
+    // Seeds on first use and refreshes guides when bundled content changes.
+    await NutritionSeedService.ensureSeeded();
     if (mounted) setState(() {});
   }
 
@@ -100,13 +82,21 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
 
   Widget _buildGuidesTab() {
     final allNutrition = DatabaseService.getAllNutrition();
-    final filteredNutrition = _selectedCategory == 'Tất cả'
-        ? allNutrition
-        : allNutrition.where((n) => n.category == _selectedCategory).toList();
+    final chips = NutritionFilter.chipsFor(allNutrition.map((n) => n.category));
+    final selected = chips.contains(_guideCategory)
+        ? _guideCategory
+        : NutritionFilter.all;
+    final filteredNutrition = allNutrition
+        .where((n) => NutritionFilter.matches(n.category, selected))
+        .toList();
 
     return Column(
       children: [
-        _buildCategoryFilter(),
+        _buildCategoryFilter(
+          chips,
+          selected,
+          (chip) => setState(() => _guideCategory = chip),
+        ),
         Expanded(
           child: filteredNutrition.isEmpty
               ? _buildEmptyState('Chưa có hướng dẫn dinh dưỡng')
@@ -141,13 +131,21 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
 
   Widget _buildRecipesTab() {
     final allRecipes = DatabaseService.getAllRecipes();
-    final filteredRecipes = _selectedCategory == 'Tất cả'
-        ? allRecipes
-        : allRecipes.where((r) => r.category == _selectedCategory).toList();
+    final chips = NutritionFilter.chipsFor(allRecipes.map((r) => r.category));
+    final selected = chips.contains(_recipeCategory)
+        ? _recipeCategory
+        : NutritionFilter.all;
+    final filteredRecipes = allRecipes
+        .where((r) => NutritionFilter.matches(r.category, selected))
+        .toList();
 
     return Column(
       children: [
-        _buildCategoryFilter(),
+        _buildCategoryFilter(
+          chips,
+          selected,
+          (chip) => setState(() => _recipeCategory = chip),
+        ),
         Expanded(
           child: filteredRecipes.isEmpty
               ? _buildEmptyState('Chưa có công thức món ăn')
@@ -189,9 +187,11 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
     );
   }
 
-  Widget _buildCategoryFilter() {
-    final categories = ['Tất cả', ...AppConstants.nutritionCategories];
-
+  Widget _buildCategoryFilter(
+    List<String> categories,
+    String selectedCategory,
+    ValueChanged<String> onSelected,
+  ) {
     return Container(
       height: 60,
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -201,18 +201,14 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
-          final isSelected = _selectedCategory == category;
+          final isSelected = selectedCategory == category;
 
           return Padding(
             padding: const EdgeInsets.only(right: 8),
             child: FilterChip(
               label: Text(category),
               selected: isSelected,
-              onSelected: (selected) {
-                setState(() {
-                  _selectedCategory = category;
-                });
-              },
+              onSelected: (_) => onSelected(category),
               selectedColor: Theme.of(
                 context,
               ).primaryColor.withValues(alpha: 0.3),

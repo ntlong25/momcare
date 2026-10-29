@@ -1,0 +1,82 @@
+{
+  "id": "pregnant_nutrition_t2",
+  "stage": "pregnant",
+  "category": "nutrition",
+  "title": "Dinh dưỡng 3 tháng giữa",
+  "summary": "Bé lớn nhanh hơn, mẹ cần thêm năng lượng vừa phải, chú ý sắt, canxi và đạm.",
+  "order": 31,
+  "weekFrom": 14,
+  "weekTo": 27,
+  "sections": [
+    {
+      "heading": "Ăn thêm bao nhiêu",
+      "body": "Từ 3 tháng giữa, nhu cầu năng lượng tăng vừa phải, tương đương thêm khoảng một bữa phụ nhỏ mỗi ngày (ví dụ một hộp sữa chua và một quả chuối). Mức cụ thể tùy cân nặng trước mang thai và mức tăng cân hiện tại; hãy hỏi bác sĩ hoặc chuyên gia dinh dưỡng.",
+      "bullets": []
+    },
+    {
+      "heading": "Chất cần chú ý",
+      "body": "",
+      "bullets": [
+        "Sắt: thịt bò, thịt lợn nạc, cá, trứng; uống viên sắt theo chỉ định",
+        "Canxi: sữa và chế phẩm đã tiệt trùng, cá nhỏ ăn cả xương, đậu phụ, rau lá xanh",
+        "Đạm: thịt, cá, trứng, đậu, sữa",
+        "Chất xơ và nước: rau, trái cây, ngũ cốc nguyên hạt giúp giảm táo bón",
+        "Omega-3: cá ít thủy ngân như cá hồi, cá trích, cá nục, 2–3 bữa mỗi tuần"
+      ]
+    },
+    {
+      "heading": "Kiểm soát đường",
+      "body": "Hạn chế nước ngọt, trà sữa, bánh kẹo và trái cây sấy nhiều đường, nhất là trước khi làm nghiệm pháp tầm soát đái tháo đường thai kỳ ở tuần 24–28.",
+      "bullets": []
+    },
+    {
+      "heading": "Một ngày gợi ý",
+      "body": "Sáng: phở hoặc bún có thịt, kèm rau. Phụ: sữa chua, một quả chuối. Trưa: cơm, cá kho, canh rau ngót, đậu phụ. Phụ: một cốc sữa, vài lát đu đủ chín. Tối: cơm, thịt bò xào rau, canh bí. Đây chỉ là ví dụ; mẹ có thể thay đổi theo khẩu vị.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_preg_nut2_iron",
+      "text": "Uống sắt và canxi theo chỉ định của bác sĩ, không uống cùng lúc",
+      "weekDue": 14,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut2_fish",
+      "text": "Ăn cá ít thủy ngân 2–3 bữa mỗi tuần",
+      "weekDue": 14,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut2_sugar",
+      "text": "Giảm đồ ngọt trước khi tầm soát đường huyết",
+      "weekDue": 20,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_preg_nut2_weight",
+      "text": "Theo dõi cân nặng mỗi tuần trong app",
+      "weekDue": 14,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "WHO-ANC",
+    "WHO-MMN",
+    "VN-NIN",
+    "FDA-FISH",
+    "MOH-GDM-2018"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "pre_health",
+  "stage": "pre",
+  "category": "health",
+  "title": "Khám sức khỏe trước khi mang thai",
+  "summary": "Chuẩn bị sức khỏe trước khi có thai.",
+  "order": 5,
+  "sections": [{ "heading": "Khám tiền thai", "body": "Trao đổi với bác sĩ.", "bullets": [] }],
+  "checklist": [],
+  "timeline": [],
+  "sources": ["MOH-MCH"],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "approved"
+}

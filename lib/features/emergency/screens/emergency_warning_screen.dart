@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../core/data/medical_references.dart';
+import '../../references/widgets/source_metadata_card.dart';
 
 class EmergencyWarningScreen extends StatelessWidget {
   final bool showAppBar;
@@ -53,6 +55,12 @@ class EmergencyWarningScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _buildActionCard(context),
+          const SizedBox(height: 16),
+          const SourceMetadataCard(
+            group: MedicalReferenceGroup.urgentWarning,
+            note:
+                'Danh sách này không bao phủ mọi tình huống. Nếu bạn thấy có điều gì không ổn, hãy liên hệ nhân viên y tế.',
+          ),
         ],
       ),
     );

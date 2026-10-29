@@ -27,22 +27,22 @@ class PrivacyPolicyScreen extends StatelessWidget {
           const _PolicySection(
             title: '1. Dữ liệu được lưu trên thiết bị',
             body:
-                'Trong phiên bản V1, MomCare+ hoạt động theo hướng offline-first. Dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, dinh dưỡng yêu thích và lịch hẹn được lưu cục bộ trên thiết bị của bạn.',
+                'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, dinh dưỡng yêu thích và lịch hẹn trên thiết bị của bạn.',
           ),
           const _PolicySection(
-            title: '2. Chưa có đồng bộ cloud',
+            title: '2. Chưa có sao lưu trực tuyến',
             body:
-                'Phiên bản V1 chưa bật đăng nhập, tài khoản hoặc đồng bộ cloud. Nếu bạn gỡ ứng dụng, đổi thiết bị hoặc mất thiết bị, dữ liệu có thể không được khôi phục.',
+                'Hiện tại ứng dụng chưa có tài khoản hoặc sao lưu trực tuyến. Nếu bạn gỡ ứng dụng, đổi thiết bị hoặc mất thiết bị, dữ liệu có thể không được khôi phục.',
           ),
           const _PolicySection(
-            title: '3. Không analytics, quảng cáo hoặc tracking bên thứ ba',
+            title: '3. Không quảng cáo hoặc theo dõi hành vi',
             body:
-                'Phiên bản V1 không dùng quảng cáo, analytics hoặc dịch vụ theo dõi hành vi người dùng bên thứ ba.',
+                'MomCare+ không dùng quảng cáo hoặc dịch vụ theo dõi hành vi người dùng bên thứ ba.',
           ),
           const _PolicySection(
             title: '4. Dữ liệu sức khỏe và bảo mật',
             body:
-                'Dữ liệu sức khỏe là dữ liệu nhạy cảm. Ứng dụng sử dụng lưu trữ cục bộ và cơ chế mã hóa khi thiết bị, hệ điều hành và khóa bảo mật khả dụng. Trong trường hợp thiết bị không hỗ trợ đầy đủ, ứng dụng có thể dùng cơ chế lưu trữ cục bộ dự phòng.',
+                'Dữ liệu sức khỏe là dữ liệu nhạy cảm. Ứng dụng lưu thông tin trên thiết bị của bạn và dùng cơ chế bảo vệ dữ liệu khi thiết bị hỗ trợ. Trong một số trường hợp, mức độ bảo vệ có thể phụ thuộc vào thiết bị và cài đặt khóa màn hình của bạn.',
           ),
           const _PolicySection(
             title: '5. Quyền truy cập',
@@ -52,7 +52,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           const _PolicySection(
             title: '6. Kiểm soát dữ liệu',
             body:
-                'Bạn có thể quản lý dữ liệu ngay trong ứng dụng. Luồng xóa toàn bộ dữ liệu sẽ được hoàn thiện trước bản phát hành đầu tiên theo kế hoạch publish readiness.',
+                'Bạn có thể quản lý dữ liệu ngay trong ứng dụng. Khi chọn xóa toàn bộ dữ liệu, thông tin đã lưu trên thiết bị này sẽ bị xóa và ứng dụng trở về trạng thái ban đầu.',
           ),
           const SizedBox(height: 16),
           FilledButton.icon(

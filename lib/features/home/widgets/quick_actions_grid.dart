@@ -43,11 +43,12 @@ class QuickActionsGrid extends StatelessWidget {
               color: Colors.green,
               onTap: () => NavigationHelper.toRecipes(context),
             ),
+            // Cycle tracking is hidden in pregnancy mode (Home is pregnancy-only).
             _QuickActionCard(
-              icon: Icons.calendar_month,
-              title: 'Theo dõi chu kỳ',
-              color: Colors.purple,
-              onTap: () => NavigationHelper.toFertilityPlanner(context),
+              icon: Icons.warning_amber_rounded,
+              title: 'Dấu hiệu cần khám',
+              color: Colors.red,
+              onTap: () => NavigationHelper.toEmergencyWarning(context),
             ),
             _QuickActionCard(
               icon: Icons.help_outline,

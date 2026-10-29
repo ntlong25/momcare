@@ -10,31 +10,65 @@ import '../../appointments/screens/appointments_screen.dart';
 import '../../emergency/screens/emergency_warning_screen.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../../fertility/screens/fertility_planner_screen.dart';
+import '../../guides/screens/guides_screen.dart';
 
 final navigationIndexProvider = StateProvider<int>((ref) => 0);
+
+/// Bottom navigation destinations for the given mode (Phase 13 IA):
+/// Hôm nay / Tuần thai (Chu kỳ) / Cẩm nang / Công cụ / Cài đặt.
+List<NavigationDestination> mainDestinations({required bool isPrePregnancy}) {
+  return [
+    const NavigationDestination(
+      icon: Icon(Icons.today_outlined),
+      selectedIcon: Icon(Icons.today),
+      label: 'Hôm nay',
+    ),
+    NavigationDestination(
+      icon: Icon(
+        isPrePregnancy ? Icons.calendar_month_outlined : Icons.pregnant_woman,
+      ),
+      selectedIcon: Icon(
+        isPrePregnancy ? Icons.calendar_month : Icons.pregnant_woman,
+      ),
+      label: isPrePregnancy ? 'Chu kỳ' : 'Tuần thai',
+    ),
+    const NavigationDestination(
+      icon: Icon(Icons.menu_book_outlined),
+      selectedIcon: Icon(Icons.menu_book),
+      label: 'Cẩm nang',
+    ),
+    const NavigationDestination(
+      icon: Icon(Icons.widgets_outlined),
+      selectedIcon: Icon(Icons.widgets),
+      label: 'Công cụ',
+    ),
+    const NavigationDestination(
+      icon: Icon(Icons.settings_outlined),
+      selectedIcon: Icon(Icons.settings),
+      label: 'Cài đặt',
+    ),
+  ];
+}
 
 class MainNavigation extends ConsumerWidget {
   const MainNavigation({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentIndex = ref.watch(navigationIndexProvider);
     final appMode = ref.watch(appModeProvider);
     final isPrePregnancy = appMode == AppMode.prePregnancy;
+    final destinations = mainDestinations(isPrePregnancy: isPrePregnancy);
+    final currentIndex = ref
+        .watch(navigationIndexProvider)
+        .clamp(0, destinations.length - 1);
 
-    final screens = isPrePregnancy
-        ? [
-            const PrePregnancyHomeScreen(),
-            const _TrackTabScreen(isPrePregnancy: true),
-            const _ToolsTabScreen(),
-            const _ProfileTabScreen(),
-          ]
-        : [
-            const HomeScreen(),
-            const _TrackTabScreen(isPrePregnancy: false),
-            const _ToolsTabScreen(),
-            const _ProfileTabScreen(),
-          ];
+    final screens = [
+      isPrePregnancy ? const PrePregnancyHomeScreen() : const HomeScreen(),
+      _TrackTabScreen(isPrePregnancy: isPrePregnancy),
+      const GuidesScreen(),
+      const _ToolsTabScreen(),
+      const _ProfileTabScreen(),
+    ];
 
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: screens),
@@ -43,28 +77,7 @@ class MainNavigation extends ConsumerWidget {
         onDestinationSelected: (index) {
           ref.read(navigationIndexProvider.notifier).state = index;
         },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Trang chủ',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.favorite_outline),
-            selectedIcon: Icon(Icons.favorite),
-            label: 'Theo dõi',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.widgets_outlined),
-            selectedIcon: Icon(Icons.widgets),
-            label: 'Công cụ',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Cài đặt',
-          ),
-        ],
+        destinations: destinations,
       ),
     );
   }
@@ -77,10 +90,12 @@ class _TrackTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Cycle tracking is only offered in pre-pregnancy mode.
     return DefaultTabController(
-      length: isPrePregnancy ? 2 : 3,
+      key: ValueKey(isPrePregnancy),
+      length: 2,
       child: _CollapsibleTabScaffold(
-        title: 'Theo dõi sức khỏe',
+        title: isPrePregnancy ? 'Chu kỳ & sức khỏe' : 'Tuần thai & sức khỏe',
         tabBar: TabBar(
           tabs: isPrePregnancy
               ? const [
@@ -90,7 +105,6 @@ class _TrackTabScreen extends StatelessWidget {
               : const [
                   Tab(text: 'Thai kỳ', icon: Icon(Icons.track_changes)),
                   Tab(text: 'Sức khỏe', icon: Icon(Icons.favorite)),
-                  Tab(text: 'Chu kỳ', icon: Icon(Icons.calendar_month)),
                 ],
         ),
         body: TabBarView(
@@ -102,7 +116,6 @@ class _TrackTabScreen extends StatelessWidget {
               : const [
                   TrackingScreen(showAppBar: false),
                   HealthDiaryScreen(showAppBar: false),
-                  FertilityPlannerScreen(showAppBar: false),
                 ],
         ),
       ),

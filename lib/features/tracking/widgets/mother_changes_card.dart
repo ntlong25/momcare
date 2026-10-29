@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../references/widgets/source_metadata_card.dart';
 
 class MotherChangesCard extends StatelessWidget {
   final PregnancyWeekData weekData;
@@ -71,6 +73,8 @@ class MotherChangesCard extends StatelessWidget {
                 ),
               );
             }),
+            const SizedBox(height: 4),
+            const SourceMetadataCard(group: MedicalReferenceGroup.pregnancy),
           ],
         ),
       ),

@@ -7,7 +7,12 @@ import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/notification_service.dart';
+import '../../../core/services/encryption_service.dart';
+import '../../../core/services/guide_progress_service.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../../core/utils/date_picker_utils.dart';
+import '../../../core/utils/health_validators.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../onboarding/screens/pregnancy_setup_screen.dart';
@@ -19,8 +24,12 @@ class SettingsScreen extends ConsumerStatefulWidget {
   ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+class _SettingsScreenState extends ConsumerState<SettingsScreen>
+    with HiveRefreshMixin {
   PregnancyModel? _pregnancy;
+
+  @override
+  List<String> get watchedBoxes => const [AppConstants.pregnancyBox];
 
   @override
   void initState() {
@@ -30,11 +39,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   void _loadPregnancy() {
     _pregnancy = DatabaseService.getActivePregnancy();
-    setState(() {});
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    // Re-read on every rebuild (HiveRefreshMixin rebuilds on data changes).
+    _pregnancy = DatabaseService.getActivePregnancy();
     final themeMode = ref.watch(themeProvider);
     final appMode = ref.watch(appModeProvider);
     final effectiveAppMode = _resolveCurrentMode(appMode);
@@ -109,16 +120,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ]),
             const Divider(),
           ],
-          _buildSection(context, 'Tài khoản', [
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Hồ sơ'),
-              subtitle: const Text('Quản lý hồ sơ của bạn'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => NavigationHelper.showProfileDialog(context),
-            ),
-          ]),
-          const Divider(),
           _buildSection(context, 'Thông báo', [
             ListTile(
               leading: const Icon(Icons.notifications),
@@ -134,19 +135,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ListTile(
               leading: const Icon(Icons.phonelink_lock),
               title: const Text('Dữ liệu lưu trên thiết bị này'),
-              subtitle: const Text(
-                'Bản V1 chưa bật đồng bộ cloud hoặc sao lưu Supabase',
-              ),
+              subtitle: const Text('Dữ liệu chưa được sao lưu trực tuyến'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => _showLocalDataExplanation(context),
             ),
+            if (EncryptionService.isFallbackActive)
+              const ListTile(
+                leading: Icon(
+                  Icons.warning_amber_rounded,
+                  color: Colors.orange,
+                ),
+                title: Text('Dữ liệu chưa được mã hóa'),
+                subtitle: Text(
+                  'Thiết bị chưa cho phép dùng kho khóa bảo mật nên dữ liệu đang được lưu không mã hóa. Hãy bật khóa màn hình để tăng bảo vệ.',
+                ),
+              ),
             ListTile(
               leading: const Icon(Icons.delete_forever, color: Colors.red),
               title: const Text(
                 'Xóa toàn bộ dữ liệu',
                 style: TextStyle(color: Colors.red),
               ),
-              subtitle: const Text('Xóa dữ liệu local và đặt lại ứng dụng'),
+              subtitle: const Text(
+                'Xóa dữ liệu trên thiết bị và đặt lại ứng dụng',
+              ),
               trailing: const Icon(Icons.chevron_right, color: Colors.red),
               onTap: () => _showDeleteAllDataFlow(context),
             ),
@@ -187,6 +199,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               trailing: const Icon(Icons.chevron_right),
               onTap: () => NavigationHelper.toEmergencyWarning(context),
             ),
+            ListTile(
+              leading: const Icon(Icons.source),
+              title: const Text('Nguồn tham khảo'),
+              subtitle: const Text('Nguồn nội dung sức khỏe trong app'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => NavigationHelper.toReferences(context),
+            ),
           ]),
         ],
       ),
@@ -217,16 +236,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _changeDueDate(BuildContext context) async {
-    final picked = await showDatePicker(
+    // A due date already in the past must not crash the picker.
+    final picked = await DatePickerUtils.pickDate(
       context: context,
       initialDate: _pregnancy!.dueDate,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
+      firstDate: DateTime.now().subtract(const Duration(days: 30)),
+      lastDate: DateTime.now().add(const Duration(days: 300)),
+      includeInitial: true,
     );
 
     if (picked != null && mounted) {
+      // Keep LMP consistent with the due date (single source of truth).
       final updated = _pregnancy!.copyWith(
         dueDate: picked,
+        lastPeriodDate: PregnancyModel.lastPeriodFromDueDate(picked),
         updatedAt: DateTime.now(),
       );
       await DatabaseService.savePregnancy(updated);
@@ -320,7 +343,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
 
     if (result != null && mounted) {
-      final weight = double.tryParse(result);
+      final weight = HealthValidators.parseDecimal(result);
       if (weight != null) {
         final updated = _pregnancy!.copyWith(
           prePregnancyWeight: weight,
@@ -364,11 +387,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Dữ liệu của bạn được lưu cục bộ'),
+        title: const Text('Dữ liệu của bạn được lưu trên thiết bị'),
         content: const Text(
-          'Trong phiên bản V1, MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn và cài đặt trên thiết bị này.\n\n'
-          'MomCare+ chưa bật đăng nhập, đồng bộ cloud hoặc sao lưu Supabase. Nếu bạn xóa ứng dụng, đổi thiết bị, hoặc xóa toàn bộ dữ liệu trong app, dữ liệu local có thể không khôi phục được.\n\n'
-          'Ứng dụng không gửi dữ liệu sức khỏe của bạn lên máy chủ trong bản V1.',
+          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn và cài đặt trên thiết bị này.\n\n'
+          'Hiện tại dữ liệu chưa được sao lưu trực tuyến. Nếu bạn xóa ứng dụng, đổi thiết bị hoặc xóa toàn bộ dữ liệu trong app, dữ liệu có thể không khôi phục được.\n\n'
+          'MomCare+ không tự chia sẻ dữ liệu sức khỏe của bạn ra bên ngoài.',
         ),
         actions: [
           TextButton(
@@ -407,47 +430,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       return;
     }
 
-    final deleteTokenController = TextEditingController();
     final secondConfirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Xác nhận lần cuối'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Dữ liệu local sẽ bị xóa khỏi thiết bị này và không có bản sao lưu cloud trong V1.\n\n'
-              'Nhập XOA để xác nhận.',
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: deleteTokenController,
-              textCapitalization: TextCapitalization.characters,
-              decoration: const InputDecoration(
-                labelText: 'Nhập XOA',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Hủy'),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              final token = deleteTokenController.text.trim().toUpperCase();
-              Navigator.pop(context, token == 'XOA');
-            },
-            child: const Text('Xóa dữ liệu'),
-          ),
-        ],
-      ),
+      builder: (context) => const _DeleteAllDataConfirmationDialog(),
     );
-    deleteTokenController.dispose();
 
     if (secondConfirmed != true || !mounted) {
       return;
@@ -467,10 +453,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await prefs.remove(AppConstants.languageKey);
     await prefs.remove(AppConstants.dueDateKey);
     await prefs.remove(AppConstants.userNameKey);
+    await prefs.remove(AppConstants.maternalHabitsKey);
+    await prefs.remove(AppConstants.guideChecklistKey);
+    ref.read(guideChecklistProvider.notifier).resetLocal();
     await prefs.remove('locale');
-
-    await ref.read(appModeProvider.notifier).clearMode();
-    await ref.read(themeProvider.notifier).setTheme(ThemeMode.light);
 
     if (!mounted) {
       return;
@@ -601,5 +587,64 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
 
     return _pregnancy != null ? AppMode.pregnancy : AppMode.prePregnancy;
+  }
+}
+
+class _DeleteAllDataConfirmationDialog extends StatefulWidget {
+  const _DeleteAllDataConfirmationDialog();
+
+  @override
+  State<_DeleteAllDataConfirmationDialog> createState() =>
+      _DeleteAllDataConfirmationDialogState();
+}
+
+class _DeleteAllDataConfirmationDialogState
+    extends State<_DeleteAllDataConfirmationDialog> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Xác nhận lần cuối'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Dữ liệu sẽ bị xóa khỏi thiết bị này và hiện chưa có bản sao lưu trực tuyến.\n\n'
+            'Nhập XOA để xác nhận.',
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _controller,
+            textCapitalization: TextCapitalization.characters,
+            decoration: const InputDecoration(
+              labelText: 'Nhập XOA',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: const Text('Hủy'),
+        ),
+        FilledButton(
+          style: FilledButton.styleFrom(backgroundColor: Colors.red),
+          onPressed: () {
+            final token = _controller.text.trim().toUpperCase();
+            Navigator.pop(context, token == 'XOA');
+          },
+          child: const Text('Xóa dữ liệu'),
+        ),
+      ],
+    );
   }
 }

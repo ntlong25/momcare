@@ -1,0 +1,99 @@
+{
+  "id": "pre_finance",
+  "stage": "pre",
+  "category": "finance",
+  "title": "Tài chính và chế độ thai sản",
+  "summary": "Ước tính chi phí khám thai, sinh con và tìm hiểu điều kiện hưởng chế độ thai sản BHXH (cập nhật 29/10/2026).",
+  "order": 50,
+  "weekFrom": null,
+  "weekTo": null,
+  "sections": [
+    {
+      "heading": "Các khoản chi thường gặp",
+      "body": "Chi phí khác nhau nhiều giữa bệnh viện công, tư và giữa các tỉnh thành. Hãy hỏi trực tiếp nơi bạn định khám để có con số cụ thể.",
+      "bullets": [
+        "Khám thai định kỳ, siêu âm, xét nghiệm sàng lọc",
+        "Tiêm phòng trước và trong thai kỳ",
+        "Chi phí sinh (sinh thường hoặc sinh mổ), phòng dịch vụ nếu có",
+        "Đồ dùng cho mẹ và bé",
+        "Thu nhập có thể giảm trong thời gian nghỉ sinh"
+      ]
+    },
+    {
+      "heading": "Bảo hiểm y tế (BHYT)",
+      "body": "Thẻ BHYT còn hạn giúp chi trả một phần chi phí khám và sinh theo quy định khi bạn khám đúng tuyến hoặc theo quy định chuyển tuyến. Hãy kiểm tra thẻ còn hạn và hỏi cơ sở y tế về quyền lợi cụ thể.",
+      "bullets": []
+    },
+    {
+      "heading": "Điều kiện hưởng chế độ thai sản khi sinh con (BHXH bắt buộc)",
+      "body": "Theo Luật Bảo hiểm xã hội 2024 (số 41/2024/QH15, hiệu lực từ 01/7/2025), lao động nữ sinh con thường cần đóng BHXH bắt buộc từ đủ 6 tháng trở lên trong 12 tháng trước khi sinh. Trường hợp đã đóng đủ 12 tháng trở lên mà phải nghỉ dưỡng thai theo chỉ định của cơ sở y tế, điều kiện là từ đủ 3 tháng trong 12 tháng trước khi sinh. Quy định có thể được hướng dẫn chi tiết thêm; hãy hỏi bộ phận nhân sự hoặc cơ quan BHXH.",
+      "bullets": []
+    },
+    {
+      "heading": "Quyền lợi chính (tóm tắt, cần đối chiếu văn bản)",
+      "body": "Các con số dưới đây được tổng hợp ngày 29/10/2026 và có thể thay đổi.",
+      "bullets": [
+        "Nghỉ khám thai: tối đa 5 lần, mỗi lần tối đa 2 ngày làm việc (Luật BHXH 2024)",
+        "Nghỉ sinh con: 6 tháng; từ 01/7/2026, sinh con thứ hai được nghỉ 7 tháng theo Luật Dân số 2025; thời gian nghỉ trước sinh không quá 2 tháng",
+        "Trợ cấp một lần khi sinh con: bằng 2 lần mức tham chiếu (hiện tính theo mức lương cơ sở) tại tháng sinh",
+        "Mức hưởng trong thời gian nghỉ: thường bằng 100% bình quân tiền lương đóng BHXH của 6 tháng gần nhất",
+        "Người tham gia BHXH tự nguyện có thể được hưởng trợ cấp thai sản theo Luật BHXH 2024; hãy hỏi cơ quan BHXH về điều kiện và mức cụ thể"
+      ]
+    },
+    {
+      "heading": "Lập quỹ dự phòng",
+      "body": "Nhiều gia đình để riêng một khoản cho các chi phí phát sinh như nằm viện thêm, sinh mổ ngoài dự kiến hay thời gian nghỉ không lương. Bắt đầu tiết kiệm từ sớm giúp bạn bớt áp lực về sau.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_pre_fin_bhyt",
+      "text": "Kiểm tra thẻ BHYT còn hạn và nơi đăng ký khám ban đầu",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_fin_bhxh",
+      "text": "Kiểm tra số tháng đã đóng BHXH trên ứng dụng VssID hoặc hỏi nhân sự",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_fin_cost",
+      "text": "Hỏi bảng giá khám thai và sinh tại 1–2 bệnh viện dự định",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_fin_fund",
+      "text": "Lập quỹ dự phòng cho thai kỳ và sinh con",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_pre_fin_leave",
+      "text": "Tìm hiểu chính sách nghỉ thai sản của nơi làm việc",
+      "weekDue": null,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "VN-LAW-BHXH-2024",
+    "VN-LAW-DANSO-2025",
+    "VN-VSS"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

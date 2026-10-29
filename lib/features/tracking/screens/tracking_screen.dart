@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../widgets/baby_development_card.dart';
@@ -12,12 +14,23 @@ import '../widgets/weight_gain_chart.dart';
 class TrackingScreen extends ConsumerWidget {
   final bool showAppBar;
 
-  const TrackingScreen({super.key, this.showAppBar = true});
+  /// Overrides the active pregnancy from Hive (tests).
+  final PregnancyModel? pregnancy;
+
+  const TrackingScreen({super.key, this.showAppBar = true, this.pregnancy});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Rebuild when pregnancy/health-log data changes in another tab.
+    return HiveBoxesListener(
+      boxNames: const [AppConstants.pregnancyBox, AppConstants.healthLogBox],
+      builder: _buildContent,
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     // Get active pregnancy (returns null if not found, no exception thrown)
-    final pregnancy = DatabaseService.getActivePregnancy();
+    final pregnancy = this.pregnancy ?? DatabaseService.getActivePregnancy();
 
     if (pregnancy == null) {
       return Scaffold(
@@ -38,25 +51,8 @@ class TrackingScreen extends ConsumerWidget {
               actions: [
                 IconButton(
                   icon: const Icon(Icons.history),
-                  onPressed: () {
-                    // Show week history dialog (placeholder for future feature)
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Lịch sử theo tuần'),
-                        content: const Text(
-                          'Màn xem lịch sử theo từng tuần sẽ được bổ sung trong bản cập nhật sau.\n\n'
-                          'Bạn sẽ có thể xem lại hành trình thai kỳ theo từng tuần.',
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('Đồng ý'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                  tooltip: 'Xem chi tiết từng tuần',
+                  onPressed: () => _openWeekDetail(context, currentWeek),
                 ),
               ],
             )
@@ -72,7 +68,16 @@ class TrackingScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildWeekHeader(context, pregnancy, weekData),
-              const SizedBox(height: 24),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => _openWeekDetail(context, currentWeek),
+                  icon: const Icon(Icons.menu_book_outlined),
+                  label: Text('Xem chi tiết tuần $currentWeek'),
+                ),
+              ),
+              const SizedBox(height: 16),
               BabyDevelopmentCard(weekData: weekData),
               const SizedBox(height: 16),
               MotherChangesCard(weekData: weekData),
@@ -87,6 +92,10 @@ class TrackingScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _openWeekDetail(BuildContext context, int week) {
+    NavigationHelper.toWeekDetail(context, week);
   }
 
   Widget _buildNoPregnancyView(BuildContext context) {
@@ -130,7 +139,7 @@ class TrackingScreen extends ConsumerWidget {
     PregnancyModel pregnancy,
     PregnancyWeekData weekData,
   ) {
-    return Container(
+    final header = Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -204,7 +213,7 @@ class TrackingScreen extends ConsumerWidget {
               _buildStatItem(
                 context,
                 'Còn lại',
-                '${pregnancy.daysUntilDue}',
+                '${pregnancy.daysUntilDue < 0 ? 0 : pregnancy.daysUntilDue} ngày',
                 Icons.calendar_today,
               ),
               Container(
@@ -232,6 +241,20 @@ class TrackingScreen extends ConsumerWidget {
             ],
           ),
         ],
+      ),
+    );
+
+    return Semantics(
+      button: true,
+      label: 'Xem chi tiết tuần ${pregnancy.currentWeek}',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          key: const ValueKey('tracking-week-header'),
+          borderRadius: BorderRadius.circular(20),
+          onTap: () => _openWeekDetail(context, pregnancy.currentWeek),
+          child: header,
+        ),
       ),
     );
   }

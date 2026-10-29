@@ -1,0 +1,161 @@
+{
+  "id": "pregnant_shopping",
+  "stage": "pregnant",
+  "category": "shopping",
+  "title": "Mua sắm chuẩn bị theo từng giai đoạn",
+  "summary": "Danh sách gợi ý đồ cho mẹ bầu và đồ sơ sinh. Chỉ mua những gì thật sự cần, có thể xin lại đồ cũ còn tốt.",
+  "order": 40,
+  "weekFrom": 14,
+  "weekTo": 38,
+  "sections": [
+    {
+      "heading": "Nguyên tắc",
+      "body": "Bắt đầu mua đồ bầu từ 3 tháng giữa khi bụng to dần, và mua đồ sơ sinh từ 3 tháng cuối. Ưu tiên chất liệu cotton mềm, dễ giặt. Với ghế ngồi ô tô, cũi và nệm, chọn sản phẩm đạt tiêu chuẩn an toàn và không dùng đồ cũ không rõ nguồn gốc.",
+      "bullets": []
+    },
+    {
+      "heading": "3 tháng giữa: đồ cho mẹ",
+      "body": "",
+      "bullets": [
+        "Áo ngực rộng, không gọng hoặc áo ngực cho con bú",
+        "Quần bầu cạp chun hoặc váy suông",
+        "Giày dép đế thấp, chống trơn",
+        "Kem dưỡng ẩm không mùi",
+        "Gối ôm cho bà bầu (nếu cần)"
+      ]
+    },
+    {
+      "heading": "3 tháng cuối: đồ sơ sinh",
+      "body": "",
+      "bullets": [
+        "Quần áo sơ sinh, mũ, bao tay, bao chân",
+        "Tã/bỉm sơ sinh hoặc tã vải",
+        "Khăn sữa, khăn tắm",
+        "Chậu tắm, nhiệt kế đo nhiệt độ nước hoặc cơ thể",
+        "Nôi hoặc cũi với nệm phẳng, chắc; không gối, không chăn dày trong cũi",
+        "Bình sữa và dụng cụ vệ sinh (nếu cần)"
+      ]
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_shop_bra",
+      "text": "Áo ngực bầu / cho con bú",
+      "weekDue": 16,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_pants",
+      "text": "Quần, váy bầu",
+      "weekDue": 18,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_shoes",
+      "text": "Giày dép đế thấp, chống trơn",
+      "weekDue": 20,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_pillow",
+      "text": "Gối ôm bà bầu (tùy nhu cầu)",
+      "weekDue": 22,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_lotion",
+      "text": "Kem dưỡng ẩm không mùi",
+      "weekDue": 16,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_baby_clothes",
+      "text": "Quần áo sơ sinh (5–7 bộ)",
+      "weekDue": 30,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_baby_hat",
+      "text": "Mũ, bao tay, bao chân sơ sinh",
+      "weekDue": 30,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_diapers",
+      "text": "Tã/bỉm sơ sinh",
+      "weekDue": 32,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_towels",
+      "text": "Khăn sữa, khăn tắm",
+      "weekDue": 32,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_bath",
+      "text": "Chậu tắm và nhiệt kế",
+      "weekDue": 33,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_crib",
+      "text": "Nôi hoặc cũi, nệm phẳng chắc",
+      "weekDue": 33,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_bottles",
+      "text": "Bình sữa, dụng cụ vệ sinh (nếu cần)",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_carseat",
+      "text": "Ghế ngồi ô tô cho trẻ sơ sinh (nếu gia đình đi ô tô)",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_shop_nursing",
+      "text": "Áo cho con bú, miếng lót thấm sữa",
+      "weekDue": 34,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "NHS-BAG",
+    "UNICEF-VN"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}

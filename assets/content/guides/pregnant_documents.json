@@ -1,0 +1,109 @@
+{
+  "id": "pregnant_documents",
+  "stage": "pregnant",
+  "category": "documents",
+  "title": "Giấy tờ và quyền lợi khi sinh con",
+  "summary": "Chế độ thai sản BHXH, khai sinh và BHYT cho bé qua dịch vụ công. Thông tin tổng hợp ngày 29/10/2026, cần kiểm tra lại khi làm thủ tục.",
+  "order": 60,
+  "weekFrom": 20,
+  "weekTo": 42,
+  "sections": [
+    {
+      "heading": "Chế độ thai sản cho mẹ (BHXH bắt buộc)",
+      "body": "Theo Luật BHXH 2024 (hiệu lực 01/7/2025) và Luật Dân số 2025 (hiệu lực 01/7/2026). Các con số có thể được hướng dẫn chi tiết bởi văn bản dưới luật.",
+      "bullets": [
+        "Điều kiện: đóng BHXH bắt buộc từ đủ 6 tháng trong 12 tháng trước khi sinh (một số trường hợp nghỉ dưỡng thai chỉ cần đủ 3 tháng)",
+        "Nghỉ khám thai: tối đa 5 lần, mỗi lần tối đa 2 ngày làm việc",
+        "Nghỉ sinh: 6 tháng; sinh con thứ hai: 7 tháng (từ 01/7/2026); trước sinh không quá 2 tháng; sinh đôi trở lên được nghỉ thêm 1 tháng cho mỗi con từ con thứ hai",
+        "Trợ cấp một lần: 2 lần mức tham chiếu tại tháng sinh",
+        "Hồ sơ thường do nơi làm việc nộp; mẹ chuẩn bị bản sao giấy khai sinh hoặc giấy chứng sinh của bé"
+      ]
+    },
+    {
+      "heading": "Chế độ cho bố",
+      "body": "Lao động nam đang đóng BHXH được nghỉ khi vợ sinh con trong khoảng thời gian nhất định sau sinh. Theo Luật BHXH 2024, mức cơ bản là 5 ngày làm việc và nhiều hơn khi vợ sinh mổ, sinh non dưới 32 tuần hoặc sinh đôi; theo Luật Dân số 2025, khi vợ sinh con thứ hai được nghỉ 10 ngày làm việc. Hãy hỏi bộ phận nhân sự để biết số ngày chính xác.",
+      "bullets": []
+    },
+    {
+      "heading": "Giấy tờ của bé",
+      "body": "Sau sinh, bệnh viện cấp giấy chứng sinh. Hiện nay có thể làm liên thông ba thủ tục: đăng ký khai sinh, đăng ký thường trú và cấp thẻ BHYT cho trẻ dưới 6 tuổi qua Cổng Dịch vụ công Quốc gia hoặc ứng dụng VNeID. Trẻ dưới 6 tuổi được Nhà nước đóng BHYT.",
+      "bullets": [
+        "Chuẩn bị: giấy chứng sinh, CCCD của bố mẹ, giấy đăng ký kết hôn (nếu có)",
+        "Nên đăng ký khai sinh sớm, trong thời hạn luật định (60 ngày kể từ ngày sinh)",
+        "Lưu lại mã hồ sơ để tra cứu"
+      ]
+    },
+    {
+      "heading": "Lưu ý",
+      "body": "Quy định có thể thay đổi. Trước khi làm thủ tục, hãy kiểm tra thông tin mới nhất trên cổng BHXH Việt Nam, Cổng Dịch vụ công hoặc hỏi cơ quan có thẩm quyền.",
+      "bullets": []
+    }
+  ],
+  "checklist": [
+    {
+      "id": "chk_doc_hr",
+      "text": "Báo bộ phận nhân sự về ngày dự sinh và kế hoạch nghỉ",
+      "weekDue": 24,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_doc_bhxh",
+      "text": "Kiểm tra thời gian đóng BHXH trên VssID",
+      "weekDue": 20,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_doc_marriage",
+      "text": "Chuẩn bị giấy đăng ký kết hôn, CCCD của bố mẹ",
+      "weekDue": 32,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_doc_vneid",
+      "text": "Cài và kích hoạt tài khoản định danh điện tử VNeID mức 2",
+      "weekDue": 30,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_doc_birthcert",
+      "text": "Giữ cẩn thận giấy chứng sinh sau sinh",
+      "weekDue": 40,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_doc_register",
+      "text": "Đăng ký khai sinh, thường trú, BHYT cho bé qua dịch vụ công",
+      "weekDue": 40,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    },
+    {
+      "id": "chk_doc_father",
+      "text": "Chồng hỏi nhân sự về chế độ nghỉ khi vợ sinh",
+      "weekDue": 30,
+      "actionType": "none",
+      "actionLabel": null,
+      "actionValue": null
+    }
+  ],
+  "timeline": [],
+  "sources": [
+    "VN-LAW-BHXH-2024",
+    "VN-LAW-DANSO-2025",
+    "VN-VSS",
+    "VN-DVC"
+  ],
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review"
+}
