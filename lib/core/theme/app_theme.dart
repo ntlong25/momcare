@@ -21,22 +21,41 @@ class AppTheme {
   static const Color errorColor = Color(0xFFE57373);
   static const Color infoColor = Color(0xFF64B5F6);
 
+  /// Pale primary tint over the surface. [ColorScheme.onSurface] text/icons
+  /// on it keep at least 4.5:1 contrast in both themes (white on the pink
+  /// primary does not).
+  static Color primaryTint(ColorScheme scheme, [double alpha = 0.3]) =>
+      Color.alphaBlend(scheme.primary.withValues(alpha: alpha), scheme.surface);
+
+  static const ColorScheme lightColorScheme = ColorScheme.light(
+    primary: primaryColor,
+    secondary: secondaryColor,
+    surface: Colors.white,
+    error: errorColor,
+    onPrimary: Colors.white,
+    onSecondary: textPrimaryColor,
+    onSurface: textPrimaryColor,
+    onError: Colors.white,
+  );
+
+  static const ColorScheme darkColorScheme = ColorScheme.dark(
+    primary: primaryColor,
+    secondary: secondaryColor,
+    surface: Color(0xFF2A2A3E),
+    error: errorColor,
+    onPrimary: Colors.white,
+    onSecondary: textDarkPrimaryColor,
+    onSurface: textDarkPrimaryColor,
+    onError: Colors.white,
+  );
+
   // Light Theme
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     primaryColor: primaryColor,
     scaffoldBackgroundColor: backgroundColor,
-    colorScheme: const ColorScheme.light(
-      primary: primaryColor,
-      secondary: secondaryColor,
-      surface: Colors.white,
-      error: errorColor,
-      onPrimary: Colors.white,
-      onSecondary: textPrimaryColor,
-      onSurface: textPrimaryColor,
-      onError: Colors.white,
-    ),
+    colorScheme: lightColorScheme,
     textTheme: GoogleFonts.poppinsTextTheme().copyWith(
       displayLarge: GoogleFonts.poppins(
         fontSize: 32,
@@ -147,16 +166,7 @@ class AppTheme {
     brightness: Brightness.dark,
     primaryColor: primaryColor,
     scaffoldBackgroundColor: darkBackgroundColor,
-    colorScheme: const ColorScheme.dark(
-      primary: primaryColor,
-      secondary: secondaryColor,
-      surface: Color(0xFF2A2A3E),
-      error: errorColor,
-      onPrimary: Colors.white,
-      onSecondary: textDarkPrimaryColor,
-      onSurface: textDarkPrimaryColor,
-      onError: Colors.white,
-    ),
+    colorScheme: darkColorScheme,
     textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme)
         .copyWith(
           displayLarge: GoogleFonts.poppins(

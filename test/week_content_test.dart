@@ -12,6 +12,7 @@ import 'package:momcare/core/models/guide_models.dart';
 import 'package:momcare/core/models/health_log_model.dart';
 import 'package:momcare/core/models/pregnancy_model.dart';
 import 'package:momcare/core/models/week_detail_model.dart';
+import 'package:momcare/core/theme/app_theme.dart';
 import 'package:momcare/features/guides/screens/guide_detail_screen.dart';
 import 'package:momcare/features/guides/screens/guides_screen.dart';
 import 'package:momcare/features/tracking/screens/tracking_screen.dart';
@@ -287,6 +288,23 @@ void main() {
     });
   });
 
+  test('content pack development text carries no legacy size', () {
+    final raw = File('assets/content/pregnancy_weeks.json').readAsStringSync();
+    for (final weeks in [
+      ContentPackService.parsePregnancyWeeks(raw),
+      ContentPackService.pregnancyWeeks,
+    ]) {
+      for (var week = 5; week <= 36; week++) {
+        final size = PregnancyWeeksDatabase.getBabySizeComparison(week);
+        expect(
+          weeks[week]!.development,
+          isNot(contains(size)),
+          reason: 'week $week',
+        );
+      }
+    }
+  });
+
   group('Tuần thai entry point', () {
     late Directory hiveDir;
 
@@ -356,6 +374,163 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(WeekDetailScreen), findsOneWidget);
     });
+
+    for (final week in [17, 20]) {
+      testWidgets('tab and detail page show the same baby stats (week $week)', (
+        tester,
+      ) async {
+        final bundle = _DirectoryAssetBundle('assets/content');
+        final weeks = await tester.runAsync(
+          () => ContentPackService.loadWeekDetails(bundle),
+        );
+        ContentPackService.debugWeekDetails = weeks!;
+        addTearDown(() => ContentPackService.debugWeekDetails = const {});
+        final detail = weeks[week]!;
+        final size = detail.sizeCompare!;
+        final length = detail.lengthText!;
+        final weight = detail.weightText!;
+        final legacy = PregnancyWeeksDatabase.getWeekData(week);
+        if (week == 17) {
+          // The reported conflict: legacy "quả lê" vs weeks_v2 "quả lựu".
+          expect(legacy.babySize, isNot(size));
+        }
+
+        tester.view.devicePixelRatio = 3;
+        tester.view.physicalSize = const Size(1800, 2796);
+        addTearDown(tester.view.resetDevicePixelRatio);
+        addTearDown(tester.view.resetPhysicalSize);
+        final now = DateTime.now();
+        final start = DateTime(now.year, now.month, now.day - week * 7 - 3);
+        final pregnancy = PregnancyModel(
+          id: 'p',
+          dueDate: PregnancyModel.dueDateFromLastPeriod(start),
+          createdAt: DateTime(2026),
+          updatedAt: DateTime(2026),
+        );
+        expect(pregnancy.currentWeek, week);
+
+        await tester.pumpWidget(
+          ProviderScope(
+            child: MaterialApp(
+              home: TrackingScreen(showAppBar: false, pregnancy: pregnancy),
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final header = find.byKey(const ValueKey('tracking-week-header'));
+        Finder inHeader(String text) =>
+            find.descendant(of: header, matching: find.text(text));
+        expect(inHeader(size), findsOneWidget);
+        expect(inHeader(weight), findsOneWidget);
+        // Legacy database values that differ must not leak back in.
+        for (final (legacyValue, value) in [
+          (legacy.babySize, size),
+          (legacy.babyWeight, weight),
+          (legacy.babyLength, length),
+        ]) {
+          if (legacyValue != value) {
+            expect(find.text(legacyValue), findsNothing);
+          }
+        }
+        // Sự phát triển của bé card.
+        expect(find.text(length), findsOneWidget);
+        expect(find.text(size), findsNWidgets(2));
+        expect(find.text(weight), findsNWidgets(2));
+        expect(find.textContaining('null'), findsNothing);
+        // The legacy size (e.g. "quả lê" for week 17) must not appear
+        // anywhere on the tab, not even inside the development sentence.
+        final legacySize = PregnancyWeeksDatabase.getBabySizeComparison(week);
+        if (legacySize != size) {
+          expect(find.textContaining(legacySize), findsNothing);
+        }
+        final development = detail.babyDevelopment.trim();
+        expect(development, isNotEmpty);
+        final tabDevelopment = tester.widget<Text>(
+          find.byKey(const ValueKey('baby-development-text')),
+        );
+        expect(tabDevelopment.data, development);
+
+        await tester.tap(header);
+        await tester.pumpAndSettle();
+        expect(find.byType(WeekDetailScreen), findsOneWidget);
+        Finder inDetail(String text) => find.descendant(
+          of: find.byType(WeekDetailScreen),
+          matching: find.text(text),
+        );
+        expect(inDetail(size), findsOneWidget);
+        expect(inDetail(length), findsOneWidget);
+        expect(inDetail(weight), findsOneWidget);
+        // Same development text as the tab card.
+        expect(inDetail(development), findsOneWidget);
+        expect(inDetail(tabDevelopment.data!), findsOneWidget);
+      });
+    }
+  });
+
+  group('contrast', () {
+    double contrast(Color a, Color b) {
+      final la = a.computeLuminance();
+      final lb = b.computeLuminance();
+      final hi = la > lb ? la : lb;
+      final lo = la > lb ? lb : la;
+      return (hi + 0.05) / (lo + 0.05);
+    }
+
+    for (final entry in {
+      'light': AppTheme.lightColorScheme,
+      'dark': AppTheme.darkColorScheme,
+    }.entries) {
+      test('placeholder and current-week chip are >= 4.5:1 (${entry.key})', () {
+        final scheme = entry.value;
+        for (final alpha in [0.3, 0.12]) {
+          expect(
+            contrast(scheme.onSurface, AppTheme.primaryTint(scheme, alpha)),
+            greaterThanOrEqualTo(4.5),
+          );
+        }
+      });
+
+      testWidgets('week page uses readable colors (${entry.key})', (
+        tester,
+      ) async {
+        await _setPhoneViewport(tester);
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: ThemeData(colorScheme: entry.value),
+            home: const WeekDetailScreen(
+              initialWeek: 0,
+              weeks: {},
+              sources: {},
+            ),
+          ),
+        );
+        await tester.pump();
+        final scheme = entry.value;
+
+        final chip = tester.widget<Chip>(
+          find.byKey(const ValueKey('week-current-chip')),
+        );
+        expect(chip.labelStyle?.color, scheme.onSurface);
+        expect((chip.avatar! as Icon).color, scheme.onSurface);
+        expect(
+          contrast(chip.labelStyle!.color!, chip.backgroundColor!),
+          greaterThanOrEqualTo(4.5),
+        );
+
+        final placeholder = find.byKey(
+          const ValueKey('week-image-placeholder'),
+        );
+        final label = tester.widget<Text>(
+          find.descendant(of: placeholder, matching: find.text('Tuần 0')),
+        );
+        expect(label.style?.color, scheme.onSurface);
+        final icon = tester.widget<Icon>(
+          find.descendant(of: placeholder, matching: find.byType(Icon)),
+        );
+        expect(icon.color, scheme.onSurface);
+      });
+    }
   });
 
   group('warning guides', () {
@@ -428,6 +603,11 @@ void main() {
       expect(find.byType(LinearProgressIndicator), findsNothing);
       expect(find.text('Ra máu âm đạo'), findsOneWidget);
       expect(find.text('Gọi 115'), findsOneWidget);
+      expect(find.text('Việc nên làm'), findsOneWidget);
+      expect(find.text('Dấu hiệu cần lưu ý'), findsNothing);
+      final context = tester.element(find.text('Ra máu âm đạo'));
+      final bodyMedium = Theme.of(context).textTheme.bodyMedium;
+      expect(tester.widget<Text>(find.text('Ra máu âm đạo')).style, bodyMedium);
 
       await tester.pumpWidget(
         const ProviderScope(

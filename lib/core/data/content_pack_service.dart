@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
@@ -57,6 +58,11 @@ class ContentPackService {
   /// `pregnancy_weeks` data when `weeks_v2.json` has no entry for it.
   static WeekDetail weekDetail(int week) =>
       resolveWeekDetail(week, _weekDetails);
+
+  /// Replaces the loaded week pages (tests only).
+  @visibleForTesting
+  static set debugWeekDetails(Map<int, WeekDetail> value) =>
+      _weekDetails = value;
 
   static WeekDetail resolveWeekDetail(int week, Map<int, WeekDetail> details) {
     final clamped = week.clamp(
@@ -235,7 +241,7 @@ class ContentPackService {
       babySize: size,
       babyWeight: _estimatedWeight(week),
       babyLength: _estimatedLength(week),
-      development: _developmentForWeek(week, size),
+      development: _developmentForWeek(week),
       motherChanges: _motherChangesForWeek(week),
       tips: [
         focus,
@@ -256,7 +262,9 @@ class ContentPackService {
     return 3;
   }
 
-  static String _developmentForWeek(int week, String size) {
+  // Size comparisons live in weeks_v2 (sizeCompare); keep them out of this
+  // fallback text so it can never contradict the week page.
+  static String _developmentForWeek(int week) {
     if (week == 0) {
       return 'Cơ thể đang chuẩn bị cho thai kỳ. Đây là giai đoạn nên tối ưu lối sống và trao đổi với bác sĩ khi cần.';
     }
@@ -264,13 +272,13 @@ class ContentPackService {
       return 'Thai kỳ ở giai đoạn rất sớm. Các mốc phát triển có thể chưa thấy rõ và cần được xác nhận qua chăm sóc y tế phù hợp.';
     }
     if (week <= 13) {
-      return 'Các cấu trúc chính đang hình thành nhanh. Bé có kích thước tham khảo khoảng $size, nhưng mỗi thai kỳ có thể khác nhau.';
+      return 'Các cấu trúc chính đang hình thành nhanh. Mỗi thai kỳ có thể phát triển khác nhau.';
     }
     if (week <= 27) {
-      return 'Bé tiếp tục phát triển giác quan, vận động và tăng trưởng. Kích thước tham khảo tuần này khoảng $size.';
+      return 'Bé tiếp tục phát triển giác quan, vận động và tăng trưởng.';
     }
     if (week <= 36) {
-      return 'Bé tăng cân, hoàn thiện dần các cơ quan và mẹ có thể cảm nhận thai máy rõ hơn. Kích thước tham khảo khoảng $size.';
+      return 'Bé tăng cân, hoàn thiện dần các cơ quan và mẹ có thể cảm nhận thai máy rõ hơn.';
     }
     return 'Thai kỳ bước vào giai đoạn gần sinh. Bé tiếp tục hoàn thiện và mẹ nên theo dõi dấu hiệu chuyển dạ theo hướng dẫn y tế.';
   }

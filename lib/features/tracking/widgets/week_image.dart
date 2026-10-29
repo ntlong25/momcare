@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/models/week_detail_model.dart';
+import '../../../core/theme/app_theme.dart';
 
 /// Week illustration from `WeekDetail.image`. While the asset is loading, or
 /// when it is missing/unset, a themed placeholder card is shown instead, so a
@@ -36,7 +37,8 @@ class WeekImage extends StatelessWidget {
 
   Widget _placeholder(BuildContext context) {
     final theme = Theme.of(context);
-    final primary = theme.primaryColor;
+    final scheme = theme.colorScheme;
+    final foreground = scheme.onSurface;
     final size = detail.sizeCompare;
 
     return Container(
@@ -47,8 +49,8 @@ class WeekImage extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            primary.withValues(alpha: 0.85),
-            primary.withValues(alpha: 0.45),
+            AppTheme.primaryTint(scheme),
+            AppTheme.primaryTint(scheme, 0.12),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -60,14 +62,14 @@ class WeekImage extends StatelessWidget {
         children: [
           Icon(
             size == null ? Icons.child_care : Icons.eco,
-            color: Colors.white,
+            color: foreground,
             size: 48,
           ),
           const SizedBox(height: 8),
           Text(
             'Tuần ${detail.week}',
             style: theme.textTheme.titleLarge?.copyWith(
-              color: Colors.white,
+              color: foreground,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -77,9 +79,7 @@ class WeekImage extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.bodyLarge?.copyWith(
-              color: Colors.white.withValues(alpha: 0.95),
-            ),
+            style: theme.textTheme.bodyLarge?.copyWith(color: foreground),
           ),
         ],
       ),

@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../../core/models/week_detail_model.dart';
 import '../../references/widgets/source_metadata_card.dart';
 
 class BabyDevelopmentCard extends StatelessWidget {
   final PregnancyWeekData weekData;
 
-  const BabyDevelopmentCard({super.key, required this.weekData});
+  /// Resolved week page; its size/length/weight win over [weekData] so the
+  /// card matches the week detail screen.
+  final WeekDetail? weekDetail;
+
+  const BabyDevelopmentCard({
+    super.key,
+    required this.weekData,
+    this.weekDetail,
+  });
+
+  /// Prefers the weeks_v2 text so the card matches the week detail page.
+  String get _developmentText {
+    final text = weekDetail?.babyDevelopment.trim() ?? '';
+    return text.isNotEmpty ? text : weekData.development;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +59,22 @@ class BabyDevelopmentCard extends StatelessWidget {
               context,
               Icons.straighten,
               'Chiều dài',
-              weekData.babyLength,
+              WeekDetail.statText(weekDetail?.lengthText, weekData.babyLength),
             ),
             const SizedBox(height: 12),
             _buildInfoRow(
               context,
               Icons.monitor_weight_outlined,
               'Cân nặng',
-              weekData.babyWeight,
+              WeekDetail.statText(weekDetail?.weightText, weekData.babyWeight),
             ),
             const SizedBox(height: 12),
-            _buildInfoRow(context, Icons.spa, 'Kích thước', weekData.babySize),
+            _buildInfoRow(
+              context,
+              Icons.spa,
+              'Kích thước',
+              WeekDetail.statText(weekDetail?.sizeCompare, weekData.babySize),
+            ),
             const Divider(height: 32),
             Text(
               'Điều đang diễn ra',
@@ -64,7 +84,8 @@ class BabyDevelopmentCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              weekData.development,
+              _developmentText,
+              key: const ValueKey('baby-development-text'),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
