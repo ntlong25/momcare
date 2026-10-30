@@ -31,12 +31,12 @@ class RecipeCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       Icons.restaurant,
-                      color: Theme.of(context).colorScheme.onTertiaryContainer,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                       size: 28,
                     ),
                   ),

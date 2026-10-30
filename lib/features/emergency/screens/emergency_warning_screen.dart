@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../guides/guide_actions.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../../settings/widgets/my_clinic_card.dart';
@@ -74,11 +75,13 @@ class EmergencyWarningScreen extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     final theme = Theme.of(context);
+    final semantic = context.semantic;
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.errorContainer,
+        // Weaker than the "Gọi 115" button, the strongest element here.
+        color: semantic.emergencyContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -86,7 +89,7 @@ class EmergencyWarningScreen extends StatelessWidget {
         children: [
           Icon(
             Icons.warning_amber_rounded,
-            color: theme.colorScheme.onErrorContainer,
+            color: semantic.onEmergencyContainer,
             size: 32,
           ),
           const SizedBox(width: 12),
@@ -98,14 +101,14 @@ class EmergencyWarningScreen extends StatelessWidget {
                   'Đừng chờ nếu có dấu hiệu bất thường',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.onErrorContainer,
+                    color: semantic.onEmergencyContainer,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Nội dung này chỉ giúp bạn nhận biết dấu hiệu cần đi khám. MomCare+ không thay thế bác sĩ, cơ sở y tế hoặc dịch vụ cấp cứu.',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onErrorContainer,
+                    color: semantic.onEmergencyContainer,
                   ),
                 ),
               ],
@@ -126,8 +129,8 @@ class EmergencyWarningScreen extends StatelessWidget {
           key: const ValueKey('emergency-call-115'),
           style: FilledButton.styleFrom(
             minimumSize: const Size.fromHeight(56),
-            backgroundColor: theme.colorScheme.error,
-            foregroundColor: theme.colorScheme.onError,
+            backgroundColor: context.semantic.emergency,
+            foregroundColor: context.semantic.onEmergency,
             textStyle: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -205,7 +208,7 @@ class _WarningGroup extends StatelessWidget {
                   ),
                   child: Icon(
                     icon,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
                 ),
                 const SizedBox(width: 12),

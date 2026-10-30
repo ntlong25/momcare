@@ -71,7 +71,7 @@ class _AppointmentCard extends StatelessWidget {
           ),
           child: Icon(
             Icons.calendar_today,
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
         ),
         title: Text(

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#894A68</color>
-    <!-- Launch/splash background = light theme surface (AppTheme, seed #A8577E). -->
-    <color name="launch_background">#FFF8F8</color>
+    <color name="ic_launcher_background">#C92A68</color>
+    <!-- Launch/splash background = light theme surface (AppTheme). -->
+    <color name="launch_background">#FFFFFF</color>
 </resources>

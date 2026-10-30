@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Launch/splash background = dark theme surface, so dark mode has no white flash. -->
-    <color name="launch_background">#191114</color>
+    <color name="launch_background">#1F1518</color>
 </resources>

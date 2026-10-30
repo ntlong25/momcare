@@ -36,7 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       description:
           'Xem hướng dẫn dinh dưỡng và công thức phù hợp theo từng giai đoạn.',
       icon: Icons.restaurant_menu,
-      tone: AppTone.tertiary,
+      tone: AppTone.info,
     ),
     OnboardingPage(
       title: 'Sắp xếp lịch hẹn',

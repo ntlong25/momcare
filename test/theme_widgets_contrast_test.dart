@@ -5,6 +5,7 @@ import 'package:momcare/core/models/food_model.dart';
 import 'package:momcare/core/theme/app_theme.dart';
 import 'package:momcare/core/theme/app_tokens.dart';
 import 'package:momcare/features/emergency/screens/emergency_warning_screen.dart';
+import 'package:momcare/features/emergency/widgets/emergency_app_bar_button.dart';
 import 'package:momcare/features/emergency/widgets/emergency_entry_card.dart';
 import 'package:momcare/features/nutrition/widgets/food_verdict_badge.dart';
 import 'package:momcare/features/references/widgets/draft_content_note.dart';
@@ -303,7 +304,6 @@ void main() {
     }
 
     for (final MapEntry(key: name, value: theme) in themes.entries) {
-      final s = theme.colorScheme;
       final sem = theme.extension<AppSemanticColors>()!;
 
       for (final scale in [1.0, 1.5]) {
@@ -354,7 +354,9 @@ void main() {
         );
       });
 
-      testWidgets('emergency entry card is red-tinted ($name)', (tester) async {
+      testWidgets('emergency entry card is solid emergency ($name)', (
+        tester,
+      ) async {
         await tester.pumpWidget(_app(theme, const _StatusGallery()));
         await tester.pumpAndSettle();
         final card = tester.widget<Card>(
@@ -363,16 +365,42 @@ void main() {
             matching: find.byType(Card),
           ),
         );
-        expect(card.color, s.errorContainer);
+        expect(card.color, sem.emergency);
         final title = find.text('Dấu hiệu cần đi khám ngay');
-        expect(textColor(tester, title), s.onErrorContainer);
+        expect(textColor(tester, title), sem.onEmergency);
         expect(
-          _contrast(textColor(tester, title), s.errorContainer),
+          _contrast(textColor(tester, title), sem.emergency),
           greaterThanOrEqualTo(4.5),
         );
+        final icon = tester.widget<Icon>(
+          find.byIcon(Icons.warning_amber_rounded),
+        );
+        expect(icon.color, sem.onEmergency);
       });
 
-      testWidgets('"Gọi 115" uses the error roles ($name)', (tester) async {
+      testWidgets('AppBar emergency button is solid emergency ($name)', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          _app(
+            theme,
+            Scaffold(appBar: AppBar(actions: const [EmergencyAppBarButton()])),
+          ),
+        );
+        await tester.pumpAndSettle();
+        final button = find.byKey(const ValueKey('home-emergency-button'));
+        final material = tester.widget<Material>(
+          find.descendant(of: button, matching: find.byType(Material)).first,
+        );
+        expect(material.color, sem.emergency);
+        final context = tester.element(find.byIcon(Icons.emergency_outlined));
+        expect(IconTheme.of(context).color, sem.onEmergency);
+        expect(tester.getSize(button).height, greaterThanOrEqualTo(48));
+      });
+
+      testWidgets('"Gọi 115" uses the emergency tokens ($name)', (
+        tester,
+      ) async {
         SharedPreferences.setMockInitialValues({});
         final handle = tester.ensureSemantics();
         tester.view.physicalSize = const Size(1080, 2400);
@@ -390,9 +418,25 @@ void main() {
               )
               .first,
         );
-        expect(material.color, s.error);
-        expect(material.textStyle!.color, s.onError);
-        expect(_contrast(s.onError, s.error), greaterThanOrEqualTo(4.5));
+        expect(material.color, sem.emergency);
+        expect(material.textStyle!.color, sem.onEmergency);
+        expect(
+          _contrast(sem.onEmergency, sem.emergency),
+          greaterThanOrEqualTo(4.5),
+        );
+        // The banner above it stays the weaker element.
+        final banner = tester.widget<Container>(
+          find
+              .ancestor(
+                of: find.text('Đừng chờ nếu có dấu hiệu bất thường'),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
+        expect(
+          (banner.decoration! as BoxDecoration).color,
+          sem.emergencyContainer,
+        );
         await expectLater(tester, meetsGuideline(textContrastGuideline));
         handle.dispose();
       });

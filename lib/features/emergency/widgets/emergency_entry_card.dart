@@ -9,21 +9,14 @@ class EmergencyEntryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final danger = AppTone.danger.of(context);
+    final fg = context.semantic.onEmergency;
 
     return AppCard(
-      variant: AppCardVariant.alert,
+      variant: AppCardVariant.emergency,
       onTap: () => NavigationHelper.toEmergencyWarning(context),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: danger.main,
-              borderRadius: BorderRadius.circular(AppRadius.md),
-            ),
-            child: Icon(Icons.warning_amber_rounded, color: danger.onMain),
-          ),
+          Icon(Icons.warning_amber_rounded, color: fg, size: 32),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Column(
@@ -33,20 +26,18 @@ class EmergencyEntryCard extends StatelessWidget {
                   'Dấu hiệu cần đi khám ngay',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: danger.onContainer,
+                    color: fg,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   'Xem các dấu hiệu bất thường cần liên hệ bác sĩ hoặc cơ sở y tế.',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: danger.onContainer,
-                  ),
+                  style: theme.textTheme.bodySmall?.copyWith(color: fg),
                 ),
               ],
             ),
           ),
-          Icon(Icons.chevron_right, color: danger.onContainer),
+          Icon(Icons.chevron_right, color: fg),
         ],
       ),
     );

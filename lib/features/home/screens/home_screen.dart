@@ -200,7 +200,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     return Text(
       name == null || name.isEmpty ? greeting : '$greeting, $name',
       key: const ValueKey('home-greeting'),
-      style: Theme.of(context).textTheme.titleLarge,
+      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 }

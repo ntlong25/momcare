@@ -45,7 +45,7 @@ class AppointmentCard extends StatelessWidget {
                       Icons.event,
                       color: isPast
                           ? Theme.of(context).colorScheme.onSurfaceVariant
-                          : Theme.of(context).colorScheme.primary,
+                          : Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
                   ),
                   const SizedBox(width: 12),

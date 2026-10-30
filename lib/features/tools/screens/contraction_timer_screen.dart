@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/models/contraction.dart';
 import '../../../core/services/contraction_service.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/duration_format.dart';
 import '../../guides/guide_actions.dart';
@@ -187,14 +188,14 @@ class _ContractionTimerScreenState
 
   Widget _buildHint(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
+    final semantic = context.semantic;
 
     return Container(
       key: const ValueKey('contraction-511-hint'),
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: scheme.errorContainer,
+        color: semantic.emergencyContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -204,7 +205,7 @@ class _ContractionTimerScreenState
             'Các cơn co gần đây khớp mốc 5-1-1',
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: scheme.onErrorContainer,
+              color: semantic.onEmergencyContainer,
             ),
           ),
           const SizedBox(height: 8),
@@ -214,7 +215,7 @@ class _ContractionTimerScreenState
             'dùng để khuyên đến viện. Hãy liên hệ bác sĩ hoặc nơi bạn dự định '
             'đến khám, hoặc gọi 115 nếu cần hỗ trợ khẩn cấp.',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: scheme.onErrorContainer,
+              color: semantic.onEmergencyContainer,
             ),
           ),
           const SizedBox(height: 12),
@@ -224,8 +225,8 @@ class _ContractionTimerScreenState
               key: const ValueKey('contraction-call-115'),
               style: FilledButton.styleFrom(
                 minimumSize: const Size.fromHeight(56),
-                backgroundColor: scheme.error,
-                foregroundColor: scheme.onError,
+                backgroundColor: semantic.emergency,
+                foregroundColor: semantic.onEmergency,
               ),
               onPressed: () =>
                   GuideActions.launchUri(context, GuideActions.phoneUri('115')),

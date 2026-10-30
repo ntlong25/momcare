@@ -42,7 +42,7 @@ class MyClinicCard extends ConsumerWidget {
                 ),
                 child: Icon(
                   Icons.local_hospital_outlined,
-                  color: theme.colorScheme.primary,
+                  color: theme.colorScheme.onPrimaryContainer,
                 ),
               ),
               const SizedBox(width: 12),

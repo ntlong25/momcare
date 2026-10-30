@@ -1231,7 +1231,21 @@ Test round 1: date arithmetic and Hôm nay card pass. Accepted P24-R1-01 ('Đã 
 Test round 2: all three fixed on device. P24-R2-01 (countdown label clipped at font 1.5) fixed by moving it under the dates; covered by tests, not re-run on device. Verdict pass.
 Not tested on device: exact range boundaries, month and year boundaries, Health Connect sync, iOS.
 
+## Phase 27: Bright Pink Palette and Light Default
+Status: Completed (2026-10-31). Requested by the user, who found the plum theme too dark; supersedes the colours of Phase 22, not its structure. Numbered 27 because 25 and 26 are reserved for the fertile window rounds. Direction taken from two reference apps: white backgrounds, large bright blocks, strong text contrast; no branding copied.
+
+- 27.1 Seed #C92A68 with pinned roles. Light: primary #C92A68, primaryContainer #F78FB3, surface #FFFFFF, surfaceContainerLow #FFF4EC. Dark: primary #FF9FC2, primaryContainer #7A2A50, surface #1F1518.
+- 27.2 Peach tone for thai giáo cards only, mint tone for daily tip cards; guard test on tertiary use.
+- 27.3 Dedicated emergency tokens: light #B81818, dark #D32F2F, white text; used by every 'Gọi 115', EmergencyEntryCard and the AppBar emergency button. Destructive actions stay on the M3 error role.
+- 27.4 Default theme is light, including after delete-all; a saved choice is kept.
+- 27.5 Icon background #C92A68, launch background #FFFFFF / #1F1518, milestone card white to pink.
+- 27.6 Blood pressure labels shortened to Tâm thu / Tâm trương after 'HA tâm trương' still truncated.
+
+Test round 1: light passes. Accepted THEME-R1-01 (high: dark emergency surfaces read as normal pink buttons) and THEME-R1-02 (peach beyond thai giáo). THEME-R1-03 (launch colour follows the system, not the saved theme) rejected: the native launch screen cannot read the saved choice.
+Test round 2: both fixed on device, red vs pink passes in both themes. Consent, onboarding and mode selection cannot be reached in dark because first run is always light. The label change has no device re-run.
+
 ## Known issues (pre-existing, backlog)
+- FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
 - Resolved in Phase 23: Chu kỳ calendar shows an English month header ('October 2026'), format button ('2 weeks') and weekday names; needs a Vietnamese locale/format labels. Found in Phase 14 test round 1 (P14-R1-04).
 - `FlutterSecureStorage: Could not decrypt key` is logged at each launch (library startup check); data is unaffected. Found in Phase 14 test round 1.
@@ -1331,3 +1345,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 22 round 2: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` passed with 489/489 tests (16 new, re-run by QA); `flutter build apk --debug` passed; installed on emulator-5554 with `adb install -r` (data kept), logcat clean. P22-R2-01 accepted and fixed by the orchestrator (`AppInitializer` waiting screen uses `BrandMark`), verified by a cold-start screenshot series; analyze/test (489/489)/debug APK re-run and passed. Verdict: pass; Phase 22 completed.
 - Phase 23: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 524/524; `flutter build apk --debug` OK; emulator QA 2 rounds with data wipe (software GPU, host driver crashes otherwise).
 - Phase 24: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 571/571; debug APK OK (x64 build needed for the emulator's free space); emulator QA 2 rounds.
+- Phase 27: emulator QA 2 rounds; final results in the PR.

@@ -15,6 +15,16 @@ enum AppCardVariant {
 
   /// Notes and guidance, on the semantic `warningContainer`.
   notice,
+
+  /// Solid red emergency entry, on the semantic `emergency` colour, so it
+  /// never reads as a pink card next to the brand colour.
+  emergency,
+
+  /// The thai giáo card of the day, on the semantic peach container.
+  peach,
+
+  /// The daily tip card, on the semantic mint container.
+  mint,
 }
 
 /// The resolved colours of an [AppCardVariant] in the current theme.
@@ -57,6 +67,27 @@ class AppCardColors {
           background: s.warningContainer,
           foreground: s.onWarningContainer,
           icon: s.onWarningContainer,
+        );
+      case AppCardVariant.emergency:
+        final s = context.semantic;
+        return AppCardColors(
+          background: s.emergency,
+          foreground: s.onEmergency,
+          icon: s.onEmergency,
+        );
+      case AppCardVariant.peach:
+        final s = context.semantic;
+        return AppCardColors(
+          background: s.peachContainer,
+          foreground: s.onPeachContainer,
+          icon: s.onPeachContainer,
+        );
+      case AppCardVariant.mint:
+        final s = context.semantic;
+        return AppCardColors(
+          background: s.mintContainer,
+          foreground: s.onMintContainer,
+          icon: s.onMintContainer,
         );
     }
   }

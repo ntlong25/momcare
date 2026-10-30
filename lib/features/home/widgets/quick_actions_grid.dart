@@ -12,7 +12,7 @@ class QuickActionsGrid extends StatelessWidget {
       QuickActionTile(
         icon: Icons.restaurant_menu,
         title: 'Dinh dưỡng',
-        tone: AppTone.tertiary,
+        tone: AppTone.primary,
         onTap: () => NavigationHelper.toNutrition(context),
       ),
       QuickActionTile(

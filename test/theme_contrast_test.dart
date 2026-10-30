@@ -47,10 +47,10 @@ double deltaE(Color a, Color b) {
 void main() {
   final themes = {'light': AppTheme.light(), 'dark': AppTheme.dark()};
 
-  test('both schemes are generated from the one seed (tonalSpot)', () {
-    expect(AppTheme.seedColor, const Color(0xFFA8577E));
+  test('schemes keep the seed roles and pin only the brand roles', () {
+    expect(AppTheme.seedColor, const Color(0xFFC92A68));
     for (final b in Brightness.values) {
-      final expected = ColorScheme.fromSeed(
+      final seed = ColorScheme.fromSeed(
         seedColor: AppTheme.seedColor,
         brightness: b,
         dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
@@ -58,12 +58,20 @@ void main() {
       final actual = b == Brightness.light
           ? AppTheme.light().colorScheme
           : AppTheme.dark().colorScheme;
-      expect(actual, expected);
+      expect(actual.secondary, seed.secondary);
+      expect(actual.tertiary, seed.tertiary);
+      expect(actual.outline, seed.outline);
+      expect(actual.inverseSurface, seed.inverseSurface);
+      // M3 error roles are kept.
+      expect(actual.error, seed.error);
+      expect(actual.onError, seed.onError);
+      expect(actual.errorContainer, seed.errorContainer);
+      expect(actual.onErrorContainer, seed.onErrorContainer);
     }
   });
 
-  // Snapshot so a seed or generator change is deliberate.
-  test('generated role snapshot', () {
+  // Snapshot so a palette or generator change is deliberate.
+  test('role snapshot', () {
     String roles(ColorScheme s) => [
       'primary ${hex(s.primary)}',
       'onPrimary ${hex(s.onPrimary)}',
@@ -75,6 +83,10 @@ void main() {
       'surface ${hex(s.surface)}',
       'onSurface ${hex(s.onSurface)}',
       'onSurfaceVariant ${hex(s.onSurfaceVariant)}',
+      'surfaceContainerLow ${hex(s.surfaceContainerLow)}',
+      'surfaceContainer ${hex(s.surfaceContainer)}',
+      'surfaceContainerHigh ${hex(s.surfaceContainerHigh)}',
+      'surfaceContainerHighest ${hex(s.surfaceContainerHighest)}',
       'outline ${hex(s.outline)}',
       'error ${hex(s.error)}',
       'onError ${hex(s.onError)}',
@@ -82,19 +94,25 @@ void main() {
     ].join(', ');
     expect(
       roles(AppTheme.light().colorScheme),
-      'primary #894A68, onPrimary #FFFFFF, primaryContainer #FFD8E6, '
-      'onPrimaryContainer #6D3350, secondaryContainer #FED9E6, '
-      'onSecondaryContainer #59404A, tertiary #7E5539, surface #FFF8F8, '
-      'onSurface #21191C, onSurfaceVariant #504348, outline #827378, '
-      'error #BA1A1A, onError #FFFFFF, errorContainer #FFDAD6',
+      'primary #C92A68, onPrimary #FFFFFF, primaryContainer #F78FB3, '
+      'onPrimaryContainer #4F1730, secondaryContainer #FFD6E4, '
+      'onSecondaryContainer #4F1730, tertiary #7B5733, surface #FFFFFF, '
+      'onSurface #2B1A20, onSurfaceVariant #6B4F58, '
+      'surfaceContainerLow #FFF4EC, surfaceContainer #FFF1E7, '
+      'surfaceContainerHigh #FFEEE2, surfaceContainerHighest #FFEBDE, '
+      'outline #847376, error #BA1A1A, onError #FFFFFF, '
+      'errorContainer #FFDAD6',
     );
     expect(
       roles(AppTheme.dark().colorScheme),
-      'primary #FEB0D1, onPrimary #531D39, primaryContainer #6D3350, '
-      'onPrimaryContainer #FFD8E6, secondaryContainer #59404A, '
-      'onSecondaryContainer #FED9E6, tertiary #F2BB98, surface #191114, '
-      'onSurface #EEDFE3, onSurfaceVariant #D4C2C7, outline #9D8C92, '
-      'error #FFB4AB, onError #690005, errorContainer #93000A',
+      'primary #FF9FC2, onPrimary #4F1730, primaryContainer #7A2A50, '
+      'onPrimaryContainer #FFE3EC, secondaryContainer #7A2A50, '
+      'onSecondaryContainer #FFE3EC, tertiary #EDBD92, surface #1F1518, '
+      'onSurface #F3E3E8, onSurfaceVariant #D4C0C6, '
+      'surfaceContainerLow #2C2024, surfaceContainer #261D1F, '
+      'surfaceContainerHigh #312829, surfaceContainerHighest #3C3234, '
+      'outline #9E8C8F, error #FFB4AB, onError #690005, '
+      'errorContainer #93000A',
     );
   });
 
@@ -103,8 +121,21 @@ void main() {
     expect(AppBrandColors.primary, s.primary);
     expect(AppBrandColors.ink, s.onSurface);
     expect(AppBrandColors.inkSoft, s.onSurfaceVariant);
-    expect(AppBrandColors.background, s.surfaceContainerLow);
-    expect(AppBrandColors.backgroundAccent, s.primaryContainer);
+    expect(AppBrandColors.background, s.surface);
+    expect(AppBrandColors.backgroundAccent, s.secondaryContainer);
+  });
+
+  // The milestone PNG: text and icons sit anywhere on the white-to-pink
+  // gradient, so both ends must pass.
+  test('milestone card colours are readable on both gradient ends', () {
+    for (final bg in [
+      AppBrandColors.background,
+      AppBrandColors.backgroundAccent,
+    ]) {
+      expect(contrast(AppBrandColors.ink, bg), greaterThanOrEqualTo(4.5));
+      expect(contrast(AppBrandColors.inkSoft, bg), greaterThanOrEqualTo(4.5));
+      expect(contrast(AppBrandColors.primary, bg), greaterThanOrEqualTo(3.0));
+    }
   });
 
   for (final MapEntry(key: name, value: theme) in themes.entries) {
@@ -138,6 +169,25 @@ void main() {
           s.surfaceContainerLow,
           s.onSurfaceVariant,
         ),
+        'surfaceContainer/onSurfaceVariant': (
+          s.surfaceContainer,
+          s.onSurfaceVariant,
+        ),
+        'surfaceContainerHigh/onSurfaceVariant': (
+          s.surfaceContainerHigh,
+          s.onSurfaceVariant,
+        ),
+        'surfaceContainerHighest/onSurfaceVariant': (
+          s.surfaceContainerHighest,
+          s.onSurfaceVariant,
+        ),
+        // Dialog, date and time picker buttons.
+        'surfaceContainerHigh/primary': (s.surfaceContainerHigh, s.primary),
+        'surfaceContainerHighest/primary': (
+          s.surfaceContainerHighest,
+          s.primary,
+        ),
+        'surface/primary (greeting)': (s.surface, s.primary),
         'inverseSurface/onInverseSurface': (
           s.inverseSurface,
           s.onInverseSurface,
@@ -170,6 +220,21 @@ void main() {
           sem.dangerContainer,
           sem.onDangerContainer,
         ),
+        'peachContainer/onPeachContainer': (
+          sem.peachContainer,
+          sem.onPeachContainer,
+        ),
+        'mintContainer/onMintContainer': (
+          sem.mintContainer,
+          sem.onMintContainer,
+        ),
+        'emergency/onEmergency': (sem.emergency, sem.onEmergency),
+        'emergencyContainer/onEmergencyContainer': (
+          sem.emergencyContainer,
+          sem.onEmergencyContainer,
+        ),
+        // Chips on the peach card use the theme's onSurface label.
+        'peachContainer/onSurface': (sem.peachContainer, s.onSurface),
       };
       for (final MapEntry(key: pair, value: (bg, fg)) in textPairs.entries) {
         test('$pair >= 4.5:1', () {
@@ -192,12 +257,32 @@ void main() {
         });
       }
 
-      // Spec asked for >= 40 deg; the mandated seed gives about 29-32 deg
-      // (HSL: light 28.6, dark 31.8; HCT about 32), so the measured floor is
-      // locked here and the colours must also differ clearly overall.
-      test('error and primary are clearly distinct', () {
-        expect(hueDistance(s.error, s.primary), greaterThanOrEqualTo(28));
-        expect(deltaE(s.error, s.primary), greaterThanOrEqualTo(20));
+      // THEME-R1-01: emergency actions must never read as a pink button.
+      test('emergency red is far from primary with white text', () {
+        expect(deltaE(sem.emergency, s.primary), greaterThanOrEqualTo(40));
+        expect(sem.onEmergency, const Color(0xFFFFFFFF));
+        expect(
+          contrast(sem.onEmergency, sem.emergency),
+          greaterThanOrEqualTo(4.5),
+        );
+      });
+
+      test('the emergency banner is weaker than the emergency button', () {
+        expect(
+          contrast(sem.emergencyContainer, s.surface),
+          lessThan(contrast(sem.emergency, s.surface)),
+        );
+      });
+
+      // The bright pink brand sits closer to red than the old plum: the HSL
+      // hue gap is only 23.4 deg in light (28.3 deg in dark; the old plum had 28.6 and
+      // 31.8). Hue alone no longer
+      // separates them, so the floor just locks the measured value and the
+      // emergency surfaces use the dedicated emergency tokens instead. The M3
+      // error role stays for destructive actions.
+      test('error and primary stay distinct', () {
+        expect(hueDistance(s.error, s.primary), greaterThanOrEqualTo(23));
+        expect(deltaE(s.error, s.primary), greaterThanOrEqualTo(23));
       });
 
       test('danger tokens are the scheme error roles', () {

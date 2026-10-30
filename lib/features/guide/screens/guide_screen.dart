@@ -49,7 +49,7 @@ class _GuideScreenState extends State<GuideScreen> {
       title: 'Dinh dưỡng và công thức',
       description:
           'Xem hướng dẫn dinh dưỡng theo giai đoạn và các công thức món ăn lành mạnh.',
-      tone: AppTone.tertiary,
+      tone: AppTone.info,
     ),
     _GuidePage(
       icon: Icons.settings,

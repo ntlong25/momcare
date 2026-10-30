@@ -58,11 +58,30 @@ void main() {
   }
 
   test('brand mark uses the launcher icon colours and SVG geometry', () {
-    // Plum adaptive-icon background (flutter_launcher_icons.yaml).
-    expect(AppBrandColors.primary, const Color(0xFF894A68));
+    // Pink adaptive-icon background (flutter_launcher_icons.yaml).
+    expect(AppBrandColors.primary, const Color(0xFFC92A68));
     expect(
       File('flutter_launcher_icons.yaml').readAsStringSync(),
-      contains('adaptive_icon_background: "#894A68"'),
+      contains('adaptive_icon_background: "#C92A68"'),
+    );
+    expect(
+      File('assets/branding/app_icon.svg').readAsStringSync(),
+      contains('fill="#C92A68"'),
+    );
+    final colors = File(
+      'android/app/src/main/res/values/colors.xml',
+    ).readAsStringSync();
+    expect(
+      colors,
+      contains('<color name="ic_launcher_background">#C92A68</color>'),
+    );
+    // Launch colour = scheme surface, in both modes.
+    expect(colors, contains('<color name="launch_background">#FFFFFF</color>'));
+    expect(
+      File(
+        'android/app/src/main/res/values-night/colors.xml',
+      ).readAsStringSync(),
+      contains('<color name="launch_background">#1F1518</color>'),
     );
     expect(AppBrandColors.onPrimary, const Color(0xFFFFFFFF));
     // BrandMarkPainter copies these from the SVG master; fail if it moves.

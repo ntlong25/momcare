@@ -48,7 +48,7 @@ class PregnancyProgressCard extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.favorite,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                   size: 32,
                 ),
               ),
@@ -95,7 +95,7 @@ class PregnancyProgressCard extends StatelessWidget {
                 Icon(
                   Icons.info_outline,
                   size: 20,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
                 const SizedBox(width: 8),
                 Expanded(

@@ -2,30 +2,60 @@ import 'package:flutter/material.dart';
 
 import 'app_tokens.dart';
 
-/// MomCare+ theme: one seed colour, light and dark [ColorScheme]s generated
-/// with [DynamicSchemeVariant.tonalSpot], and component themes that read
+/// MomCare+ theme: light and dark [ColorScheme]s generated from one seed with
+/// [DynamicSchemeVariant.tonalSpot], the brand roles pinned on top (white
+/// page, bright pink blocks, warm cards), and component themes that read
 /// only scheme roles. Typography is the bundled Be Vietnam Pro on the
 /// Material 3 type scale.
 class AppTheme {
   const AppTheme._();
 
-  /// "Hồng mận" (dusty plum-rose). The only brand colour literal.
-  static const Color seedColor = Color(0xFFA8577E);
+  /// Bright pink brand colour; also the light `primary` and the launcher
+  /// icon background (`AppBrandColors.primary`).
+  static const Color seedColor = Color(0xFFC92A68);
 
   /// Bundled app font family (see `flutter: fonts:` in pubspec.yaml).
   static const String fontFamily = 'BeVietnamPro';
 
-  static final ColorScheme lightColorScheme = ColorScheme.fromSeed(
-    seedColor: seedColor,
-    brightness: Brightness.light,
-    dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
-  );
+  static final ColorScheme lightColorScheme =
+      ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: Brightness.light,
+        dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
+      ).copyWith(
+        primary: seedColor,
+        onPrimary: const Color(0xFFFFFFFF),
+        primaryContainer: const Color(0xFFF78FB3),
+        onPrimaryContainer: const Color(0xFF4F1730),
+        secondaryContainer: const Color(0xFFFFD6E4),
+        onSecondaryContainer: const Color(0xFF4F1730),
+        surface: const Color(0xFFFFFFFF),
+        onSurface: const Color(0xFF2B1A20),
+        onSurfaceVariant: const Color(0xFF6B4F58),
+        surfaceContainerLow: const Color(0xFFFFF4EC),
+        // Warm steps, light enough for `primary` text (dialog buttons) at 4.5:1.
+        surfaceContainer: const Color(0xFFFFF1E7),
+        surfaceContainerHigh: const Color(0xFFFFEEE2),
+        surfaceContainerHighest: const Color(0xFFFFEBDE),
+      );
 
-  static final ColorScheme darkColorScheme = ColorScheme.fromSeed(
-    seedColor: seedColor,
-    brightness: Brightness.dark,
-    dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
-  );
+  static final ColorScheme darkColorScheme =
+      ColorScheme.fromSeed(
+        seedColor: seedColor,
+        brightness: Brightness.dark,
+        dynamicSchemeVariant: DynamicSchemeVariant.tonalSpot,
+      ).copyWith(
+        primary: const Color(0xFFFF9FC2),
+        onPrimary: const Color(0xFF4F1730),
+        primaryContainer: const Color(0xFF7A2A50),
+        onPrimaryContainer: const Color(0xFFFFE3EC),
+        secondaryContainer: const Color(0xFF7A2A50),
+        onSecondaryContainer: const Color(0xFFFFE3EC),
+        surface: const Color(0xFF1F1518),
+        onSurface: const Color(0xFFF3E3E8),
+        onSurfaceVariant: const Color(0xFFD4C0C6),
+        surfaceContainerLow: const Color(0xFF2C2024),
+      );
 
   static final ThemeData _light = _build(lightColorScheme);
   static final ThemeData _dark = _build(darkColorScheme);
@@ -357,12 +387,12 @@ class AppTheme {
         ),
         dayPeriodColor: WidgetStateColor.resolveWith(
           (states) => states.contains(WidgetState.selected)
-              ? scheme.tertiaryContainer
+              ? scheme.secondaryContainer
               : Colors.transparent,
         ),
         dayPeriodTextColor: WidgetStateColor.resolveWith(
           (states) => states.contains(WidgetState.selected)
-              ? scheme.onTertiaryContainer
+              ? scheme.onSecondaryContainer
               : scheme.onSurfaceVariant,
         ),
         dayPeriodBorderSide: BorderSide(color: scheme.outline),

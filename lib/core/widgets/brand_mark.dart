@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_tokens.dart';
 
-/// The MomCare+ launcher icon (white mother-and-baby heart on the plum
+/// The MomCare+ launcher icon (white mother-and-baby heart on the pink
 /// adaptive-icon background), drawn with the same geometry as
 /// `assets/branding/app_icon_foreground.svg`.
 ///
@@ -10,7 +10,7 @@ import '../theme/app_tokens.dart';
 /// icon: the 108 dp adaptive canvas is shown at 240 dp and masked to a
 /// 160 dp circle, so the in-app splash can take over without a jump.
 class BrandMark extends StatelessWidget {
-  /// Diameter of the plum circle.
+  /// Diameter of the pink circle.
   final double size;
 
   const BrandMark({super.key, this.size = 160});
