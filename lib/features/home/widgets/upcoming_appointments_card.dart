@@ -3,6 +3,9 @@ import '../../../core/services/database_service.dart';
 import '../../../core/models/appointment_model.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/empty_state.dart';
+import '../../../core/widgets/section_header.dart';
 
 class UpcomingAppointmentsCard extends StatelessWidget {
   const UpcomingAppointmentsCard({super.key});
@@ -14,46 +17,28 @@ class UpcomingAppointmentsCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Lịch hẹn sắp tới',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            TextButton(
-              onPressed: () => NavigationHelper.toAppointments(context),
-              child: const Text('Xem tất cả'),
-            ),
-          ],
+        SectionHeader(
+          title: 'Lịch hẹn sắp tới',
+          trailing: TextButton(
+            onPressed: () => NavigationHelper.toAppointments(context),
+            child: const Text('Xem tất cả'),
+          ),
         ),
-        const SizedBox(height: 12),
         appointments.isEmpty
-            ? Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.event_available,
-                          size: 48,
-                          color: Colors.grey[400],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          'Chưa có lịch hẹn nào',
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: Colors.grey[600]),
-                        ),
-                        const SizedBox(height: 8),
-                        TextButton.icon(
-                          onPressed: () =>
-                              NavigationHelper.toAddAppointment(context),
-                          icon: const Icon(Icons.add),
-                          label: const Text('Thêm lịch hẹn'),
-                        ),
-                      ],
+            ? SizedBox(
+                width: double.infinity,
+                child: AppCard(
+                  child: AppEmptyState(
+                    key: const ValueKey('home-upcoming-empty'),
+                    icon: Icons.event_available,
+                    title: 'Chưa có lịch hẹn nào',
+                    iconSize: 48,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    action: TextButton.icon(
+                      onPressed: () =>
+                          NavigationHelper.toAddAppointment(context),
+                      icon: const Icon(Icons.add),
+                      label: const Text('Thêm lịch hẹn'),
                     ),
                   ),
                 ),
@@ -81,12 +66,12 @@ class _AppointmentCard extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
             Icons.calendar_today,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         title: Text(
@@ -104,7 +89,10 @@ class _AppointmentCard extends StatelessWidget {
             ],
           ],
         ),
-        trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
+        trailing: Icon(
+          Icons.chevron_right,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
         isThreeLine: appointment.location != null,
         onTap: () => NavigationHelper.toAppointments(context),
       ),

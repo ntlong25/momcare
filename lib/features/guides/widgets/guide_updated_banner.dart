@@ -24,15 +24,15 @@ class GuideUpdatedBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final accent = theme.colorScheme.primary;
+    final scheme = theme.colorScheme;
+    final accent = scheme.onPrimaryContainer;
     return Container(
       key: const ValueKey('guide-updated-banner'),
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: accent.withValues(alpha: 0.10),
+        color: scheme.primaryContainer,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: accent.withValues(alpha: 0.25)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,10 +47,14 @@ class GuideUpdatedBanner extends StatelessWidget {
                   label(lastUpdated),
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: accent,
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(checkOfficially, style: theme.textTheme.bodySmall),
+                Text(
+                  checkOfficially,
+                  style: theme.textTheme.bodySmall?.copyWith(color: accent),
+                ),
               ],
             ),
           ),

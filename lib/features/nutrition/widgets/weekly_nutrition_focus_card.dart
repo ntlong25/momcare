@@ -40,7 +40,7 @@ class WeeklyNutritionFocusCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.restaurant, color: theme.primaryColor),
+                Icon(Icons.restaurant, color: theme.colorScheme.primary),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(

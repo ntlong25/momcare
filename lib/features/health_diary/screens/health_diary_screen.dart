@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/providers/app_mode_provider.dart';
@@ -10,6 +11,7 @@ import '../widgets/health_stats_card.dart';
 import '../widgets/health_log_list.dart';
 import '../widgets/health_charts_card.dart';
 import 'add_health_log_screen.dart';
+import '../../../core/widgets/empty_state.dart';
 
 class HealthDiaryScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -83,30 +85,12 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
 
   Widget _buildLogsTab(List<HealthLogModel> healthLogs) {
     if (healthLogs.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.favorite_border,
-                size: 100,
-                color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Chưa có ghi nhận sức khỏe',
-                style: Theme.of(context).textTheme.displaySmall,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Bắt đầu theo dõi bằng cách thêm ghi nhận đầu tiên',
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-            ],
+      return const Center(
+        child: SingleChildScrollView(
+          child: AppEmptyState(
+            icon: Icons.favorite_border,
+            title: 'Chưa có ghi nhận sức khỏe',
+            message: 'Bắt đầu theo dõi bằng cách thêm ghi nhận đầu tiên',
           ),
         ),
       );
@@ -118,7 +102,8 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
         await Future.delayed(const Duration(milliseconds: 500));
       },
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        key: const ValueKey('health-diary-logs-scroll'),
+        padding: AppSpacing.fabPagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -172,12 +157,12 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
               Icon(
                 Icons.show_chart,
                 size: 100,
-                color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
               const SizedBox(height: 24),
               Text(
                 'Chưa có dữ liệu để hiển thị',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
@@ -193,7 +178,7 @@ class _HealthDiaryScreenState extends ConsumerState<HealthDiaryScreen>
     }
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: AppSpacing.fabPagePadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [HealthChartsCard(healthLogs: healthLogs)],

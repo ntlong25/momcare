@@ -8,25 +8,28 @@ Future<bool> confirmToolDelete(
 }) async {
   final confirmed = await showDialog<bool>(
     context: context,
-    builder: (context) => AlertDialog(
-      title: Text(title),
-      content: message == null ? null : Text(message),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context, false),
-          child: const Text('Hủy'),
-        ),
-        FilledButton(
-          key: const ValueKey('tool-confirm-delete'),
-          style: FilledButton.styleFrom(
-            backgroundColor: Colors.red.shade700,
-            foregroundColor: Colors.white,
+    builder: (context) {
+      final scheme = Theme.of(context).colorScheme;
+      return AlertDialog(
+        title: Text(title),
+        content: message == null ? null : Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Hủy'),
           ),
-          onPressed: () => Navigator.pop(context, true),
-          child: const Text('Xóa'),
-        ),
-      ],
-    ),
+          FilledButton(
+            key: const ValueKey('tool-confirm-delete'),
+            style: FilledButton.styleFrom(
+              backgroundColor: scheme.error,
+              foregroundColor: scheme.onError,
+            ),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Xóa'),
+          ),
+        ],
+      );
+    },
   );
   return confirmed == true;
 }

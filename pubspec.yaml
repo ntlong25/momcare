@@ -51,9 +51,6 @@ dependencies:
   # Internationalization
   intl: ^0.20.2
 
-  # UI components
-  google_fonts: ^6.2.1
-
   # Date and time utilities
   table_calendar: ^3.2.0
   url_launcher: ^6.3.1
@@ -104,6 +101,9 @@ dev_dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.4.13
 
+  # Launcher icons from assets/branding (config: flutter_launcher_icons.yaml).
+  flutter_launcher_icons: ^0.14.4
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -122,12 +122,18 @@ flutter:
     - assets/images/weeks/
     - assets/fonts/
 
-  # Be Vietnam Pro (SIL OFL 1.1, see assets/fonts/OFL.txt), bundled so the
-  # milestone card and the health diary PDF render Vietnamese offline.
+  # Be Vietnam Pro (SIL OFL 1.1, see assets/fonts/OFL.txt), bundled as the app
+  # font (offline, correct stacked Vietnamese diacritics) and used by the
+  # milestone card and the health diary PDF.
   fonts:
     - family: BeVietnamPro
       fonts:
         - asset: assets/fonts/BeVietnamPro-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/BeVietnamPro-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/BeVietnamPro-SemiBold.ttf
+          weight: 600
         - asset: assets/fonts/BeVietnamPro-Bold.ttf
           weight: 700
 

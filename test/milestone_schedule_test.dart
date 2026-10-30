@@ -659,14 +659,8 @@ void main() {
     });
 
     for (final entry in {
-      'light': ThemeData(
-        colorScheme: AppTheme.lightColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
-      'dark': ThemeData(
-        colorScheme: AppTheme.darkColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
     }.entries) {
       test('status chips are readable in ${entry.key} theme', () {
         final scheme = entry.value.colorScheme;

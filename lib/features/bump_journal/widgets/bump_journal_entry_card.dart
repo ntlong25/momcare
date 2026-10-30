@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/services/bump_photo_service.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/navigation_helper.dart';
 
 /// Tuần thai entry to "Nhật ký ảnh bụng bầu".
@@ -20,10 +19,13 @@ class BumpJournalEntryCard extends ConsumerWidget {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: AppTheme.primaryTint(scheme),
+            color: scheme.secondaryContainer,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(Icons.photo_camera_outlined, color: scheme.onSurface),
+          child: Icon(
+            Icons.photo_camera_outlined,
+            color: scheme.onSecondaryContainer,
+          ),
         ),
         title: const Text('Nhật ký ảnh bụng bầu'),
         subtitle: Text(count > 0 ? '$count ảnh' : 'Lưu ảnh bụng bầu theo tuần'),

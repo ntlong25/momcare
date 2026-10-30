@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../../core/models/health_log_model.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class HealthChartsCard extends StatefulWidget {
   final List<HealthLogModel> healthLogs;
@@ -66,12 +67,12 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           color: isSelected
-              ? Theme.of(context).primaryColor.withValues(alpha: 0.1)
+              ? Theme.of(context).colorScheme.primaryContainer
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected
-                ? Theme.of(context).primaryColor
+                ? Theme.of(context).colorScheme.primary
                 : Colors.transparent,
             width: 2,
           ),
@@ -81,16 +82,16 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
             Icon(
               icon,
               color: isSelected
-                  ? Theme.of(context).primaryColor
-                  : Colors.grey[600],
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 4),
             Text(
               label,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: isSelected
-                    ? Theme.of(context).primaryColor
-                    : Colors.grey[600],
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: isSelected ? FontWeight.bold : null,
               ),
               textAlign: TextAlign.center,
@@ -136,7 +137,10 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     drawVerticalLine: false,
                     horizontalInterval: 5,
                     getDrawingHorizontalLine: (value) {
-                      return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
+                      return FlLine(
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                        strokeWidth: 1,
+                      );
                     },
                   ),
                   titlesData: FlTitlesData(
@@ -161,7 +165,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                             padding: const EdgeInsets.only(top: 8),
                             child: Text(
                               '${date.day}/${date.month}',
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: _axisStyle(context),
                             ),
                           );
                         },
@@ -175,7 +179,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                         getTitlesWidget: (value, meta) {
                           return Text(
                             '${value.toInt()}kg',
-                            style: Theme.of(context).textTheme.bodySmall,
+                            style: _axisStyle(context),
                           );
                         },
                       ),
@@ -184,8 +188,12 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                   borderData: FlBorderData(
                     show: true,
                     border: Border(
-                      left: BorderSide(color: Colors.grey[300]!),
-                      bottom: BorderSide(color: Colors.grey[300]!),
+                      left: BorderSide(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
                     ),
                   ),
                   minX: 0,
@@ -198,7 +206,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     LineChartBarData(
                       spots: spots,
                       isCurved: true,
-                      color: Colors.blue,
+                      color: Theme.of(context).colorScheme.primary,
                       barWidth: 3,
                       isStrokeCapRound: true,
                       dotData: FlDotData(
@@ -206,15 +214,17 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 4,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             strokeWidth: 2,
-                            strokeColor: Colors.blue,
+                            strokeColor: Theme.of(context).colorScheme.primary,
                           );
                         },
                       ),
                       belowBarData: BarAreaData(
                         show: true,
-                        color: Colors.blue.withValues(alpha: 0.1),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.primary.withValues(alpha: 0.12),
                       ),
                     ),
                   ],
@@ -259,9 +269,9 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
             const SizedBox(height: 12),
             Row(
               children: [
-                _buildLegendItem('Tâm thu', Colors.red),
+                _buildLegendItem('Tâm thu', context.semantic.danger),
                 const SizedBox(width: 16),
-                _buildLegendItem('Tâm trương', Colors.orange),
+                _buildLegendItem('Tâm trương', context.semantic.info),
               ],
             ),
             const SizedBox(height: 24),
@@ -274,7 +284,10 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     drawVerticalLine: false,
                     horizontalInterval: 20,
                     getDrawingHorizontalLine: (value) {
-                      return FlLine(color: Colors.grey[300]!, strokeWidth: 1);
+                      return FlLine(
+                        color: Theme.of(context).colorScheme.outlineVariant,
+                        strokeWidth: 1,
+                      );
                     },
                   ),
                   titlesData: FlTitlesData(
@@ -299,7 +312,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                             padding: const EdgeInsets.only(top: 8),
                             child: Text(
                               '${date.day}/${date.month}',
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: _axisStyle(context),
                             ),
                           );
                         },
@@ -313,7 +326,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                         getTitlesWidget: (value, meta) {
                           return Text(
                             value.toInt().toString(),
-                            style: Theme.of(context).textTheme.bodySmall,
+                            style: _axisStyle(context),
                           );
                         },
                       ),
@@ -322,8 +335,12 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                   borderData: FlBorderData(
                     show: true,
                     border: Border(
-                      left: BorderSide(color: Colors.grey[300]!),
-                      bottom: BorderSide(color: Colors.grey[300]!),
+                      left: BorderSide(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                      bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
                     ),
                   ),
                   minX: 0,
@@ -334,7 +351,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     LineChartBarData(
                       spots: systolicSpots,
                       isCurved: true,
-                      color: Colors.red,
+                      color: context.semantic.danger,
                       barWidth: 3,
                       isStrokeCapRound: true,
                       dotData: FlDotData(
@@ -342,9 +359,9 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 4,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             strokeWidth: 2,
-                            strokeColor: Colors.red,
+                            strokeColor: context.semantic.danger,
                           );
                         },
                       ),
@@ -352,7 +369,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                     LineChartBarData(
                       spots: diastolicSpots,
                       isCurved: true,
-                      color: Colors.orange,
+                      color: context.semantic.info,
                       barWidth: 3,
                       isStrokeCapRound: true,
                       dotData: FlDotData(
@@ -360,9 +377,9 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 4,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             strokeWidth: 2,
-                            strokeColor: Colors.orange,
+                            strokeColor: context.semantic.info,
                           );
                         },
                       ),
@@ -393,14 +410,16 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
       moodCounts[log.mood!] = (moodCounts[log.mood!] ?? 0) + 1;
     }
 
-    final moodColors = {
-      'Vui vẻ': Colors.yellow[700]!,
-      'Bình tĩnh': Colors.blue[300]!,
-      'Lo lắng': Colors.purple[300]!,
-      'Mệt mỏi': Colors.grey[400]!,
-      'Nhiều năng lượng': Colors.green[400]!,
-      'Khó chịu': Colors.red[300]!,
+    const moodTones = {
+      'Vui vẻ': AppTone.warning,
+      'Bình tĩnh': AppTone.info,
+      'Lo lắng': AppTone.tertiary,
+      'Mệt mỏi': AppTone.secondary,
+      'Nhiều năng lượng': AppTone.success,
+      'Khó chịu': AppTone.danger,
     };
+    AppToneColors moodColors(String mood) =>
+        (moodTones[mood] ?? AppTone.primary).of(context);
 
     return Card(
       child: Padding(
@@ -428,12 +447,12 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                           return PieChartSectionData(
                             value: entry.value.toDouble(),
                             title: '${percentage.toStringAsFixed(0)}%',
-                            color: moodColors[entry.key] ?? Colors.grey,
+                            color: moodColors(entry.key).main,
                             radius: 50,
-                            titleStyle: const TextStyle(
+                            titleStyle: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: moodColors(entry.key).onMain,
                             ),
                           );
                         }).toList(),
@@ -453,14 +472,14 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
                               width: 16,
                               height: 16,
                               decoration: BoxDecoration(
-                                color: moodColors[entry.key] ?? Colors.grey,
+                                color: moodColors(entry.key).main,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
                             const SizedBox(width: 8),
                             Text(
                               '${entry.key} (${entry.value})',
-                              style: Theme.of(context).textTheme.bodySmall,
+                              style: _axisStyle(context),
                             ),
                           ],
                         ),
@@ -475,6 +494,12 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
       ),
     );
   }
+
+  /// Axis labels: onSurfaceVariant keeps >= 4.5:1 on the card surface.
+  TextStyle? _axisStyle(BuildContext context) => Theme.of(context)
+      .textTheme
+      .bodySmall
+      ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
 
   Widget _buildLegendItem(String label, Color color) {
     return Row(
@@ -501,13 +526,17 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.show_chart, size: 48, color: Colors.grey[400]),
+            Icon(
+              Icons.show_chart,
+              size: 48,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
             const SizedBox(height: 12),
             Text(
               message,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           ],
         ),

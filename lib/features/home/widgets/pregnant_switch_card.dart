@@ -6,6 +6,7 @@ import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../onboarding/screens/pregnancy_setup_screen.dart';
 import '../screens/main_navigation.dart';
+import '../../../core/widgets/app_card.dart';
 
 /// "Tôi đã có thai" flow shared by the pre-pregnancy Hôm nay cards.
 ///
@@ -76,50 +77,47 @@ class PregnantSwitchCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
 
-    return Card(
+    return AppCard(
       key: const ValueKey('pregnant-switch-card'),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.pregnant_woman, color: Colors.pink),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Tôi đã có thai',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.pregnant_woman, color: theme.colorScheme.primary),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Tôi đã có thai',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
-            const SizedBox(height: 6),
-            Text(
-              'Chuyển sang chế độ Đang mang thai để theo dõi thai kỳ theo tuần.',
-              style: theme.textTheme.bodyMedium?.copyWith(color: muted),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                key: const ValueKey('pregnant-switch-button'),
-                onPressed: () => confirmAndSwitchToPregnancy(
-                  context,
-                  ref,
-                  activePregnancy: debugActivePregnancy,
-                ),
-                icon: const Icon(Icons.swap_horiz),
-                label: const Text('Chuyển chế độ'),
               ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Chuyển sang chế độ Đang mang thai để theo dõi thai kỳ theo tuần.',
+            style: theme.textTheme.bodyMedium?.copyWith(color: muted),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              key: const ValueKey('pregnant-switch-button'),
+              onPressed: () => confirmAndSwitchToPregnancy(
+                context,
+                ref,
+                activePregnancy: debugActivePregnancy,
+              ),
+              icon: const Icon(Icons.swap_horiz),
+              label: const Text('Chuyển chế độ'),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

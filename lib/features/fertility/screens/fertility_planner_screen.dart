@@ -6,7 +6,10 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
+import '../../../core/utils/calendar_style.dart';
+import '../widgets/cycle_marker.dart';
 import 'add_period_screen.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class FertilityPlannerScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -85,7 +88,6 @@ class _FertilityPlannerScreenState
               content: Text(
                 'Dữ liệu sức khỏe không khả dụng trên thiết bị này',
               ),
-              backgroundColor: Colors.orange,
             ),
           );
         }
@@ -130,7 +132,6 @@ class _FertilityPlannerScreenState
               content: Text(
                 'Không tìm thấy dữ liệu chu kỳ trong ứng dụng Sức khỏe',
               ),
-              backgroundColor: Colors.orange,
             ),
           );
         }
@@ -151,7 +152,6 @@ class _FertilityPlannerScreenState
                   ? 'Dữ liệu chu kỳ đã được cập nhật, không có kỳ kinh mới'
                   : 'Đã đồng bộ $added kỳ kinh mới',
             ),
-            backgroundColor: Colors.green,
           ),
         );
       }
@@ -160,12 +160,9 @@ class _FertilityPlannerScreenState
       await _loadCycles();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Không thể đồng bộ: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Không thể đồng bộ: $e')));
       }
     } finally {
       setState(() {
@@ -297,6 +294,8 @@ class _FertilityPlannerScreenState
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
+              key: const ValueKey('cycle-planner-scroll'),
+              padding: const EdgeInsets.only(bottom: AppSpacing.fabClearance),
               child: Column(
                 children: [
                   // Calendar
@@ -325,6 +324,9 @@ class _FertilityPlannerScreenState
                       onPageChanged: (focusedDay) {
                         _focusedDay = focusedDay;
                       },
+                      calendarStyle: AppCalendarStyle.calendar(context),
+                      daysOfWeekStyle: AppCalendarStyle.daysOfWeek(context),
+                      headerStyle: AppCalendarStyle.header(context),
                       calendarBuilders: CalendarBuilders(
                         markerBuilder: (context, date, events) {
                           return _buildDayMarker(
@@ -360,8 +362,6 @@ class _FertilityPlannerScreenState
 
                   // Quick Actions
                   _buildQuickActionsCard(theme),
-
-                  const SizedBox(height: 16),
                 ],
               ),
             ),
@@ -411,33 +411,11 @@ class _FertilityPlannerScreenState
       }
     }
 
-    if (isPeriodDay) {
-      return Positioned(
-        bottom: 1,
-        child: Container(
-          width: 7,
-          height: 7,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.red,
-          ),
-        ),
-      );
-    }
+    if (isPeriodDay) return _marker(CycleMarkerKind.period);
 
     if (normalizedOvulation != null &&
         normalizedDate.isAtSameMomentAs(normalizedOvulation)) {
-      return Positioned(
-        bottom: 1,
-        child: Container(
-          width: 7,
-          height: 7,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.blue,
-          ),
-        ),
-      );
+      return _marker(CycleMarkerKind.ovulation);
     }
 
     if (fertileWindow != null) {
@@ -448,37 +426,27 @@ class _FertilityPlannerScreenState
           fertileDay.day,
         );
         if (normalizedDate.isAtSameMomentAs(normalized)) {
-          return Positioned(
-            bottom: 1,
-            child: Container(
-              width: 7,
-              height: 7,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.green.withValues(alpha: 0.7),
-              ),
-            ),
-          );
+          return _marker(CycleMarkerKind.fertile);
         }
       }
     }
 
     if (normalizedNextPeriod != null &&
         normalizedDate.isAtSameMomentAs(normalizedNextPeriod)) {
-      return Positioned(
-        bottom: 1,
-        child: Container(
-          width: 7,
-          height: 7,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.red.withValues(alpha: 0.5),
-          ),
-        ),
-      );
+      return _marker(CycleMarkerKind.predictedPeriod);
     }
 
     return null;
+  }
+
+  Widget _marker(CycleMarkerKind kind) {
+    return Positioned(
+      bottom: 2,
+      child: CycleMarker(
+        key: ValueKey('cycle-marker-${kind.name}'),
+        kind: kind,
+      ),
+    );
   }
 
   Widget _buildStatsCard(
@@ -509,7 +477,7 @@ class _FertilityPlannerScreenState
                   icon: Icons.calendar_month,
                   label: 'TB chu kỳ',
                   value: '$avgLength ngày',
-                  color: theme.primaryColor,
+                  color: theme.colorScheme.primary,
                 ),
                 _buildStatItem(
                   icon: switch (regularity) {
@@ -524,16 +492,18 @@ class _FertilityPlannerScreenState
                     CycleRegularity.insufficientData => 'Chưa đủ dữ liệu',
                   },
                   color: switch (regularity) {
-                    CycleRegularity.regular => Colors.green,
-                    CycleRegularity.irregular => Colors.orange,
-                    CycleRegularity.insufficientData => Colors.grey,
+                    CycleRegularity.regular => context.semantic.success,
+                    CycleRegularity.irregular => context.semantic.warning,
+                    CycleRegularity.insufficientData => Theme.of(
+                      context,
+                    ).colorScheme.onSurfaceVariant,
                   },
                 ),
                 _buildStatItem(
                   icon: Icons.history,
                   label: 'Đã ghi',
                   value: '$totalCycles kỳ kinh',
-                  color: Colors.purple,
+                  color: theme.colorScheme.secondary,
                 ),
               ],
             ),
@@ -562,14 +532,18 @@ class _FertilityPlannerScreenState
         const SizedBox(height: 8),
         Text(
           value,
-          style: TextStyle(
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            fontSize: 16,
             color: color,
           ),
         ),
         const SizedBox(height: 4),
-        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        Text(
+          label,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
       ],
     );
   }
@@ -596,7 +570,10 @@ class _FertilityPlannerScreenState
             const SizedBox(height: 16),
             if (nextPeriod != null)
               ListTile(
-                leading: const Icon(Icons.calendar_today, color: Colors.red),
+                leading: Icon(
+                  Icons.calendar_today,
+                  color: theme.colorScheme.error,
+                ),
                 title: const Text('Kỳ kinh tiếp theo'),
                 subtitle: Text(_formatDate(nextPeriod)),
                 trailing: Text(
@@ -606,7 +583,7 @@ class _FertilityPlannerScreenState
               ),
             if (nextOvulation != null)
               ListTile(
-                leading: const Icon(Icons.favorite, color: Colors.blue),
+                leading: Icon(Icons.favorite, color: theme.colorScheme.primary),
                 title: const Text('Ngày rụng trứng dự kiến'),
                 subtitle: Text(_formatDate(nextOvulation)),
                 trailing: Text(
@@ -616,7 +593,7 @@ class _FertilityPlannerScreenState
               ),
             if (fertileWindow != null && fertileWindow.isNotEmpty)
               ListTile(
-                leading: const Icon(Icons.eco, color: Colors.green),
+                leading: Icon(Icons.eco, color: theme.colorScheme.tertiary),
                 title: const Text('Cửa sổ thụ thai'),
                 subtitle: Text(
                   '${_formatDate(fertileWindow.first)} - ${_formatDate(fertileWindow.last)}',
@@ -654,7 +631,7 @@ class _FertilityPlannerScreenState
                 contentPadding: EdgeInsets.zero,
                 leading: Icon(
                   cycle.isFromHealthKit ? Icons.sync : Icons.water_drop,
-                  color: Colors.red,
+                  color: theme.colorScheme.error,
                 ),
                 title: Text(
                   end == null
@@ -691,18 +668,7 @@ class _FertilityPlannerScreenState
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: Wrap(
-                spacing: 16,
-                runSpacing: 8,
-                children: [
-                  _buildLegendItem(Colors.red, 'Kỳ kinh'),
-                  _buildLegendItem(Colors.blue, 'Rụng trứng'),
-                  _buildLegendItem(
-                    Colors.green.withValues(alpha: 0.7),
-                    'Dễ thụ thai',
-                  ),
-                ],
-              ),
+              child: const CycleMarkerLegend(),
             ),
             if (HealthService.isAvailable) ...[
               const SizedBox(height: 8),
@@ -724,21 +690,6 @@ class _FertilityPlannerScreenState
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildLegendItem(Color color, String label) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-        ),
-        const SizedBox(width: 4),
-        Text(label, style: const TextStyle(fontSize: 12)),
-      ],
     );
   }
 

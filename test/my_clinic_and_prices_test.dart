@@ -759,18 +759,9 @@ void main() {
       return (hi + 0.05) / (lo + 0.05);
     }
 
-    // AppTheme.lightTheme/darkTheme fetch Poppins over the network in tests;
-    // they define no filledButtonTheme, so their schemes alone reproduce the
-    // button colours.
     for (final entry in {
-      'light': ThemeData(
-        colorScheme: AppTheme.lightColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
-      'dark': ThemeData(
-        colorScheme: AppTheme.darkColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
     }.entries) {
       for (final (key, clinic) in [
         ('my-clinic-add', MyClinic.empty),

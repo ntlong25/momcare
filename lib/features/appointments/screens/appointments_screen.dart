@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../core/constants/app_constants.dart';
@@ -6,9 +7,11 @@ import '../../../core/services/appointment_reminder_service.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/models/appointment_model.dart';
+import '../../../core/utils/calendar_style.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../widgets/appointment_card.dart';
 import 'add_appointment_screen.dart';
+import '../../../core/widgets/empty_state.dart';
 
 class AppointmentsScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -89,7 +92,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
     final appointments = DatabaseService.getAllAppointments();
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: AppSpacing.fabPagePadding,
       child: Column(
         children: [
           Card(
@@ -120,33 +123,12 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                   return isSameDay(apt.dateTime, day);
                 }).toList();
               },
-              calendarStyle: CalendarStyle(
+              calendarStyle: AppCalendarStyle.calendar(
+                context,
                 markersMaxCount: 3,
-                markerDecoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  shape: BoxShape.circle,
-                ),
-                todayDecoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
-                  shape: BoxShape.circle,
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  shape: BoxShape.circle,
-                ),
               ),
-              headerStyle: HeaderStyle(
-                formatButtonVisible: true,
-                titleCentered: true,
-                formatButtonShowsNext: false,
-                formatButtonDecoration: BoxDecoration(
-                  border: Border.all(color: Theme.of(context).primaryColor),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                formatButtonTextStyle: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
+              daysOfWeekStyle: AppCalendarStyle.daysOfWeek(context),
+              headerStyle: AppCalendarStyle.header(context),
             ),
           ),
           const SizedBox(height: 16),
@@ -185,13 +167,13 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                       Icon(
                         Icons.event_available,
                         size: 48,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       const SizedBox(height: 12),
                       Text(
                         'Không có lịch hẹn trong ngày này',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey[600],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -225,30 +207,12 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
         .toList();
 
     if (appointments.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.calendar_today_outlined,
-                size: 100,
-                color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Chưa có lịch hẹn',
-                style: Theme.of(context).textTheme.displaySmall,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Thêm lịch hẹn đầu tiên để bắt đầu',
-                style: Theme.of(context).textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-              ),
-            ],
+      return const Center(
+        child: SingleChildScrollView(
+          child: AppEmptyState(
+            icon: Icons.calendar_today_outlined,
+            title: 'Chưa có lịch hẹn',
+            message: 'Thêm lịch hẹn đầu tiên để bắt đầu',
           ),
         ),
       );
@@ -260,7 +224,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
         await Future.delayed(const Duration(milliseconds: 500));
       },
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: AppSpacing.fabPagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -289,7 +253,7 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
                 'Lịch hẹn đã qua',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey[600],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 12),

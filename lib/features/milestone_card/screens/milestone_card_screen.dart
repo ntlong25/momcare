@@ -6,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/models/week_detail_model.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/app_logger.dart';
 import '../../../core/utils/share_helper.dart';
 import '../milestone_card_text.dart';
@@ -113,7 +112,6 @@ class _MilestoneCardScreenState extends State<MilestoneCardScreen> {
           Builder(
             builder: (buttonContext) => FilledButton.tonalIcon(
               key: const ValueKey('milestone-share'),
-              style: AppTheme.tonalButtonStyle(theme.colorScheme),
               onPressed: _busy ? null : () => _share(buttonContext),
               icon: _busy
                   ? const SizedBox(

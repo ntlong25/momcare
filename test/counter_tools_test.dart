@@ -13,6 +13,7 @@ import 'package:momcare/core/models/kick_session.dart';
 import 'package:momcare/core/services/contraction_service.dart';
 import 'package:momcare/core/services/kick_counter_service.dart';
 import 'package:momcare/core/theme/app_theme.dart';
+import 'package:momcare/core/theme/app_tokens.dart';
 import 'package:momcare/core/utils/duration_format.dart';
 import 'package:momcare/features/emergency/screens/emergency_warning_screen.dart';
 import 'package:momcare/features/guides/guide_actions.dart';
@@ -486,8 +487,8 @@ void main() {
     });
 
     for (final entry in {
-      'light': ThemeData(colorScheme: AppTheme.lightColorScheme),
-      'dark': ThemeData(colorScheme: AppTheme.darkColorScheme),
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
     }.entries) {
       testWidgets('guidance card text is readable (${entry.key})', (
         tester,
@@ -503,8 +504,7 @@ void main() {
             theme: entry.value,
           ),
         );
-        final scheme = entry.value.colorScheme;
-        final background = AppTheme.primaryTint(scheme, 0.15);
+        final background = entry.value.semantic.warningContainer;
         final body = tester.widget<Text>(find.text('Nội dung'));
         expect(
           _contrast(body.style!.color!, background),
@@ -697,12 +697,9 @@ void main() {
       });
     }
 
-    // AppTheme.lightTheme/darkTheme fetch Poppins over the network in tests;
-    // they define no filledButtonTheme, so their schemes alone reproduce the
-    // button colours.
     for (final entry in {
-      'light': ThemeData(colorScheme: AppTheme.lightColorScheme),
-      'dark': ThemeData(colorScheme: AppTheme.darkColorScheme),
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
     }.entries) {
       testWidgets('stop button text is >= 4.5:1 (${entry.key})', (
         tester,
@@ -724,8 +721,8 @@ void main() {
         final scheme = entry.value.colorScheme;
         final bg = material.color!;
         final fg = material.textStyle!.color!;
-        expect(bg, AppTheme.primaryTint(scheme));
-        expect(fg, scheme.onSurface);
+        expect(bg, scheme.secondaryContainer);
+        expect(fg, scheme.onSecondaryContainer);
         expect(bg.a, 1.0, reason: 'background must be opaque');
         expect(_contrast(fg, bg), greaterThanOrEqualTo(4.5));
         await _disposeTree(tester);
@@ -997,14 +994,8 @@ void main() {
     });
 
     for (final entry in {
-      'light': ThemeData(
-        colorScheme: AppTheme.lightColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
-      'dark': ThemeData(
-        colorScheme: AppTheme.darkColorScheme,
-        primaryColor: AppTheme.primaryColor,
-      ),
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
     }.entries) {
       testWidgets('115 button text is >= 4.5:1 (${entry.key})', (tester) async {
         await tester.pumpWidget(
@@ -1040,5 +1031,93 @@ void main() {
       );
       expect(tester.takeException(), isNull);
     });
+  });
+
+  group('Phase 22.2c counter button styles', () {
+    Material buttonMaterial(WidgetTester tester, String key) =>
+        tester.widget<Material>(
+          find
+              .descendant(
+                of: find.byKey(ValueKey(key)),
+                matching: find.byType(Material),
+              )
+              .first,
+        );
+
+    for (final entry in {
+      'light': AppTheme.light(),
+      'dark': AppTheme.dark(),
+    }.entries) {
+      final scheme = entry.value.colorScheme;
+
+      testWidgets('"Bắt đầu đếm" and "Bắt đầu cơn co" share one filled '
+          'style (${entry.key})', (tester) async {
+        _setView(tester, const Size(430, 932));
+        await tester.pumpWidget(
+          _app(const KickCounterScreen(), theme: entry.value),
+        );
+        await tester.pumpAndSettle();
+        final kick = buttonMaterial(tester, 'kick-start');
+        final kickHeight = tester
+            .getSize(find.byKey(const ValueKey('kick-start')))
+            .height;
+        await _disposeTree(tester);
+
+        await tester.pumpWidget(
+          _app(const ContractionTimerScreen(), theme: entry.value),
+        );
+        await tester.pumpAndSettle();
+        final contraction = buttonMaterial(tester, 'contraction-toggle');
+        final contractionHeight = tester
+            .getSize(find.byKey(const ValueKey('contraction-toggle')))
+            .height;
+
+        expect(kick.color, scheme.primary);
+        expect(contraction.color, kick.color);
+        expect(contraction.textStyle!.color, kick.textStyle!.color);
+        expect(contraction.textStyle!.fontSize, kick.textStyle!.fontSize);
+        expect(contraction.textStyle!.fontWeight, kick.textStyle!.fontWeight);
+        expect(contraction.shape, kick.shape);
+        expect(contractionHeight, kickHeight);
+        expect(
+          _contrast(kick.textStyle!.color!, kick.color!),
+          greaterThanOrEqualTo(4.5),
+        );
+
+        // Active "Kết thúc cơn co" uses the danger (error) roles.
+        await _tapKey(tester, 'contraction-toggle');
+        final active = buttonMaterial(tester, 'contraction-toggle');
+        expect(active.color, scheme.error);
+        expect(active.textStyle!.color, scheme.onError);
+        await _disposeTree(tester);
+      });
+
+      testWidgets('"Hoàn tác" and "Kết thúc" have the same height '
+          '(${entry.key})', (tester) async {
+        _setView(tester, const Size(430, 932));
+        await tester.pumpWidget(
+          _app(const KickCounterScreen(), theme: entry.value),
+        );
+        await tester.pumpAndSettle();
+        await _tapKey(tester, 'kick-start');
+        for (final scale in [1.0, 1.5]) {
+          if (scale != 1.0) {
+            await tester.pumpWidget(
+              _app(
+                const KickCounterScreen(),
+                theme: entry.value,
+                textScale: scale,
+              ),
+            );
+            await tester.pumpAndSettle();
+          }
+          final undo = tester.getSize(find.byKey(const ValueKey('kick-undo')));
+          final stop = tester.getSize(find.byKey(const ValueKey('kick-stop')));
+          expect(undo.height, stop.height, reason: 'x$scale');
+          expect(undo.height, greaterThanOrEqualTo(48));
+        }
+        await _disposeTree(tester);
+      });
+    }
   });
 }

@@ -8,6 +8,7 @@ import '../../../core/services/guide_progress_service.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../screens/main_navigation.dart';
+import '../../../core/widgets/app_card.dart';
 
 /// "Sẵn sàng mang thai": checklist progress across the pre-pregnancy guides
 /// with up to three guides to continue (A1). Hidden when no pre guide tracks
@@ -31,69 +32,66 @@ class PreReadinessCard extends ConsumerWidget {
     if (readiness.isEmpty) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurface.withValues(alpha: 0.75);
+    final muted = theme.colorScheme.onSurfaceVariant;
 
-    return Card(
+    return AppCard(
       key: const ValueKey('pre-readiness-card'),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.checklist, color: Colors.teal),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Sẵn sàng mang thai',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.checklist, color: theme.colorScheme.tertiary),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Sẵn sàng mang thai',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextButton(
-                  key: const ValueKey('pre-readiness-see-all'),
-                  onPressed: () =>
-                      ref.read(navigationIndexProvider.notifier).state =
-                          guidesTabIndex,
-                  child: const Text('Xem tất cả'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: readiness.ratio,
-                minHeight: 8,
-                color: Colors.teal,
-                backgroundColor: Colors.teal.withValues(alpha: 0.15),
               ),
+              TextButton(
+                key: const ValueKey('pre-readiness-see-all'),
+                onPressed: () =>
+                    ref.read(navigationIndexProvider.notifier).state =
+                        guidesTabIndex,
+                child: const Text('Xem tất cả'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: readiness.ratio,
+              minHeight: 8,
+              color: theme.colorScheme.tertiary,
+              backgroundColor: theme.colorScheme.tertiaryContainer,
             ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '${readiness.done}/${readiness.total} việc · ${readiness.percent}%',
+            style: theme.textTheme.labelLarge,
+          ),
+          if (readiness.isComplete) ...[
             const SizedBox(height: 8),
             Text(
-              '${readiness.done}/${readiness.total} việc · ${readiness.percent}%',
-              style: theme.textTheme.labelLarge,
+              'Bạn đã hoàn thành danh sách chuẩn bị. Bạn có thể xem lại '
+              'cẩm nang bất cứ lúc nào.',
+              style: theme.textTheme.bodyMedium?.copyWith(color: muted),
             ),
-            if (readiness.isComplete) ...[
-              const SizedBox(height: 8),
-              Text(
-                'Bạn đã hoàn thành danh sách chuẩn bị. Bạn có thể xem lại '
-                'cẩm nang bất cứ lúc nào.',
-                style: theme.textTheme.bodyMedium?.copyWith(color: muted),
-              ),
-            ] else ...[
-              const SizedBox(height: 4),
-              for (final entry in readiness.nextUp)
-                _NextUpRow(entry: entry, muted: muted),
-            ],
-            if (readiness.isDraft) ...[
-              const SizedBox(height: 8),
-              const DraftContentNote(),
-            ],
+          ] else ...[
+            const SizedBox(height: 4),
+            for (final entry in readiness.nextUp)
+              _NextUpRow(entry: entry, muted: muted),
           ],
-        ),
+          if (readiness.isDraft) ...[
+            const SizedBox(height: 8),
+            const DraftContentNote(),
+          ],
+        ],
       ),
     );
   }
@@ -120,10 +118,10 @@ class _NextUpRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: [
-            const Icon(
+            Icon(
               Icons.radio_button_unchecked,
               size: 18,
-              color: Colors.teal,
+              color: Theme.of(context).colorScheme.tertiary,
             ),
             const SizedBox(width: 10),
             Expanded(

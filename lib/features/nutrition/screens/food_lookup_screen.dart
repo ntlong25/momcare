@@ -7,6 +7,7 @@ import '../../../core/utils/food_filter.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../widgets/food_detail_sheet.dart';
 import '../widgets/food_verdict_badge.dart';
+import '../../../core/widgets/empty_state.dart';
 
 /// "Bầu ăn được không?": accent-insensitive search over `foods.json` with
 /// verdict and group filters.
@@ -183,15 +184,12 @@ class _FoodLookupScreenState extends State<FoodLookupScreen> {
   }
 
   Widget _chip(String label, bool selected, VoidCallback onTap) {
-    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: FilterChip(
         label: Text(label),
         selected: selected,
         onSelected: (_) => onTap(),
-        selectedColor: theme.primaryColor.withValues(alpha: 0.3),
-        checkmarkColor: theme.primaryColor,
       ),
     );
   }
@@ -274,28 +272,12 @@ class _NoResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          Icon(
-            Icons.search_off,
-            size: 56,
-            color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            FoodLookupScreen.noResultsText,
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'Thử tìm bằng tên khác hoặc bỏ bớt bộ lọc. Nếu chưa chắc, hãy hỏi bác sĩ hoặc chuyên gia dinh dưỡng.',
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+    return const AppEmptyState(
+      icon: Icons.search_off,
+      iconSize: 56,
+      title: FoodLookupScreen.noResultsText,
+      message:
+          'Thử tìm bằng tên khác hoặc bỏ bớt bộ lọc. Nếu chưa chắc, hãy hỏi bác sĩ hoặc chuyên gia dinh dưỡng.',
     );
   }
 }
@@ -314,7 +296,7 @@ class _EmptyPack extends StatelessWidget {
             Icon(
               Icons.restaurant_menu_outlined,
               size: 80,
-              color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 16),
             Text(

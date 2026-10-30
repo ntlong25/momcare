@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 
 class GuideScreen extends StatefulWidget {
   const GuideScreen({super.key});
@@ -18,7 +19,7 @@ class _GuideScreenState extends State<GuideScreen> {
       description:
           'Ứng dụng đồng hành cùng bạn trong hành trình chuẩn bị mang thai và thai kỳ. '
           'Bạn có thể theo dõi tiến trình, quản lý lịch hẹn và xem gợi ý dinh dưỡng.',
-      color: Colors.pink,
+      tone: AppTone.primary,
     ),
     _GuidePage(
       icon: Icons.track_changes,
@@ -26,7 +27,7 @@ class _GuideScreenState extends State<GuideScreen> {
       description:
           'Theo dõi thai kỳ theo từng tuần, xem mốc phát triển của bé, ghi nhận cân nặng '
           'và đếm ngược đến ngày dự sinh.',
-      color: Colors.purple,
+      tone: AppTone.secondary,
     ),
     _GuidePage(
       icon: Icons.favorite_border,
@@ -34,28 +35,28 @@ class _GuideScreenState extends State<GuideScreen> {
       description:
           'Ghi lại cân nặng, huyết áp, tâm trạng, triệu chứng và ghi chú hằng ngày để bạn '
           'có cái nhìn rõ hơn về sức khỏe của mình.',
-      color: Colors.red,
+      tone: AppTone.primary,
     ),
     _GuidePage(
       icon: Icons.calendar_today,
       title: 'Lịch hẹn',
       description:
           'Lưu lịch khám, địa điểm, bác sĩ và ghi chú để dễ chuẩn bị trước mỗi lần thăm khám.',
-      color: Colors.blue,
+      tone: AppTone.secondary,
     ),
     _GuidePage(
       icon: Icons.restaurant_menu,
       title: 'Dinh dưỡng và công thức',
       description:
           'Xem hướng dẫn dinh dưỡng theo giai đoạn và các công thức món ăn lành mạnh.',
-      color: Colors.orange,
+      tone: AppTone.tertiary,
     ),
     _GuidePage(
       icon: Icons.settings,
       title: 'Cài đặt',
       description:
           'Tùy chỉnh chế độ sáng/tối, chế độ ứng dụng và thông tin thai kỳ. Dữ liệu v1 được lưu trên thiết bị.',
-      color: Colors.teal,
+      tone: AppTone.secondary,
     ),
   ];
 
@@ -145,6 +146,7 @@ class _GuideScreenState extends State<GuideScreen> {
   }
 
   Widget _buildPage(_GuidePage page) {
+    final colors = page.tone.of(context);
     return Padding(
       padding: const EdgeInsets.all(32),
       child: Column(
@@ -154,28 +156,17 @@ class _GuideScreenState extends State<GuideScreen> {
             width: 140,
             height: 140,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [page.color, page.color.withValues(alpha: 0.6)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: colors.main,
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: page.color.withValues(alpha: 0.3),
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                ),
-              ],
             ),
-            child: Icon(page.icon, size: 70, color: Colors.white),
+            child: Icon(page.icon, size: 70, color: colors.onMain),
           ),
           const SizedBox(height: 48),
           Text(
             page.title,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: page.color,
+              color: colors.main,
             ),
             textAlign: TextAlign.center,
           ),
@@ -198,8 +189,8 @@ class _GuideScreenState extends State<GuideScreen> {
       width: isActive ? 24 : 8,
       decoration: BoxDecoration(
         color: isActive
-            ? Theme.of(context).primaryColor
-            : Theme.of(context).primaryColor.withValues(alpha: 0.3),
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.outlineVariant,
         borderRadius: BorderRadius.circular(4),
       ),
     );
@@ -210,12 +201,12 @@ class _GuidePage {
   final IconData icon;
   final String title;
   final String description;
-  final Color color;
+  final AppTone tone;
 
   _GuidePage({
     required this.icon,
     required this.title,
     required this.description,
-    required this.color,
+    required this.tone,
   });
 }

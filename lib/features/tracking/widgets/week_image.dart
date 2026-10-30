@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/models/week_detail_model.dart';
-import '../../../core/theme/app_theme.dart';
 
 /// Week illustration from `WeekDetail.image`. While the asset is loading, or
 /// when it is missing/unset, a themed placeholder card is shown instead, so a
@@ -38,7 +37,7 @@ class WeekImage extends StatelessWidget {
   Widget _placeholder(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final foreground = scheme.onSurface;
+    final foreground = scheme.onSecondaryContainer;
     final size = detail.sizeCompare;
 
     return Container(
@@ -47,14 +46,7 @@ class WeekImage extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppTheme.primaryTint(scheme),
-            AppTheme.primaryTint(scheme, 0.12),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: scheme.secondaryContainer,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(

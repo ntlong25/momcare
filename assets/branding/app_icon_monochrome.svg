@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MomCare+ Android monochrome (Android 13 themed icon). Same glyph,
+     single colour, transparent background (108 dp canvas at 4x = 432 px).
+     The glyph stays inside the 66 dp safe zone (264 px circle). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432">
+  <g transform="translate(83.4 78.2) scale(2.6)">
+    <path d="M50 34 C53 26 60 21 69 21 C80 21 88 29 88 40 C88 56 74 70 50 85 C30 73 17 61 15 46" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="31" cy="28" r="12" fill="#FFFFFF"/>
+    <circle cx="46" cy="61" r="9.5" fill="#FFFFFF"/>
+  </g>
+</svg>

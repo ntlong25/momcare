@@ -53,8 +53,8 @@ double _contrast(Color a, Color b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-final ThemeData _light = ThemeData(colorScheme: AppTheme.lightColorScheme);
-final ThemeData _dark = ThemeData(colorScheme: AppTheme.darkColorScheme);
+final ThemeData _light = AppTheme.light();
+final ThemeData _dark = AppTheme.dark();
 
 void _setView(WidgetTester tester, [Size logical = const Size(360, 640)]) {
   tester.view.devicePixelRatio = 3;
@@ -760,7 +760,7 @@ void main() {
           );
           final bg = material.color!;
           final fg = material.textStyle!.color!;
-          expect(bg, AppTheme.primaryTint(theme.colorScheme));
+          expect(bg, theme.colorScheme.secondaryContainer);
           expect(bg.a, 1.0);
           expect(_contrast(fg, bg), greaterThanOrEqualTo(4.5), reason: key);
         }
@@ -1303,17 +1303,21 @@ void main() {
               find.descendant(of: chipFinder, matching: find.byType(Text)),
             ),
           ).style.merge(label.style);
-          final states = {if (chip.selected) WidgetState.selected};
-          final background = chip.color!.resolve(states)!;
-          // The chip paints its colour over the screen background.
-          final scaffold = theme.scaffoldBackgroundColor;
-          final bg = Color.alphaBlend(background, scaffold);
+          // Theme chip colours (Phase 22): selected secondaryContainer,
+          // unselected transparent over the screen background.
+          expect(chip.color, isNull);
+          final bg = chip.selected
+              ? theme.chipTheme.selectedColor!
+              : theme.scaffoldBackgroundColor;
           expect(
             _contrast(style.color!, bg),
             greaterThanOrEqualTo(4.5),
             reason: '${preset.name} selected=${chip.selected}',
           );
-          expect(chip.checkmarkColor, theme.colorScheme.onSurface);
+          expect(
+            _contrast(theme.chipTheme.checkmarkColor!, bg),
+            greaterThanOrEqualTo(4.5),
+          );
         }
         // Also with another chip selected.
         await tester.tap(
@@ -1324,12 +1328,9 @@ void main() {
           find.byKey(const ValueKey('health-export-sincePregnancy')),
         );
         expect(selected.selected, isTrue);
-        final bg = Color.alphaBlend(
-          selected.color!.resolve({WidgetState.selected})!,
-          theme.scaffoldBackgroundColor,
-        );
+        final bg = theme.chipTheme.selectedColor!;
         expect(
-          _contrast(theme.colorScheme.onSurface, bg),
+          _contrast(theme.colorScheme.onSecondaryContainer, bg),
           greaterThanOrEqualTo(4.5),
         );
         expect(tester.takeException(), isNull);
