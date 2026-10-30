@@ -50,3 +50,7 @@ write('3_thuc_pham.csv', ['ID', 'Tên', 'Tên khác', 'Nhóm', 'Kết luận', '
 const daily = (file) => read(`daily/${file}`).items.map((i) => [i.day, i.week, i.category, i.title, i.body]);
 write('4_thai_giao.csv', ['Ngày', 'Tuần', 'Loại', 'Tiêu đề', 'Nội dung'], daily('thai_giao.json'));
 write('5_meo_hang_ngay.csv', ['Ngày', 'Tuần', 'Loại', 'Tiêu đề', 'Nội dung'], daily('daily_tips.json'));
+
+const fertile = read('fertile_guidance.json');
+write('6_canh_ngay.csv', ['ID', 'Nhóm', 'Nội dung', 'Nguồn'],
+  fertile.items.map((i) => [i.id, i.group, i.text, list(fertile.sources)]));

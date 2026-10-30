@@ -116,9 +116,9 @@ void main() {
         today: today,
       );
 
-      expect(fertileWindow, hasLength(7));
+      expect(fertileWindow, hasLength(6));
       expect(fertileWindow!.first, DateTime(2026, 3, 7));
-      expect(fertileWindow.last, DateTime(2026, 3, 13));
+      expect(fertileWindow.last, DateTime(2026, 3, 12));
     });
   });
 

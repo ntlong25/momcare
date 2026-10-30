@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
+import '../../../core/services/cycle_prediction.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/calendar_style.dart';
 import '../../../core/utils/date_formatter.dart';
+import '../../home/widgets/late_period_card.dart';
+import '../../references/widgets/draft_content_note.dart';
 import '../widgets/cycle_marker.dart';
 import 'add_period_screen.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -268,9 +272,11 @@ class _FertilityPlannerScreenState
       _cycles,
     );
     final regularity = HealthService.cycleRegularity(_cycles);
-    final nextPeriod = HealthService.predictNextPeriod(_cycles);
-    final nextOvulation = HealthService.predictNextOvulation(_cycles);
-    final fertileWindow = HealthService.predictFertileWindow(_cycles);
+    final today = DateTime.now();
+    // Rolled-forward dates are not a current estimate: while late or stale
+    // the calendar and "Dự đoán" give way to the same message as Hôm nay.
+    final computed = CyclePrediction.compute(_cycles, today: today);
+    final prediction = computed?.isLateOrStale == true ? null : computed;
 
     return Scaffold(
       appBar: widget.showAppBar
@@ -339,12 +345,7 @@ class _FertilityPlannerScreenState
                         headerTitleBuilder: AppCalendarStyle.headerTitleBuilder,
                         dowBuilder: AppCalendarStyle.daysOfWeekBuilder,
                         markerBuilder: (context, date, events) {
-                          return _buildDayMarker(
-                            date,
-                            fertileWindow,
-                            nextOvulation,
-                            nextPeriod,
-                          );
+                          return _buildDayMarker(date, prediction);
                         },
                       ),
                     ),
@@ -359,12 +360,16 @@ class _FertilityPlannerScreenState
                   ),
 
                   // Predictions
-                  if (nextPeriod != null || nextOvulation != null)
-                    _buildPredictionsCard(
-                      theme,
-                      nextPeriod,
-                      nextOvulation,
-                      fertileWindow,
+                  if (prediction != null)
+                    _buildPredictionsCard(theme, prediction)
+                  else if (computed != null)
+                    Card(
+                      key: const ValueKey('cycle-late-state'),
+                      margin: const EdgeInsets.all(8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: LatePeriodSummary(cycles: _cycles, today: today),
+                      ),
                     ),
 
                   // Recorded periods (edit / delete)
@@ -383,19 +388,10 @@ class _FertilityPlannerScreenState
     );
   }
 
-  Widget? _buildDayMarker(
-    DateTime date,
-    List<DateTime>? fertileWindow,
-    DateTime? ovulation,
-    DateTime? nextPeriod,
-  ) {
+  Widget? _buildDayMarker(DateTime date, CyclePrediction? prediction) {
     final normalizedDate = DateTime(date.year, date.month, date.day);
-    final normalizedOvulation = ovulation != null
-        ? DateTime(ovulation.year, ovulation.month, ovulation.day)
-        : null;
-    final normalizedNextPeriod = nextPeriod != null
-        ? DateTime(nextPeriod.year, nextPeriod.month, nextPeriod.day)
-        : null;
+    bool within(DateTime start, DateTime end) =>
+        !normalizedDate.isBefore(start) && !normalizedDate.isAfter(end);
 
     // Check if it's a period day from cycles
     bool isPeriodDay = false;
@@ -423,29 +419,17 @@ class _FertilityPlannerScreenState
 
     if (isPeriodDay) return _marker(CycleMarkerKind.period);
 
-    if (normalizedOvulation != null &&
-        normalizedDate.isAtSameMomentAs(normalizedOvulation)) {
+    if (prediction == null) return null;
+
+    if (within(prediction.earliestOvulation, prediction.latestOvulation)) {
       return _marker(CycleMarkerKind.ovulation);
     }
-
-    if (fertileWindow != null) {
-      for (final fertileDay in fertileWindow) {
-        final normalized = DateTime(
-          fertileDay.year,
-          fertileDay.month,
-          fertileDay.day,
-        );
-        if (normalizedDate.isAtSameMomentAs(normalized)) {
-          return _marker(CycleMarkerKind.fertile);
-        }
-      }
+    if (within(prediction.fertileStart, prediction.fertileEnd)) {
+      return _marker(CycleMarkerKind.fertile);
     }
-
-    if (normalizedNextPeriod != null &&
-        normalizedDate.isAtSameMomentAs(normalizedNextPeriod)) {
+    if (within(prediction.earliestPeriod, prediction.latestPeriod)) {
       return _marker(CycleMarkerKind.predictedPeriod);
     }
-
     return null;
   }
 
@@ -564,12 +548,11 @@ class _FertilityPlannerScreenState
     );
   }
 
-  Widget _buildPredictionsCard(
-    ThemeData theme,
-    DateTime? nextPeriod,
-    DateTime? nextOvulation,
-    List<DateTime>? fertileWindow,
-  ) {
+  Widget _buildPredictionsCard(ThemeData theme, CyclePrediction prediction) {
+    final guidance = ContentPackService.fertileGuidance;
+    final muted = theme.textTheme.bodySmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
     return Card(
       margin: const EdgeInsets.all(8),
       child: Padding(
@@ -584,30 +567,56 @@ class _FertilityPlannerScreenState
               ),
             ),
             const SizedBox(height: 16),
-            if (nextPeriod != null)
-              ListTile(
-                leading: const _PredictionMarker(
-                  CycleMarkerKind.predictedPeriod,
+            ListTile(
+              leading: const _PredictionMarker(CycleMarkerKind.predictedPeriod),
+              title: const Text('Kỳ kinh tiếp theo'),
+              subtitle: _PredictionDates(
+                prediction.earliestPeriod,
+                prediction.latestPeriod,
+              ),
+            ),
+            ListTile(
+              leading: const _PredictionMarker(CycleMarkerKind.ovulation),
+              title: const Text('Ngày rụng trứng dự kiến'),
+              subtitle: _PredictionDates(
+                prediction.earliestOvulation,
+                prediction.latestOvulation,
+              ),
+            ),
+            ListTile(
+              leading: const _PredictionMarker(CycleMarkerKind.fertile),
+              title: const Text('Cửa sổ thụ thai'),
+              subtitle: Text(
+                DateFormatter.formatDateRange(
+                  prediction.fertileStart,
+                  prediction.fertileEnd,
                 ),
-                title: const Text('Kỳ kinh tiếp theo'),
-                subtitle: Text(_formatDate(nextPeriod)),
-                trailing: _PredictionCountdown(nextPeriod),
               ),
-            if (nextOvulation != null)
-              ListTile(
-                leading: const _PredictionMarker(CycleMarkerKind.ovulation),
-                title: const Text('Ngày rụng trứng dự kiến'),
-                subtitle: Text(_formatDate(nextOvulation)),
-                trailing: _PredictionCountdown(nextOvulation),
-              ),
-            if (fertileWindow != null && fertileWindow.isNotEmpty)
-              ListTile(
-                leading: const _PredictionMarker(CycleMarkerKind.fertile),
-                title: const Text('Cửa sổ thụ thai'),
-                subtitle: Text(
-                  '${_formatDate(fertileWindow.first)} - ${_formatDate(fertileWindow.last)}',
+            ),
+            if (!guidance.isEmpty) ...[
+              const SizedBox(height: AppSpacing.sm),
+              Text(
+                guidance.confidenceLine(prediction),
+                key: const ValueKey('cycle-confidence'),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
                 ),
               ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(guidance.confidenceNote(prediction), style: muted),
+              const SizedBox(height: AppSpacing.xs),
+              Text(guidance.text('ovulation_note'), style: muted),
+              if (prediction.hasCycleOutsideTypicalRange) ...[
+                const SizedBox(height: AppSpacing.xs),
+                Text(guidance.text('outside_range_note'), style: muted),
+              ],
+              const SizedBox(height: AppSpacing.xs),
+              Text(guidance.text('not_contraception'), style: muted),
+              if (guidance.isDraft) ...[
+                const SizedBox(height: AppSpacing.md),
+                const DraftContentNote(),
+              ],
+            ],
           ],
         ),
       ),
@@ -644,8 +653,8 @@ class _FertilityPlannerScreenState
                 ),
                 title: Text(
                   end == null
-                      ? 'Bắt đầu ${_formatDate(cycle.startDate)}'
-                      : '${_formatDate(cycle.startDate)} - ${_formatDate(end)}',
+                      ? 'Bắt đầu ${DateFormatter.formatDate(cycle.startDate)}'
+                      : DateFormatter.formatDateRange(cycle.startDate, end),
                 ),
                 subtitle: cycle.cycleLengthDays != null
                     ? Text('Chu kỳ ${cycle.cycleLengthDays} ngày')
@@ -701,28 +710,33 @@ class _FertilityPlannerScreenState
       ),
     );
   }
-
-  String _formatDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
-  }
 }
 
-/// Trailing countdown of a "Dự đoán" row. Capped so "Đã qua 12 ngày" wraps
+/// Trailing countdown of a "Dự đoán" range, worded as on Hôm nay. Capped so
+/// "Đã qua 12 ngày" wraps
 /// at large fonts instead of squeezing the row title.
-class _PredictionCountdown extends StatelessWidget {
-  final DateTime date;
+/// Date range of a "Dự đoán" row with its countdown below it. The countdown
+/// is not a ListTile `trailing`: that slot has a fixed height and clips the
+/// longer labels at large text sizes.
+class _PredictionDates extends StatelessWidget {
+  final DateTime start;
+  final DateTime end;
 
-  const _PredictionCountdown(this.date);
+  const _PredictionDates(this.start, this.end);
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 112),
-      child: Text(
-        DateFormatter.formatDayCountdown(date),
-        textAlign: TextAlign.end,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(DateFormatter.formatDateRange(start, end)),
+        Text(
+          RangeCountdown.of(start, end, DateTime.now()).label(
+            ContentPackService.fertileGuidance.text('ovulation_in_range'),
+          ),
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

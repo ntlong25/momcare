@@ -554,7 +554,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Default 28-day cycle: next period in 8 days, ovulation 14 before it.
-      expect(find.text('8 ngày'), findsOneWidget);
+      expect(find.text('8 ngày nữa'), findsOneWidget);
       expect(find.text('Đã qua 6 ngày'), findsOneWidget);
       expect(find.text('-6 ngày'), findsNothing);
       expect(tester.takeException(), isNull);

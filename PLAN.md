@@ -1215,7 +1215,7 @@ Test round 2 (2026-10-30): all round-1 fixes and consent pass on device. 3 minor
 Not tested on device: real upgrade from an old build (code and test only), PDF text content, notification delivery, Công thức tab this round.
 
 ## Phase 24: Honest Fertile Window Prediction and Today Card
-Status: In progress. Round 1 of the "canh ngày thụ thai" idea, see FEATURE_BRAINSTORM.md section 9. Authorised by the user. No new permissions and no new stored data in this phase.
+Status: Completed (2026-10-31). Round 1 of the "canh ngày thụ thai" idea, see FEATURE_BRAINSTORM.md section 9. Authorised by the user. No new permissions and no new stored data in this phase.
 
 - Task 24.1: Pure `CyclePrediction` from the recorded cycles and today: next period range and ovulation range from the shortest and longest of the last 6 cycle lengths, fertile window of 6 days ending on ovulation, peak days, confidence, irregular flag, cycle outside 21-35 days flag.
   Acceptance: unit tests cover regular, irregular, 1 cycle, no cycles, under 21, over 35, a cycle running past the prediction, month and year boundaries.
@@ -1226,7 +1226,13 @@ Status: In progress. Round 1 of the "canh ngày thụ thai" idea, see FEATURE_BR
 - Task 24.4: Guidance strings go into the doctor review packet.
   Acceptance: `content_source/review/` has the new wording; nothing is marked approved.
 
+Results: `CyclePrediction` and `CycleStatus` in `lib/core/services/cycle_prediction.dart` are the single source for Hôm nay and Chu kỳ. New card `fertile_today_card.dart`. Wording in `assets/content/fertile_guidance.json`, generated from `content_source/build/fertile_guidance.js`, exported to `content_source/review/6_canh_ngay.csv` (20 rows, draft).
+Test round 1: date arithmetic and Hôm nay card pass. Accepted P24-R1-01 ('Đã qua' while a range is open), P24-R1-02 (Chu kỳ showed fertile dates while late or stale), P24-R1-03 (Đỉnh card used the ovulation star). Verdict fix.
+Test round 2: all three fixed on device. P24-R2-01 (countdown label clipped at font 1.5) fixed by moving it under the dates; covered by tests, not re-run on device. Verdict pass.
+Not tested on device: exact range boundaries, month and year boundaries, Health Connect sync, iOS.
+
 ## Known issues (pre-existing, backlog)
+- The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
 - Resolved in Phase 23: Chu kỳ calendar shows an English month header ('October 2026'), format button ('2 weeks') and weekday names; needs a Vietnamese locale/format labels. Found in Phase 14 test round 1 (P14-R1-04).
 - `FlutterSecureStorage: Could not decrypt key` is logged at each launch (library startup check); data is unaffected. Found in Phase 14 test round 1.
 - The old Tuần thai header rows (`tracking_screen.dart` ~164/210) and `weight_gain_chart.dart:79` overflow with Flutter's wide test font at 390px logical width; this was not seen on device at 1080x2400. Found in the Phase 14 dev round.
@@ -1324,3 +1330,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 22 round 1: Be Vietnam Pro Medium/SemiBold TTFs bundled, `google_fonts` removed, `flutter_launcher_icons` ^0.14.4 added (dev) and run (pbxproj ASSETCATALOG line restored to `YES`); `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` passed with 473/473 tests (129 new across theme contrast, widget contrast, hard-coded colour guard, components, Hôm nay layout and tab scaffold tests, re-run by QA); `flutter build apk --debug` passed (aapt: label "MomCare+", adaptive icon); installed on emulator-5554 with `adb install -r` (data kept), logcat clean. iOS not built (AppIcon Contents.json/file review only). Verdict: fix (P22-R1-01..05 accepted).
 - Phase 22 round 2: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` passed with 489/489 tests (16 new, re-run by QA); `flutter build apk --debug` passed; installed on emulator-5554 with `adb install -r` (data kept), logcat clean. P22-R2-01 accepted and fixed by the orchestrator (`AppInitializer` waiting screen uses `BrandMark`), verified by a cold-start screenshot series; analyze/test (489/489)/debug APK re-run and passed. Verdict: pass; Phase 22 completed.
 - Phase 23: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 524/524; `flutter build apk --debug` OK; emulator QA 2 rounds with data wipe (software GPU, host driver crashes otherwise).
+- Phase 24: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 571/571; debug APK OK (x64 build needed for the emulator's free space); emulator QA 2 rounds.

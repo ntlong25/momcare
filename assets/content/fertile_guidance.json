@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "type": "fertile_guidance",
+  "lastUpdated": "2026-10-29",
+  "reviewStatus": "draft_requires_medical_review",
+  "sources": [
+    "ASRM, Optimizing natural fertility (2021): https://www.asrm.org/practice-guidance/practice-committee-documents/optimizing-natural-fertility-a-committee-opinion-2021"
+  ],
+  "items": [
+    {
+      "id": "title",
+      "group": "Thẻ Hôm nay",
+      "text": "Khả năng thụ thai hôm nay"
+    },
+    {
+      "id": "level_low",
+      "group": "Mức",
+      "text": "Thấp"
+    },
+    {
+      "id": "level_high",
+      "group": "Mức",
+      "text": "Cao"
+    },
+    {
+      "id": "level_peak",
+      "group": "Mức",
+      "text": "Đỉnh"
+    },
+    {
+      "id": "estimate_suffix",
+      "group": "Mức",
+      "text": "(ước tính)"
+    },
+    {
+      "id": "message_low",
+      "group": "Thẻ Hôm nay",
+      "text": "Hôm nay nằm ngoài khoảng ngày dễ thụ thai dự đoán."
+    },
+    {
+      "id": "message_high",
+      "group": "Thẻ Hôm nay",
+      "text": "Hôm nay nằm trong khoảng ngày dễ thụ thai dự đoán."
+    },
+    {
+      "id": "message_peak",
+      "group": "Thẻ Hôm nay",
+      "text": "Hôm nay nằm trong những ngày dễ thụ thai nhất của khoảng dự đoán."
+    },
+    {
+      "id": "window_label",
+      "group": "Dự đoán",
+      "text": "Khoảng ngày dễ thụ thai dự đoán"
+    },
+    {
+      "id": "confidence_label",
+      "group": "Độ tin cậy",
+      "text": "Độ tin cậy"
+    },
+    {
+      "id": "confidence_low",
+      "group": "Độ tin cậy",
+      "text": "Thấp"
+    },
+    {
+      "id": "confidence_medium",
+      "group": "Độ tin cậy",
+      "text": "Trung bình"
+    },
+    {
+      "id": "confidence_note_insufficient",
+      "group": "Độ tin cậy",
+      "text": "Cần ít nhất 3 kỳ kinh để ước tính tốt hơn, nên ngày dự đoán có thể lệch nhiều."
+    },
+    {
+      "id": "confidence_note_irregular",
+      "group": "Độ tin cậy",
+      "text": "Chu kỳ của bạn chưa đều nên ngày dự đoán có thể lệch nhiều."
+    },
+    {
+      "id": "confidence_note_medium",
+      "group": "Độ tin cậy",
+      "text": "Chu kỳ gần đây khá đều, nhưng ngày thực tế vẫn có thể lệch."
+    },
+    {
+      "id": "ovulation_note",
+      "group": "Dự đoán",
+      "text": "Ngày rụng trứng chỉ được ước tính, khoảng 14 ngày trước kỳ kinh tiếp theo, và có thể khác với thực tế."
+    },
+    {
+      "id": "ovulation_in_range",
+      "group": "Dự đoán",
+      "text": "Trong khoảng dự đoán"
+    },
+    {
+      "id": "frequency",
+      "group": "Gợi ý",
+      "text": "Trong khoảng ngày này, quan hệ khoảng 1-2 ngày một lần là đủ. Hai bạn cứ chọn nhịp phù hợp với mình, không cần kiêng trước đó."
+    },
+    {
+      "id": "outside_range_note",
+      "group": "Lưu ý",
+      "text": "Có chu kỳ ngắn hơn 21 ngày hoặc dài hơn 35 ngày. Bạn có thể trao đổi thêm với bác sĩ khi tiện."
+    },
+    {
+      "id": "not_contraception",
+      "group": "Lưu ý",
+      "text": "Đây chỉ là ước tính từ dữ liệu bạn đã ghi, không dùng để tránh thai."
+    }
+  ]
+}

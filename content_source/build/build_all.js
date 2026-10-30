@@ -34,3 +34,5 @@ writeJson('assets/content/daily/daily_tips.json', daily('daily_tip', tips, ([cod
 writeJson('assets/content/foods.json', {
   version: 1, lastUpdated: LAST_UPDATED, reviewStatus: REVIEW, foods: require('./foods'),
 });
+
+require('./build_fertile_guidance');
