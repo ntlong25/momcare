@@ -22,12 +22,12 @@ class WeeklyTipsCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.tertiaryContainer,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
                     Icons.lightbulb,
-                    color: Theme.of(context).colorScheme.onTertiaryContainer,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                     size: 28,
                   ),
                 ),
@@ -63,7 +63,7 @@ class WeeklyTipsCard extends StatelessWidget {
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Center(
@@ -73,7 +73,7 @@ class WeeklyTipsCard extends StatelessWidget {
                               ?.copyWith(
                                 color: Theme.of(
                                   context,
-                                ).colorScheme.onTertiaryContainer,
+                                ).colorScheme.onSecondaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),

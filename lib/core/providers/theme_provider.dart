@@ -4,8 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_constants.dart';
 
 class ThemeNotifier extends StateNotifier<ThemeMode> {
-  /// Fresh install: follow the device until the user picks a theme.
-  static const ThemeMode defaultMode = ThemeMode.system;
+  /// Fresh install and after "Xóa toàn bộ dữ liệu": light, whatever the
+  /// device uses, until the user picks a theme.
+  static const ThemeMode defaultMode = ThemeMode.light;
 
   ThemeNotifier() : super(defaultMode) {
     _loadTheme();

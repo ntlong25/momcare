@@ -782,6 +782,18 @@ void main() {
         expect(hintText, isNot(contains(banned)));
       }
 
+      final callMaterial = tester.widget<Material>(
+        find
+            .descendant(
+              of: find.byKey(const ValueKey('contraction-call-115')),
+              matching: find.byType(Material),
+            )
+            .first,
+      );
+      final semantic = tester.element(hint).semantic;
+      expect(callMaterial.color, semantic.emergency);
+      expect(callMaterial.textStyle!.color, semantic.onEmergency);
+
       await _tapKey(tester, 'contraction-call-115');
       expect(launched.single.toString(), 'tel:115');
       expect(find.text('Không mở được ứng dụng phù hợp'), findsNothing);

@@ -128,6 +128,9 @@ void main() {
         AppCardVariant.hero: (s.primaryContainer, s.onPrimaryContainer),
         AppCardVariant.alert: (s.errorContainer, s.onErrorContainer),
         AppCardVariant.notice: (sem.warningContainer, sem.onWarningContainer),
+        AppCardVariant.emergency: (sem.emergency, sem.onEmergency),
+        AppCardVariant.peach: (sem.peachContainer, sem.onPeachContainer),
+        AppCardVariant.mint: (sem.mintContainer, sem.onMintContainer),
       };
       for (final MapEntry(key: variant, value: (bg, fg)) in expected.entries) {
         final card = find.byKey(ValueKey('card-${variant.name}'));

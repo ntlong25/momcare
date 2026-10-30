@@ -37,26 +37,26 @@ class AppRadius {
 
 /// Fixed light palette for exported images (the shareable milestone card
 /// PNG). Exported images are not themed, so they cannot read the
-/// [ColorScheme]. Values are the light roles generated from
-/// `AppTheme.seedColor` (checked by `test/theme_contrast_test.dart`).
+/// [ColorScheme]. Values are the light roles of `AppTheme` (checked by
+/// `test/theme_contrast_test.dart`).
 class AppBrandColors {
   const AppBrandColors._();
 
-  /// Light `primary` generated from the seed.
-  static const Color primary = Color(0xFF894A68);
+  /// Light `primary`; also the launcher icon background.
+  static const Color primary = Color(0xFFC92A68);
 
-  /// Light `onSurface` generated from the seed.
-  static const Color ink = Color(0xFF21191C);
+  /// Light `onSurface`.
+  static const Color ink = Color(0xFF2B1A20);
 
-  /// Light `onSurfaceVariant` generated from the seed.
-  static const Color inkSoft = Color(0xFF504348);
+  /// Light `onSurfaceVariant`.
+  static const Color inkSoft = Color(0xFF6B4F58);
 
-  /// Light `surfaceContainerLow` generated from the seed (card gradient
-  /// start).
-  static const Color background = Color(0xFFFFF0F4);
+  /// Light `surface` (card gradient start).
+  static const Color background = Color(0xFFFFFFFF);
 
-  /// Light `primaryContainer` generated from the seed (card gradient end).
-  static const Color backgroundAccent = Color(0xFFFFD8E6);
+  /// Light `secondaryContainer` (card gradient end). Not `primaryContainer`:
+  /// [inkSoft] and [primary] drop below their contrast minimums on it.
+  static const Color backgroundAccent = Color(0xFFFFD6E4);
 
   /// Launcher icon glyph colour (white on [primary]), see
   /// `assets/branding/app_icon_foreground.svg`. Used by the in-app splash
@@ -66,7 +66,8 @@ class AppBrandColors {
 
 /// Status colours the [ColorScheme] does not have: success, warning, info
 /// and danger, each with an on-colour, a container and an on-container
-/// colour. Every pair keeps >= 4.5:1 contrast in its theme (see
+/// colour, plus the peach and mint containers of the Hôm nay content cards
+/// (thai giáo and daily tip only) and the emergency reds. Every pair keeps >= 4.5:1 contrast in its theme (see
 /// `test/theme_contrast_test.dart`). Danger is the scheme's error roles.
 @immutable
 class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
@@ -86,6 +87,21 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
   final Color onDanger;
   final Color dangerContainer;
   final Color onDangerContainer;
+  final Color peachContainer;
+  final Color onPeachContainer;
+  final Color mintContainer;
+  final Color onMintContainer;
+
+  /// Solid fill of the "Gọi 115" actions and emergency entry points. Stays a
+  /// saturated red with white text in both themes: the M3 dark `error` is a
+  /// pale salmon that reads like the pale pink `primary`. Destructive
+  /// actions keep the M3 `error` role.
+  final Color emergency;
+  final Color onEmergency;
+
+  /// Non-actionable emergency banner, always weaker than [emergency].
+  final Color emergencyContainer;
+  final Color onEmergencyContainer;
 
   const AppSemanticColors({
     required this.success,
@@ -104,6 +120,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     required this.onDanger,
     required this.dangerContainer,
     required this.onDangerContainer,
+    required this.peachContainer,
+    required this.onPeachContainer,
+    required this.mintContainer,
+    required this.onMintContainer,
+    required this.emergency,
+    required this.onEmergency,
+    required this.emergencyContainer,
+    required this.onEmergencyContainer,
   });
 
   /// Light-theme tokens; danger comes from [scheme]'s error roles.
@@ -124,6 +148,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     onDanger: scheme.onError,
     dangerContainer: scheme.errorContainer,
     onDangerContainer: scheme.onErrorContainer,
+    peachContainer: const Color(0xFFFFD9C2),
+    onPeachContainer: const Color(0xFF5A2A12),
+    mintContainer: const Color(0xFFCDEFE4),
+    onMintContainer: const Color(0xFF0F4A3C),
+    emergency: const Color(0xFFB81818),
+    onEmergency: const Color(0xFFFFFFFF),
+    emergencyContainer: scheme.errorContainer,
+    onEmergencyContainer: scheme.onErrorContainer,
   );
 
   /// Dark-theme tokens; danger comes from [scheme]'s error roles.
@@ -144,6 +176,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     onDanger: scheme.onError,
     dangerContainer: scheme.errorContainer,
     onDangerContainer: scheme.onErrorContainer,
+    peachContainer: const Color(0xFF4A3024),
+    onPeachContainer: const Color(0xFFFFD9C2),
+    mintContainer: const Color(0xFF1F3D35),
+    onMintContainer: const Color(0xFFCDEFE4),
+    emergency: const Color(0xFFD32F2F),
+    onEmergency: const Color(0xFFFFFFFF),
+    emergencyContainer: const Color(0xFF43191C),
+    onEmergencyContainer: const Color(0xFFFFDAD6),
   );
 
   /// Tokens matching [scheme]'s brightness.
@@ -170,6 +210,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     Color? onDanger,
     Color? dangerContainer,
     Color? onDangerContainer,
+    Color? peachContainer,
+    Color? onPeachContainer,
+    Color? mintContainer,
+    Color? onMintContainer,
+    Color? emergency,
+    Color? onEmergency,
+    Color? emergencyContainer,
+    Color? onEmergencyContainer,
   }) {
     return AppSemanticColors(
       success: success ?? this.success,
@@ -188,6 +236,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       onDanger: onDanger ?? this.onDanger,
       dangerContainer: dangerContainer ?? this.dangerContainer,
       onDangerContainer: onDangerContainer ?? this.onDangerContainer,
+      peachContainer: peachContainer ?? this.peachContainer,
+      onPeachContainer: onPeachContainer ?? this.onPeachContainer,
+      mintContainer: mintContainer ?? this.mintContainer,
+      onMintContainer: onMintContainer ?? this.onMintContainer,
+      emergency: emergency ?? this.emergency,
+      onEmergency: onEmergency ?? this.onEmergency,
+      emergencyContainer: emergencyContainer ?? this.emergencyContainer,
+      onEmergencyContainer: onEmergencyContainer ?? this.onEmergencyContainer,
     );
   }
 
@@ -212,6 +268,14 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       onDanger: l(onDanger, other.onDanger),
       dangerContainer: l(dangerContainer, other.dangerContainer),
       onDangerContainer: l(onDangerContainer, other.onDangerContainer),
+      peachContainer: l(peachContainer, other.peachContainer),
+      onPeachContainer: l(onPeachContainer, other.onPeachContainer),
+      mintContainer: l(mintContainer, other.mintContainer),
+      onMintContainer: l(onMintContainer, other.onMintContainer),
+      emergency: l(emergency, other.emergency),
+      onEmergency: l(onEmergency, other.onEmergency),
+      emergencyContainer: l(emergencyContainer, other.emergencyContainer),
+      onEmergencyContainer: l(onEmergencyContainer, other.onEmergencyContainer),
     );
   }
 }
@@ -230,8 +294,19 @@ extension AppSemanticColorsContext on BuildContext {
 /// A colour family for accent icons, badges and tinted tiles. Each tone
 /// resolves to a main colour (icons/text on the surface), its on-colour,
 /// and a container with its on-container colour, all from the
-/// [ColorScheme] or [AppSemanticColors] of the current theme.
-enum AppTone { primary, secondary, tertiary, success, warning, info, danger }
+/// [ColorScheme] or [AppSemanticColors] of the current theme. [peach] and
+/// [mint] are only for the thai giáo and daily tip cards.
+enum AppTone {
+  primary,
+  secondary,
+  tertiary,
+  success,
+  warning,
+  info,
+  danger,
+  peach,
+  mint,
+}
 
 /// The resolved colours of an [AppTone].
 @immutable
@@ -303,6 +378,20 @@ extension AppToneResolve on AppTone {
           onMain: s.onDanger,
           container: s.dangerContainer,
           onContainer: s.onDangerContainer,
+        );
+      case AppTone.peach:
+        return AppToneColors(
+          main: s.onPeachContainer,
+          onMain: s.peachContainer,
+          container: s.peachContainer,
+          onContainer: s.onPeachContainer,
+        );
+      case AppTone.mint:
+        return AppToneColors(
+          main: s.onMintContainer,
+          onMain: s.mintContainer,
+          container: s.mintContainer,
+          onContainer: s.onMintContainer,
         );
     }
   }

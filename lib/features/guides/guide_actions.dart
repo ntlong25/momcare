@@ -40,6 +40,10 @@ class GuideActions {
   static Uri phoneUri(String number) =>
       Uri(scheme: 'tel', path: number.replaceAll(RegExp(r'[^0-9+]'), ''));
 
+  /// True for the emergency number, which gets the solid emergency button.
+  static bool isEmergencyCall(GuideActionType type, String? value) =>
+      type == GuideActionType.call && value == '115';
+
   static String defaultLabel(GuideActionType type) => switch (type) {
     GuideActionType.addAppointment => 'Thêm vào lịch hẹn',
     GuideActionType.openMaps => 'Tìm trên bản đồ',

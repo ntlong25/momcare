@@ -284,9 +284,26 @@ void main() {
       expect(prefs.getInt(AppConstants.themeKey), ThemeMode.dark.index);
     });
 
-    testWidgets('dark device, fresh install: switch is on, first tap goes '
-        'light', (tester) async {
+    testWidgets('dark device, fresh install: still light, first tap goes '
+        'dark', (tester) async {
       await pumpSettings(tester, device: Brightness.dark);
+      expect(shown(tester), Brightness.light);
+      expect(switchValue(tester), isFalse);
+
+      await tapSwitch(tester);
+
+      expect(shown(tester), Brightness.dark);
+      expect(switchValue(tester), isTrue);
+    });
+
+    testWidgets('a saved system choice keeps following the device', (
+      tester,
+    ) async {
+      await pumpSettings(
+        tester,
+        device: Brightness.dark,
+        prefs: {AppConstants.themeKey: ThemeMode.system.index},
+      );
       expect(shown(tester), Brightness.dark);
       expect(switchValue(tester), isTrue);
 
@@ -393,7 +410,8 @@ void main() {
       expect(find.byType(OnboardingScreen), findsOneWidget);
 
       expect(container.read(navigationIndexProvider), 0);
-      expect(container.read(themeProvider), ThemeNotifier.defaultMode);
+      expect(ThemeNotifier.defaultMode, ThemeMode.light);
+      expect(container.read(themeProvider), ThemeMode.light);
       expect(container.read(appModeProvider), isNull);
       expect(tester.takeException(), isNull);
       final prefs = await SharedPreferences.getInstance();

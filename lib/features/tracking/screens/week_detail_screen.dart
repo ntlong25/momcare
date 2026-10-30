@@ -288,7 +288,7 @@ class _StatChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 18, color: theme.colorScheme.primary),
+          Icon(icon, size: 18, color: theme.colorScheme.onPrimaryContainer),
           const SizedBox(width: 6),
           Flexible(
             child: Column(

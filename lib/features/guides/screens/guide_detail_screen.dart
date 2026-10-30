@@ -11,6 +11,7 @@ import '../../../core/services/database_service.dart';
 import '../../../core/services/guide_price_service.dart';
 import '../../../core/services/guide_progress_service.dart';
 import '../../../core/services/milestone_progress_service.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_picker_utils.dart';
 import '../../../core/utils/vnd_format.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
@@ -271,23 +272,38 @@ class _ActionButton extends StatelessWidget {
   final String? label;
   final VoidCallback onPressed;
 
+  /// Solid emergency fill for the emergency number.
+  final bool emergency;
+
   const _ActionButton({
     required this.type,
     required this.label,
     required this.onPressed,
+    this.emergency = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-      onPressed: onPressed,
-      icon: Icon(GuideActions.icon(type), size: 18),
-      label: Text(
-        (label == null || label!.isEmpty)
-            ? GuideActions.defaultLabel(type)
-            : label!,
-      ),
+    final icon = Icon(GuideActions.icon(type), size: 18);
+    final text = Text(
+      (label == null || label!.isEmpty)
+          ? GuideActions.defaultLabel(type)
+          : label!,
     );
+    if (emergency) {
+      final semantic = context.semantic;
+      return FilledButton.icon(
+        key: const ValueKey('guide-call-115'),
+        style: FilledButton.styleFrom(
+          backgroundColor: semantic.emergency,
+          foregroundColor: semantic.onEmergency,
+        ),
+        onPressed: onPressed,
+        icon: icon,
+        label: text,
+      );
+    }
+    return TextButton.icon(onPressed: onPressed, icon: icon, label: text);
   }
 }
 
@@ -345,6 +361,10 @@ class _ChecklistTile extends StatelessWidget {
             child: _ActionButton(
               type: item.actionType,
               label: item.actionLabel,
+              emergency: GuideActions.isEmergencyCall(
+                item.actionType,
+                item.actionValue,
+              ),
               onPressed: onAction,
             ),
           ),
@@ -545,6 +565,10 @@ class _TimelineTile extends StatelessWidget {
               _ActionButton(
                 type: item.actionType,
                 label: item.actionLabel,
+                emergency: GuideActions.isEmergencyCall(
+                  item.actionType,
+                  item.actionValue,
+                ),
                 onPressed: onAction,
               )
             else

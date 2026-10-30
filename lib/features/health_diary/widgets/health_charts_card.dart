@@ -82,7 +82,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
             Icon(
               icon,
               color: isSelected
-                  ? Theme.of(context).colorScheme.primary
+                  ? Theme.of(context).colorScheme.onPrimaryContainer
                   : Theme.of(context).colorScheme.onSurfaceVariant,
             ),
             const SizedBox(height: 4),
@@ -90,7 +90,7 @@ class _HealthChartsCardState extends State<HealthChartsCard> {
               label,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: isSelected
-                    ? Theme.of(context).colorScheme.primary
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
                     : Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: isSelected ? FontWeight.bold : null,
               ),

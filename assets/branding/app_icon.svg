@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- MomCare+ app icon (full, iOS/legacy). Original artwork: a heart whose
      left lobe is the mother's head, her curve wrapping the baby (solid
-     circle). Background = AppBrandColors.primary #894A68. No text. -->
+     circle). Background = AppBrandColors.primary #C92A68. No text. -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
-  <rect width="1024" height="1024" fill="#894A68"/>
+  <rect width="1024" height="1024" fill="#C92A68"/>
   <g transform="translate(155 141) scale(7)">
     <path d="M50 34 C53 26 60 21 69 21 C80 21 88 29 88 40 C88 56 74 70 50 85 C30 73 17 61 15 46" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="31" cy="28" r="12" fill="#FFFFFF"/>

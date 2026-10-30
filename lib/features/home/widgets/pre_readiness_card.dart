@@ -41,7 +41,7 @@ class PreReadinessCard extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.checklist, color: theme.colorScheme.tertiary),
+              Icon(Icons.checklist, color: theme.colorScheme.primary),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -66,8 +66,8 @@ class PreReadinessCard extends ConsumerWidget {
             child: LinearProgressIndicator(
               value: readiness.ratio,
               minHeight: 8,
-              color: theme.colorScheme.tertiary,
-              backgroundColor: theme.colorScheme.tertiaryContainer,
+              color: theme.colorScheme.primary,
+              backgroundColor: theme.colorScheme.secondaryContainer,
             ),
           ),
           const SizedBox(height: 8),
@@ -121,7 +121,7 @@ class _NextUpRow extends StatelessWidget {
             Icon(
               Icons.radio_button_unchecked,
               size: 18,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.primary,
             ),
             const SizedBox(width: 10),
             Expanded(

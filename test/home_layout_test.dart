@@ -20,6 +20,7 @@ import 'package:momcare/core/models/pregnancy_model.dart';
 import 'package:momcare/core/providers/app_mode_provider.dart';
 import 'package:momcare/core/services/guide_progress_service.dart';
 import 'package:momcare/core/theme/app_theme.dart';
+import 'package:momcare/core/theme/app_tokens.dart';
 import 'package:momcare/features/emergency/screens/emergency_warning_screen.dart';
 import 'package:momcare/features/emergency/widgets/emergency_app_bar_button.dart';
 import 'package:momcare/features/home/screens/home_screen.dart';
@@ -247,6 +248,15 @@ void main() {
       );
     });
 
+    testWidgets('greeting is in the primary colour', (tester) async {
+      await pumpHome(tester);
+      final greeting = find.byKey(const ValueKey('home-greeting'));
+      expect(
+        tester.widget<Text>(greeting).style!.color,
+        Theme.of(tester.element(greeting)).colorScheme.primary,
+      );
+    });
+
     testWidgets('AppBar emergency button stays visible and opens the '
         'warning screen', (tester) async {
       await pumpHome(tester);
@@ -366,6 +376,26 @@ void main() {
         'pre-home-clinic',
         'pre-home-switch',
       ]);
+    });
+
+    testWidgets('greeting is primary and the daily tip card mint', (
+      tester,
+    ) async {
+      await pumpPre(tester, const [], today());
+      final tips = find.byKey(const ValueKey('pre-home-tips'));
+      final theme = Theme.of(tester.element(tips));
+      final greeting = find.descendant(
+        of: find.byKey(const ValueKey('pre-home-greeting')),
+        matching: find.byType(Text),
+      );
+      expect(
+        tester.widget<Text>(greeting.first).style!.color,
+        theme.colorScheme.primary,
+      );
+      final card = tester.widget<Card>(
+        find.descendant(of: tips, matching: find.byType(Card)),
+      );
+      expect(card.color, theme.semantic.mintContainer);
     });
 
     testWidgets('late period card comes right after the greeting', (

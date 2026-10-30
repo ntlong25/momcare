@@ -118,7 +118,7 @@ class _FoodLookupEntryCard extends StatelessWidget {
                 backgroundColor: theme.colorScheme.primaryContainer,
                 child: Icon(
                   Icons.restaurant_menu,
-                  color: theme.colorScheme.primary,
+                  color: theme.colorScheme.onPrimaryContainer,
                 ),
               ),
               const SizedBox(width: 12),

@@ -201,6 +201,7 @@ class _PrePregnancyHomeScreenState
           greeting,
           style: theme.textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
+            color: theme.colorScheme.primary,
           ),
         ),
         const SizedBox(height: 4),
@@ -228,7 +229,7 @@ class _PrePregnancyHomeScreenState
           key: const ValueKey('pre-quick-nutrition'),
           icon: Icons.restaurant_menu,
           title: 'Dinh dưỡng',
-          tone: AppTone.tertiary,
+          tone: AppTone.secondary,
           onTap: () => NavigationHelper.toNutrition(context),
         ),
       ],
@@ -532,7 +533,7 @@ class _DailyTipsWidget extends StatelessWidget {
         title: 'Theo dõi lượng caffeine',
         content:
             'Nếu dùng nhiều caffeine, bạn có thể cân nhắc giảm dần và hỏi bác sĩ khi cần.',
-        tone: AppTone.tertiary,
+        tone: AppTone.secondary,
       ),
       _Tip(
         icon: Icons.medical_services,
@@ -548,8 +549,10 @@ class _DailyTipsWidget extends StatelessWidget {
         .inDays;
     final todayTip = tips[dayOfYear % tips.length];
     final tipTone = todayTip.tone.of(context);
+    final fg = AppTone.mint.of(context).onContainer;
 
     return AppCard(
+      variant: AppCardVariant.mint,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -570,14 +573,13 @@ class _DailyTipsWidget extends StatelessWidget {
                   children: [
                     Text(
                       'Gợi ý hôm nay',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
+                      style: theme.textTheme.bodySmall?.copyWith(color: fg),
                     ),
                     Text(
                       todayTip.title,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
+                        color: fg,
                       ),
                     ),
                   ],
@@ -588,7 +590,7 @@ class _DailyTipsWidget extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             todayTip.content,
-            style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
+            style: theme.textTheme.bodyMedium?.copyWith(height: 1.5, color: fg),
           ),
         ],
       ),
