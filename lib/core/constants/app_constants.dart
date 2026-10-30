@@ -49,6 +49,7 @@ class AppConstants {
   static const String kickSessionsKey = 'kick_sessions';
   static const String contractionsKey = 'contraction_log';
   static const String bumpPhotosKey = 'bump_photos';
+  static const String bumpCameraLensKey = 'bump_camera_lens';
   static const String disclaimerAcceptedVersionKey =
       'disclaimer_accepted_version';
   static const String disclaimerAcceptedAtKey = 'disclaimer_accepted_at';

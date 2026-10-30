@@ -1,8 +1,19 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.health.READ_MENSTRUATION" />
     <!-- flutter_local_notifications 19.x: restore scheduled reminders after reboot/update -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- In-app bump camera. The app works without a camera, so no camera
+         feature is required, including the one the camera plugin adds. Photos
+         into the app's own folders only: the microphone and storage
+         permissions the plugin declares are removed. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" tools:node="remove" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" tools:replace="android:required" />
 
     <application
         android:label="MomCare+"
@@ -43,6 +54,23 @@
                 <category android:name="android.intent.category.HEALTH_PERMISSIONS"/>
             </intent-filter>
         </activity-alias>
+        <!-- Entry of the home-screen widget. Not exported, so only the widget's
+             PendingIntent can ask MainActivity for the camera. -->
+        <activity-alias
+            android:name=".QuickCameraEntry"
+            android:exported="false"
+            android:targetActivity=".MainActivity" />
+        <receiver
+            android:name=".QuickCameraWidget"
+            android:exported="false"
+            android:label="@string/quick_camera_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/quick_camera_widget_info" />
+        </receiver>
         <!-- flutter_local_notifications: scheduled notifications + reboot rescheduling -->
         <receiver
             android:exported="false"
@@ -80,12 +108,6 @@
         <intent>
             <action android:name="android.intent.action.DIAL" />
             <data android:scheme="tel" />
-        </intent>
-        <!-- image_picker: "Chụp ảnh" in the bump photo journal uses the
-             IMAGE_CAPTURE intent; no CAMERA permission is declared on purpose
-             (declaring it without granting it makes the intent fail). -->
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
         <package android:name="com.google.android.apps.healthdata" />
         <intent>

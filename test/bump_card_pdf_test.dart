@@ -16,6 +16,7 @@ import 'package:momcare/core/services/bump_photo_service.dart';
 import 'package:momcare/core/theme/app_theme.dart';
 import 'package:momcare/core/utils/share_helper.dart';
 import 'package:momcare/features/bump_journal/bump_image_source.dart';
+import 'package:momcare/features/bump_journal/screens/bump_camera_screen.dart';
 import 'package:momcare/features/bump_journal/screens/bump_journal_screen.dart';
 import 'package:momcare/features/bump_journal/screens/bump_photo_viewer.dart';
 import 'package:momcare/features/health_diary/export/health_report.dart';
@@ -27,6 +28,8 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'fake_bump_camera.dart';
 
 /// 1x1 PNG.
 final Uint8List _png = base64Decode(
@@ -98,7 +101,7 @@ class _FakeSource implements BumpImageSource {
 
   /// Next gallery result; null = cancel.
   int galleryCount = 0;
-  Object? cameraError;
+  Object? galleryError;
 
   XFile _file(String ext) {
     final file = File('${dir.path}/pick_${_counter++}$ext')
@@ -107,15 +110,10 @@ class _FakeSource implements BumpImageSource {
   }
 
   @override
-  Future<List<XFile>> pickFromGallery() async => [
-    for (var i = 0; i < galleryCount; i++) _file('.png'),
-  ];
-
-  @override
-  Future<XFile?> takePhoto() async {
-    final error = cameraError;
+  Future<List<XFile>> pickFromGallery() async {
+    final error = galleryError;
     if (error != null) throw error;
-    return _file('.jpg');
+    return [for (var i = 0; i < galleryCount; i++) _file('.png')];
   }
 
   @override
@@ -665,31 +663,39 @@ void main() {
       });
     }
 
-    testWidgets('camera permission error shows the settings hint', (
+    testWidgets('gallery permission error shows the settings hint', (
       tester,
     ) async {
       _setView(tester);
-      source.cameraError = PlatformException(code: 'camera_access_denied');
+      source.galleryError = PlatformException(code: 'photo_access_denied');
       await tester.pumpWidget(_app(const BumpJournalScreen()));
       await tester.pump();
-      await tester.tap(find.byKey(const ValueKey('bump-camera')));
+      await tester.tap(find.byKey(const ValueKey('bump-gallery')));
       await tester.pump();
       expect(find.text(BumpJournalScreen.permissionMessage), findsOneWidget);
       expect(find.byKey(const ValueKey('bump-empty')), findsOneWidget);
 
-      source.cameraError = StateError('boom');
-      await tester.tap(find.byKey(const ValueKey('bump-camera')));
+      source.galleryError = StateError('boom');
+      await tester.tap(find.byKey(const ValueKey('bump-gallery')));
       await tester.pump();
       expect(find.text(BumpJournalScreen.errorMessage), findsOneWidget);
     });
 
-    testWidgets('camera photo is added to the selected week', (tester) async {
+    testWidgets('camera button opens the camera on the selected week; the '
+        'grid button comes back', (tester) async {
       _setView(tester);
+      BumpCameraScreen.debugSource = () => FakeBumpCamera(tempRoot);
+      addTearDown(() => BumpCameraScreen.debugSource = null);
       await tester.pumpWidget(_app(const BumpJournalScreen(initialWeek: 12)));
       await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('bump-camera')));
+      await tester.pumpAndSettle();
+      expect(find.byType(BumpCameraScreen), findsOneWidget);
       expect(find.text('Tuần 12'), findsOneWidget);
-      await pick(tester, 'bump-camera', 1);
-      expect(find.text('Tuần 12 · 1 ảnh'), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('bump-camera-journal')));
+      await tester.pumpAndSettle();
+      expect(find.byType(BumpCameraScreen), findsNothing);
+      expect(find.byType(BumpJournalScreen), findsOneWidget);
     });
 
     testWidgets('a missing file shows the placeholder', (tester) async {

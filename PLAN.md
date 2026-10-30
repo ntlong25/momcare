@@ -1253,6 +1253,17 @@ Status: Completed (2026-10-31). Requested by the user: make the bump photo journ
 
 Test round 1: all 9 checks pass on the emulator, including a real capture through the one-tap path. BUMP-R1-01 (photo stays unsaved after Android kills the app during capture) is deferred to the in-app camera phase, which removes the external camera. BUMP-R1-02 and 03 (card alignment) are deferred to the same phase.
 
+## Phase 29: Quick Camera and Android Widget
+Status: Completed (2026-10-31). Requested by the user: fast capture in the style Gen Z likes, then Round 2 of the fertile window feature (Phase 25) follows.
+
+- 29.1 `BumpCameraScreen`: in-app camera (`camera` ^0.12.0+2) with rounded preview, shutter, flash, lens switch and 'Tuần X' pill; review with 'Lưu vào tuần X' or 'Chụp lại'. Replaces the `image_picker` camera path; gallery stays in the journal.
+- 29.2 Android widget `QuickCameraWidget` opens the camera in one tap through a non-exported activity alias; consent, onboarding, setup and pre-pregnancy gates are not bypassed. No iOS widget: it needs a Mac.
+- 29.3 Android now declares CAMERA; RECORD_AUDIO and WRITE_EXTERNAL_STORAGE from the plugin are removed. Store declarations need updating.
+- 29.4 Speed: removed the pre-capture flash wait, review opens before the crop finishes, crop runs in an isolate. Front photos are saved mirrored to match the preview.
+
+Test rounds 1-3: 10 Home-during-capture attempts with no stopped frame; 2 interruptions confirmed by log, both with flash on. Shutter to review about 2.7 s on the emulator (was 5.3 s).
+Open: CAM-R2-02 shutter feedback timing and CAM-R1-01 resolution need a real phone. CAM-R2-03: after the flash is used, captures pay about 2 s more until the process ends; a plugin limit. CAM-R1-04: first widget tap after a force-stop does nothing; Android limit. CAM-R1-05/CAM-R2-04: cold widget launch is plain white on Android 12+. CAM-R2-05: white screen after delete-all seen 1 of 7 runs, cause not found.
+
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
@@ -1355,3 +1366,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 23: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 524/524; `flutter build apk --debug` OK; emulator QA 2 rounds with data wipe (software GPU, host driver crashes otherwise).
 - Phase 24: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 571/571; debug APK OK (x64 build needed for the emulator's free space); emulator QA 2 rounds.
 - Phase 27: emulator QA 2 rounds; final results in the PR.
+- Phase 29: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 727/727; debug x64 APK OK; emulator QA 3 rounds; no real phone.

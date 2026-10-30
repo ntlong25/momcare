@@ -16,6 +16,7 @@ import '../../features/references/screens/references_screen.dart';
 import '../../features/tracking/screens/week_detail_screen.dart';
 import '../../features/tools/screens/contraction_timer_screen.dart';
 import '../../features/tools/screens/kick_counter_screen.dart';
+import '../../features/bump_journal/screens/bump_camera_screen.dart';
 import '../../features/bump_journal/screens/bump_journal_screen.dart';
 import '../../features/health_diary/screens/health_report_export_screen.dart';
 
@@ -138,17 +139,24 @@ class NavigationHelper {
     );
   }
 
-  /// [openCamera] starts the camera as soon as the journal is shown.
-  static Future<T?> toBumpJournal<T>(
+  static Future<T?> toBumpJournal<T>(BuildContext context, {int? week}) {
+    return Navigator.push<T>(
+      context,
+      MaterialPageRoute(builder: (_) => BumpJournalScreen(initialWeek: week)),
+    );
+  }
+
+  /// [fromJournal]: the journal is the page below, so the camera's grid
+  /// button returns to it instead of opening another one.
+  static Future<T?> toBumpCamera<T>(
     BuildContext context, {
-    int? week,
-    bool openCamera = false,
+    required int week,
+    bool fromJournal = false,
   }) {
     return Navigator.push<T>(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            BumpJournalScreen(initialWeek: week, openCamera: openCamera),
+        builder: (_) => BumpCameraScreen(week: week, fromJournal: fromJournal),
       ),
     );
   }
