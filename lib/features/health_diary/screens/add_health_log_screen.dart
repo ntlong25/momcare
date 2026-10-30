@@ -187,7 +187,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
                 controller: _systolicController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: 'Huyết áp tâm thu',
+                  labelText: 'HA tâm thu',
                   hintText: '120',
                   prefixIcon: Icon(Icons.favorite),
                 ),
@@ -210,7 +210,7 @@ class _AddHealthLogScreenState extends State<AddHealthLogScreen> {
                 controller: _diastolicController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: 'Huyết áp tâm trương',
+                  labelText: 'HA tâm trương',
                   hintText: '80',
                   prefixIcon: Icon(Icons.favorite),
                 ),

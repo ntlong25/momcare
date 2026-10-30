@@ -9,9 +9,10 @@ import '../../../core/utils/health_validators.dart';
 import '../../home/screens/main_navigation.dart';
 
 class PregnancySetupScreen extends ConsumerStatefulWidget {
-  /// Opened from the pre-pregnancy "Tôi đã có thai" flow: the app stays in
-  /// pre-pregnancy mode unless the pregnancy is saved, so skipping just pops
-  /// back, and saving replaces the whole stack with a single MainNavigation.
+  /// Opened from inside the app (the pre-pregnancy "Tôi đã có thai" flow or
+  /// Cài đặt): the app keeps its mode unless the pregnancy is saved, so
+  /// skipping just pops back, and saving replaces the whole stack with a
+  /// single MainNavigation.
   final bool fromModeSwitch;
 
   const PregnancySetupScreen({super.key, this.fromModeSwitch = false});

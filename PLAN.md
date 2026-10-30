@@ -1198,6 +1198,22 @@ Build: `flutter test`, `flutter analyze`, `flutter build apk --debug`, `adb inst
 - Not counted (Known issues): Chu kỳ calendar English locale; "Dự đoán" card icons still use the older ovulation/fertile colours; onboarding on a fresh install not device-tested; iOS not built.
 - Verdict: pass. Phase 22 completed.
 
+## Phase 23: Vietnamese Calendars, First-Run Hardening and Mandatory Disclaimer Consent
+Status: Completed (2026-10-30). Requested by the user after Phase 22. The user allowed wiping emulator data for this phase, so first-run and delete-all-data were tested for real.
+
+- 23.1 Calendars: Chu kỳ and Lịch hẹn use Vietnamese via `AppCalendarStyle` (locale `vi`, Monday first, Tháng/2 tuần/Tuần, "Tháng 10, 2026", T2..CN). Row and weekday heights scale with text size.
+- 23.2 "Dự đoán" rows use `CycleMarker` (same shapes and colours as calendar and legend); past dates read "Đã qua N ngày".
+- 23.3 Mandatory consent: `DisclaimerGate` + `DisclaimerConsentScreen`, 'Đồng ý' appears at the end of the text, back cannot bypass, version + date stored, delete-all clears it. In-app text instead of a PDF so it follows theme, text size and offline.
+- 23.4 Theme toggle flips the effective brightness on the first tap; delete-all also resets theme, tab, app mode and consent.
+- 23.5 Website buttons are hidden while legal URLs are placeholders (`AppConstants.isPublishedUrl`).
+- 23.6 Cài đặt offers 'Thiết lập thai kỳ' after skipped setup; ModeSelectionScreen scrolls at large text and uses BrandMark; stats row wraps; date picker no longer returns focus to the text field; blood pressure labels shortened to HA tâm thu / HA tâm trương.
+- 23.7 `content_source/build/export_review.js` writes the doctor review packet to `content_source/review/` (5 CSV, 1,067 rows). It does not change `reviewStatus`.
+
+Test round 1 (2026-10-30): fresh install, both first-run paths, real delete-all (Hive boxes, bump_photos, cache, prefs, alarms all cleared). 9 issues, P23-R1-01..09; verdict fix.
+Test round 2 (2026-10-30): all round-1 fixes and consent pass on device. 3 minor issues P23-R2-01..03, fixed by the orchestrator; the weekday label change was first ineffective on real screens because `daysOfWeekBuilder` overrode the formatter, then fixed and confirmed by screenshot of Lịch hẹn. The date-focus and label fixes have tests but were not re-run on device. Verdict pass.
+
+Not tested on device: real upgrade from an old build (code and test only), PDF text content, notification delivery, Công thức tab this round.
+
 ## Known issues (pre-existing, backlog)
 - Chu kỳ calendar shows an English month header ('October 2026'), format button ('2 weeks') and weekday names; needs a Vietnamese locale/format labels. Found in Phase 14 test round 1 (P14-R1-04).
 - `FlutterSecureStorage: Could not decrypt key` is logged at each launch (library startup check); data is unaffected. Found in Phase 14 test round 1.
@@ -1292,3 +1308,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 21 round 2: `dart format` on changed files; `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` passed with 344/344 tests (12 net new, re-run by QA); `flutter build apk --debug` passed; installed on emulator-5554 with `adb install -r` (data kept), `cache/` checked with `run-as ls -R`, logcat clean. Verdict: pass (P21-R2-01 rejected as global dark theme, moved to Known issues, deferred to Phase 22); Phase 21 completed.
 - Phase 22 round 1: Be Vietnam Pro Medium/SemiBold TTFs bundled, `google_fonts` removed, `flutter_launcher_icons` ^0.14.4 added (dev) and run (pbxproj ASSETCATALOG line restored to `YES`); `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` passed with 473/473 tests (129 new across theme contrast, widget contrast, hard-coded colour guard, components, Hôm nay layout and tab scaffold tests, re-run by QA); `flutter build apk --debug` passed (aapt: label "MomCare+", adaptive icon); installed on emulator-5554 with `adb install -r` (data kept), logcat clean. iOS not built (AppIcon Contents.json/file review only). Verdict: fix (P22-R1-01..05 accepted).
 - Phase 22 round 2: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` passed with 489/489 tests (16 new, re-run by QA); `flutter build apk --debug` passed; installed on emulator-5554 with `adb install -r` (data kept), logcat clean. P22-R2-01 accepted and fixed by the orchestrator (`AppInitializer` waiting screen uses `BrandMark`), verified by a cold-start screenshot series; analyze/test (489/489)/debug APK re-run and passed. Verdict: pass; Phase 22 completed.
+- Phase 23: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 524/524; `flutter build apk --debug` OK; emulator QA 2 rounds with data wipe (software GPU, host driver crashes otherwise).

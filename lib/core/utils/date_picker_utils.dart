@@ -40,6 +40,9 @@ class DatePickerUtils {
       if (initial.isBefore(first)) first = initial;
       if (initial.isAfter(last)) last = initial;
     }
+    // Otherwise focus returns to the text field when the dialog closes, and
+    // the reopened keyboard catches taps meant for the form below it.
+    FocusManager.instance.primaryFocus?.unfocus();
     return showDatePicker(
       context: context,
       initialDate: clampInitial(initial, first, last),

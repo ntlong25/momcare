@@ -2,10 +2,26 @@ class AppConstants {
   // App Info
   static const String appName = 'MomCare+';
   static const String appVersion = '1.0.0';
+
+  // Legal pages. Still placeholders: while a URL is empty or on example.com
+  // the "Mở ... trên website" button stays hidden (see [isPublishedUrl]).
+  // Setting the real URL here brings the button back.
   static const String privacyPolicyUrl =
       'https://example.com/momcare/privacy-policy';
   static const String medicalDisclaimerUrl =
       'https://example.com/momcare/medical-disclaimer';
+
+  /// False for an empty URL or one on the reserved example.com domain.
+  static bool isPublishedUrl(String url) {
+    final host = Uri.tryParse(url.trim())?.host.toLowerCase() ?? '';
+    return host.isNotEmpty &&
+        host != 'example.com' &&
+        !host.endsWith('.example.com');
+  }
+
+  /// Raise when the disclaimer text changes: everyone is asked to accept the
+  /// new version on the next launch.
+  static const int disclaimerVersion = 1;
 
   // Hive Box Names
   static const String pregnancyBox = 'pregnancy_box';
@@ -33,6 +49,9 @@ class AppConstants {
   static const String kickSessionsKey = 'kick_sessions';
   static const String contractionsKey = 'contraction_log';
   static const String bumpPhotosKey = 'bump_photos';
+  static const String disclaimerAcceptedVersionKey =
+      'disclaimer_accepted_version';
+  static const String disclaimerAcceptedAtKey = 'disclaimer_accepted_at';
 
   // Pregnancy Weeks
   static const int pregnancyTotalWeeks = 42;

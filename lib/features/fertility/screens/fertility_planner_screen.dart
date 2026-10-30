@@ -7,6 +7,7 @@ import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/calendar_style.dart';
+import '../../../core/utils/date_formatter.dart';
 import '../widgets/cycle_marker.dart';
 import 'add_period_screen.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -302,6 +303,9 @@ class _FertilityPlannerScreenState
                   Card(
                     margin: const EdgeInsets.all(8),
                     child: TableCalendar(
+                      locale: AppCalendarStyle.locale,
+                      startingDayOfWeek: AppCalendarStyle.startingDayOfWeek,
+                      availableCalendarFormats: AppCalendarStyle.formats,
                       firstDay: DateTime.now().subtract(
                         const Duration(days: 365),
                       ),
@@ -327,7 +331,13 @@ class _FertilityPlannerScreenState
                       calendarStyle: AppCalendarStyle.calendar(context),
                       daysOfWeekStyle: AppCalendarStyle.daysOfWeek(context),
                       headerStyle: AppCalendarStyle.header(context),
+                      rowHeight: AppCalendarStyle.rowHeight(context),
+                      daysOfWeekHeight: AppCalendarStyle.daysOfWeekHeight(
+                        context,
+                      ),
                       calendarBuilders: CalendarBuilders(
+                        headerTitleBuilder: AppCalendarStyle.headerTitleBuilder,
+                        dowBuilder: AppCalendarStyle.daysOfWeekBuilder,
                         markerBuilder: (context, date, events) {
                           return _buildDayMarker(
                             date,
@@ -471,7 +481,8 @@ class _FertilityPlannerScreenState
             ),
             const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: AppSpacing.sm,
               children: [
                 _buildStatItem(
                   icon: Icons.calendar_month,
@@ -526,25 +537,30 @@ class _FertilityPlannerScreenState
     required String value,
     required Color color,
   }) {
-    return Column(
-      children: [
-        Icon(icon, color: color, size: 32),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: color,
+    // Equal columns: long values wrap inside their own column at large fonts.
+    return Expanded(
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 32),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
           ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          const SizedBox(height: 4),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -570,30 +586,23 @@ class _FertilityPlannerScreenState
             const SizedBox(height: 16),
             if (nextPeriod != null)
               ListTile(
-                leading: Icon(
-                  Icons.calendar_today,
-                  color: theme.colorScheme.error,
+                leading: const _PredictionMarker(
+                  CycleMarkerKind.predictedPeriod,
                 ),
                 title: const Text('Kỳ kinh tiếp theo'),
                 subtitle: Text(_formatDate(nextPeriod)),
-                trailing: Text(
-                  '${nextPeriod.difference(DateTime.now()).inDays} ngày',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                trailing: _PredictionCountdown(nextPeriod),
               ),
             if (nextOvulation != null)
               ListTile(
-                leading: Icon(Icons.favorite, color: theme.colorScheme.primary),
+                leading: const _PredictionMarker(CycleMarkerKind.ovulation),
                 title: const Text('Ngày rụng trứng dự kiến'),
                 subtitle: Text(_formatDate(nextOvulation)),
-                trailing: Text(
-                  '${nextOvulation.difference(DateTime.now()).inDays} ngày',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                trailing: _PredictionCountdown(nextOvulation),
               ),
             if (fertileWindow != null && fertileWindow.isNotEmpty)
               ListTile(
-                leading: Icon(Icons.eco, color: theme.colorScheme.tertiary),
+                leading: const _PredictionMarker(CycleMarkerKind.fertile),
                 title: const Text('Cửa sổ thụ thai'),
                 subtitle: Text(
                   '${_formatDate(fertileWindow.first)} - ${_formatDate(fertileWindow.last)}',
@@ -695,5 +704,41 @@ class _FertilityPlannerScreenState
 
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
+  }
+}
+
+/// Trailing countdown of a "Dự đoán" row. Capped so "Đã qua 12 ngày" wraps
+/// at large fonts instead of squeezing the row title.
+class _PredictionCountdown extends StatelessWidget {
+  final DateTime date;
+
+  const _PredictionCountdown(this.date);
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 112),
+      child: Text(
+        DateFormatter.formatDayCountdown(date),
+        textAlign: TextAlign.end,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+/// Leading mark of a "Dự đoán" row: the same shape and colour as the calendar
+/// and its legend, so one meaning has one look everywhere.
+class _PredictionMarker extends StatelessWidget {
+  final CycleMarkerKind kind;
+
+  const _PredictionMarker(this.kind);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 40,
+      child: Center(child: CycleMarker(kind: kind, size: 16)),
+    );
   }
 }

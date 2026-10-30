@@ -4,6 +4,7 @@ import '../../../core/providers/app_mode_provider.dart';
 import '../../home/screens/main_navigation.dart';
 import 'pregnancy_setup_screen.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/widgets/brand_mark.dart';
 
 class ModeSelectionScreen extends ConsumerWidget {
   const ModeSelectionScreen({super.key});
@@ -14,88 +15,90 @@ class ModeSelectionScreen extends ConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              const Spacer(),
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.favorite,
-                  size: 50,
-                  color: theme.colorScheme.onPrimary,
-                ),
+        // Scrolls only when the content is taller than the screen (large
+        // text on a short device); the Spacers still centre it otherwise.
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight - 48,
               ),
-              const SizedBox(height: 24),
-              Text(
-                'Chào mừng đến với MomCare+',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colorScheme.primary,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Bạn đang ở giai đoạn nào?',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 48),
-              _ModeCard(
-                icon: Icons.eco,
-                tone: AppTone.success,
-                title: 'Đang lên kế hoạch mang thai',
-                subtitle:
-                    'Theo dõi chu kỳ, dinh dưỡng chuẩn bị và gợi ý thụ thai',
-                onTap: () async {
-                  await ref
-                      .read(appModeProvider.notifier)
-                      .setMode(AppMode.prePregnancy);
-                  if (context.mounted) {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const MainNavigation()),
-                    );
-                  }
-                },
-              ),
-              const SizedBox(height: 16),
-              _ModeCard(
-                icon: Icons.pregnant_woman,
-                tone: AppTone.primary,
-                title: 'Đã mang thai',
-                subtitle: 'Theo dõi thai kỳ, sức khỏe và dinh dưỡng theo tuần',
-                onTap: () async {
-                  await ref
-                      .read(appModeProvider.notifier)
-                      .setMode(AppMode.pregnancy);
-                  if (context.mounted) {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (_) => const PregnancySetupScreen(),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    const BrandMark(size: 100),
+                    const SizedBox(height: 24),
+                    Text(
+                      'Chào mừng đến với MomCare+',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.primary,
                       ),
-                    );
-                  }
-                },
-              ),
-              const Spacer(),
-              Text(
-                'Bạn có thể thay đổi lựa chọn này sau trong Cài đặt',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Bạn đang ở giai đoạn nào?',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 48),
+                    _ModeCard(
+                      icon: Icons.eco,
+                      tone: AppTone.success,
+                      title: 'Đang lên kế hoạch mang thai',
+                      subtitle:
+                          'Theo dõi chu kỳ, dinh dưỡng chuẩn bị và gợi ý thụ thai',
+                      onTap: () async {
+                        await ref
+                            .read(appModeProvider.notifier)
+                            .setMode(AppMode.prePregnancy);
+                        if (context.mounted) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => const MainNavigation(),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    _ModeCard(
+                      icon: Icons.pregnant_woman,
+                      tone: AppTone.primary,
+                      title: 'Đã mang thai',
+                      subtitle:
+                          'Theo dõi thai kỳ, sức khỏe và dinh dưỡng theo tuần',
+                      onTap: () async {
+                        await ref
+                            .read(appModeProvider.notifier)
+                            .setMode(AppMode.pregnancy);
+                        if (context.mounted) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => const PregnancySetupScreen(),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    const Spacer(),
+                    Text(
+                      'Bạn có thể thay đổi lựa chọn này sau trong Cài đặt',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                  ],
                 ),
-                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
-            ],
+            ),
           ),
         ),
       ),

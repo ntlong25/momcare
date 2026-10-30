@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/providers/app_mode_provider.dart';
+import '../../../core/providers/disclaimer_consent_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/notification_service.dart';
@@ -22,6 +23,8 @@ import '../../../core/utils/health_validators.dart';
 import '../../../core/utils/share_helper.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../home/screens/main_navigation.dart';
+import '../../legal/screens/disclaimer_consent_screen.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
 import '../../onboarding/screens/pregnancy_setup_screen.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -55,7 +58,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
   Widget build(BuildContext context) {
     // Re-read on every rebuild (HiveRefreshMixin rebuilds on data changes).
     _pregnancy = DatabaseService.getActivePregnancy();
-    final themeMode = ref.watch(themeProvider);
+    final platformBrightness = MediaQuery.platformBrightnessOf(context);
+    final isDark =
+        ThemeNotifier.effectiveBrightness(
+          ref.watch(themeProvider),
+          platformBrightness,
+        ) ==
+        Brightness.dark;
     final appMode = ref.watch(appModeProvider);
     final effectiveAppMode = _resolveCurrentMode(appMode);
     final isPregnancyMode = effectiveAppMode == AppMode.pregnancy;
@@ -87,20 +96,32 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
             SwitchListTile(
               title: const Text('Chế độ tối'),
               subtitle: const Text('Bật giao diện tối'),
-              value: themeMode == ThemeMode.dark,
+              value: isDark,
               onChanged: (value) {
-                ref.read(themeProvider.notifier).toggleTheme();
+                ref
+                    .read(themeProvider.notifier)
+                    .toggleTheme(platformBrightness);
               },
-              secondary: Icon(
-                themeMode == ThemeMode.dark
-                    ? Icons.dark_mode
-                    : Icons.light_mode,
-              ),
+              secondary: Icon(isDark ? Icons.dark_mode : Icons.light_mode),
             ),
           ]),
           const Divider(),
           if (isPregnancyMode) ...[
             _buildSection(context, 'Thông tin thai kỳ', [
+              if (_pregnancy == null)
+                ListTile(
+                  key: const ValueKey('settings-pregnancy-setup'),
+                  leading: const Icon(Icons.edit_calendar),
+                  title: const Text('Thiết lập thai kỳ'),
+                  subtitle: const Text('Nhập ngày dự sinh để theo dõi thai kỳ'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const PregnancySetupScreen(fromModeSwitch: true),
+                    ),
+                  ),
+                ),
               if (_pregnancy != null)
                 ListTile(
                   leading: const Icon(Icons.calendar_today),
@@ -477,6 +498,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
   }
 
   Future<void> _deleteAllDataAndRestart(BuildContext context) async {
+    // Read up front: these are reset after this screen has been left.
+    final navigationIndex = ref.read(navigationIndexProvider.notifier);
+    final theme = ref.read(themeProvider.notifier);
+    final appMode = ref.read(appModeProvider.notifier);
+    final disclaimerConsent = ref.read(disclaimerConsentProvider.notifier);
+
     await NotificationService.cancelAllNotifications();
     await DatabaseService.clearAllData();
 
@@ -509,15 +536,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     // Generated milestone cards and PDFs in the temp folder; never throws.
     await ShareHelper.clearTempFiles();
     await prefs.remove('locale');
+    await prefs.remove(AppConstants.disclaimerAcceptedVersionKey);
+    await prefs.remove(AppConstants.disclaimerAcceptedAtKey);
 
-    if (!mounted) {
-      return;
+    if (mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (_) => const DisclaimerGate(child: OnboardingScreen()),
+        ),
+        (_) => false,
+      );
     }
 
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-      (_) => false,
-    );
+    // After leaving, so the old tabs never rebuild for a mode or tab that no
+    // longer applies. A new install starts on Hôm nay with the default theme.
+    navigationIndex.state = 0;
+    theme.resetLocal();
+    disclaimerConsent.resetLocal();
+    await appMode.clearMode();
   }
 
   Future<void> _showModeDialog(BuildContext context) async {
