@@ -1214,6 +1214,18 @@ Test round 2 (2026-10-30): all round-1 fixes and consent pass on device. 3 minor
 
 Not tested on device: real upgrade from an old build (code and test only), PDF text content, notification delivery, Công thức tab this round.
 
+## Phase 24: Honest Fertile Window Prediction and Today Card
+Status: In progress. Round 1 of the "canh ngày thụ thai" idea, see FEATURE_BRAINSTORM.md section 9. Authorised by the user. No new permissions and no new stored data in this phase.
+
+- Task 24.1: Pure `CyclePrediction` from the recorded cycles and today: next period range and ovulation range from the shortest and longest of the last 6 cycle lengths, fertile window of 6 days ending on ovulation, peak days, confidence, irregular flag, cycle outside 21-35 days flag.
+  Acceptance: unit tests cover regular, irregular, 1 cycle, no cycles, under 21, over 35, a cycle running past the prediction, month and year boundaries.
+- Task 24.2: `predictFertileWindow` and the Chu kỳ calendar, legend and "Dự đoán" use the new logic; ranges are shown as ranges and the confidence is stated.
+  Acceptance: existing tests updated only where the old window was the expectation; no row claims a single certain date when lengths vary.
+- Task 24.3: Card on pre-pregnancy Hôm nay: "Khả năng thụ thai hôm nay: Thấp / Cao / Đỉnh (ước tính)", with frequency guidance every 1-2 days in the window, no pressure wording, "không dùng để tránh thai". Hidden without cycles, and yields to the late-period card.
+  Acceptance: widget tests for each level, hidden states, 360dp x1.5, both themes, order by key.
+- Task 24.4: Guidance strings go into the doctor review packet.
+  Acceptance: `content_source/review/` has the new wording; nothing is marked approved.
+
 ## Known issues (pre-existing, backlog)
 - Resolved in Phase 23: Chu kỳ calendar shows an English month header ('October 2026'), format button ('2 weeks') and weekday names; needs a Vietnamese locale/format labels. Found in Phase 14 test round 1 (P14-R1-04).
 - `FlutterSecureStorage: Could not decrypt key` is logged at each launch (library startup check); data is unaffected. Found in Phase 14 test round 1.
@@ -1242,6 +1254,9 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 21: activated (B10 part 2: bump photo journal, shareable milestone card, health diary PDF), see "## Phase 21" above.
 - Home-screen widget (B10): deferred, not scheduled. Needs a native widget package (e.g. `home_widget`) plus Android/iOS widget code; revisit after Phase 22.
 - Phase 22: activated (one-colour redesign, light/dark contrast, app icon), see "## Phase 22" above.
+- Phase 24: activated, see "## Phase 24" above.
+- Phase 25: manual LH test, cervical mucus, basal temperature and intercourse logging; positive LH updates the current window; discreet reminders; "Nên đi khám khi nào" card. Details in FEATURE_BRAINSTORM.md section 9.
+- Phase 26: spike, then read more types from Health Connect and HealthKit; sexual activity permission off by default.
 
 ## Verification Log
 - `C:\Users\PC\Development\flutter\bin\flutter.bat test` passed.
