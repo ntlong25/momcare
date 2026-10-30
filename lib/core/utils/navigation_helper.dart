@@ -138,10 +138,18 @@ class NavigationHelper {
     );
   }
 
-  static Future<T?> toBumpJournal<T>(BuildContext context, {int? week}) {
+  /// [openCamera] starts the camera as soon as the journal is shown.
+  static Future<T?> toBumpJournal<T>(
+    BuildContext context, {
+    int? week,
+    bool openCamera = false,
+  }) {
     return Navigator.push<T>(
       context,
-      MaterialPageRoute(builder: (_) => BumpJournalScreen(initialWeek: week)),
+      MaterialPageRoute(
+        builder: (_) =>
+            BumpJournalScreen(initialWeek: week, openCamera: openCamera),
+      ),
     );
   }
 

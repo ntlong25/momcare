@@ -21,7 +21,14 @@ class BumpJournalScreen extends ConsumerStatefulWidget {
   /// Week selected on open; defaults to the active pregnancy's week.
   final int? initialWeek;
 
-  const BumpJournalScreen({super.key, this.initialWeek});
+  /// Starts the camera after the first frame.
+  final bool openCamera;
+
+  const BumpJournalScreen({
+    super.key,
+    this.initialWeek,
+    this.openCamera = false,
+  });
 
   /// Replaces the camera/photo picker in tests.
   @visibleForTesting
@@ -59,6 +66,11 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
     });
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       _recoverLostImages();
+    }
+    if (widget.openCamera) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _takePhoto();
+      });
     }
   }
 
@@ -310,6 +322,29 @@ class BumpPhotoPlaceholder extends StatelessWidget {
   }
 }
 
+/// The picture of a bump photo, cropped to fill its box. A missing or
+/// undecodable [file] shows [BumpPhotoPlaceholder].
+class BumpPhotoImage extends StatelessWidget {
+  final File? file;
+  final int cacheWidth;
+
+  const BumpPhotoImage({super.key, required this.file, this.cacheWidth = 300});
+
+  @override
+  Widget build(BuildContext context) {
+    final image = file;
+    if (image == null || !image.existsSync()) {
+      return const BumpPhotoPlaceholder();
+    }
+    return Image.file(
+      image,
+      cacheWidth: cacheWidth,
+      fit: BoxFit.cover,
+      errorBuilder: (_, _, _) => const BumpPhotoPlaceholder(),
+    );
+  }
+}
+
 class _Thumbnail extends StatelessWidget {
   final BumpPhoto photo;
   final File? file;
@@ -323,15 +358,6 @@ class _Thumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = file;
-    final Widget child = image == null || !image.existsSync()
-        ? const BumpPhotoPlaceholder()
-        : Image.file(
-            image,
-            cacheWidth: 300,
-            fit: BoxFit.cover,
-            errorBuilder: (_, _, _) => const BumpPhotoPlaceholder(),
-          );
     return Semantics(
       button: true,
       label:
@@ -342,7 +368,7 @@ class _Thumbnail extends StatelessWidget {
           child: InkWell(
             key: ValueKey('bump-photo-${photo.id}'),
             onTap: onTap,
-            child: SizedBox.expand(child: child),
+            child: SizedBox.expand(child: BumpPhotoImage(file: file)),
           ),
         ),
       ),

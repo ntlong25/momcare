@@ -126,6 +126,10 @@ void main() {
       final expected = {
         AppCardVariant.standard: (s.surfaceContainerLow, s.onSurface),
         AppCardVariant.hero: (s.primaryContainer, s.onPrimaryContainer),
+        AppCardVariant.spotlight: (
+          sem.spotlightContainer,
+          sem.onSpotlightContainer,
+        ),
         AppCardVariant.alert: (s.errorContainer, s.onErrorContainer),
         AppCardVariant.notice: (sem.warningContainer, sem.onWarningContainer),
         AppCardVariant.emergency: (sem.emergency, sem.onEmergency),

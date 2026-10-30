@@ -1244,6 +1244,15 @@ Status: Completed (2026-10-31). Requested by the user, who found the plum theme 
 Test round 1: light passes. Accepted THEME-R1-01 (high: dark emergency surfaces read as normal pink buttons) and THEME-R1-02 (peach beyond thai giáo). THEME-R1-03 (launch colour follows the system, not the saved theme) rejected: the native launch screen cannot read the saved choice.
 Test round 2: both fixed on device, red vs pink passes in both themes. Consent, onboarding and mode selection cannot be reached in dark because first run is always light. The label change has no device re-run.
 
+## Phase 28: Bump Photo Spotlight
+Status: Completed (2026-10-31). Requested by the user: make the bump photo journal easier to see in pregnancy mode. Numbered after the reserved Phases 25-26.
+
+- 28.1 `BumpSpotlightCard` replaces the plain row: latest photo of the current week, or an invitation with up to 3 older thumbnails.
+- 28.2 Placed right after the hero on Hôm nay and after the week header on Tuần thai.
+- 28.3 'Chụp ảnh' opens the camera in one tap. New spotlight colour tokens; dark uses a plum that differs from the hero.
+
+Test round 1: all 9 checks pass on the emulator, including a real capture through the one-tap path. BUMP-R1-01 (photo stays unsaved after Android kills the app during capture) is deferred to the in-app camera phase, which removes the external camera. BUMP-R1-02 and 03 (card alignment) are deferred to the same phase.
+
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.

@@ -223,6 +223,7 @@ void main() {
       _expectOrder(tester, const [
         'home-greeting',
         'home-day-card',
+        'home-bump-photo',
         'next-milestone-card',
         'home-appointments',
         'home-thai-giao',

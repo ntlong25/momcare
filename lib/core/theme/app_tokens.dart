@@ -92,6 +92,11 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
   final Color mintContainer;
   final Color onMintContainer;
 
+  /// The bump photo card. `secondaryContainer` in light; its own plum in
+  /// dark, where `secondaryContainer` equals the hero's `primaryContainer`.
+  final Color spotlightContainer;
+  final Color onSpotlightContainer;
+
   /// Solid fill of the "Gọi 115" actions and emergency entry points. Stays a
   /// saturated red with white text in both themes: the M3 dark `error` is a
   /// pale salmon that reads like the pale pink `primary`. Destructive
@@ -124,6 +129,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     required this.onPeachContainer,
     required this.mintContainer,
     required this.onMintContainer,
+    required this.spotlightContainer,
+    required this.onSpotlightContainer,
     required this.emergency,
     required this.onEmergency,
     required this.emergencyContainer,
@@ -152,6 +159,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     onPeachContainer: const Color(0xFF5A2A12),
     mintContainer: const Color(0xFFCDEFE4),
     onMintContainer: const Color(0xFF0F4A3C),
+    spotlightContainer: scheme.secondaryContainer,
+    onSpotlightContainer: scheme.onSecondaryContainer,
     emergency: const Color(0xFFB81818),
     onEmergency: const Color(0xFFFFFFFF),
     emergencyContainer: scheme.errorContainer,
@@ -180,6 +189,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     onPeachContainer: const Color(0xFFFFD9C2),
     mintContainer: const Color(0xFF1F3D35),
     onMintContainer: const Color(0xFFCDEFE4),
+    spotlightContainer: const Color(0xFF5A2D72),
+    onSpotlightContainer: const Color(0xFFF5E1FF),
     emergency: const Color(0xFFD32F2F),
     onEmergency: const Color(0xFFFFFFFF),
     emergencyContainer: const Color(0xFF43191C),
@@ -214,6 +225,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
     Color? onPeachContainer,
     Color? mintContainer,
     Color? onMintContainer,
+    Color? spotlightContainer,
+    Color? onSpotlightContainer,
     Color? emergency,
     Color? onEmergency,
     Color? emergencyContainer,
@@ -240,6 +253,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       onPeachContainer: onPeachContainer ?? this.onPeachContainer,
       mintContainer: mintContainer ?? this.mintContainer,
       onMintContainer: onMintContainer ?? this.onMintContainer,
+      spotlightContainer: spotlightContainer ?? this.spotlightContainer,
+      onSpotlightContainer: onSpotlightContainer ?? this.onSpotlightContainer,
       emergency: emergency ?? this.emergency,
       onEmergency: onEmergency ?? this.onEmergency,
       emergencyContainer: emergencyContainer ?? this.emergencyContainer,
@@ -272,6 +287,8 @@ class AppSemanticColors extends ThemeExtension<AppSemanticColors> {
       onPeachContainer: l(onPeachContainer, other.onPeachContainer),
       mintContainer: l(mintContainer, other.mintContainer),
       onMintContainer: l(onMintContainer, other.onMintContainer),
+      spotlightContainer: l(spotlightContainer, other.spotlightContainer),
+      onSpotlightContainer: l(onSpotlightContainer, other.onSpotlightContainer),
       emergency: l(emergency, other.emergency),
       onEmergency: l(onEmergency, other.onEmergency),
       emergencyContainer: l(emergencyContainer, other.emergencyContainer),
