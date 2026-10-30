@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'l10n/app_localizations.dart';
 import 'core/services/database_service.dart';
@@ -22,12 +23,14 @@ import 'core/providers/app_mode_provider.dart';
 import 'core/constants/app_constants.dart';
 import 'core/widgets/brand_mark.dart';
 import 'features/home/screens/main_navigation.dart';
+import 'features/legal/screens/disclaimer_consent_screen.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
 import 'features/onboarding/screens/mode_selection_screen.dart';
 import 'features/splash/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('vi');
 
   // Initialize services
   try {
@@ -143,34 +146,37 @@ class AppInitializer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appMode = ref.watch(appModeProvider);
 
-    return FutureBuilder<bool>(
-      future: _checkOnboardingStatus(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // Same mark and position as the splash, so nothing jumps while the
-          // onboarding check finishes.
-          return const Scaffold(
-            body: Center(
-              child: BrandMark(key: ValueKey('app-initializer-brand-mark')),
-            ),
-          );
-        }
+    // Flow: disclaimer consent -> onboarding -> mode selection -> main.
+    return DisclaimerGate(
+      child: FutureBuilder<bool>(
+        future: _checkOnboardingStatus(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Same mark and position as the splash, so nothing jumps while
+            // the onboarding check finishes.
+            return const Scaffold(
+              body: Center(
+                child: BrandMark(key: ValueKey('app-initializer-brand-mark')),
+              ),
+            );
+          }
 
-        final hasCompletedOnboarding = snapshot.data ?? false;
+          final hasCompletedOnboarding = snapshot.data ?? false;
 
-        // If not completed onboarding, show onboarding screen
-        if (!hasCompletedOnboarding) {
-          return const OnboardingScreen();
-        }
+          // If not completed onboarding, show onboarding screen
+          if (!hasCompletedOnboarding) {
+            return const OnboardingScreen();
+          }
 
-        // If no mode selected yet, show mode selection
-        if (appMode == null) {
-          return const ModeSelectionScreen();
-        }
+          // If no mode selected yet, show mode selection
+          if (appMode == null) {
+            return const ModeSelectionScreen();
+          }
 
-        // Otherwise show main navigation
-        return const MainNavigation();
-      },
+          // Otherwise show main navigation
+          return const MainNavigation();
+        },
+      ),
     );
   }
 

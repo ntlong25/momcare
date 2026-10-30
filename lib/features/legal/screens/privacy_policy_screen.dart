@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_constants.dart';
+import '../widgets/legal_website_link.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
-  const PrivacyPolicyScreen({super.key});
+  /// Published copy of this page, see [AppConstants.isPublishedUrl].
+  final String websiteUrl;
+
+  const PrivacyPolicyScreen({
+    super.key,
+    this.websiteUrl = AppConstants.privacyPolicyUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,31 +61,13 @@ class PrivacyPolicyScreen extends StatelessWidget {
             body:
                 'Bạn có thể quản lý dữ liệu ngay trong ứng dụng. Khi chọn xóa toàn bộ dữ liệu, thông tin đã lưu trên thiết bị này sẽ bị xóa và ứng dụng trở về trạng thái ban đầu.',
           ),
-          const SizedBox(height: 16),
-          FilledButton.icon(
-            onPressed: () => _openUrl(context, AppConstants.privacyPolicyUrl),
-            icon: const Icon(Icons.open_in_new),
-            label: const Text('Mở chính sách trên website'),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            AppConstants.privacyPolicyUrl,
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
+          LegalWebsiteLink(
+            url: websiteUrl,
+            label: 'Mở chính sách trên website',
           ),
         ],
       ),
     );
-  }
-
-  Future<void> _openUrl(BuildContext context, String url) async {
-    final uri = Uri.parse(url);
-    final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
-    if (!opened && context.mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Không thể mở liên kết')));
-    }
   }
 }
 

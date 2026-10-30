@@ -97,6 +97,9 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
         children: [
           Card(
             child: TableCalendar(
+              locale: AppCalendarStyle.locale,
+              startingDayOfWeek: AppCalendarStyle.startingDayOfWeek,
+              availableCalendarFormats: AppCalendarStyle.formats,
               firstDay: DateTime.utc(2020, 1, 1),
               lastDay: DateTime.utc(2030, 12, 31),
               focusedDay: _focusedDay,
@@ -129,6 +132,12 @@ class _AppointmentsScreenState extends ConsumerState<AppointmentsScreen>
               ),
               daysOfWeekStyle: AppCalendarStyle.daysOfWeek(context),
               headerStyle: AppCalendarStyle.header(context),
+              rowHeight: AppCalendarStyle.rowHeight(context),
+              daysOfWeekHeight: AppCalendarStyle.daysOfWeekHeight(context),
+              calendarBuilders: const CalendarBuilders(
+                headerTitleBuilder: AppCalendarStyle.headerTitleBuilder,
+                dowBuilder: AppCalendarStyle.daysOfWeekBuilder,
+              ),
             ),
           ),
           const SizedBox(height: 16),
