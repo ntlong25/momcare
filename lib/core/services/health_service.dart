@@ -3,14 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:health/health.dart';
 import '../models/menstrual_cycle_model.dart';
 import '../utils/app_logger.dart';
+import 'cycle_prediction.dart';
 
-/// Regularity state of the recorded cycles.
-enum CycleRegularity {
-  /// Not enough cycles recorded to judge regularity.
-  insufficientData,
-  regular,
-  irregular,
-}
+export 'cycle_prediction.dart' show CycleRegularity;
 
 /// Service to interact with Apple Health (iOS) and Health Connect (Android)
 /// for menstrual cycle data, plus pure cycle prediction helpers.
@@ -20,7 +15,7 @@ class HealthService {
   static Future<void>? _initFuture;
 
   /// Minimum number of cycles before regularity is evaluated.
-  static const int minCyclesForRegularity = 3;
+  static const int minCyclesForRegularity = CycleStats.minCyclesForRegularity;
 
   /// Initialize the health service. Safe to call more than once; errors are
   /// logged and never thrown so app startup is not blocked.
@@ -247,16 +242,10 @@ class HealthService {
     return cycles;
   }
 
-  static DateTime _dateOnly(DateTime date) =>
-      DateTime(date.year, date.month, date.day);
+  static DateTime _dateOnly(DateTime date) => CycleStats.dateOnly(date);
 
-  static int _daysBetween(DateTime from, DateTime to) {
-    return DateTime.utc(
-      to.year,
-      to.month,
-      to.day,
-    ).difference(DateTime.utc(from.year, from.month, from.day)).inDays;
-  }
+  static int _daysBetween(DateTime from, DateTime to) =>
+      CycleStats.daysBetween(from, to);
 
   static bool isSameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
@@ -264,22 +253,11 @@ class HealthService {
   /// Cycles sorted by start date (oldest first).
   static List<MenstrualCycleModel> sortedByStart(
     List<MenstrualCycleModel> cycles,
-  ) {
-    return List<MenstrualCycleModel>.from(cycles)
-      ..sort((a, b) => a.startDate.compareTo(b.startDate));
-  }
+  ) => CycleStats.sortedByStart(cycles);
 
-  /// Cycle lengths derived from consecutive start dates after sorting, so the
-  /// order in which periods were entered never produces negative lengths.
-  static List<int> cycleLengths(List<MenstrualCycleModel> cycles) {
-    final sorted = sortedByStart(cycles);
-    final lengths = <int>[];
-    for (var i = 1; i < sorted.length; i++) {
-      final length = _daysBetween(sorted[i - 1].startDate, sorted[i].startDate);
-      if (length > 0) lengths.add(length);
-    }
-    return lengths;
-  }
+  /// Cycle lengths derived from consecutive start dates after sorting.
+  static List<int> cycleLengths(List<MenstrualCycleModel> cycles) =>
+      CycleStats.cycleLengths(cycles);
 
   /// Returns copies of [cycles] (oldest first) whose `cycleLengthDays` is the
   /// gap to the previous recorded start date (null for the oldest cycle).
@@ -313,38 +291,12 @@ class HealthService {
   }
 
   /// Calculate average cycle length from a list of cycles
-  static int calculateAverageCycleLength(List<MenstrualCycleModel> cycles) {
-    if (cycles.isEmpty) return 28; // Default average
-
-    var lengths = cycleLengths(cycles);
-    if (lengths.isEmpty) {
-      lengths = cycles
-          .where((c) => c.cycleLengthDays != null && c.cycleLengthDays! > 0)
-          .map((c) => c.cycleLengthDays!)
-          .toList();
-    }
-    if (lengths.isEmpty) return 28;
-
-    final total = lengths.fold<int>(0, (sum, length) => sum + length);
-    return (total / lengths.length).round();
-  }
+  static int calculateAverageCycleLength(List<MenstrualCycleModel> cycles) =>
+      CycleStats.averageCycleLength(cycles);
 
   /// Regularity with an explicit "not enough data" state.
-  static CycleRegularity cycleRegularity(List<MenstrualCycleModel> cycles) {
-    if (cycles.length < minCyclesForRegularity) {
-      return CycleRegularity.insufficientData;
-    }
-    final lengths = cycleLengths(cycles);
-    if (lengths.isEmpty) return CycleRegularity.insufficientData;
-
-    final averageLength = calculateAverageCycleLength(cycles);
-    final regularCount = lengths
-        .where((length) => (length - averageLength).abs() <= 3)
-        .length;
-    return (regularCount / lengths.length) >= 0.7
-        ? CycleRegularity.regular
-        : CycleRegularity.irregular;
-  }
+  static CycleRegularity cycleRegularity(List<MenstrualCycleModel> cycles) =>
+      CycleStats.regularity(cycles);
 
   /// Check if cycles are regular (more than 70% within 3 days of average)
   static bool areCyclesRegular(List<MenstrualCycleModel> cycles) {
@@ -357,98 +309,38 @@ class HealthService {
   static DateTime? predictNextPeriod(
     List<MenstrualCycleModel> cycles, {
     DateTime? today,
-  }) {
-    if (cycles.isEmpty) return null;
+  }) => CycleStats.predictNextPeriod(cycles, today: today ?? DateTime.now());
 
-    final sorted = sortedByStart(cycles);
-    final lastStart = _dateOnly(sorted.last.startDate);
-    final averageLength = calculateAverageCycleLength(cycles);
-    final reference = _dateOnly(today ?? DateTime.now());
-
-    var next = DateTime(
-      lastStart.year,
-      lastStart.month,
-      lastStart.day + averageLength,
-    );
-    while (next.isBefore(reference)) {
-      next = DateTime(next.year, next.month, next.day + averageLength);
-    }
-    return next;
-  }
-
-  /// Expected start of the period after the most recent recorded one: last
-  /// start + average cycle length. Unlike [predictNextPeriod] it never rolls
-  /// forward, so it can be in the past (used for the late-period estimate).
-  static DateTime? expectedPeriodDate(List<MenstrualCycleModel> cycles) {
-    if (cycles.isEmpty) return null;
-    final lastStart = _dateOnly(sortedByStart(cycles).last.startDate);
-    final averageLength = calculateAverageCycleLength(cycles);
-    return DateTime(
-      lastStart.year,
-      lastStart.month,
-      lastStart.day + averageLength,
-    );
-  }
+  /// See [CycleStats.expectedPeriodDate].
+  static DateTime? expectedPeriodDate(List<MenstrualCycleModel> cycles) =>
+      CycleStats.expectedPeriodDate(cycles);
 
   /// Days past [expectedPeriodDate] as of [today] (default: now); 0 when not
   /// late or when there are no cycles.
-  static int daysLate(List<MenstrualCycleModel> cycles, {DateTime? today}) {
-    final expected = expectedPeriodDate(cycles);
-    if (expected == null) return 0;
-    final late = _daysBetween(expected, _dateOnly(today ?? DateTime.now()));
-    return late > 0 ? late : 0;
-  }
+  static int daysLate(List<MenstrualCycleModel> cycles, {DateTime? today}) =>
+      CycleStats.daysLate(cycles, today: today ?? DateTime.now());
 
-  /// Whether the cycle data is too old to estimate a late period: more than
-  /// two average cycles have passed since the last recorded start (e.g. on a
-  /// 28-day average, 56 days is still an estimate and 57 asks the user to
-  /// update their cycle data).
+  /// See [CycleStats.isDataStale].
   static bool isCycleDataStale(
     List<MenstrualCycleModel> cycles, {
     DateTime? today,
-  }) {
-    if (cycles.isEmpty) return false;
-    final lastStart = _dateOnly(sortedByStart(cycles).last.startDate);
-    final elapsed = _daysBetween(lastStart, _dateOnly(today ?? DateTime.now()));
-    return elapsed > 2 * calculateAverageCycleLength(cycles);
-  }
+  }) => CycleStats.isDataStale(cycles, today: today ?? DateTime.now());
 
-  /// Get next predicted ovulation date
+  /// Mid estimate of the next ovulation; see [CyclePrediction].
   static DateTime? predictNextOvulation(
     List<MenstrualCycleModel> cycles, {
     DateTime? today,
-  }) {
-    final nextPeriod = predictNextPeriod(cycles, today: today);
-    if (nextPeriod == null) return null;
+  }) => CyclePrediction.compute(
+    cycles,
+    today: today ?? DateTime.now(),
+  )?.ovulation;
 
-    // Ovulation is typically 14 days before next period
-    return DateTime(nextPeriod.year, nextPeriod.month, nextPeriod.day - 14);
-  }
-
-  /// Get fertile window for next cycle
+  /// Every day of the fertile window; see [CyclePrediction].
   static List<DateTime>? predictFertileWindow(
     List<MenstrualCycleModel> cycles, {
     DateTime? today,
-  }) {
-    final ovulationDate = predictNextOvulation(cycles, today: today);
-    if (ovulationDate == null) return null;
-
-    final fertileWindow = <DateTime>[];
-    // 5 days before ovulation
-    for (int i = 5; i >= 0; i--) {
-      fertileWindow.add(
-        DateTime(
-          ovulationDate.year,
-          ovulationDate.month,
-          ovulationDate.day - i,
-        ),
-      );
-    }
-    // 1 day after ovulation
-    fertileWindow.add(
-      DateTime(ovulationDate.year, ovulationDate.month, ovulationDate.day + 1),
-    );
-
-    return fertileWindow;
-  }
+  }) => CyclePrediction.compute(
+    cycles,
+    today: today ?? DateTime.now(),
+  )?.fertileDays;
 }

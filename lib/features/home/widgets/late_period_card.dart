@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
+import '../../../core/services/cycle_prediction.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../fertility/screens/add_period_screen.dart';
@@ -34,15 +35,14 @@ class LatePeriodCard extends ConsumerWidget {
 
   /// Whether the card renders for [cycles] on [today].
   static bool isVisible(List<MenstrualCycleModel> cycles, DateTime today) =>
-      cycles.isNotEmpty && HealthService.daysLate(cycles, today: today) >= 1;
+      CyclePrediction.statusOf(cycles, today: today) != CycleStatus.onTrack;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (!isVisible(cycles, today)) return const SizedBox.shrink();
 
-    final theme = Theme.of(context);
-    final muted = theme.colorScheme.onSurfaceVariant;
-    final stale = HealthService.isCycleDataStale(cycles, today: today);
+    final stale =
+        CyclePrediction.statusOf(cycles, today: today) == CycleStatus.stale;
     final hasGuide = ContentPackService.guideById(earlySignsGuideId) != null;
 
     Widget addPeriodButton() => OutlinedButton.icon(
@@ -60,13 +60,7 @@ class LatePeriodCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _header(theme, Icons.update, 'Đã lâu bạn chưa ghi kỳ kinh mới'),
-            const SizedBox(height: 8),
-            Text(
-              'Hãy cập nhật ngày bắt đầu kỳ kinh gần nhất để MomCare+ '
-              'ước tính chu kỳ chính xác hơn.',
-              style: theme.textTheme.bodyMedium?.copyWith(color: muted),
-            ),
+            LatePeriodSummary(cycles: cycles, today: today),
             const SizedBox(height: 12),
             SizedBox(width: double.infinity, child: addPeriodButton()),
           ],
@@ -74,46 +68,12 @@ class LatePeriodCard extends ConsumerWidget {
       );
     }
 
-    final late = HealthService.daysLate(cycles, today: today);
-    final expected = HealthService.expectedPeriodDate(cycles)!;
-    final average = HealthService.calculateAverageCycleLength(cycles);
-    final regularity = HealthService.cycleRegularity(cycles);
-
     return AppCard(
       key: const ValueKey('late-period-card'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _header(
-            theme,
-            Icons.event_busy,
-            'Trễ kinh $late ngày → có thể thử thai',
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Kỳ kinh dự kiến: ${DateFormatter.formatDate(expected)} '
-            '(theo chu kỳ trung bình $average ngày)',
-            style: theme.textTheme.bodyMedium,
-          ),
-          const SizedBox(height: 6),
-          Text(
-            'Đây chỉ là ước tính từ dữ liệu bạn đã ghi. Chu kỳ có thể '
-            'thay đổi vì nhiều lý do; nếu chưa chắc, bạn có thể thử thai '
-            'hoặc hỏi bác sĩ.',
-            style: theme.textTheme.bodySmall?.copyWith(color: muted),
-          ),
-          if (regularity != CycleRegularity.regular) ...[
-            const SizedBox(height: 6),
-            Text(
-              regularity == CycleRegularity.irregular
-                  ? 'Chu kỳ của bạn chưa đều nên ngày dự kiến có thể lệch '
-                        'nhiều hơn.'
-                  : 'Chưa đủ dữ liệu chu kỳ nên ngày dự kiến có thể lệch '
-                        'nhiều hơn. Ghi thêm kỳ kinh giúp ước tính tốt hơn.',
-              key: const ValueKey('late-period-regularity-note'),
-              style: theme.textTheme.bodySmall?.copyWith(color: muted),
-            ),
-          ],
+          LatePeriodSummary(cycles: cycles, today: today),
           const SizedBox(height: 12),
           if (hasGuide) ...[
             SizedBox(
@@ -142,6 +102,84 @@ class LatePeriodCard extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The late or stale message itself, without actions: shared by the Hôm nay
+/// card and the Chu kỳ screen so the two always say the same thing. Renders
+/// nothing while the cycle is on track.
+class LatePeriodSummary extends StatelessWidget {
+  final List<MenstrualCycleModel> cycles;
+  final DateTime today;
+
+  const LatePeriodSummary({
+    super.key,
+    required this.cycles,
+    required this.today,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final muted = theme.colorScheme.onSurfaceVariant;
+    final status = CyclePrediction.statusOf(cycles, today: today);
+    if (status == CycleStatus.onTrack) return const SizedBox.shrink();
+
+    if (status == CycleStatus.stale) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _header(theme, Icons.update, 'Đã lâu bạn chưa ghi kỳ kinh mới'),
+          const SizedBox(height: 8),
+          Text(
+            'Hãy cập nhật ngày bắt đầu kỳ kinh gần nhất để MomCare+ '
+            'ước tính chu kỳ chính xác hơn.',
+            style: theme.textTheme.bodyMedium?.copyWith(color: muted),
+          ),
+        ],
+      );
+    }
+
+    final late = HealthService.daysLate(cycles, today: today);
+    final expected = HealthService.expectedPeriodDate(cycles)!;
+    final average = HealthService.calculateAverageCycleLength(cycles);
+    final regularity = HealthService.cycleRegularity(cycles);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _header(
+          theme,
+          Icons.event_busy,
+          'Trễ kinh $late ngày → có thể thử thai',
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Kỳ kinh dự kiến: ${DateFormatter.formatDate(expected)} '
+          '(theo chu kỳ trung bình $average ngày)',
+          style: theme.textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Đây chỉ là ước tính từ dữ liệu bạn đã ghi. Chu kỳ có thể '
+          'thay đổi vì nhiều lý do; nếu chưa chắc, bạn có thể thử thai '
+          'hoặc hỏi bác sĩ.',
+          style: theme.textTheme.bodySmall?.copyWith(color: muted),
+        ),
+        if (regularity != CycleRegularity.regular) ...[
+          const SizedBox(height: 6),
+          Text(
+            regularity == CycleRegularity.irregular
+                ? 'Chu kỳ của bạn chưa đều nên ngày dự kiến có thể lệch '
+                      'nhiều hơn.'
+                : 'Chưa đủ dữ liệu chu kỳ nên ngày dự kiến có thể lệch '
+                      'nhiều hơn. Ghi thêm kỳ kinh giúp ước tính tốt hơn.',
+            key: const ValueKey('late-period-regularity-note'),
+            style: theme.textTheme.bodySmall?.copyWith(color: muted),
+          ),
+        ],
+      ],
     );
   }
 

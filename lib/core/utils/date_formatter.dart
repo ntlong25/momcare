@@ -52,6 +52,12 @@ class DateFormatter {
   /// Countdown to a calendar day: "Hôm nay", "5 ngày" or, for a day already
   /// gone, "Đã qua 4 ngày". Counts calendar days, so the time of day of
   /// [date] and [now] does not matter.
+  /// "a - b", or one date when the range is a single day.
+  static String formatDateRange(DateTime start, DateTime end) {
+    final first = formatDate(start);
+    return start == end ? first : '$first - ${formatDate(end)}';
+  }
+
   static String formatDayCountdown(DateTime date, {DateTime? now}) {
     final today = now ?? DateTime.now();
     final days = DateTime.utc(

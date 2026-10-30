@@ -4,12 +4,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/models/pre_readiness.dart';
+import '../../../core/services/cycle_prediction.dart';
 import '../../../core/services/database_service.dart';
-import '../../../core/services/health_service.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../emergency/widgets/emergency_app_bar_button.dart';
 import '../../emergency/widgets/emergency_entry_card.dart';
+import '../widgets/fertile_today_card.dart';
 import '../widgets/late_period_card.dart';
 import '../widgets/pre_readiness_card.dart';
 import '../widgets/quick_actions_grid.dart';
@@ -75,11 +77,10 @@ class _PrePregnancyHomeScreenState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final nextOvulation = HealthService.predictNextOvulation(_cycles);
-    final fertileWindow = HealthService.predictFertileWindow(_cycles);
-    final nextPeriod = HealthService.predictNextPeriod(_cycles);
     final now = widget.debugToday ?? DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
+    final prediction = CyclePrediction.compute(_cycles, today: today);
+    final guidance = ContentPackService.fertileGuidance;
     final showLatePeriod = LatePeriodCard.isVisible(_cycles, today);
     final showReadiness = !PreReadiness.compute(
       ContentPackService.guides,
@@ -108,8 +109,8 @@ class _PrePregnancyHomeScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Order (Phase 22.5): greeting, late period, cycle
-              // predictions, readiness, early signs, tips, quick actions,
+              // Order (Phase 22.5, 24.3): greeting, late period, today's
+              // fertility estimate, cycle predictions, readiness, early signs, tips, quick actions,
               // emergency + clinic, "Tôi đã có thai".
               _buildGreeting(theme),
               const SizedBox(height: 16),
@@ -125,10 +126,17 @@ class _PrePregnancyHomeScreenState
               // contradict the late-period card; they return once a new
               // period is logged.
               if (!showLatePeriod) ...[
+                if (FertileTodayCard.isVisible(prediction, guidance)) ...[
+                  FertileTodayCard(
+                    key: const ValueKey('pre-fertile-today-card'),
+                    prediction: prediction!,
+                    guidance: guidance,
+                  ),
+                  const SizedBox(height: 16),
+                ],
                 _FertileWindowWidget(
                   key: const ValueKey('pre-fertile-window-card'),
-                  fertileWindow: fertileWindow,
-                  nextOvulation: nextOvulation,
+                  fertileWindow: prediction?.fertileDays,
                   hasCycles: _cycles.isNotEmpty,
                   onAddPeriod: () async {
                     await NavigationHelper.toFertilityPlanner(context);
@@ -138,9 +146,9 @@ class _PrePregnancyHomeScreenState
                 const SizedBox(height: 16),
                 _OvulationCountdownWidget(
                   key: const ValueKey('pre-ovulation-card'),
-                  nextOvulation: nextOvulation,
-                  nextPeriod: nextPeriod,
-                  hasCycles: _cycles.isNotEmpty,
+                  prediction: prediction,
+                  today: today,
+                  inRangeLabel: guidance.text('ovulation_in_range'),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -230,14 +238,12 @@ class _PrePregnancyHomeScreenState
 
 class _FertileWindowWidget extends StatelessWidget {
   final List<DateTime>? fertileWindow;
-  final DateTime? nextOvulation;
   final bool hasCycles;
   final VoidCallback onAddPeriod;
 
   const _FertileWindowWidget({
     super.key,
     this.fertileWindow,
-    this.nextOvulation,
     required this.hasCycles,
     required this.onAddPeriod,
   });
@@ -368,28 +374,31 @@ class _FertileWindowWidget extends StatelessWidget {
 }
 
 class _OvulationCountdownWidget extends StatelessWidget {
-  final DateTime? nextOvulation;
-  final DateTime? nextPeriod;
-  final bool hasCycles;
+  final CyclePrediction? prediction;
+  final DateTime today;
+
+  /// Shown instead of 'Hôm nay' when today is inside a range of dates.
+  final String inRangeLabel;
 
   const _OvulationCountdownWidget({
     super.key,
-    this.nextOvulation,
-    this.nextPeriod,
-    required this.hasCycles,
+    required this.prediction,
+    required this.today,
+    required this.inRangeLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    if (!hasCycles || nextOvulation == null) {
-      return const SizedBox.shrink();
-    }
+    final prediction = this.prediction;
+    if (prediction == null) return const SizedBox.shrink();
 
-    final daysUntilOvulation = nextOvulation!.difference(DateTime.now()).inDays;
-    final isToday = daysUntilOvulation == 0;
-    final isPast = daysUntilOvulation < 0;
+    final earliest = prediction.earliestOvulation;
+    final latest = prediction.latestOvulation;
+    final countdown = RangeCountdown.of(earliest, latest, today);
+    final isToday = countdown.position == DateRangePosition.inside;
+    final isPast = countdown.position == DateRangePosition.past;
     final info = AppTone.info.of(context);
     final scheme = theme.colorScheme;
     final boxBg = isToday
@@ -439,10 +448,10 @@ class _OvulationCountdownWidget extends StatelessWidget {
               children: [
                 Text(
                   isToday
-                      ? 'Hôm nay'
+                      ? countdown.insideLabel(inRangeLabel)
                       : isPast
                       ? 'Đã qua'
-                      : '$daysUntilOvulation',
+                      : '${countdown.daysUntilStart}',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: boxFg,
@@ -455,35 +464,34 @@ class _OvulationCountdownWidget extends StatelessWidget {
                   ),
                 const SizedBox(height: 4),
                 Text(
-                  '${nextOvulation!.day}/${nextOvulation!.month}/${nextOvulation!.year}',
+                  DateFormatter.formatDateRange(earliest, latest),
+                  textAlign: TextAlign.center,
                   style: TextStyle(color: boxFg),
                 ),
               ],
             ),
           ),
-          if (nextPeriod != null) ...[
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.calendar_today,
-                  size: 16,
-                  color: theme.colorScheme.error,
-                ),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(
-                    'Kỳ kinh tiếp theo: ${nextPeriod!.day}/${nextPeriod!.month}',
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.error,
-                    ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.calendar_today,
+                size: 16,
+                color: theme.colorScheme.error,
+              ),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  'Kỳ kinh tiếp theo: ${DateFormatter.formatDateRange(prediction.earliestPeriod, prediction.latestPeriod)}',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.error,
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ],
       ),
     );

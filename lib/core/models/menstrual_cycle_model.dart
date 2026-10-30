@@ -79,29 +79,6 @@ class MenstrualCycleModel extends HiveObject {
     );
   }
 
-  /// Calculate ovulation date (typically 14 days before next period)
-  /// This is an estimate based on average cycle
-  DateTime? getEstimatedOvulationDate(int averageCycleLength) {
-    // Ovulation typically occurs 14 days before the next period
-    return startDate.add(Duration(days: averageCycleLength - 14));
-  }
-
-  /// Get fertile window (5 days before ovulation + ovulation day + 1 day after)
-  List<DateTime>? getFertileWindow(int averageCycleLength) {
-    final ovulationDate = getEstimatedOvulationDate(averageCycleLength);
-    if (ovulationDate == null) return null;
-
-    final fertileWindow = <DateTime>[];
-    // 5 days before ovulation
-    for (int i = 5; i >= 0; i--) {
-      fertileWindow.add(ovulationDate.subtract(Duration(days: i)));
-    }
-    // 1 day after ovulation
-    fertileWindow.add(ovulationDate.add(const Duration(days: 1)));
-
-    return fertileWindow;
-  }
-
   /// Check if cycle is regular (within 3 days of average)
   bool isRegular(int averageCycleLength) {
     if (cycleLengthDays == null) return false;

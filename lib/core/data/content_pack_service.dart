@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/daily_item_model.dart';
+import '../models/fertile_guidance.dart';
 import '../models/food_model.dart';
 import '../models/guide_models.dart';
 import '../models/nutrition_model.dart';
@@ -27,6 +28,8 @@ class ContentPackService {
   static const String guidesIndexAssetPath =
       GuideContentParser.guidesIndexAssetPath;
   static const String foodsAssetPath = FoodContentParser.foodsAssetPath;
+  static const String fertileGuidanceAssetPath =
+      'assets/content/fertile_guidance.json';
 
   static Map<int, PregnancyWeekData>? _pregnancyWeeks;
   static List<NutritionModel>? _nutritionGuides;
@@ -42,6 +45,7 @@ class ContentPackService {
     DailyPack.dailyTipType,
   );
   static FoodPack _foodPack = const FoodPack.empty();
+  static FertileGuidance _fertileGuidance = const FertileGuidance.empty();
 
   static Map<int, PregnancyWeekData> get pregnancyWeeks =>
       _pregnancyWeeks ?? _buildFallbackPregnancyWeeks();
@@ -109,6 +113,14 @@ class ContentPackService {
   @visibleForTesting
   static set debugFoodPack(FoodPack value) => _foodPack = value;
 
+  /// Fertile-window wording (empty when the pack is missing/invalid).
+  static FertileGuidance get fertileGuidance => _fertileGuidance;
+
+  /// Replaces the loaded fertile-window wording (tests only).
+  @visibleForTesting
+  static set debugFertileGuidance(FertileGuidance value) =>
+      _fertileGuidance = value;
+
   static WeekDetail resolveWeekDetail(int week, Map<int, WeekDetail> details) {
     final clamped = week.clamp(
       WeekContentParser.minWeek,
@@ -131,6 +143,18 @@ class ContentPackService {
     _thaiGiaoPack = await DailyContentParser.loadThaiGiao(rootBundle);
     _dailyTipsPack = await DailyContentParser.loadDailyTips(rootBundle);
     _foodPack = await FoodContentParser.loadFoods(rootBundle);
+    _fertileGuidance = await loadFertileGuidance(rootBundle);
+  }
+
+  /// Loads `fertile_guidance.json`; never throws (missing/invalid -> empty).
+  static Future<FertileGuidance> loadFertileGuidance(AssetBundle bundle) async {
+    try {
+      return FertileGuidance.parse(
+        await bundle.loadString(fertileGuidanceAssetPath),
+      );
+    } catch (_) {
+      return const FertileGuidance.empty();
+    }
   }
 
   /// Loads `weeks_v2.json`; never throws (missing/invalid -> empty map).

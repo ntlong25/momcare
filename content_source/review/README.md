@@ -1,6 +1,6 @@
 # Hồ sơ duyệt nội dung y khoa
 
-Năm file CSV trong thư mục này chứa toàn bộ nội dung y khoa của app, mở được bằng Excel.
+Sáu file CSV trong thư mục này chứa toàn bộ nội dung y khoa của app, mở được bằng Excel.
 Nội dung do AI soạn, **chưa được bác sĩ duyệt**. Tất cả đang có `reviewStatus: draft_requires_medical_review`.
 
 ## Cách duyệt

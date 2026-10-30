@@ -172,6 +172,24 @@ Phase 13 chỉ cần 1–2 chủ đề mẫu. Nội dung của các phase sau c�
 - Dùng công cụ tạo ảnh AI nào? Điều khoản thương mại của công cụ đó có cho phép dùng trong app không?
 - Mục "Giấy tờ & quyền lợi" cần người cập nhật định kỳ khi luật BHXH thay đổi.
 
+## 9. Canh ngày thụ thai (chế độ chuẩn bị mang thai)
+Kết luận: nên làm. Giá trị chính là dự đoán trung thực và tín hiệu rụng trứng thật, không phải bản thân việc đồng bộ.
+
+Nguồn dữ liệu:
+- iPhone: app Sức khỏe (HealthKit).
+- Android: Health Connect, có kỳ kinh, que thử rụng trứng, chất nhầy cổ tử cung, thân nhiệt nền, hoạt động tình dục. Cần có app khác ghi dữ liệu vào, nên nhập tay phải là luồng chính.
+- Plugin `health` 13.3.2 chỉ đọc được `MENSTRUATION_FLOW`. Các loại khác cần thư viện khác hoặc platform channel.
+
+| Đợt | Phase | Nội dung |
+|---|---|---|
+| 1 | 24 | Dự đoán dạng khoảng ngày kèm mức tin cậy, cửa sổ 6 ngày kết thúc ở ngày rụng trứng, thẻ "Khả năng thụ thai hôm nay", gợi ý tần suất mỗi 1–2 ngày trong cửa sổ |
+| 2 | 25 | Nhập tay que LH, chất nhầy, thân nhiệt nền, ngày quan hệ; que dương tính cập nhật cửa sổ; nhắc kín đáo; thẻ "Nên đi khám khi nào" |
+| 3 | 26 | Làm thử rồi đọc thêm dữ liệu từ Health Connect và HealthKit; quyền hoạt động tình dục mặc định không xin |
+
+Không làm: xác suất % có thai, gợi ý chọn giới tính bé, dùng như biện pháp tránh thai, đưa dữ liệu ra khỏi máy.
+
+Nguồn: [ASRM, Optimizing natural fertility (2021)](https://www.asrm.org/practice-guidance/practice-committee-documents/optimizing-natural-fertility-a-committee-opinion-2021), [Bull et al. 2019](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6710244/) (do Natural Cycles tài trợ), [Health Connect data types](https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types?hl=pl).
+
 ## Nguồn tham khảo
 - Vinmec – [Lịch khám thai định kỳ](https://www.vinmec.com/vie/bai-viet/lich-kham-thai-dinh-ky-day-du-trong-suot-thai-ky-vi), [Vắc xin trước và trong khi mang thai](https://www.vinmec.com/vie/bai-viet/nhung-mui-vac-xin-can-tiem-truoc-trong-khi-mang-thai-va-lich-tiem-cu-vi)
 - Long Châu – [Tiêm vắc xin cho bà bầu](https://nhathuoclongchau.com.vn/bai-viet/tiem-vacxin-cho-ba-bau-vao-thang-thu-may.html)
