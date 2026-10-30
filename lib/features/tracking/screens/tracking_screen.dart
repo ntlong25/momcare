@@ -8,7 +8,7 @@ import '../../../core/data/content_pack_service.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
 import '../../../core/models/week_detail_model.dart';
 import '../../../core/utils/navigation_helper.dart';
-import '../../bump_journal/widgets/bump_journal_entry_card.dart';
+import '../../bump_journal/widgets/bump_spotlight_card.dart';
 import '../widgets/baby_development_card.dart';
 import '../widgets/mother_changes_card.dart';
 import '../widgets/weekly_tips_card.dart';
@@ -74,6 +74,11 @@ class TrackingScreen extends ConsumerWidget {
             children: [
               _buildWeekHeader(context, pregnancy, weekData, weekDetail),
               const SizedBox(height: 12),
+              BumpSpotlightCard(
+                key: const ValueKey('tracking-bump-journal'),
+                week: currentWeek,
+              ),
+              const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
@@ -88,8 +93,6 @@ class TrackingScreen extends ConsumerWidget {
               MotherChangesCard(weekData: weekData),
               const SizedBox(height: 16),
               WeeklyTipsCard(weekData: weekData),
-              const SizedBox(height: 16),
-              const BumpJournalEntryCard(),
               const SizedBox(height: 16),
               WeightGainChart(pregnancy: pregnancy),
               const SizedBox(height: 16),

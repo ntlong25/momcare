@@ -224,6 +224,10 @@ void main() {
           sem.peachContainer,
           sem.onPeachContainer,
         ),
+        'spotlightContainer/onSpotlightContainer': (
+          sem.spotlightContainer,
+          sem.onSpotlightContainer,
+        ),
         'mintContainer/onMintContainer': (
           sem.mintContainer,
           sem.onMintContainer,

@@ -6,6 +6,7 @@ import '../../../core/models/pregnancy_model.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../bump_journal/widgets/bump_spotlight_card.dart';
 import '../../emergency/widgets/emergency_app_bar_button.dart';
 import '../../emergency/widgets/emergency_entry_card.dart';
 import '../widgets/pregnancy_progress_card.dart';
@@ -132,8 +133,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final now = DateTime.now();
     _builtDate = DateTime(now.year, now.month, now.day);
     final contentDay = pregnancy.contentDayAt(now);
-    // Order (Phase 22.5): greeting, hero day card, time-bound actions,
-    // today's content, habits, quick actions, emergency + clinic, progress.
+    // Order (Phase 22.5): greeting, hero day card, bump photo, time-bound
+    // actions, today's content, habits, quick actions, emergency + clinic, progress.
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -145,6 +146,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             key: const ValueKey('home-day-card'),
             pregnancy: pregnancy,
             now: now,
+          ),
+          const SizedBox(height: 12),
+          BumpSpotlightCard(
+            key: const ValueKey('home-bump-photo'),
+            week: pregnancy.currentWeekAt(now),
           ),
           NextMilestoneCard(
             key: const ValueKey('home-next-milestone'),

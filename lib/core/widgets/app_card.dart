@@ -10,6 +10,10 @@ enum AppCardVariant {
   /// The one emphasised card of a screen, on `primaryContainer`.
   hero,
 
+  /// A bright invitation below the hero (bump photo card), on the semantic
+  /// spotlight container, which differs from the hero in both themes.
+  spotlight,
+
   /// Warning signs and urgent entry points, on `errorContainer`.
   alert,
 
@@ -54,6 +58,13 @@ class AppCardColors {
           background: scheme.primaryContainer,
           foreground: scheme.onPrimaryContainer,
           icon: scheme.onPrimaryContainer,
+        );
+      case AppCardVariant.spotlight:
+        final s = context.semantic;
+        return AppCardColors(
+          background: s.spotlightContainer,
+          foreground: s.onSpotlightContainer,
+          icon: s.onSpotlightContainer,
         );
       case AppCardVariant.alert:
         return AppCardColors(
