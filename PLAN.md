@@ -1264,6 +1264,20 @@ Status: Completed (2026-10-31). Requested by the user: fast capture in the style
 Test rounds 1-3: 10 Home-during-capture attempts with no stopped frame; 2 interruptions confirmed by log, both with flash on. Shutter to review about 2.7 s on the emulator (was 5.3 s).
 Open: CAM-R2-02 shutter feedback timing and CAM-R1-01 resolution need a real phone. CAM-R2-03: after the flash is used, captures pay about 2 s more until the process ends; a plugin limit. CAM-R1-04: first widget tap after a force-stop does nothing; Android limit. CAM-R1-05/CAM-R2-04: cold widget launch is plain white on Android 12+. CAM-R2-05: white screen after delete-all seen 1 of 7 runs, cause not found.
 
+## Phase 25: Fertility Signals, Manual Logging
+Status: In progress. Round 2 of the "canh ngày thụ thai" idea, see FEATURE_BRAINSTORM.md section 9. Authorised by the user. No new Android or iOS permissions and no Health sync in this phase.
+
+- Task 25.1: Encrypted local log per day: LH test (âm / dương / đỉnh), cervical mucus, basal body temperature, intercourse (optional). Same encrypted Hive setup as other health data; delete-all clears it.
+  Acceptance: unit tests for round-trip, one record per day, corrupt input, delete-all; nothing goes to a server, analytics or logs.
+- Task 25.2: Quick log sheet from Chu kỳ and the fertile today card; a day marker on the calendar and an edit/delete path.
+  Acceptance: logging takes under 3 taps; intercourse can be hidden in settings of this screen; no overflow at 360dp x1.5; both themes.
+- Task 25.3: A positive LH test updates the current cycle: ovulation is expected within about 2 days after it, and the window and today level use that. Temperature and mucus are shown as history, never as a diagnosis.
+  Acceptance: unit tests for positive before, inside and after the predicted window, several positives, and no effect on the next cycle; Chu kỳ and Hôm nay agree.
+- Task 25.4: Optional discreet reminders: window opening and LH test time. Text never mentions fertility or sex. Off by default, using existing notification permission and rescheduling.
+  Acceptance: scheduled ids, cancel on switch to pregnancy and delete-all, tests.
+- Task 25.5: "Nên đi khám khi nào" card from draft wording: long or irregular cycles, trying for a long time, by age. Wording only, for doctor review, no counts of failed months.
+  Acceptance: wording in the review packet, nothing marked approved; no diagnosis.
+
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
@@ -1295,7 +1309,7 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Home-screen widget (B10): deferred, not scheduled. Needs a native widget package (e.g. `home_widget`) plus Android/iOS widget code; revisit after Phase 22.
 - Phase 22: activated (one-colour redesign, light/dark contrast, app icon), see "## Phase 22" above.
 - Phase 24: activated, see "## Phase 24" above.
-- Phase 25: manual LH test, cervical mucus, basal temperature and intercourse logging; positive LH updates the current window; discreet reminders; "Nên đi khám khi nào" card. Details in FEATURE_BRAINSTORM.md section 9.
+- Phase 25: activated, see "## Phase 25" above.
 - Phase 26: spike, then read more types from Health Connect and HealthKit; sexual activity permission off by default.
 
 ## Verification Log
