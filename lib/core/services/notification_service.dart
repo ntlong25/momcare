@@ -103,7 +103,21 @@ class NotificationService {
     return iosAllowed ?? androidAllowed ?? true;
   }
 
+  /// Tap on a fertile-day notification (iOS; Android uses its own channel).
+  static void Function()? onCalendarTap;
+
+  /// Whether a fertile-day notification launched the app (iOS).
+  static Future<bool> launchedFromCalendar() async {
+    final details = await _notifications.getNotificationAppLaunchDetails();
+    return (details?.didNotificationLaunchApp ?? false) &&
+        details?.notificationResponse?.payload == 'calendar';
+  }
+
   static void _onNotificationTap(NotificationResponse response) {
+    if (response.payload == 'calendar') {
+      onCalendarTap?.call();
+      return;
+    }
     // Tapping a notification brings the app to the foreground; the app opens
     // on its default screen. Payloads are reserved for future deep links.
     _logger.debug('Notification tapped: ${response.payload}');

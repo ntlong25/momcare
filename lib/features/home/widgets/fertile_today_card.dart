@@ -15,10 +15,14 @@ class FertileTodayCard extends StatelessWidget {
   final CyclePrediction prediction;
   final FertileGuidance guidance;
 
+  /// Opens the quick log of today.
+  final VoidCallback? onLog;
+
   const FertileTodayCard({
     super.key,
     required this.prediction,
     required this.guidance,
+    this.onLog,
   });
 
   static bool isVisible(
@@ -84,10 +88,20 @@ class FertileTodayCard extends StatelessWidget {
           Text(guidance.text(messageId), style: theme.textTheme.bodyMedium),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            '${guidance.text('window_label')}: '
+            '${guidance.text('window_label')}'
+            '${prediction.isFromLhTest ? ' (${guidance.text('lh_source')})' : ''}: '
             '${DateFormatter.formatDateRange(prediction.fertileStart, prediction.fertileEnd)}',
+            key: const ValueKey('fertile-today-window'),
             style: theme.textTheme.bodyMedium,
           ),
+          if (prediction.isFromLhTest) ...[
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              guidance.text('lh_note'),
+              key: const ValueKey('fertile-today-lh-note'),
+              style: muted,
+            ),
+          ],
           const SizedBox(height: AppSpacing.sm),
           Text(
             guidance.confidenceLine(prediction),
@@ -110,6 +124,18 @@ class FertileTodayCard extends StatelessWidget {
           ],
           const SizedBox(height: AppSpacing.sm),
           Text(guidance.text('not_contraception'), style: muted),
+          if (onLog != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                key: const ValueKey('fertile-today-log'),
+                onPressed: onLog,
+                icon: const Icon(Icons.edit_calendar),
+                label: Text(guidance.text('signals_log_today')),
+              ),
+            ),
+          ],
           if (guidance.isDraft) ...[
             const SizedBox(height: AppSpacing.md),
             const DraftContentNote(),

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/app_constants.dart';
+import '../services/fertility_reminder_service.dart';
 
 /// App mode enum
 enum AppMode {
@@ -34,6 +35,9 @@ class AppModeNotifier extends StateNotifier<AppMode?> {
       AppConstants.appModeKey,
       mode == AppMode.prePregnancy ? 'prePregnancy' : 'pregnancy',
     );
+    if (mode == AppMode.pregnancy) {
+      await FertilityReminderService.onLeftPrePregnancy();
+    }
   }
 
   /// Check if mode has been selected

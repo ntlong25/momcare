@@ -1265,7 +1265,7 @@ Test rounds 1-3: 10 Home-during-capture attempts with no stopped frame; 2 interr
 Open: CAM-R2-02 shutter feedback timing and CAM-R1-01 resolution need a real phone. CAM-R2-03: after the flash is used, captures pay about 2 s more until the process ends; a plugin limit. CAM-R1-04: first widget tap after a force-stop does nothing; Android limit. CAM-R1-05/CAM-R2-04: cold widget launch is plain white on Android 12+. CAM-R2-05: white screen after delete-all seen 1 of 7 runs, cause not found.
 
 ## Phase 25: Fertility Signals, Manual Logging
-Status: In progress. Round 2 of the "canh ngày thụ thai" idea, see FEATURE_BRAINSTORM.md section 9. Authorised by the user. No new Android or iOS permissions and no Health sync in this phase.
+Status: Completed (2026-10-31). Round 2 of the "canh ngày thụ thai" idea, see FEATURE_BRAINSTORM.md section 9. Authorised by the user. No new Android or iOS permissions and no Health sync in this phase.
 
 - Task 25.1: Encrypted local log per day: LH test (âm / dương / đỉnh), cervical mucus, basal body temperature, intercourse (optional). Same encrypted Hive setup as other health data; delete-all clears it.
   Acceptance: unit tests for round-trip, one record per day, corrupt input, delete-all; nothing goes to a server, analytics or logs.
@@ -1277,6 +1277,9 @@ Status: In progress. Round 2 of the "canh ngày thụ thai" idea, see FEATURE_BR
   Acceptance: scheduled ids, cancel on switch to pregnancy and delete-all, tests.
 - Task 25.5: "Nên đi khám khi nào" card from draft wording: long or irregular cycles, trying for a long time, by age. Wording only, for doctor review, no counts of failed months.
   Acceptance: wording in the review packet, nothing marked approved; no diagnosis.
+
+Changes asked by the user during the phase: fertile notifications must tell the user directly without opening the app. Notifications on the window's first day and peak days, pre-scheduled for 2 cycles, Android via AlarmManager with a private notification and neutral public version; style default Đầy đủ on Android, Kín đáo on iOS. Permission is requested once on the first pre-pregnancy Hôm nay visit. Every notification opens Chu kỳ. android:allowBackup set to false.
+Test rounds: final QA passes on the emulator: permission once, logging, LH re-plan, a real fired notification, tap to Chu kỳ, reboot re-arm, late and stale, delete-all. P25-F-01/03/04/05/07 fixed with tests, not re-run on device. P25-F-02 (already-granted permission after delete-all turns notifications on silently) and P25-F-06 (dates and pending notification text readable in app-private storage) accepted. Lock screen public version not seen: needs a screen PIN or a real phone.
 
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
@@ -1381,3 +1384,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 24: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 571/571; debug APK OK (x64 build needed for the emulator's free space); emulator QA 2 rounds.
 - Phase 27: emulator QA 2 rounds; final results in the PR.
 - Phase 29: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 727/727; debug x64 APK OK; emulator QA 3 rounds; no real phone.
+- Phase 25: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 836/836; debug x64 APK OK; emulator QA on the final behaviour; no real phone.

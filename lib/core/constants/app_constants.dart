@@ -31,6 +31,8 @@ class AppConstants {
   static const String recipeBox = 'recipe_box';
   static const String settingsBox = 'settings_box';
   static const String menstrualCycleBox = 'menstrual_cycle_box';
+  static const String fertilityLogBox = 'fertility_log_box';
+  static const String fertilityPrefsBox = 'fertility_prefs_box';
 
   // Shared Preferences Keys
   static const String themeKey = 'theme_mode';
