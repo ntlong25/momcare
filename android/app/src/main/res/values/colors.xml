@@ -3,4 +3,7 @@
     <color name="ic_launcher_background">#C92A68</color>
     <!-- Launch/splash background = light theme surface (AppTheme). -->
     <color name="launch_background">#FFFFFF</color>
+    <!-- Home-screen widget: the brand pink and white of the launcher icon. -->
+    <color name="quick_camera_widget_background">#C92A68</color>
+    <color name="quick_camera_widget_foreground">#FFFFFF</color>
 </resources>

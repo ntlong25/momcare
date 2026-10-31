@@ -77,6 +77,7 @@ class TrackingScreen extends ConsumerWidget {
               BumpSpotlightCard(
                 key: const ValueKey('tracking-bump-journal'),
                 week: currentWeek,
+                margin: EdgeInsets.zero,
               ),
               const SizedBox(height: 12),
               SizedBox(

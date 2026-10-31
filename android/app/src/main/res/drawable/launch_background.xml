@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Launch screen: flat brand surface colour (values/ and values-night/
-     colors.xml), no logo bitmap. -->
+<!-- Launch screen: brand surface colour (values/ and values-night/ colors.xml)
+     with the app mark, at the size and place of the Android 12 system splash
+     icon and the Flutter BrandMark. Launches the system splash does not cover,
+     such as a home-screen widget, and Android below 12 show this. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/launch_background" />
+    <item
+        android:width="160dp"
+        android:height="160dp"
+        android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="@color/ic_launcher_background" />
+        </shape>
+    </item>
+    <item
+        android:width="240dp"
+        android:height="240dp"
+        android:drawable="@drawable/ic_launcher_foreground"
+        android:gravity="center" />
 </layer-list>

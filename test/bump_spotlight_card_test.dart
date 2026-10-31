@@ -18,6 +18,7 @@ import 'package:momcare/core/services/bump_photo_service.dart';
 import 'package:momcare/core/theme/app_theme.dart';
 import 'package:momcare/core/theme/app_tokens.dart';
 import 'package:momcare/features/bump_journal/bump_image_source.dart';
+import 'package:momcare/features/bump_journal/screens/bump_camera_screen.dart';
 import 'package:momcare/features/bump_journal/screens/bump_journal_screen.dart';
 import 'package:momcare/features/bump_journal/widgets/bump_spotlight_card.dart';
 import 'package:momcare/features/home/screens/home_screen.dart';
@@ -26,6 +27,8 @@ import 'package:momcare/features/tracking/screens/tracking_screen.dart';
 import 'package:momcare/l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'fake_bump_camera.dart';
 
 const int _week = 17;
 const ValueKey<String> _homeKey = ValueKey('home-bump-photo');
@@ -39,17 +42,6 @@ final Map<String, ThemeData> _themes = {
 };
 
 class _FakeSource implements BumpImageSource {
-  int cameraCalls = 0;
-  Object? cameraError;
-
-  @override
-  Future<XFile?> takePhoto() async {
-    cameraCalls++;
-    final error = cameraError;
-    if (error != null) throw error;
-    return null;
-  }
-
   @override
   Future<List<XFile>> pickFromGallery() async => const [];
 
@@ -154,6 +146,7 @@ void main() {
   late Directory photoDir;
   late Box<PregnancyModel> pregnancies;
   late List<dynamic> guides;
+  late FakeBumpCamera camera;
 
   setUpAll(() async {
     await _loadAppFont();
@@ -185,6 +178,8 @@ void main() {
       ..createSync();
     BumpPhotoService.debugDocumentsDir = () async => tempDir;
     BumpJournalScreen.debugImageSource = _FakeSource.new;
+    camera = FakeBumpCamera(tempDir);
+    BumpCameraScreen.debugSource = () => camera;
     final pregnancy = _pregnancy();
     await pregnancies.put(pregnancy.id, pregnancy);
   });
@@ -192,6 +187,7 @@ void main() {
   tearDown(() async {
     BumpPhotoService.resetDebugDocumentsDir();
     BumpJournalScreen.debugImageSource = null;
+    BumpCameraScreen.debugSource = null;
     ContentPackService.debugGuides = const [];
     await pregnancies.clear();
     try {
@@ -242,7 +238,7 @@ void main() {
   ];
 
   group('states', () {
-    testWidgets('no photos: invitation, no strip, button opens the journal '
+    testWidgets('no photos: invitation, no strip, button opens the camera '
         'on the current week', (tester) async {
       seed(const []);
       BumpJournalScreen.debugCurrentWeek = () => 3;
@@ -255,11 +251,19 @@ void main() {
 
       await tester.tap(find.byKey(_camera));
       await tester.pumpAndSettle();
-      expect(find.byType(BumpJournalScreen), findsOneWidget);
-      expect(
-        tester.widget<Text>(find.byKey(const ValueKey('bump-week-label'))).data,
-        'Tuần $_week',
-      );
+      expect(find.byType(BumpCameraScreen), findsOneWidget);
+      expect(find.byType(BumpJournalScreen), findsNothing);
+      expect(find.text('Tuần $_week'), findsOneWidget);
+    });
+
+    testWidgets('invitation: thumbnails left, button at the right edge', (
+      tester,
+    ) async {
+      seed([_photo('a', 10)]);
+      await pumpCard(tester);
+      final wrap = tester.getRect(find.byType(Wrap));
+      expect(tester.getTopLeft(find.byKey(_recent)).dx, wrap.left);
+      expect(tester.getTopRight(find.byKey(_camera)).dx, wrap.right);
     });
 
     testWidgets('photo this week: newest as the thumbnail, week count, '
@@ -308,28 +312,22 @@ void main() {
   });
 
   group('camera', () {
-    late _FakeSource source;
-
-    setUp(() {
-      source = _FakeSource();
-      BumpJournalScreen.debugImageSource = () => source;
-    });
-
-    testWidgets('one tap on Chụp ảnh calls the camera once; cancel stays in '
-        'the journal on the current week with nothing added', (tester) async {
+    testWidgets('one tap on Chụp ảnh opens the camera once; cancel returns '
+        'to the card with nothing added', (tester) async {
       seed(const []);
       await pumpCard(tester);
       await tester.tap(find.byKey(_camera));
       await tester.pumpAndSettle();
-      expect(source.cameraCalls, 1);
-      expect(find.byType(BumpJournalScreen), findsOneWidget);
-      expect(
-        tester.widget<Text>(find.byKey(const ValueKey('bump-week-label'))).data,
-        'Tuần $_week',
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 20)),
       );
-      expect(find.byKey(const ValueKey('bump-empty')), findsOneWidget);
+      await tester.pump();
+      expect(camera.opened, hasLength(1));
+      await tester.tap(find.byKey(const ValueKey('bump-camera-close')));
+      await tester.pumpAndSettle();
+      expect(find.byType(BumpCameraScreen), findsNothing);
+      expect(find.byKey(_camera), findsOneWidget);
       expect(find.byType(SnackBar), findsNothing);
-      expect(find.byType(LinearProgressIndicator), findsNothing);
     });
 
     testWidgets('tapping the rest of the card does not start the camera', (
@@ -340,7 +338,7 @@ void main() {
       await tester.tap(find.text('Tuần $_week đã có ảnh chưa?'));
       await tester.pumpAndSettle();
       expect(find.byType(BumpJournalScreen), findsOneWidget);
-      expect(source.cameraCalls, 0);
+      expect(find.byType(BumpCameraScreen), findsNothing);
     });
 
     testWidgets('a photo card tap does not start the camera', (tester) async {
@@ -349,19 +347,7 @@ void main() {
       await tester.tap(find.text('Ảnh bụng tuần $_week'));
       await tester.pumpAndSettle();
       expect(find.byType(BumpJournalScreen), findsOneWidget);
-      expect(source.cameraCalls, 0);
-    });
-
-    testWidgets('denied camera shows the existing permission message', (
-      tester,
-    ) async {
-      source.cameraError = PlatformException(code: 'camera_access_denied');
-      seed(const []);
-      await pumpCard(tester);
-      await tester.tap(find.byKey(_camera));
-      await tester.pumpAndSettle();
-      expect(find.text(BumpJournalScreen.permissionMessage), findsOneWidget);
-      expect(find.byType(BumpJournalScreen), findsOneWidget);
+      expect(find.byType(BumpCameraScreen), findsNothing);
     });
   });
 
@@ -448,8 +434,29 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byType(BumpJournalScreen), findsOneWidget);
+      expect(find.byType(BumpCameraScreen), findsOneWidget);
     });
+
+    for (final withPhoto in [false, true]) {
+      testWidgets('Tuần thai: card edges line up with the hero '
+          '(photo: $withPhoto)', (tester) async {
+        seed(withPhoto ? [_photo('p', _week)] : const []);
+        _setView(tester, 411, 891);
+        await tester.pumpWidget(_app(const TrackingScreen(showAppBar: false)));
+        await _settle(tester);
+        final hero = tester.getRect(
+          find.byKey(const ValueKey('tracking-week-header')),
+        );
+        final card = tester.getRect(
+          find.descendant(
+            of: find.byKey(_trackingKey),
+            matching: find.byType(Card),
+          ),
+        );
+        expect(card.left, hero.left);
+        expect(card.right, hero.right);
+      });
+    }
 
     testWidgets('not shown in pre-pregnancy mode', (tester) async {
       seed([_photo('p', _week)]);

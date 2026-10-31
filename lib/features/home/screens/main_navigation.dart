@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers/app_mode_provider.dart';
+import '../../bump_journal/quick_camera.dart';
 import 'home_screen.dart';
 import 'pre_pregnancy_home_screen.dart';
 import '../../tracking/screens/tracking_screen.dart';
@@ -72,15 +73,17 @@ class MainNavigation extends ConsumerWidget {
       const _ProfileTabScreen(),
     ];
 
-    return Scaffold(
-      body: IndexedStack(index: currentIndex, children: screens),
-      bottomNavigationBar: SingleLineNavigationLabels(
-        child: NavigationBar(
-          selectedIndex: currentIndex,
-          onDestinationSelected: (index) {
-            ref.read(navigationIndexProvider.notifier).state = index;
-          },
-          destinations: destinations,
+    return QuickCameraListener(
+      child: Scaffold(
+        body: IndexedStack(index: currentIndex, children: screens),
+        bottomNavigationBar: SingleLineNavigationLabels(
+          child: NavigationBar(
+            selectedIndex: currentIndex,
+            onDestinationSelected: (index) {
+              ref.read(navigationIndexProvider.notifier).state = index;
+            },
+            destinations: destinations,
+          ),
         ),
       ),
     );

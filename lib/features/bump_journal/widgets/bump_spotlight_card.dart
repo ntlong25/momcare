@@ -11,15 +11,19 @@ import '../screens/bump_journal_screen.dart';
 /// Visual entry to "Nhật ký ảnh bụng bầu" on Hôm nay and Tuần thai: the
 /// latest photo of [week], or an invitation to take one, with up to
 /// [maxRecent] thumbnails of earlier weeks. Only built for an active
-/// pregnancy. The card opens the journal on [week]; "Chụp ảnh" also starts
-/// the camera there.
+/// pregnancy. The card opens the journal on [week]; "Chụp ảnh" opens the
+/// in-app camera directly.
 class BumpSpotlightCard extends ConsumerWidget {
   static const int maxRecent = 3;
 
   /// Current pregnancy week.
   final int week;
 
-  const BumpSpotlightCard({super.key, required this.week});
+  /// Outer margin; `null` keeps the theme's card margin. Tuần thai passes
+  /// zero so the card lines up with its margin-less hero.
+  final EdgeInsetsGeometry? margin;
+
+  const BumpSpotlightCard({super.key, required this.week, this.margin});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,6 +40,7 @@ class BumpSpotlightCard extends ConsumerWidget {
         week: week,
         count: thisWeek.length,
         image: BumpPhotoImage(file: notifier.fileFor(thisWeek.first)),
+        margin: margin,
         onTap: open,
       );
     }
@@ -49,9 +54,9 @@ class BumpSpotlightCard extends ConsumerWidget {
         for (final photo in recent)
           BumpPhotoImage(file: notifier.fileFor(photo), cacheWidth: 150),
       ],
+      margin: margin,
       onTap: open,
-      onCamera: () =>
-          NavigationHelper.toBumpJournal(context, week: week, openCamera: true),
+      onCamera: () => NavigationHelper.toBumpCamera<void>(context, week: week),
     );
   }
 }
@@ -63,12 +68,14 @@ class _LatestPhoto extends StatelessWidget {
   final int week;
   final int count;
   final Widget image;
+  final EdgeInsetsGeometry? margin;
   final VoidCallback onTap;
 
   const _LatestPhoto({
     required this.week,
     required this.count,
     required this.image,
+    required this.margin,
     required this.onTap,
   });
 
@@ -80,6 +87,7 @@ class _LatestPhoto extends StatelessWidget {
       child: AppCard(
         variant: AppCardVariant.spotlight,
         padding: const EdgeInsets.all(AppSpacing.md),
+        margin: margin,
         onTap: onTap,
         child: Row(
           children: [
@@ -133,12 +141,14 @@ class _Invitation extends StatelessWidget {
 
   final int week;
   final List<Widget> thumbnails;
+  final EdgeInsetsGeometry? margin;
   final VoidCallback onTap;
   final VoidCallback onCamera;
 
   const _Invitation({
     required this.week,
     required this.thumbnails,
+    required this.margin,
     required this.onTap,
     required this.onCamera,
   });
@@ -152,6 +162,7 @@ class _Invitation extends StatelessWidget {
       icon: Icons.photo_camera_outlined,
       title: 'Tuần $week đã có ảnh chưa?',
       padding: const EdgeInsets.all(AppSpacing.md),
+      margin: margin,
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,39 +172,43 @@ class _Invitation extends StatelessWidget {
             style: theme.textTheme.bodyMedium?.copyWith(color: fg),
           ),
           const SizedBox(height: AppSpacing.sm),
-          // Wraps instead of overflowing at large text sizes.
-          Wrap(
-            spacing: AppSpacing.sm,
-            runSpacing: AppSpacing.sm,
-            alignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              if (thumbnails.isNotEmpty)
-                ExcludeSemantics(
-                  child: Row(
-                    key: const ValueKey('bump-spotlight-recent'),
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (var i = 0; i < thumbnails.length; i++) ...[
-                        if (i > 0) const SizedBox(width: AppSpacing.xs),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(AppRadius.sm),
-                          child: SizedBox.square(
-                            dimension: _thumbnailSize,
-                            child: thumbnails[i],
+          // Full width, or spaceBetween has no room to act on. Wraps instead
+          // of overflowing at large text sizes.
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              spacing: AppSpacing.sm,
+              runSpacing: AppSpacing.sm,
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                if (thumbnails.isNotEmpty)
+                  ExcludeSemantics(
+                    child: Row(
+                      key: const ValueKey('bump-spotlight-recent'),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (var i = 0; i < thumbnails.length; i++) ...[
+                          if (i > 0) const SizedBox(width: AppSpacing.xs),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(AppRadius.sm),
+                            child: SizedBox.square(
+                              dimension: _thumbnailSize,
+                              child: thumbnails[i],
+                            ),
                           ),
-                        ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
+                FilledButton.icon(
+                  key: const ValueKey('bump-spotlight-camera'),
+                  onPressed: onCamera,
+                  icon: const Icon(Icons.photo_camera_outlined),
+                  label: const Text('Chụp ảnh'),
                 ),
-              FilledButton.icon(
-                key: const ValueKey('bump-spotlight-camera'),
-                onPressed: onCamera,
-                icon: const Icon(Icons.photo_camera_outlined),
-                label: const Text('Chụp ảnh'),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

@@ -11,6 +11,7 @@ import '../../../core/services/bump_photo_service.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/app_logger.dart';
+import '../../../core/utils/navigation_helper.dart';
 import '../bump_image_source.dart';
 import 'bump_photo_viewer.dart';
 import '../../../core/widgets/empty_state.dart';
@@ -21,16 +22,9 @@ class BumpJournalScreen extends ConsumerStatefulWidget {
   /// Week selected on open; defaults to the active pregnancy's week.
   final int? initialWeek;
 
-  /// Starts the camera after the first frame.
-  final bool openCamera;
+  const BumpJournalScreen({super.key, this.initialWeek});
 
-  const BumpJournalScreen({
-    super.key,
-    this.initialWeek,
-    this.openCamera = false,
-  });
-
-  /// Replaces the camera/photo picker in tests.
+  /// Replaces the photo picker in tests.
   @visibleForTesting
   static BumpImageSource Function()? debugImageSource;
 
@@ -39,7 +33,7 @@ class BumpJournalScreen extends ConsumerStatefulWidget {
   static int? Function()? debugCurrentWeek;
 
   static const String permissionMessage =
-      'Chưa có quyền dùng camera/thư viện ảnh. Bạn có thể bật quyền trong Cài đặt của máy.';
+      'Chưa có quyền dùng thư viện ảnh. Bạn có thể bật quyền trong Cài đặt của máy.';
   static const String errorMessage = 'Không thêm được ảnh. Vui lòng thử lại.';
 
   @override
@@ -66,11 +60,6 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
     });
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       _recoverLostImages();
-    }
-    if (widget.openCamera) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _takePhoto();
-      });
     }
   }
 
@@ -116,11 +105,11 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
     }
   }
 
-  Future<void> _pick(Future<List<XFile>> Function() pick) async {
+  Future<void> _pickFromGallery() async {
     if (_busy) return;
     setState(() => _busy = true);
     try {
-      final files = await pick();
+      final files = await _source.pickFromGallery();
       if (files.isEmpty || !mounted) return;
       await _addFiles(files);
     } on PlatformException catch (error) {
@@ -138,12 +127,11 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
     }
   }
 
-  Future<void> _takePhoto() => _pick(() async {
-    final file = await _source.takePhoto();
-    return file == null ? const <XFile>[] : [file];
-  });
-
-  Future<void> _pickFromGallery() => _pick(_source.pickFromGallery);
+  void _openCamera() => NavigationHelper.toBumpCamera<void>(
+    context,
+    week: _week,
+    fromJournal: true,
+  );
 
   void _setWeek(int week) =>
       setState(() => _week = week.clamp(BumpPhoto.minWeek, BumpPhoto.maxWeek));
@@ -167,7 +155,7 @@ class _BumpJournalScreenState extends ConsumerState<BumpJournalScreen> {
               Expanded(
                 child: FilledButton.tonalIcon(
                   key: const ValueKey('bump-camera'),
-                  onPressed: _busy ? null : _takePhoto,
+                  onPressed: _busy ? null : _openCamera,
                   icon: const Icon(Icons.photo_camera_outlined),
                   label: const Text('Chụp ảnh', textAlign: TextAlign.center),
                 ),

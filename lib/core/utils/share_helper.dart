@@ -70,6 +70,15 @@ class ShareHelper {
     return false;
   }
 
+  /// Name prefix of the cropped photos waiting for "Lưu" or "Chụp lại".
+  static const String cameraTempPrefix = 'bump_camera_';
+
+  /// True for a photo the in-app camera left in the temp directory: our
+  /// cropped copy, or the plugin's `CAP*.jpg` capture (Android).
+  static bool isCameraTempName(String name) =>
+      name.endsWith('.jpg') &&
+      (name.startsWith(cameraTempPrefix) || name.startsWith('CAP'));
+
   static String _nameOf(String path) {
     final parts = path
         .split(RegExp(r'[\\/]'))
@@ -229,11 +238,35 @@ class ShareHelper {
     return removed;
   }
 
+  /// Deletes camera photos ([isCameraTempName]) left at the top of the owned
+  /// temp folders, e.g. by a process death during review. Call when no
+  /// photo is under review. Never throws; returns entries removed.
+  static Future<int> clearCameraTempFiles() async {
+    var removed = 0;
+    try {
+      for (final dir in await _ownedTempDirs()) {
+        if (!await dir.exists()) continue;
+        final entries = await dir.list(followLinks: false).toList();
+        for (final entity in entries) {
+          if (entity is File &&
+              isCameraTempName(_nameOf(entity.path)) &&
+              await _deleteQuietly(entity)) {
+            removed++;
+          }
+        }
+      }
+    } catch (error) {
+      AppLogger.instance.warning('Could not clear camera temp files: $error');
+    }
+    return removed;
+  }
+
   /// Delete-all-data. When the temp directory belongs to the app
   /// ([debugOwnsTempDir]) it is emptied recursively (generated files,
-  /// `share_plus/` copies, image_picker copies, anything else) and the
-  /// folder itself is kept. Otherwise only our generated files and the
-  /// `share_plus/` folder are removed. Never throws; returns the number of
+  /// `share_plus/` copies, image_picker copies, camera photos, anything
+  /// else) and the folder itself is kept. Otherwise only our generated
+  /// files, camera photos and the `share_plus/` folder are removed. Never
+  /// throws; returns the number of
   /// top-level entries removed.
   static Future<int> clearTempFiles() async {
     var removed = 0;
@@ -255,7 +288,8 @@ class ShareHelper {
       for (final entity in entries) {
         final name = _nameOf(entity.path);
         final ours =
-            (entity is File && isGeneratedFileName(name)) ||
+            (entity is File &&
+                (isGeneratedFileName(name) || isCameraTempName(name))) ||
             (entity is Directory && name == sharePlusFolder);
         if (ours && await _deleteQuietly(entity)) removed++;
       }

@@ -22,6 +22,7 @@ import 'core/providers/locale_provider.dart';
 import 'core/providers/app_mode_provider.dart';
 import 'core/constants/app_constants.dart';
 import 'core/widgets/brand_mark.dart';
+import 'features/bump_journal/quick_camera.dart';
 import 'features/home/screens/main_navigation.dart';
 import 'features/legal/screens/disclaimer_consent_screen.dart';
 import 'features/onboarding/screens/onboarding_screen.dart';
@@ -55,7 +56,15 @@ void main() async {
     );
   }
 
-  runApp(const ProviderScope(child: MyApp()));
+  // A tap on the home-screen widget skips the splash: it asked for the camera.
+  final container = ProviderContainer();
+  final openCamera = await QuickCameraBridge(container).start();
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: MyApp(skipSplash: openCamera),
+    ),
+  );
 
   // Non-blocking background work after the first frame is scheduled.
   unawaited(HealthService.init());
@@ -113,7 +122,9 @@ class _StartupErrorApp extends StatelessWidget {
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+  final bool skipSplash;
+
+  const MyApp({super.key, this.skipSplash = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -134,7 +145,9 @@ class MyApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('vi')],
-      home: const SplashScreen(nextScreen: AppInitializer()),
+      home: skipSplash
+          ? const AppInitializer()
+          : const SplashScreen(nextScreen: AppInitializer()),
     );
   }
 }

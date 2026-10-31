@@ -23,6 +23,7 @@ import '../../../core/utils/health_validators.dart';
 import '../../../core/utils/share_helper.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../bump_journal/quick_camera.dart';
 import '../../home/screens/main_navigation.dart';
 import '../../legal/screens/disclaimer_consent_screen.dart';
 import '../../onboarding/screens/onboarding_screen.dart';
@@ -494,7 +495,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       return;
     }
 
-    await _deleteAllDataAndRestart(context);
+    QuickCameraListener.suspended = true;
+    try {
+      await _deleteAllDataAndRestart(context);
+    } finally {
+      QuickCameraListener.suspended = false;
+    }
   }
 
   Future<void> _deleteAllDataAndRestart(BuildContext context) async {
@@ -533,6 +539,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     // Removes the bump_photos key and folder; never throws.
     await BumpPhotoService.clearAll();
     ref.read(bumpPhotoProvider.notifier).resetLocal();
+    await prefs.remove(AppConstants.bumpCameraLensKey);
     // Generated milestone cards and PDFs in the temp folder; never throws.
     await ShareHelper.clearTempFiles();
     await prefs.remove('locale');

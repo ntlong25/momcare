@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="quick_camera_widget_label">Chụp ảnh</string>
+    <string name="quick_camera_widget_description">Mở nhanh camera để chụp ảnh bụng bầu</string>
+</resources>

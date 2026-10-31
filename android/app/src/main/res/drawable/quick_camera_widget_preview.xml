@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Picker preview before Android 12, which shows a drawable, not a layout. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/quick_camera_widget_background" />
+            <corners android:radius="24dp" />
+            <size android:width="140dp" android:height="56dp" />
+        </shape>
+    </item>
+    <item
+        android:width="28dp"
+        android:height="28dp"
+        android:drawable="@drawable/ic_quick_camera"
+        android:gravity="center" />
+</layer-list>

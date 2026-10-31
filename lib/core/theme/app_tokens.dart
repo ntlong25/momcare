@@ -64,6 +64,32 @@ class AppBrandColors {
   static const Color onPrimary = Color(0xFFFFFFFF);
 }
 
+/// Always-dark chrome of the bump camera, in both themes: a photo is framed
+/// best on near-black, whatever the app theme. Contrast is checked by
+/// `test/bump_camera_screen_test.dart`.
+class AppCameraColors {
+  const AppCameraColors._();
+
+  /// Screen background.
+  static const Color background = Color(0xFF0B0709);
+
+  /// Empty frame, week pill and round control buttons.
+  static const Color surface = Color(0xFF2A2024);
+
+  /// Text, icons and the shutter ring.
+  static const Color foreground = Color(0xFFFFFFFF);
+
+  /// Secondary text.
+  static const Color foregroundSoft = Color(0xFFD8CBD0);
+
+  /// Controls that cannot be used right now.
+  static const Color foregroundDisabled = Color(0xFF8F8388);
+
+  /// Shutter centre and the save button; the brand pink.
+  static const Color accent = AppBrandColors.primary;
+  static const Color onAccent = AppBrandColors.onPrimary;
+}
+
 /// Status colours the [ColorScheme] does not have: success, warning, info
 /// and danger, each with an on-colour, a container and an on-container
 /// colour, plus the peach and mint containers of the Hôm nay content cards
