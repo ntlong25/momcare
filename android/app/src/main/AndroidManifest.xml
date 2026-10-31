@@ -16,6 +16,7 @@
     <uses-feature android:name="android.hardware.camera.any" android:required="false" tools:replace="android:required" />
 
     <application
+        android:allowBackup="false"
         android:label="MomCare+"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -70,6 +71,15 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/quick_camera_widget_info" />
+        </receiver>
+        <!-- Fertile-day notifications: lock-screen public version, survive a reboot -->
+        <receiver
+            android:exported="false"
+            android:name=".CalendarReminderReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+            </intent-filter>
         </receiver>
         <!-- flutter_local_notifications: scheduled notifications + reboot rescheduling -->
         <receiver

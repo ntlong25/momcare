@@ -160,7 +160,10 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _app(const Scaffold(body: CycleMarkerLegend()), dark: dark),
+        _app(
+          const Scaffold(body: CycleMarkerLegend(showIntimacy: true)),
+          dark: dark,
+        ),
       );
       for (final kind in CycleMarkerKind.values) {
         final item = find.byKey(ValueKey('cycle-legend-${kind.name}'));

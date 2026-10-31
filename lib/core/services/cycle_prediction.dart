@@ -31,6 +31,16 @@ enum CycleStatus {
   stale,
 }
 
+/// What the ovulation dates of a [CyclePrediction] come from.
+enum OvulationSource {
+  /// Estimated from the recorded cycle lengths.
+  calendar,
+
+  /// Moved by a positive LH test in the current cycle. Still an expectation,
+  /// never a confirmed ovulation.
+  lhTest,
+}
+
 /// Where today falls relative to a range of dates.
 enum DateRangePosition { upcoming, inside, past }
 
@@ -226,12 +236,18 @@ class CycleStats {
 /// fertile window runs from [fertileDaysBeforeOvulation] days before the
 /// earliest ovulation to the latest ovulation (6 days ending on ovulation
 /// when the lengths do not vary, ASRM 2021).
+///
+/// A positive LH test narrows the current cycle only: ovulation is then
+/// expected within [lhOvulationDaysAfterPositive] days of the first positive.
+/// The next period, and so every later cycle, stays calendar based, and a
+/// late or stale status ignores the test.
 class CyclePrediction {
   /// How many recent cycle lengths form the range.
   static const int recentCycleCount = 6;
   static const int lutealDays = 14;
   static const int fertileDaysBeforeOvulation = 5;
   static const int peakDaysBeforeOvulation = 2;
+  static const int lhOvulationDaysAfterPositive = 2;
 
   /// Cycle lengths outside this range are worth raising with a doctor.
   static const int typicalMinCycleLength = 21;
@@ -270,6 +286,16 @@ class CyclePrediction {
   /// than [latestPeriod].
   final FertilityLevel? todayLevel;
 
+  final OvulationSource ovulationSource;
+
+  /// The first positive LH test of the current cycle, when it set the dates.
+  final DateTime? lhPositiveDate;
+
+  bool get isFromLhTest => ovulationSource == OvulationSource.lhTest;
+
+  /// Average cycle length behind these dates.
+  final int cycleLength;
+
   const CyclePrediction._({
     required this.nextPeriod,
     required this.earliestPeriod,
@@ -286,6 +312,9 @@ class CyclePrediction {
     required this.hasCycleOutsideTypicalRange,
     required this.status,
     required this.todayLevel,
+    required this.ovulationSource,
+    required this.lhPositiveDate,
+    required this.cycleLength,
   });
 
   /// See [CycleStatus]; [CycleStatus.onTrack] when there are no cycles.
@@ -301,10 +330,89 @@ class CyclePrediction {
 
   bool get isLateOrStale => status != CycleStatus.onTrack;
 
-  /// Null when there are no cycles.
+  /// The first of [positiveDays] in the cycle started on [cycleStart], up to
+  /// [today]; earlier cycles and future dates do not count.
+  static DateTime? firstPositiveInCycle(
+    Iterable<DateTime> positiveDays, {
+    required DateTime cycleStart,
+    required DateTime today,
+  }) {
+    DateTime? first;
+    for (final positive in positiveDays) {
+      final day = CycleStats.dateOnly(positive);
+      if (day.isBefore(cycleStart) || day.isAfter(today)) continue;
+      if (first == null || day.isBefore(first)) first = day;
+    }
+    return first;
+  }
+
+  static FertilityLevel _levelOn(
+    DateTime day, {
+    required bool fromLhTest,
+    required bool isRegular,
+    required DateTime peakStart,
+    required DateTime peakEnd,
+    required DateTime fertileStart,
+    required DateTime fertileEnd,
+  }) {
+    bool within(DateTime start, DateTime end) =>
+        !day.isBefore(start) && !day.isAfter(end);
+    if (fromLhTest) {
+      // The test replaces the calendar range.
+      return within(peakStart, peakEnd)
+          ? FertilityLevel.peak
+          : FertilityLevel.low;
+    }
+    if (isRegular && within(peakStart, peakEnd)) return FertilityLevel.peak;
+    if (within(fertileStart, fertileEnd)) return FertilityLevel.high;
+    return FertilityLevel.low;
+  }
+
+  /// The level the Hôm nay card would show on [day] of this cycle, for an
+  /// on-track estimate.
+  FertilityLevel levelOn(DateTime day) => _levelOn(
+    CycleStats.dateOnly(day),
+    fromLhTest: isFromLhTest,
+    isRegular: confidence == PredictionConfidence.medium,
+    peakStart: peakStart,
+    peakEnd: peakEnd,
+    fertileStart: fertileStart,
+    fertileEnd: fertileEnd,
+  );
+
+  /// These dates [count] average cycles later. Call on a calendar estimate:
+  /// an LH test never reaches a later cycle.
+  CyclePrediction laterCycle(int count) {
+    DateTime shift(DateTime day) =>
+        CycleStats.addDays(day, count * cycleLength);
+    return CyclePrediction._(
+      nextPeriod: shift(nextPeriod),
+      earliestPeriod: shift(earliestPeriod),
+      latestPeriod: shift(latestPeriod),
+      ovulation: shift(ovulation),
+      earliestOvulation: shift(earliestOvulation),
+      latestOvulation: shift(latestOvulation),
+      fertileStart: shift(fertileStart),
+      fertileEnd: shift(fertileEnd),
+      peakStart: shift(peakStart),
+      peakEnd: shift(peakEnd),
+      confidence: confidence,
+      regularity: regularity,
+      hasCycleOutsideTypicalRange: hasCycleOutsideTypicalRange,
+      status: CycleStatus.onTrack,
+      todayLevel: null,
+      ovulationSource: OvulationSource.calendar,
+      lhPositiveDate: null,
+      cycleLength: cycleLength,
+    );
+  }
+
+  /// Null when there are no cycles. [positiveLhDays] are the logged days with
+  /// a positive or peak LH test, of any cycle and in any order.
   static CyclePrediction? compute(
     List<MenstrualCycleModel> cycles, {
     required DateTime today,
+    Iterable<DateTime> positiveLhDays = const [],
   }) {
     final nextPeriod = CycleStats.predictNextPeriod(cycles, today: today);
     if (nextPeriod == null) return null;
@@ -324,33 +432,61 @@ class CyclePrediction {
     final cycleStart = CycleStats.addDays(nextPeriod, -average);
     final earliestPeriod = CycleStats.addDays(cycleStart, shortest);
     final latestPeriod = CycleStats.addDays(cycleStart, longest);
-    final ovulation = CycleStats.addDays(nextPeriod, -lutealDays);
-    final earliestOvulation = CycleStats.addDays(earliestPeriod, -lutealDays);
-    final latestOvulation = CycleStats.addDays(latestPeriod, -lutealDays);
+    final status = statusOf(cycles, today: day);
+    // Late and stale win: the dates then are rolled forward, not this cycle.
+    final lhPositive = status == CycleStatus.onTrack
+        ? firstPositiveInCycle(
+            positiveLhDays,
+            cycleStart: cycleStart,
+            today: day,
+          )
+        : null;
+
+    final DateTime ovulation;
+    final DateTime earliestOvulation;
+    final DateTime latestOvulation;
+    final DateTime peakStart;
+    final DateTime peakEnd;
+    if (lhPositive != null) {
+      earliestOvulation = lhPositive;
+      latestOvulation = CycleStats.addDays(
+        lhPositive,
+        lhOvulationDaysAfterPositive,
+      );
+      ovulation = CycleStats.addDays(
+        lhPositive,
+        lhOvulationDaysAfterPositive ~/ 2,
+      );
+      peakStart = earliestOvulation;
+      peakEnd = latestOvulation;
+    } else {
+      ovulation = CycleStats.addDays(nextPeriod, -lutealDays);
+      earliestOvulation = CycleStats.addDays(earliestPeriod, -lutealDays);
+      latestOvulation = CycleStats.addDays(latestPeriod, -lutealDays);
+      peakStart = CycleStats.addDays(ovulation, -peakDaysBeforeOvulation);
+      peakEnd = ovulation;
+    }
     final fertileStart = CycleStats.addDays(
       earliestOvulation,
       -fertileDaysBeforeOvulation,
     );
-    final peakStart = CycleStats.addDays(ovulation, -peakDaysBeforeOvulation);
 
     final regularity = CycleStats.regularity(cycles);
     final isRegular =
         cycles.length >= CycleStats.minCyclesForRegularity &&
         regularity == CycleRegularity.regular;
-    final status = statusOf(cycles, today: day);
-
-    bool within(DateTime start, DateTime end) =>
-        !day.isBefore(start) && !day.isAfter(end);
 
     FertilityLevel? level;
     if (status == CycleStatus.onTrack) {
-      if (isRegular && within(peakStart, ovulation)) {
-        level = FertilityLevel.peak;
-      } else if (within(fertileStart, latestOvulation)) {
-        level = FertilityLevel.high;
-      } else {
-        level = FertilityLevel.low;
-      }
+      level = _levelOn(
+        day,
+        fromLhTest: lhPositive != null,
+        isRegular: isRegular,
+        peakStart: peakStart,
+        peakEnd: peakEnd,
+        fertileStart: fertileStart,
+        fertileEnd: latestOvulation,
+      );
     }
 
     return CyclePrediction._(
@@ -363,7 +499,7 @@ class CyclePrediction {
       fertileStart: fertileStart,
       fertileEnd: latestOvulation,
       peakStart: peakStart,
-      peakEnd: ovulation,
+      peakEnd: peakEnd,
       confidence: isRegular
           ? PredictionConfidence.medium
           : PredictionConfidence.low,
@@ -374,6 +510,11 @@ class CyclePrediction {
       ),
       status: status,
       todayLevel: level,
+      ovulationSource: lhPositive != null
+          ? OvulationSource.lhTest
+          : OvulationSource.calendar,
+      lhPositiveDate: lhPositive,
+      cycleLength: average,
     );
   }
 

@@ -5,12 +5,22 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
 
 /// What a day on the Chu kỳ calendar is marked as.
-enum CycleMarkerKind { period, ovulation, fertile, predictedPeriod }
+///
+/// [logged] and [intimacy] are small corner marks for what the user wrote
+/// down; the others are the one mark under the day number.
+enum CycleMarkerKind {
+  period,
+  ovulation,
+  fertile,
+  predictedPeriod,
+  logged,
+  intimacy,
+}
 
 /// How a [CycleMarkerKind] is drawn. Each kind has its own shape so the
 /// markers can be told apart without relying on colour (colour-vision
 /// deficiency, dark mode).
-enum CycleMarkerShape { filledDot, star, band, dashedRing }
+enum CycleMarkerShape { filledDot, star, band, dashedRing, square, ring }
 
 /// Shape, colour and legend label of one marker kind.
 @immutable
@@ -58,6 +68,18 @@ class CycleMarkerSpec {
         shape: CycleMarkerShape.dashedRing,
         color: scheme.error,
         label: 'Kỳ kinh dự kiến',
+      ),
+      CycleMarkerKind.logged => CycleMarkerSpec(
+        kind: kind,
+        shape: CycleMarkerShape.square,
+        color: semantic.success,
+        label: 'Đã ghi',
+      ),
+      CycleMarkerKind.intimacy => CycleMarkerSpec(
+        kind: kind,
+        shape: CycleMarkerShape.ring,
+        color: scheme.onSurface,
+        label: 'Ngày gần gũi',
       ),
     };
   }
@@ -117,6 +139,19 @@ class _CycleMarkerPainter extends CustomPainter {
           ),
           fill,
         );
+      case CycleMarkerShape.square:
+        canvas.drawRect(Offset.zero & size, fill);
+      case CycleMarkerShape.ring:
+        final stroke = math.max(1.5, size.shortestSide * 0.18);
+        canvas.drawCircle(
+          center,
+          size.shortestSide / 2 - stroke / 2,
+          Paint()
+            ..color = color
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = stroke
+            ..isAntiAlias = true,
+        );
       case CycleMarkerShape.dashedRing:
         final stroke = math.max(1.5, size.shortestSide * 0.18);
         final ring = Paint()
@@ -157,9 +192,12 @@ class _CycleMarkerPainter extends CustomPainter {
       old.shape != shape || old.color != color;
 }
 
-/// The 'Chú giải lịch' legend: every marker kind with its label.
+/// The 'Chú giải lịch' legend: every marker kind with its label. The
+/// intimacy mark stays out of it until the user enables that row.
 class CycleMarkerLegend extends StatelessWidget {
-  const CycleMarkerLegend({super.key});
+  final bool showIntimacy;
+
+  const CycleMarkerLegend({super.key, this.showIntimacy = false});
 
   @override
   Widget build(BuildContext context) {
@@ -168,18 +206,19 @@ class CycleMarkerLegend extends StatelessWidget {
       runSpacing: 8,
       children: [
         for (final kind in CycleMarkerKind.values)
-          Row(
-            key: ValueKey('cycle-legend-${kind.name}'),
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CycleMarker(kind: kind, size: 12),
-              const SizedBox(width: 6),
-              Text(
-                CycleMarkerSpec.of(context, kind).label,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
-          ),
+          if (showIntimacy || kind != CycleMarkerKind.intimacy)
+            Row(
+              key: ValueKey('cycle-legend-${kind.name}'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CycleMarker(kind: kind, size: 12),
+                const SizedBox(width: 6),
+                Text(
+                  CycleMarkerSpec.of(context, kind).label,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
       ],
     );
   }

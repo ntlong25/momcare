@@ -7,6 +7,7 @@ import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/providers/disclaimer_consent_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/services/fertility_reminder_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/bump_photo_service.dart';
 import '../../../core/services/contraction_service.dart';
@@ -442,9 +443,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Dữ liệu của bạn được lưu trên thiết bị'),
         content: const Text(
-          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, lịch sử đếm cử động thai, cơn co, ảnh bụng bầu và cài đặt trên thiết bị này.\n\n'
+          'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, tín hiệu thụ thai bạn tự ghi (que LH, chất nhầy, thân nhiệt nền, ngày gần gũi), lịch hẹn, lịch sử đếm cử động thai, cơn co, ảnh bụng bầu và cài đặt trên thiết bị này.\n\n'
           'Hiện tại dữ liệu chưa được sao lưu trực tuyến. Nếu bạn xóa ứng dụng, đổi thiết bị hoặc xóa toàn bộ dữ liệu trong app, dữ liệu có thể không khôi phục được.\n\n'
-          'MomCare+ không tự chia sẻ dữ liệu sức khỏe của bạn ra bên ngoài. Ảnh, thẻ cột mốc và file PDF chỉ rời khỏi thiết bị khi bạn tự chọn chia sẻ.',
+          'MomCare+ không tự chia sẻ dữ liệu sức khỏe của bạn ra bên ngoài. Ảnh, thẻ cột mốc và file PDF chỉ rời khỏi thiết bị khi bạn tự chọn chia sẻ.\n\n'
+          'Nếu bạn bật thông báo ngày dễ thụ thai, lịch thông báo được đặt sẵn trên thiết bị và không gửi ra ngoài; nội dung có thể hiện trên màn hình khóa tùy lựa chọn của bạn và cài đặt điện thoại.',
         ),
         actions: [
           TextButton(
@@ -462,7 +464,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
       builder: (context) => AlertDialog(
         title: const Text('Xóa toàn bộ dữ liệu?'),
         content: const Text(
-          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, lịch sử đếm cử động thai và cơn co, ảnh bụng bầu, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
+          'Thao tác này sẽ xóa dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, tín hiệu thụ thai đã ghi, lịch hẹn, dữ liệu dinh dưỡng đã lưu, nơi khám đã lưu, giá đồ mua sắm, lịch sử đếm cử động thai và cơn co, ảnh bụng bầu, cài đặt trong app và hủy toàn bộ thông báo đã lên lịch.\n\n'
           'Sau khi xóa, MomCare+ sẽ quay về màn hình bắt đầu như lần cài đặt mới.',
         ),
         actions: [
@@ -511,6 +513,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen>
     final disclaimerConsent = ref.read(disclaimerConsentProvider.notifier);
 
     await NotificationService.cancelAllNotifications();
+    await FertilityReminderService.onDataDeleted();
     await DatabaseService.clearAllData();
 
     final prefs = await SharedPreferences.getInstance();

@@ -3,18 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/data/content_pack_service.dart';
+import '../../../core/models/fertility_log_model.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/services/cycle_prediction.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/services/fertility_log_service.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/utils/calendar_style.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../home/widgets/late_period_card.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../widgets/cycle_marker.dart';
+import '../widgets/doctor_visit_card.dart';
+import '../widgets/fertility_log_sheet.dart';
+import '../widgets/fertility_signals_card.dart';
 import 'add_period_screen.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../home/screens/main_navigation.dart';
 
 class FertilityPlannerScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -33,10 +40,14 @@ class _FertilityPlannerScreenState
   DateTime? _selectedDay;
 
   List<MenstrualCycleModel> _cycles = [];
+  List<FertilityLogModel> _logs = [];
+  bool _showIntimacy = false;
   bool _isLoading = false;
   bool _isSyncing = false;
+  final ScrollController _scroll = ScrollController();
 
   ValueListenable<Box<MenstrualCycleModel>>? _cycleListenable;
+  Listenable? _signalListenable;
 
   @override
   void initState() {
@@ -48,11 +59,17 @@ class _FertilityPlannerScreenState
     } catch (_) {
       // Box not open (e.g. in isolated widget tests).
     }
+    _signalListenable = DatabaseService.listenableFor(const [
+      AppConstants.fertilityLogBox,
+      AppConstants.fertilityPrefsBox,
+    ])?..addListener(_onCyclesChanged);
   }
 
   @override
   void dispose() {
     _cycleListenable?.removeListener(_onCyclesChanged);
+    _signalListenable?.removeListener(_onCyclesChanged);
+    _scroll.dispose();
     super.dispose();
   }
 
@@ -61,6 +78,14 @@ class _FertilityPlannerScreenState
   }
 
   Future<void> _loadCycles() async {
+    final logs = FertilityLogService.all();
+    final showIntimacy = FertilityLogService.showIntimacy;
+    if (mounted) {
+      setState(() {
+        _logs = logs;
+        _showIntimacy = showIntimacy;
+      });
+    }
     try {
       final cycles = DatabaseService.getAllMenstrualCycles();
       if (!mounted) return;
@@ -267,6 +292,10 @@ class _FertilityPlannerScreenState
 
   @override
   Widget build(BuildContext context) {
+    // A notification tap opens Chu kỳ at the calendar.
+    ref.listen<int>(openCycleEventProvider, (_, _) {
+      if (_scroll.hasClients) _scroll.jumpTo(0);
+    });
     final theme = Theme.of(context);
     final averageCycleLength = HealthService.calculateAverageCycleLength(
       _cycles,
@@ -275,8 +304,22 @@ class _FertilityPlannerScreenState
     final today = DateTime.now();
     // Rolled-forward dates are not a current estimate: while late or stale
     // the calendar and "Dự đoán" give way to the same message as Hôm nay.
-    final computed = CyclePrediction.compute(_cycles, today: today);
+    final computed = CyclePrediction.compute(
+      _cycles,
+      today: today,
+      positiveLhDays: FertilityLogModel.positiveLhDays(_logs),
+    );
     final prediction = computed?.isLateOrStale == true ? null : computed;
+    final guidance = ContentPackService.fertileGuidance;
+    // TableCalendar days are UTC midnights: compare calendar days only.
+    final selected = _selectedDay;
+    final localToday = CycleStats.dateOnly(today);
+    final localSelected = selected == null
+        ? localToday
+        : CycleStats.dateOnly(selected);
+    final logDay = localSelected.isAfter(localToday)
+        ? localToday
+        : localSelected;
 
     return Scaffold(
       appBar: widget.showAppBar
@@ -302,6 +345,7 @@ class _FertilityPlannerScreenState
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               key: const ValueKey('cycle-planner-scroll'),
+              controller: _scroll,
               padding: const EdgeInsets.only(bottom: AppSpacing.fabClearance),
               child: Column(
                 children: [
@@ -345,7 +389,7 @@ class _FertilityPlannerScreenState
                         headerTitleBuilder: AppCalendarStyle.headerTitleBuilder,
                         dowBuilder: AppCalendarStyle.daysOfWeekBuilder,
                         markerBuilder: (context, date, events) {
-                          return _buildDayMarker(date, prediction);
+                          return _buildDayMarkers(date, prediction);
                         },
                       ),
                     ),
@@ -372,11 +416,37 @@ class _FertilityPlannerScreenState
                       ),
                     ),
 
+                  // Manual signals, available in every cycle state.
+                  if (!guidance.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(AppSpacing.sm),
+                      child: FertilitySignalsCard(
+                        key: const ValueKey('fertility-signals-card'),
+                        guidance: guidance,
+                        logs: _logs,
+                        showIntimacy: _showIntimacy,
+                        logDay: logDay,
+                        today: today,
+                        onOpenLog: (day) => showFertilityLogSheet(context, day),
+                        onOpenSettings: () =>
+                            showFertilitySettingsSheet(context),
+                      ),
+                    ),
+
                   // Recorded periods (edit / delete)
                   if (_cycles.isNotEmpty) _buildRecordedPeriodsCard(theme),
 
                   // Quick Actions
                   _buildQuickActionsCard(theme),
+
+                  if (!guidance.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(AppSpacing.sm),
+                      child: DoctorVisitCard(
+                        key: const ValueKey('fertility-doctor-card'),
+                        guidance: guidance,
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -384,6 +454,41 @@ class _FertilityPlannerScreenState
         onPressed: _openAddPeriodScreen,
         icon: const Icon(Icons.add),
         label: const Text('Thêm kỳ kinh'),
+      ),
+    );
+  }
+
+  /// The cycle mark under the day number, plus the corner marks of what was
+  /// logged. A day holding only the hidden intimacy mark shows nothing.
+  Widget? _buildDayMarkers(DateTime date, CyclePrediction? prediction) {
+    final cycleMark = _buildDayMarker(date, prediction);
+    final key = FertilityLogModel.dayKey(date);
+    final logs = _logs.where((l) => FertilityLogModel.dayKey(l.date) == key);
+    final log = logs.isEmpty ? null : logs.first;
+    final logged = log?.hasHealthSignal ?? false;
+    final intimacy = _showIntimacy && (log?.intimacy ?? false);
+    if (!logged && !intimacy) return cycleMark;
+
+    Widget corner(CycleMarkerKind kind, {double? left, double? right}) =>
+        Positioned(
+          top: 2,
+          left: left,
+          right: right,
+          child: CycleMarker(
+            key: ValueKey('cycle-marker-${kind.name}'),
+            kind: kind,
+            size: 6,
+          ),
+        );
+
+    return Positioned.fill(
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          if (cycleMark != null) cycleMark,
+          if (logged) corner(CycleMarkerKind.logged, right: 4),
+          if (intimacy) corner(CycleMarkerKind.intimacy, left: 4),
+        ],
       ),
     );
   }
@@ -577,7 +682,11 @@ class _FertilityPlannerScreenState
             ),
             ListTile(
               leading: const _PredictionMarker(CycleMarkerKind.ovulation),
-              title: const Text('Ngày rụng trứng dự kiến'),
+              title: Text(
+                prediction.isFromLhTest
+                    ? 'Ngày rụng trứng dự kiến (${guidance.text('lh_source')})'
+                    : 'Ngày rụng trứng dự kiến',
+              ),
               subtitle: _PredictionDates(
                 prediction.earliestOvulation,
                 prediction.latestOvulation,
@@ -585,7 +694,11 @@ class _FertilityPlannerScreenState
             ),
             ListTile(
               leading: const _PredictionMarker(CycleMarkerKind.fertile),
-              title: const Text('Cửa sổ thụ thai'),
+              title: Text(
+                prediction.isFromLhTest
+                    ? 'Cửa sổ thụ thai (${guidance.text('lh_source')})'
+                    : 'Cửa sổ thụ thai',
+              ),
               subtitle: Text(
                 DateFormatter.formatDateRange(
                   prediction.fertileStart,
@@ -605,7 +718,13 @@ class _FertilityPlannerScreenState
               const SizedBox(height: AppSpacing.xs),
               Text(guidance.confidenceNote(prediction), style: muted),
               const SizedBox(height: AppSpacing.xs),
-              Text(guidance.text('ovulation_note'), style: muted),
+              Text(
+                guidance.text(
+                  prediction.isFromLhTest ? 'lh_note' : 'ovulation_note',
+                ),
+                key: const ValueKey('cycle-ovulation-note'),
+                style: muted,
+              ),
               if (prediction.hasCycleOutsideTypicalRange) ...[
                 const SizedBox(height: AppSpacing.xs),
                 Text(guidance.text('outside_range_note'), style: muted),
@@ -686,7 +805,7 @@ class _FertilityPlannerScreenState
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.all(8),
-              child: const CycleMarkerLegend(),
+              child: CycleMarkerLegend(showIntimacy: _showIntimacy),
             ),
             if (HealthService.isAvailable) ...[
               const SizedBox(height: 8),

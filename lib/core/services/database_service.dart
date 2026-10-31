@@ -7,6 +7,7 @@ import '../models/appointment_model.dart';
 import '../models/nutrition_model.dart';
 import '../models/recipe_model.dart';
 import '../models/menstrual_cycle_model.dart';
+import '../models/fertility_log_model.dart';
 import '../constants/app_constants.dart';
 import '../utils/app_logger.dart';
 import 'encryption_service.dart';
@@ -30,6 +31,7 @@ class DatabaseService {
       _registerAdapter(NutritionModelAdapter());
       _registerAdapter(RecipeModelAdapter());
       _registerAdapter(MenstrualCycleModelAdapter());
+      _registerAdapter(FertilityLogModelAdapter());
       _logger.debug('Hive adapters registered');
 
       // Get encryption cipher for sensitive data
@@ -80,6 +82,7 @@ class DatabaseService {
         AppConstants.menstrualCycleBox,
         encryptionCipher: encryptionCipher,
       );
+      await openFertilityBoxes(encryptionCipher);
 
       // These boxes don't contain sensitive data, so no encryption needed
       await Hive.openBox<NutritionModel>(AppConstants.nutritionBox);
@@ -100,6 +103,20 @@ class DatabaseService {
     }
   }
 
+  /// Opens the boxes of the daily fertility signals and their preferences.
+  /// Both are new in Phase 25, so upgrades only add files; existing boxes
+  /// are not touched.
+  static Future<void> openFertilityBoxes(HiveCipher? encryptionCipher) async {
+    await Hive.openBox<FertilityLogModel>(
+      AppConstants.fertilityLogBox,
+      encryptionCipher: encryptionCipher,
+    );
+    await Hive.openBox<dynamic>(
+      AppConstants.fertilityPrefsBox,
+      encryptionCipher: encryptionCipher,
+    );
+  }
+
   /// Merged change notifier for the named boxes (typed boxes are resolved
   /// with their own type, as Hive refuses mismatched generic lookups).
   /// Returns null when none of the boxes is open.
@@ -116,6 +133,8 @@ class DatabaseService {
           listenables.add(appointmentBox.listenable());
         case AppConstants.menstrualCycleBox:
           listenables.add(menstrualCycleBox.listenable());
+        case AppConstants.fertilityLogBox:
+          listenables.add(fertilityLogBox.listenable());
         case AppConstants.nutritionBox:
           listenables.add(nutritionBox.listenable());
         case AppConstants.recipeBox:
@@ -393,8 +412,23 @@ class DatabaseService {
     await menstrualCycleBox.clear();
   }
 
+  // Fertility signals; read through FertilityLogService.
+  static Box<FertilityLogModel> get fertilityLogBox =>
+      Hive.box<FertilityLogModel>(AppConstants.fertilityLogBox);
+
+  /// Encrypted, unlike [settingsBox]: even "reminders on" is sensitive here.
+  static Box<dynamic> get fertilityPrefsBox =>
+      Hive.box<dynamic>(AppConstants.fertilityPrefsBox);
+
   // Clear all data
   static Future<void> clearAllData() async {
+    // First, so a reschedule triggered by the cycle box finds them gone.
+    if (Hive.isBoxOpen(AppConstants.fertilityPrefsBox)) {
+      await fertilityPrefsBox.clear();
+    }
+    if (Hive.isBoxOpen(AppConstants.fertilityLogBox)) {
+      await fertilityLogBox.clear();
+    }
     await pregnancyBox.clear();
     await healthLogBox.clear();
     await appointmentBox.clear();
