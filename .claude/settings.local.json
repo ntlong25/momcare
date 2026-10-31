@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python -c ' *)",
-      "Bash(node -e ' *)",
-      "Bash(gh pr *)"
-    ]
-  }
-}
