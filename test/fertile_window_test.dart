@@ -694,7 +694,8 @@ void main() {
           'Độ tin cậy: Trung bình',
         );
         expect(find.textContaining('không dùng để tránh thai'), findsOneWidget);
-        expect(find.text('Nội dung đang chờ bác sĩ duyệt'), findsOneWidget);
+        // Dự đoán, the signals card and the doctor card are all draft.
+        expect(find.text('Nội dung đang chờ bác sĩ duyệt'), findsNWidgets(3));
       });
     });
   });

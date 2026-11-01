@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/menstrual_cycle_model.dart';
 import '../../../core/models/pre_readiness.dart';
 import '../../../core/services/cycle_prediction.dart';
 import '../../../core/services/database_service.dart';
+import '../../../core/services/fertility_log_service.dart';
+import '../../../core/services/fertility_reminder_service.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../emergency/widgets/emergency_app_bar_button.dart';
 import '../../emergency/widgets/emergency_entry_card.dart';
+import '../../fertility/widgets/fertility_log_sheet.dart';
+import 'main_navigation.dart';
 import '../widgets/fertile_today_card.dart';
 import '../widgets/late_period_card.dart';
 import '../widgets/pre_readiness_card.dart';
@@ -28,7 +33,16 @@ class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
   @visibleForTesting
   final DateTime? debugToday;
 
-  const PrePregnancyHomeScreen({super.key, this.debugCycles, this.debugToday});
+  /// Fixed positive LH days instead of the Hive box (tests only).
+  @visibleForTesting
+  final List<DateTime>? debugPositiveLhDays;
+
+  const PrePregnancyHomeScreen({
+    super.key,
+    this.debugCycles,
+    this.debugToday,
+    this.debugPositiveLhDays,
+  });
 
   @override
   ConsumerState<PrePregnancyHomeScreen> createState() =>
@@ -38,8 +52,31 @@ class PrePregnancyHomeScreen extends ConsumerStatefulWidget {
 class _PrePregnancyHomeScreenState
     extends ConsumerState<PrePregnancyHomeScreen> {
   List<MenstrualCycleModel> _cycles = [];
+  List<DateTime> _positiveLhDays = [];
 
   Listenable? _cycleListenable;
+  Listenable? _logListenable;
+  bool _askScheduled = false;
+
+  /// Hôm nay is on screen: its tab is selected and no route covers it. The
+  /// screen is also built behind Cài đặt when the mode changes there.
+  bool _isOnScreen() =>
+      ref.read(navigationIndexProvider) == 0 &&
+      (ModalRoute.of(context)?.isCurrent ?? true);
+
+  /// The one automatic permission request, once Hôm nay is really seen.
+  void _askWhenOnScreen(bool onScreen) {
+    if (_askScheduled || !onScreen) return;
+    _askScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_isOnScreen()) {
+        _askScheduled = false;
+        return;
+      }
+      // Once per install; does nothing after the first time.
+      FertilityReminderService.askOnce();
+    });
+  }
 
   @override
   void initState() {
@@ -51,11 +88,16 @@ class _PrePregnancyHomeScreenState
     } catch (_) {
       // Box not open (e.g. in isolated widget tests).
     }
+    _logListenable = DatabaseService.listenableFor(const [
+      AppConstants.fertilityLogBox,
+      AppConstants.fertilityPrefsBox,
+    ])?..addListener(_loadCycles);
   }
 
   @override
   void dispose() {
     _cycleListenable?.removeListener(_loadCycles);
+    _logListenable?.removeListener(_loadCycles);
     super.dispose();
   }
 
@@ -71,15 +113,25 @@ class _PrePregnancyHomeScreenState
     if (!mounted) return;
     setState(() {
       _cycles = cycles;
+      _positiveLhDays =
+          widget.debugPositiveLhDays ?? FertilityLogService.positiveLhDays();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _askWhenOnScreen(
+      ref.watch(navigationIndexProvider) == 0 &&
+          (ModalRoute.of(context)?.isCurrent ?? true),
+    );
     final theme = Theme.of(context);
     final now = widget.debugToday ?? DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final prediction = CyclePrediction.compute(_cycles, today: today);
+    final prediction = CyclePrediction.compute(
+      _cycles,
+      today: today,
+      positiveLhDays: _positiveLhDays,
+    );
     final guidance = ContentPackService.fertileGuidance;
     final showLatePeriod = LatePeriodCard.isVisible(_cycles, today);
     final showReadiness = !PreReadiness.compute(
@@ -131,12 +183,16 @@ class _PrePregnancyHomeScreenState
                     key: const ValueKey('pre-fertile-today-card'),
                     prediction: prediction!,
                     guidance: guidance,
+                    onLog: () => showFertilityLogSheet(context, today),
                   ),
                   const SizedBox(height: 16),
                 ],
                 _FertileWindowWidget(
                   key: const ValueKey('pre-fertile-window-card'),
                   fertileWindow: prediction?.fertileDays,
+                  sourceLabel: prediction?.isFromLhTest == true
+                      ? guidance.text('lh_source')
+                      : null,
                   hasCycles: _cycles.isNotEmpty,
                   onAddPeriod: () async {
                     await NavigationHelper.toFertilityPlanner(context);
@@ -149,6 +205,7 @@ class _PrePregnancyHomeScreenState
                   prediction: prediction,
                   today: today,
                   inRangeLabel: guidance.text('ovulation_in_range'),
+                  sourceLabel: guidance.text('lh_source'),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -242,9 +299,13 @@ class _FertileWindowWidget extends StatelessWidget {
   final bool hasCycles;
   final VoidCallback onAddPeriod;
 
+  /// Where the dates come from, when not the calendar.
+  final String? sourceLabel;
+
   const _FertileWindowWidget({
     super.key,
     this.fertileWindow,
+    this.sourceLabel,
     required this.hasCycles,
     required this.onAddPeriod,
   });
@@ -271,7 +332,9 @@ class _FertileWindowWidget extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'Cửa sổ thụ thai',
+                  sourceLabel == null
+                      ? 'Cửa sổ thụ thai'
+                      : 'Cửa sổ thụ thai ($sourceLabel)',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -381,11 +444,15 @@ class _OvulationCountdownWidget extends StatelessWidget {
   /// Shown instead of 'Hôm nay' when today is inside a range of dates.
   final String inRangeLabel;
 
+  /// Names the source of the dates when an LH test set them.
+  final String sourceLabel;
+
   const _OvulationCountdownWidget({
     super.key,
     required this.prediction,
     required this.today,
     required this.inRangeLabel,
+    required this.sourceLabel,
   });
 
   @override
@@ -429,7 +496,9 @@ class _OvulationCountdownWidget extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'Ngày rụng trứng dự kiến',
+                  prediction.isFromLhTest
+                      ? 'Ngày rụng trứng dự kiến ($sourceLabel)'
+                      : 'Ngày rụng trứng dự kiến',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

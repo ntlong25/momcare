@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/models/bump_photo.dart';
 import '../../core/models/pregnancy_model.dart';
+import '../../core/providers/app_mode_provider.dart';
 import '../../core/services/database_service.dart';
 import '../../core/utils/app_logger.dart';
 import '../home/screens/main_navigation.dart';
@@ -122,7 +123,9 @@ class _QuickCameraListenerState extends ConsumerState<QuickCameraListener> {
     super.initState();
     // The tap of a cold start arrives before this widget exists.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _open(ref.read(quickCameraRequestProvider));
+      if (!mounted) return;
+      _open(ref.read(quickCameraRequestProvider));
+      _openCycle(ref.read(openCycleRequestProvider));
     });
   }
 
@@ -138,9 +141,22 @@ class _QuickCameraListenerState extends ConsumerState<QuickCameraListener> {
       );
   }
 
+  /// A notification tap. This widget exists only past the gates; the request
+  /// is taken once and Chu kỳ exists only in pre-pregnancy mode.
+  void _openCycle(bool requested) {
+    if (!requested) return;
+    ref.read(openCycleRequestProvider.notifier).state = false;
+    if (BumpCameraScreen.openCount > 0 || QuickCameraListener.suspended) return;
+    if (ref.read(appModeProvider) != AppMode.prePregnancy) return;
+    ref.read(navigationIndexProvider.notifier).state = cycleTabIndex;
+    ref.read(openCycleEventProvider.notifier).state++;
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen<int?>(quickCameraRequestProvider, (_, week) => _open(week));
+    ref.listen<bool>(openCycleRequestProvider, (_, next) => _openCycle(next));
     return widget.child;
   }
 }

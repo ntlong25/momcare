@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../services/cycle_prediction.dart';
+import 'fertility_log_model.dart';
 import 'guide_models.dart';
 
 /// Reviewed wording of the fertile-window features, from
@@ -30,6 +31,55 @@ class FertileGuidance {
     'frequency',
     'outside_range_note',
     'not_contraception',
+    'lh_label',
+    'lh_negative',
+    'lh_positive',
+    'lh_peak',
+    'lh_source',
+    'lh_note',
+    'mucus_label',
+    'mucus_dry',
+    'mucus_sticky',
+    'mucus_creamy',
+    'mucus_watery',
+    'mucus_egg_white',
+    'temperature_label',
+    'temperature_hint',
+    'temperature_invalid',
+    'intimacy_label',
+    'intimacy_setting',
+    'intimacy_setting_note',
+    'signals_title',
+    'signals_empty',
+    'signals_log_today',
+    'signals_log_day',
+    'signals_settings',
+    'signals_history_hint',
+    'signals_history_note',
+    'signals_privacy',
+    'log_done',
+    'log_delete',
+    'log_delete_confirm',
+    'log_delete_cancel',
+    'reminder_title',
+    'reminder_window',
+    'reminder_lh',
+    'reminder_time',
+    'reminder_note',
+    'reminder_denied',
+    'reminder_text',
+    'notify_window',
+    'notify_peak',
+    'notify_update',
+    'style_label',
+    'style_discreet',
+    'style_full',
+    'style_note',
+    'doctor_title',
+    'doctor_cycles',
+    'doctor_trying',
+    'doctor_age',
+    'doctor_anytime',
   };
 
   final Map<String, String> _texts;
@@ -69,6 +119,35 @@ class FertileGuidance {
           ? 'confidence_note_irregular'
           : 'confidence_note_insufficient',
     );
+  }
+
+  String lhLabel(LhResult result) => text(switch (result) {
+    LhResult.negative => 'lh_negative',
+    LhResult.positive => 'lh_positive',
+    LhResult.peak => 'lh_peak',
+  });
+
+  String mucusLabel(CervicalMucus mucus) => text(switch (mucus) {
+    CervicalMucus.dry => 'mucus_dry',
+    CervicalMucus.sticky => 'mucus_sticky',
+    CervicalMucus.creamy => 'mucus_creamy',
+    CervicalMucus.watery => 'mucus_watery',
+    CervicalMucus.eggWhite => 'mucus_egg_white',
+  });
+
+  /// One history line, as logged and without any reading of the values.
+  String logSummary(FertilityLogModel log, {required bool showIntimacy}) {
+    final lh = log.lh;
+    final mucus = log.mucus;
+    final temperature = log.temperatureC;
+    return [
+      if (lh != null) '${text('lh_label')}: ${lhLabel(lh)}',
+      if (mucus != null) '${text('mucus_label')}: ${mucusLabel(mucus)}',
+      if (temperature != null)
+        '${text('temperature_label')}: '
+            '${FertilityLogModel.formatTemperature(temperature)}°C',
+      if (showIntimacy && log.intimacy) text('intimacy_label'),
+    ].join(' · ');
   }
 
   /// Never throws: invalid JSON or a missing required id gives an empty pack.

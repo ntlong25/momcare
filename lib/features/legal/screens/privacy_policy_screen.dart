@@ -26,14 +26,14 @@ class PrivacyPolicyScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Cập nhật lần cuối: 09/2026',
+            'Cập nhật lần cuối: 10/2026',
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(height: 24),
           const _PolicySection(
             title: '1. Dữ liệu được lưu trên thiết bị',
             body:
-                'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, dinh dưỡng yêu thích, lịch hẹn, lịch sử đếm cử động thai, cơn co và ảnh bụng bầu trên thiết bị của bạn. '
+                'MomCare+ lưu dữ liệu thai kỳ, nhật ký sức khỏe, chu kỳ, tín hiệu thụ thai bạn tự ghi (que LH, chất nhầy cổ tử cung, thân nhiệt nền, ngày gần gũi), dinh dưỡng yêu thích, lịch hẹn, lịch sử đếm cử động thai, cơn co và ảnh bụng bầu trên thiết bị của bạn. '
                 'Ảnh, thẻ cột mốc và file PDF chỉ rời khỏi thiết bị khi bạn tự chọn chia sẻ.',
           ),
           const _PolicySection(
@@ -49,7 +49,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           const _PolicySection(
             title: '4. Dữ liệu sức khỏe và bảo mật',
             body:
-                'Dữ liệu sức khỏe là dữ liệu nhạy cảm. Ứng dụng lưu thông tin trên thiết bị của bạn và dùng cơ chế bảo vệ dữ liệu khi thiết bị hỗ trợ. Trong một số trường hợp, mức độ bảo vệ có thể phụ thuộc vào thiết bị và cài đặt khóa màn hình của bạn.',
+                'Dữ liệu sức khỏe là dữ liệu nhạy cảm. Ứng dụng lưu thông tin trên thiết bị của bạn và dùng cơ chế bảo vệ dữ liệu khi thiết bị hỗ trợ. Tín hiệu thụ thai bạn tự ghi không được gửi đến máy chủ hay dịch vụ phân tích nào. Nếu bạn bật thông báo ngày dễ thụ thai, lịch thông báo được đặt sẵn trên thiết bị và không gửi ra ngoài; nội dung có thể hiện trên màn hình khóa tùy lựa chọn của bạn và cài đặt điện thoại. Trong một số trường hợp, mức độ bảo vệ có thể phụ thuộc vào thiết bị và cài đặt khóa màn hình của bạn.',
           ),
           const _PolicySection(
             title: '5. Quyền truy cập',

@@ -13,6 +13,7 @@ import 'core/services/health_service.dart';
 import 'core/services/maternal_habit_service.dart';
 import 'core/services/appointment_reminder_service.dart';
 import 'core/services/thai_giao_reminder_service.dart';
+import 'core/services/fertility_reminder_service.dart';
 import 'core/utils/app_logger.dart';
 import 'core/data/content_pack_service.dart';
 import 'core/data/pregnancy_weeks_data.dart';
@@ -59,6 +60,9 @@ void main() async {
   // A tap on the home-screen widget skips the splash: it asked for the camera.
   final container = ProviderContainer();
   final openCamera = await QuickCameraBridge(container).start();
+  await FertilityReminderService.listenForTaps(
+    () => container.read(openCycleRequestProvider.notifier).state = true,
+  );
   runApp(
     UncontrolledProviderScope(
       container: container,
@@ -76,6 +80,8 @@ Future<void> _rescheduleReminders() async {
     await MaternalHabitService.rescheduleEnabledReminders();
     await AppointmentReminderService.rescheduleAll();
     await ThaiGiaoReminderService.rescheduleIfEnabled();
+    await FertilityReminderService.reschedule();
+    FertilityReminderService.startWatching();
   } catch (e, stackTrace) {
     AppLogger.instance.warning(
       'Could not reschedule reminders',

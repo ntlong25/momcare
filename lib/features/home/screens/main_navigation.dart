@@ -17,6 +17,17 @@ import '../../tools/screens/counter_tools_screen.dart';
 
 final navigationIndexProvider = StateProvider<int>((ref) => 0);
 
+/// Tab of the Chu kỳ destination.
+const int cycleTabIndex = 1;
+
+/// True after a tap on a fertile-day notification, until it is handled under
+/// the normal gates by `QuickCameraListener`.
+final openCycleRequestProvider = StateProvider<bool>((ref) => false);
+
+/// Counts handled notification taps: Chu kỳ returns to its first page and
+/// scrolls back to the calendar on each.
+final openCycleEventProvider = StateProvider<int>((ref) => 0);
+
 /// Bottom navigation destinations for the given mode (Phase 13 IA):
 /// Hôm nay / Tuần thai (Chu kỳ) / Cẩm nang / Công cụ / Cài đặt.
 List<NavigationDestination> mainDestinations({required bool isPrePregnancy}) {
@@ -146,6 +157,7 @@ class _TrackTabScreen extends StatelessWidget {
     // Cycle tracking is only offered in pre-pregnancy mode.
     return TabbedScaffold(
       key: ValueKey(isPrePregnancy),
+      followsCycleRequest: isPrePregnancy,
       title: isPrePregnancy ? 'Chu kỳ & sức khỏe' : 'Tuần thai & sức khỏe',
       pages: isPrePregnancy
           ? const [
@@ -259,45 +271,69 @@ class TabbedScaffold extends StatelessWidget {
   final List<TabbedPage> pages;
   final List<Widget>? actions;
 
+  /// Returns to the first page on [openCycleEventProvider].
+  final bool followsCycleRequest;
+
   const TabbedScaffold({
     super.key,
     required this.title,
     required this.pages,
     this.actions,
+    this.followsCycleRequest = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: pages.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-          actions: actions,
-          bottom: TabBar(
-            isScrollable: true,
-            tabAlignment: TabAlignment.start,
-            tabs: [
+      child: _FirstTabOnRequest(
+        enabled: followsCycleRequest,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(title),
+            actions: actions,
+            bottom: TabBar(
+              isScrollable: true,
+              tabAlignment: TabAlignment.start,
+              tabs: [
+                for (final page in pages)
+                  Tab(
+                    key: ValueKey('tab-${page.id}'),
+                    text: page.label,
+                    icon: Icon(page.icon),
+                  ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
               for (final page in pages)
-                Tab(
-                  key: ValueKey('tab-${page.id}'),
-                  text: page.label,
-                  icon: Icon(page.icon),
+                KeyedSubtree(
+                  key: PageStorageKey<String>('tab-page-${page.id}'),
+                  child: page.child,
                 ),
             ],
           ),
         ),
-        body: TabBarView(
-          children: [
-            for (final page in pages)
-              KeyedSubtree(
-                key: PageStorageKey<String>('tab-page-${page.id}'),
-                child: page.child,
-              ),
-          ],
-        ),
       ),
     );
+  }
+}
+
+class _FirstTabOnRequest extends ConsumerWidget {
+  final bool enabled;
+  final Widget child;
+
+  const _FirstTabOnRequest({required this.enabled, required this.child});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (enabled) {
+      ref.listen<int>(openCycleEventProvider, (_, _) {
+        DefaultTabController.of(context).index = 0;
+      });
+    }
+    return child;
   }
 }
 

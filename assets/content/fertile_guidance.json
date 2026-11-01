@@ -106,6 +106,251 @@
       "id": "not_contraception",
       "group": "Lưu ý",
       "text": "Đây chỉ là ước tính từ dữ liệu bạn đã ghi, không dùng để tránh thai."
+    },
+    {
+      "id": "lh_label",
+      "group": "Que LH",
+      "text": "Que thử LH"
+    },
+    {
+      "id": "lh_negative",
+      "group": "Que LH",
+      "text": "Âm"
+    },
+    {
+      "id": "lh_positive",
+      "group": "Que LH",
+      "text": "Dương"
+    },
+    {
+      "id": "lh_peak",
+      "group": "Que LH",
+      "text": "Đỉnh"
+    },
+    {
+      "id": "lh_source",
+      "group": "Que LH",
+      "text": "theo que thử"
+    },
+    {
+      "id": "lh_note",
+      "group": "Que LH",
+      "text": "Sau lần que LH dương đầu tiên của chu kỳ này, ngày rụng trứng được dự kiến trong khoảng 2 ngày, chỉ áp dụng cho chu kỳ hiện tại. Đây vẫn là ước tính, không xác nhận đã rụng trứng."
+    },
+    {
+      "id": "mucus_label",
+      "group": "Chất nhầy",
+      "text": "Chất nhầy cổ tử cung"
+    },
+    {
+      "id": "mucus_dry",
+      "group": "Chất nhầy",
+      "text": "Khô"
+    },
+    {
+      "id": "mucus_sticky",
+      "group": "Chất nhầy",
+      "text": "Dính"
+    },
+    {
+      "id": "mucus_creamy",
+      "group": "Chất nhầy",
+      "text": "Đặc như kem"
+    },
+    {
+      "id": "mucus_watery",
+      "group": "Chất nhầy",
+      "text": "Loãng"
+    },
+    {
+      "id": "mucus_egg_white",
+      "group": "Chất nhầy",
+      "text": "Như lòng trắng trứng"
+    },
+    {
+      "id": "temperature_label",
+      "group": "Thân nhiệt",
+      "text": "Thân nhiệt nền"
+    },
+    {
+      "id": "temperature_hint",
+      "group": "Thân nhiệt",
+      "text": "Ví dụ 36,5"
+    },
+    {
+      "id": "temperature_invalid",
+      "group": "Thân nhiệt",
+      "text": "Nhập từ 35 đến 39 độ, ví dụ 36,5"
+    },
+    {
+      "id": "intimacy_label",
+      "group": "Ngày gần gũi",
+      "text": "Ngày gần gũi"
+    },
+    {
+      "id": "intimacy_setting",
+      "group": "Ngày gần gũi",
+      "text": "Hiện mục Ngày gần gũi"
+    },
+    {
+      "id": "intimacy_setting_note",
+      "group": "Ngày gần gũi",
+      "text": "Mặc định ẩn. Khi tắt, mục này và dấu trên lịch được ẩn; ghi chép cũ vẫn giữ nguyên cho đến khi bạn xóa."
+    },
+    {
+      "id": "signals_title",
+      "group": "Ghi chép",
+      "text": "Tín hiệu đã ghi"
+    },
+    {
+      "id": "signals_empty",
+      "group": "Ghi chép",
+      "text": "Chưa có ghi chép nào. Bạn có thể ghi que LH, chất nhầy hoặc thân nhiệt khi tiện."
+    },
+    {
+      "id": "signals_log_today",
+      "group": "Ghi chép",
+      "text": "Ghi hôm nay"
+    },
+    {
+      "id": "signals_log_day",
+      "group": "Ghi chép",
+      "text": "Ghi ngày"
+    },
+    {
+      "id": "signals_settings",
+      "group": "Ghi chép",
+      "text": "Cài đặt ghi chép"
+    },
+    {
+      "id": "signals_history_hint",
+      "group": "Ghi chép",
+      "text": "Chạm vào một ngày để sửa hoặc xóa."
+    },
+    {
+      "id": "signals_history_note",
+      "group": "Ghi chép",
+      "text": "Thân nhiệt và chất nhầy chỉ là lịch sử để bạn xem lại hoặc đưa bác sĩ xem. MomCare+ không dùng chúng để kết luận rụng trứng hay chẩn đoán."
+    },
+    {
+      "id": "signals_privacy",
+      "group": "Ghi chép",
+      "text": "Ghi chép này chỉ lưu trên thiết bị của bạn."
+    },
+    {
+      "id": "log_done",
+      "group": "Ghi chép",
+      "text": "Xong"
+    },
+    {
+      "id": "log_delete",
+      "group": "Ghi chép",
+      "text": "Xóa ghi chép ngày này"
+    },
+    {
+      "id": "log_delete_confirm",
+      "group": "Ghi chép",
+      "text": "Xóa ghi chép của ngày này?"
+    },
+    {
+      "id": "log_delete_cancel",
+      "group": "Ghi chép",
+      "text": "Hủy"
+    },
+    {
+      "id": "reminder_title",
+      "group": "Nhắc",
+      "text": "Thông báo"
+    },
+    {
+      "id": "reminder_window",
+      "group": "Nhắc",
+      "text": "Thông báo ngày dễ thụ thai"
+    },
+    {
+      "id": "reminder_lh",
+      "group": "Nhắc",
+      "text": "Nhắc giờ thử que LH"
+    },
+    {
+      "id": "reminder_time",
+      "group": "Nhắc",
+      "text": "Giờ nhắc"
+    },
+    {
+      "id": "reminder_note",
+      "group": "Nhắc",
+      "text": "Lần đầu bạn mở Hôm nay ở chế độ chuẩn bị mang thai, MomCare+ xin quyền thông báo một lần; nếu bạn cho phép, thông báo ngày dễ thụ thai được bật. Bạn có thể tắt hoặc bật lại ở đây. Nhắc giờ thử que LH chỉ bật khi bạn chọn. Thông báo được đặt sẵn cho 2 chu kỳ tới theo dữ liệu bạn đã ghi, và chỉ là ước tính."
+    },
+    {
+      "id": "notify_window",
+      "group": "Nhắc",
+      "text": "Hôm nay là ngày dễ thụ thai (ước tính)"
+    },
+    {
+      "id": "notify_peak",
+      "group": "Nhắc",
+      "text": "Hôm nay là ngày đỉnh (ước tính)"
+    },
+    {
+      "id": "notify_update",
+      "group": "Nhắc",
+      "text": "Hãy cập nhật dữ liệu lịch của bạn"
+    },
+    {
+      "id": "style_label",
+      "group": "Nhắc",
+      "text": "Nội dung thông báo"
+    },
+    {
+      "id": "style_discreet",
+      "group": "Nhắc",
+      "text": "Kín đáo"
+    },
+    {
+      "id": "style_full",
+      "group": "Nhắc",
+      "text": "Đầy đủ"
+    },
+    {
+      "id": "style_note",
+      "group": "Nhắc",
+      "text": "Kín đáo: luôn hiện MomCare+: Xem lịch hôm nay. Đầy đủ: nói rõ ngày dễ thụ thai hoặc ngày đỉnh. Trên Android, nếu điện thoại đang để hiện toàn bộ nội dung thông báo, màn hình khóa sẽ hiện đầy đủ nội dung này; nếu điện thoại ẩn nội dung nhạy cảm, màn hình khóa chỉ hiện MomCare+: Xem lịch hôm nay. Trên iOS, màn hình khóa theo cài đặt xem trước của máy."
+    },
+    {
+      "id": "reminder_denied",
+      "group": "Nhắc",
+      "text": "Chưa có quyền thông báo nên nhắc vẫn tắt."
+    },
+    {
+      "id": "reminder_text",
+      "group": "Nhắc",
+      "text": "MomCare+: Xem lịch hôm nay"
+    },
+    {
+      "id": "doctor_title",
+      "group": "Nên đi khám",
+      "text": "Nên đi khám khi nào"
+    },
+    {
+      "id": "doctor_cycles",
+      "group": "Nên đi khám",
+      "text": "Chu kỳ quá dài, quá ngắn hoặc không đều: hãy mang lịch sử chu kỳ đến để bác sĩ xem cùng bạn."
+    },
+    {
+      "id": "doctor_trying",
+      "group": "Nên đi khám",
+      "text": "Đã mong con một thời gian: bạn có thể hỏi bác sĩ khi nào nên đi khám, cả hai vợ chồng cùng đi càng tốt."
+    },
+    {
+      "id": "doctor_age",
+      "group": "Nên đi khám",
+      "text": "Tuổi tác có thể ảnh hưởng đến thời điểm nên đi khám. Mốc tuổi và thời gian cụ thể cần bác sĩ xác nhận, nên hãy hỏi trực tiếp bác sĩ của bạn."
+    },
+    {
+      "id": "doctor_anytime",
+      "group": "Nên đi khám",
+      "text": "Bạn có thể đi khám bất cứ lúc nào nếu lo lắng. Thẻ này chỉ là gợi ý, không phải chẩn đoán."
     }
   ]
 }
