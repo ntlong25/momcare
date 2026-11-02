@@ -1303,7 +1303,7 @@ Test round 2: P30-R1-01, 04 and 07 (old P16-R1-01) and 08 (delete-all button dis
 Not tested: motion at frame level and on a real phone; iOS.
 
 ## Phase 31: Share Right After Capture
-Status: In progress. Requested by the user. No new permissions, no platform SDKs, no auto-posting.
+Status: Completed (2026-11-02). Requested by the user. No new permissions, no platform SDKs, no auto-posting.
 
 - Task 31.1 'Chia sẻ' on the camera review screen: saves the photo first, then asks 'Ảnh gốc' or 'Ảnh kèm khung MomCare+', then opens the system share sheet.
   Acceptance: the photo is saved once even if sharing is cancelled; Lưu and Chụp lại behave as before; tapping twice does not save twice.
@@ -1311,6 +1311,10 @@ Status: In progress. Requested by the user. No new permissions, no platform SDKs
   Acceptance: unit and widget tests for text, fallback when no size comparison, PNG output.
 - Task 31.3 The same choice in the journal photo viewer.
   Acceptance: shared temp files are removed as today; delete-all still clears them.
+
+Test round 1: passes on the emulator with the real chooser, inspected and dismissed. GPS was zeroed by Android 13+ redaction before the app received a gallery photo; other EXIF stays in 'Ảnh gốc'.
+Round 2 fixes, covered by tests, not re-run on device: deleting a photo clears the share copies; 'Ảnh gốc' states it may keep file information; review buttons equal height; sheet bottom padding.
+Not tested: share while a slow crop runs, delivery to a real app, iOS, real phone.
 
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
@@ -1417,3 +1421,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 29: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 727/727; debug x64 APK OK; emulator QA 3 rounds; no real phone.
 - Phase 25: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 836/836; debug x64 APK OK; emulator QA on the final behaviour; no real phone.
 - Phase 30: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 873/873; debug x64 APK OK; emulator QA 2 rounds.
+- Phase 31: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 901/901; debug x64 APK OK; emulator QA 1 round.

@@ -17,13 +17,16 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/app_logger.dart';
 import '../../../core/utils/share_helper.dart';
 import '../bump_camera_source.dart';
+import '../bump_photo_share.dart';
 import 'bump_journal_screen.dart';
 
 enum _Phase { starting, ready, capturing, review, failed }
 
 /// Quick capture for "Nhật ký ảnh bụng bầu": a live preview, the shutter, a
-/// review of the photo, then "Lưu vào tuần X" or "Chụp lại". Saving returns
-/// to the page that opened the camera. The photo is taken in this process,
+/// review of the photo, then "Lưu vào tuần X", "Chia sẻ" or "Chụp lại". Saving
+/// returns to the page that opened the camera; "Chia sẻ" saves first and
+/// returns after the share sheet, so the photo is kept whatever happens to
+/// the sharing. The photo is taken in this process,
 /// so Android has no other activity to kill the app behind.
 class BumpCameraScreen extends ConsumerStatefulWidget {
   /// Week the photo is saved to.
@@ -64,6 +67,11 @@ class BumpCameraScreen extends ConsumerStatefulWidget {
   static const String saveErrorMessage =
       'Không lưu được ảnh. Vui lòng thử lại.';
 
+  /// The photo is saved and the review is gone: the retry is in the journal.
+  static String shareErrorMessage(int week) =>
+      'Đã lưu ảnh vào tuần $week nhưng chưa chia sẻ được. '
+      'Bạn có thể chia sẻ lại từ nhật ký ảnh.';
+
   @override
   ConsumerState<BumpCameraScreen> createState() => _BumpCameraScreenState();
 }
@@ -91,6 +99,9 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
   ui.Image? _frozenFrame;
   final GlobalKey _previewKey = GlobalKey();
   bool _saving = false;
+
+  /// The save in progress came from "Chia sẻ".
+  bool _sharing = false;
   bool _inBackground = false;
 
   /// Bumped by every start and stop, so work that finishes after the camera
@@ -314,11 +325,14 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
     if (mounted) await _start();
   }
 
-  Future<void> _save() async {
+  Future<void> _save({bool share = false, Rect? origin}) async {
     final photo = _photo;
     final finished = _finished;
     if (photo == null || finished == null || _saving) return;
-    setState(() => _saving = true);
+    setState(() {
+      _saving = true;
+      _sharing = share;
+    });
     final messenger = ScaffoldMessenger.of(context);
     final navigator = Navigator.of(context);
     final week = widget.week;
@@ -334,20 +348,54 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
     }
     if (!mounted) return;
     if (added == 0) {
-      setState(() => _saving = false);
+      setState(() {
+        _saving = false;
+        _sharing = false;
+      });
       _showSnack(BumpCameraScreen.saveErrorMessage);
       return;
     }
+    // Saved: nothing below may save again. The review stays on screen behind
+    // the choice sheet, so _photo stays until the sharing is over.
+    _finished = null;
+    final shared = !share || await _offerShare(origin);
+    if (!mounted) return;
     // addFiles removed the saved copy; only the camera's own file is left.
     _photo = null;
-    _finished = null;
     if (saved?.path != photo.path) {
       unawaited(ShareHelper.deletePickerTempFile(photo.path));
     }
     navigator.pop(true);
     messenger.showSnackBar(
-      SnackBar(content: Text('Đã lưu ảnh vào tuần $week')),
+      SnackBar(
+        content: Text(
+          shared
+              ? 'Đã lưu ảnh vào tuần $week'
+              : BumpCameraScreen.shareErrorMessage(week),
+        ),
+      ),
     );
+  }
+
+  /// False when sharing failed; dismissing the choice is not a failure.
+  Future<bool> _offerShare(Rect? origin) async {
+    final notifier = ref.read(bumpPhotoProvider.notifier);
+    try {
+      final photo = notifier.lastAdded.single;
+      final file =
+          notifier.fileFor(photo) ?? await BumpPhotoService.fileFor(photo);
+      if (!mounted) return true;
+      await BumpPhotoShare.offer(
+        context,
+        photo: photo,
+        file: file,
+        origin: origin,
+      );
+      return true;
+    } catch (error) {
+      AppLogger.instance.warning('Could not share a bump photo: $error');
+      return false;
+    }
   }
 
   void _openJournal() {
@@ -461,6 +509,11 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
 
   Widget _buildReview() {
     final photo = _photo;
+    final secondary = OutlinedButton.styleFrom(
+      foregroundColor: AppCameraColors.foreground,
+      disabledForegroundColor: AppCameraColors.foregroundDisabled,
+      side: const BorderSide(color: AppCameraColors.foregroundSoft),
+    );
     return Column(
       children: [
         const SizedBox(height: AppSpacing.lg),
@@ -497,14 +550,8 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
                   disabledForegroundColor: AppCameraColors.foregroundDisabled,
                 ),
                 onPressed: _saving ? null : _save,
-                icon: _saving
-                    ? const SizedBox.square(
-                        dimension: 18,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: AppCameraColors.foregroundDisabled,
-                        ),
-                      )
+                icon: _saving && !_sharing
+                    ? const _ButtonSpinner()
                     : const Icon(Icons.check),
                 label: Text(
                   'Lưu vào tuần ${widget.week}',
@@ -512,16 +559,41 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
                 ),
               ),
               const SizedBox(height: AppSpacing.sm),
-              OutlinedButton.icon(
-                key: const ValueKey('bump-camera-retake'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppCameraColors.foreground,
-                  disabledForegroundColor: AppCameraColors.foregroundDisabled,
-                  side: const BorderSide(color: AppCameraColors.foregroundSoft),
+              // Same height at any text scale, one line each.
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        key: const ValueKey('bump-camera-retake'),
+                        style: secondary,
+                        onPressed: _saving ? null : _retake,
+                        icon: const Icon(Icons.replay),
+                        label: const _OneLine('Chụp lại'),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: Builder(
+                        builder: (button) => OutlinedButton.icon(
+                          key: const ValueKey('bump-camera-share'),
+                          style: secondary,
+                          onPressed: _saving
+                              ? null
+                              : () => _save(
+                                  share: true,
+                                  origin: ShareHelper.originOf(button),
+                                ),
+                          icon: _sharing
+                              ? const _ButtonSpinner()
+                              : const Icon(Icons.ios_share),
+                          label: const _OneLine('Chia sẻ'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: _saving ? null : _retake,
-                icon: const Icon(Icons.replay),
-                label: const Text('Chụp lại', textAlign: TextAlign.center),
               ),
             ],
           ),
@@ -530,6 +602,32 @@ class _BumpCameraScreenState extends ConsumerState<BumpCameraScreen>
       ],
     );
   }
+}
+
+/// A button label that shrinks rather than wraps.
+class _OneLine extends StatelessWidget {
+  final String text;
+
+  const _OneLine(this.text);
+
+  @override
+  Widget build(BuildContext context) => FittedBox(
+    fit: BoxFit.scaleDown,
+    child: Text(text, maxLines: 1, softWrap: false),
+  );
+}
+
+class _ButtonSpinner extends StatelessWidget {
+  const _ButtonSpinner();
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.square(
+    dimension: 18,
+    child: CircularProgressIndicator(
+      strokeWidth: 2,
+      color: AppCameraColors.foregroundDisabled,
+    ),
+  );
 }
 
 class _TopBar extends StatelessWidget {
