@@ -550,7 +550,7 @@ Grounding (verified 2026-10-29): `pregnant_checkups.json` (category `checkup`, d
   - Live due-date edits at week 30 and after week 41 (card hidden).
   - Pre-pregnancy mode unchanged; light and dark mode readable; no overflow at 360 dp; logcat clean.
   Delete-all and "no active pregnancy" were covered by unit and widget tests, not on the device. The device state was restored.
-- Rejected P16-R1-01 (minor): the "Lịch hẹn sắp tới" card on Hôm nay does not refresh after an appointment is added or deleted until restart. This is not caused by Phase 16. `UpcomingAppointmentsCard` is a `StatelessWidget` with no listener, and `home_screen.dart` already built it as `const UpcomingAppointmentsCard()` in HEAD. The Phase 16 acceptance criteria do not cover it, and the appointment does appear in the Lịch hẹn tab. Moved to Known issues.
+- Resolved in Phase 30: Rejected P16-R1-01 (minor): the "Lịch hẹn sắp tới" card on Hôm nay does not refresh after an appointment is added or deleted until restart. This is not caused by Phase 16. `UpcomingAppointmentsCard` is a `StatelessWidget` with no listener, and `home_screen.dart` already built it as `const UpcomingAppointmentsCard()` in HEAD. The Phase 16 acceptance criteria do not cover it, and the appointment does appear in the Lịch hẹn tab. Moved to Known issues.
 - Accepted issues: none.
 - Verdict: pass. Phase 16 completed.
 
@@ -1281,6 +1281,27 @@ Status: Completed (2026-10-31). Round 2 of the "canh ngày thụ thai" idea, see
 Changes asked by the user during the phase: fertile notifications must tell the user directly without opening the app. Notifications on the window's first day and peak days, pre-scheduled for 2 cycles, Android via AlarmManager with a private notification and neutral public version; style default Đầy đủ on Android, Kín đáo on iOS. Permission is requested once on the first pre-pregnancy Hôm nay visit. Every notification opens Chu kỳ. android:allowBackup set to false.
 Test rounds: final QA passes on the emulator: permission once, logging, LH re-plan, a real fired notification, tap to Chu kỳ, reboot re-arm, late and stale, delete-all. P25-F-01/03/04/05/07 fixed with tests, not re-run on device. P25-F-02 (already-granted permission after delete-all turns notifications on silently) and P25-F-06 (dates and pending notification text readable in app-private storage) accepted. Lock screen public version not seen: needs a screen PIN or a real phone.
 
+## Phase 30: Design Critique Fixes and Motion
+Status: Completed (2026-11-02). Requested by the user after a design critique of the live app. No new features, no content changes.
+
+- Task 30.1 Thai giáo: 'Đã làm' becomes the clear main action; the category chip is a plain label.
+  Acceptance: the two cannot be confused; done state and streak still work.
+- Task 30.2 Công cụ: remove one navigation tier so content starts higher; the '+' gets a clear label or moves to the Lịch hẹn tab.
+  Acceptance: every sub-screen stays reachable, per-tab scroll kept, content starts in the top third at 411dp.
+- Task 30.3 Cẩm nang: warning guide uses the alert style; progress bar only after a guide is started; section heading hierarchy fixed.
+  Acceptance: warning guide is visibly different in both themes.
+- Task 30.4 Consistency: one card title style; one side margin on Tuần thai; remove the duplicate weight on Tuần thai; compact empty appointments; 'Xem chi tiết' more prominent.
+  Acceptance: widget tests for title style and margins.
+- Task 30.5 AppBar emergency button: light theme uses a red icon on a light red fill, dark theme stays solid red after QA found the light style vanished when scrolled; 'Gọi 115' and the emergency screen stay solid red.
+  Acceptance: icon contrast >= 3:1 in both themes; still visible at any scroll position; 48dp target.
+- Task 30.6 Motion: progress bar 600 ms, 'Đã làm' 250 ms with light haptic, saved photo 300 ms, card to detail 300 ms, week size change 250 ms. All off when the OS asks for reduced motion.
+  Acceptance: tests for reduced motion; no layout jump; no jank added to first frame.
+
+Results: Công cụ has one tab tier; Công thức and Ăn được không? are now tabs after the existing four. Hero not used; card to detail uses a 300 ms route. Haptic is also off under reduced motion.
+Test round 1: mostly passes. P30-R1-01 (major, dark emergency button) accepted. P30-R1-02, 03, 05, 06 left as they are.
+Test round 2: P30-R1-01, 04 and 07 (old P16-R1-01) and 08 (delete-all button disabled until XOA) pass on the emulator.
+Not tested: motion at frame level and on a real phone; iOS.
+
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
@@ -1385,3 +1406,4 @@ Details in `FEATURE_BRAINSTORM.md`. Do not start until the user activates a phas
 - Phase 27: emulator QA 2 rounds; final results in the PR.
 - Phase 29: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 727/727; debug x64 APK OK; emulator QA 3 rounds; no real phone.
 - Phase 25: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 836/836; debug x64 APK OK; emulator QA on the final behaviour; no real phone.
+- Phase 30: `flutter analyze` 0 errors/0 warnings (16 pre-existing infos); `flutter test` 873/873; debug x64 APK OK; emulator QA 2 rounds.

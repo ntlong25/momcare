@@ -4,6 +4,7 @@ import '../../../core/data/content_pack_service.dart';
 import '../../../core/data/week_content_parser.dart';
 import '../../../core/models/guide_models.dart';
 import '../../../core/models/week_detail_model.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import '../../milestone_card/screens/milestone_card_screen.dart';
@@ -69,13 +70,13 @@ class _WeekDetailScreenState extends State<WeekDetailScreen> {
       WeekDetailScreen.minWeek,
       WeekDetailScreen.maxWeek,
     );
-    if ((target - _week).abs() > 1) {
+    if ((target - _week).abs() > 1 || AppMotion.reduced(context)) {
       _controller.jumpToPage(target);
     } else {
       _controller.animateToPage(
         target,
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeOut,
+        duration: AppMotion.week,
+        curve: AppMotion.standard,
       );
     }
   }

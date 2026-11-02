@@ -4,6 +4,7 @@ import '../../../core/models/pregnancy_model.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_progress_bar.dart';
 
 /// Hero "Ngày X/280" counter at the top of the Hôm nay tab, with the week,
 /// the time left until the due date and a progress bar.
@@ -65,14 +66,12 @@ class PregnancyDayCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.md),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(AppRadius.sm),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 8,
-              color: scheme.primary,
-              backgroundColor: scheme.surface,
-            ),
+          AppProgressBar(
+            value: progress,
+            minHeight: 8,
+            color: scheme.primary,
+            backgroundColor: scheme.surface,
+            animateIn: true,
           ),
         ],
       ),

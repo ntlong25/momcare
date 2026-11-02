@@ -738,16 +738,19 @@ class _DeleteAllDataConfirmationDialogState
           onPressed: () => Navigator.pop(context, false),
           child: const Text('Hủy'),
         ),
-        FilledButton(
-          style: FilledButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.error,
-            foregroundColor: Theme.of(context).colorScheme.onError,
+        ValueListenableBuilder<TextEditingValue>(
+          valueListenable: _controller,
+          builder: (context, value, _) => FilledButton(
+            key: const ValueKey('delete-all-confirm'),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+            ),
+            onPressed: value.text.trim().toUpperCase() == 'XOA'
+                ? () => Navigator.pop(context, true)
+                : null,
+            child: const Text('Xóa dữ liệu'),
           ),
-          onPressed: () {
-            final token = _controller.text.trim().toUpperCase();
-            Navigator.pop(context, token == 'XOA');
-          },
-          child: const Text('Xóa dữ liệu'),
         ),
       ],
     );

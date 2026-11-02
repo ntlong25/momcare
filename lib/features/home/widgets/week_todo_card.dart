@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/data/content_pack_service.dart';
 import '../../tracking/screens/week_detail_screen.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/widgets/app_card.dart';
 
 /// "Việc tuần này": up to [maxItems] todos of the current week, with a link
@@ -22,12 +23,12 @@ class WeekTodoCard extends StatelessWidget {
     return AppCard(
       icon: Icons.task_alt,
       title: 'Việc tuần này',
-      titleStyle: theme.textTheme.titleLarge,
       trailing: TextButton(
         key: const ValueKey('week-todo-see-all'),
         onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => WeekDetailScreen(initialWeek: week),
+          AppMotion.detailRoute(
+            context,
+            (_) => WeekDetailScreen(initialWeek: week),
           ),
         ),
         child: const Text('Xem tất cả'),

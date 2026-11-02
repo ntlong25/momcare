@@ -8,6 +8,7 @@ import '../../../core/services/milestone_progress_service.dart';
 import '../../guides/guide_actions.dart';
 import '../../guides/screens/guide_detail_screen.dart';
 import '../../guides/widgets/milestone_status_chip.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/widgets/app_card.dart';
 
 /// "Mốc khám tiếp theo": the next checkup milestone of the active pregnancy,
@@ -29,9 +30,9 @@ class NextMilestoneCard extends ConsumerWidget {
   void _openGuide(BuildContext context, String id) {
     final guide = ContentPackService.guideById(id);
     if (guide == null) return;
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => GuideDetailScreen(guide: guide)));
+    Navigator.of(context).push(
+      AppMotion.detailRoute(context, (_) => GuideDetailScreen(guide: guide)),
+    );
   }
 
   @override
@@ -67,7 +68,6 @@ class NextMilestoneCard extends ConsumerWidget {
         key: const ValueKey('next-milestone-card'),
         icon: Icons.event_note,
         title: 'Mốc khám tiếp theo',
-        titleStyle: theme.textTheme.titleLarge,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

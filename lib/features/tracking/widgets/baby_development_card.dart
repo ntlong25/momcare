@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
 import '../../../core/models/week_detail_model.dart';
+import '../../../core/widgets/app_card.dart';
 import '../../references/widgets/source_metadata_card.dart';
 
 class BabyDevelopmentCard extends StatelessWidget {
   final PregnancyWeekData weekData;
 
-  /// Resolved week page; its size/length/weight win over [weekData] so the
-  /// card matches the week detail screen.
+  /// Resolved week page; its size/length win over [weekData] so the card
+  /// matches the week detail screen. The weight is in the week header above.
   final WeekDetail? weekDetail;
 
   const BabyDevelopmentCard({
@@ -26,6 +27,7 @@ class BabyDevelopmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -49,7 +51,7 @@ class BabyDevelopmentCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Sự phát triển của bé',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: AppCard.titleTextStyle(context),
                   ),
                 ),
               ],
@@ -64,13 +66,6 @@ class BabyDevelopmentCard extends StatelessWidget {
             const SizedBox(height: 12),
             _buildInfoRow(
               context,
-              Icons.monitor_weight_outlined,
-              'Cân nặng',
-              WeekDetail.statText(weekDetail?.weightText, weekData.babyWeight),
-            ),
-            const SizedBox(height: 12),
-            _buildInfoRow(
-              context,
               Icons.spa,
               'Kích thước',
               WeekDetail.statText(weekDetail?.sizeCompare, weekData.babySize),
@@ -80,7 +75,7 @@ class BabyDevelopmentCard extends StatelessWidget {
               'Điều đang diễn ra',
               style: Theme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(

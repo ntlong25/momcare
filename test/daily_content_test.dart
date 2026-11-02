@@ -18,6 +18,7 @@ import 'package:momcare/core/models/week_detail_model.dart';
 import 'package:momcare/core/services/thai_giao_progress_service.dart';
 import 'package:momcare/core/services/thai_giao_reminder_service.dart';
 import 'package:momcare/core/theme/app_theme.dart';
+import 'package:momcare/core/theme/app_tokens.dart';
 import 'package:momcare/features/home/screens/home_screen.dart';
 import 'package:momcare/features/home/widgets/today_thai_giao_card.dart';
 import 'package:momcare/l10n/app_localizations.dart';
@@ -691,21 +692,24 @@ void main() {
       'light': AppTheme.light(),
       'dark': AppTheme.dark(),
     }.entries) {
-      testWidgets('selected Đã làm chip is readable in ${entry.key} theme', (
+      testWidgets('done Đã làm button is readable in ${entry.key} theme', (
         tester,
       ) async {
         await pumpCard(tester, theme: entry.value);
-        final chipFinder = find.byKey(const ValueKey('thai-giao-done'));
-        await tester.tap(chipFinder);
+        final button = find.byKey(const ValueKey('thai-giao-done'));
+        await tester.tap(button);
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 300));
 
-        final chip = tester.widget<FilterChip>(chipFinder);
-        expect(chip.selected, isTrue);
-        // Phase 22: colours come from the theme chipTheme.
-        expect(chip.selectedColor, isNull);
-        final background = entry.value.chipTheme.selectedColor!;
-        expect(background.a, 1.0);
+        final semantic = entry.value.extension<AppSemanticColors>()!;
+        final background = tester
+            .widget<Material>(
+              find
+                  .descendant(of: button, matching: find.byType(Material))
+                  .first,
+            )
+            .color!;
+        expect(background, semantic.success);
         final label = tester.widget<RichText>(
           find.descendant(
             of: find.text('Đã làm'),
@@ -716,10 +720,7 @@ void main() {
           contrast(label.text.style!.color!, background),
           greaterThanOrEqualTo(4.5),
         );
-        expect(
-          contrast(entry.value.chipTheme.checkmarkColor!, background),
-          greaterThanOrEqualTo(4.5),
-        );
+        expect(find.byIcon(Icons.check_circle), findsOneWidget);
       });
     }
 

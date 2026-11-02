@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/models/appointment_model.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/empty_state.dart';
+import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/widgets/section_header.dart';
 
 class UpcomingAppointmentsCard extends StatelessWidget {
@@ -12,6 +15,15 @@ class UpcomingAppointmentsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Listens itself: Hôm nay builds this card as a const, so a rebuild of
+    // the screen does not reach it.
+    return HiveBoxesListener(
+      boxNames: const [AppConstants.appointmentBox],
+      builder: _buildContent,
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     final appointments = DatabaseService.getUpcomingAppointments();
 
     return Column(
@@ -28,17 +40,20 @@ class UpcomingAppointmentsCard extends StatelessWidget {
             ? SizedBox(
                 width: double.infinity,
                 child: AppCard(
-                  child: AppEmptyState(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.lg,
+                    AppSpacing.xs,
+                    AppSpacing.xs,
+                    AppSpacing.xs,
+                  ),
+                  child: AppEmptyState.inline(
                     key: const ValueKey('home-upcoming-empty'),
                     icon: Icons.event_available,
                     title: 'Chưa có lịch hẹn nào',
-                    iconSize: 48,
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    action: TextButton.icon(
+                    action: TextButton(
                       onPressed: () =>
                           NavigationHelper.toAddAppointment(context),
-                      icon: const Icon(Icons.add),
-                      label: const Text('Thêm lịch hẹn'),
+                      child: const Text('Thêm lịch hẹn'),
                     ),
                   ),
                 ),

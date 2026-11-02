@@ -28,7 +28,6 @@ class TodayTipCard extends StatelessWidget {
       variant: AppCardVariant.mint,
       icon: Icons.lightbulb_outline,
       title: 'Gợi ý hôm nay',
-      titleStyle: theme.textTheme.titleLarge,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

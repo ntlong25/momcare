@@ -48,7 +48,7 @@ class _MaternalHabitsCardState extends State<MaternalHabitsCard> {
               Expanded(
                 child: Text(
                   'Chăm sóc hôm nay',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: AppCard.titleTextStyle(context),
                 ),
               ),
               if (!_loading)

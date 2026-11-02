@@ -112,9 +112,6 @@ class AppCard extends StatelessWidget {
   final IconData? icon;
   final String? title;
 
-  /// Style of [title]; defaults to `titleMedium` bold.
-  final TextStyle? titleStyle;
-
   /// Widget at the end of the header row (e.g. a "Xem tất cả" button).
   final Widget? trailing;
   final Widget? child;
@@ -129,7 +126,6 @@ class AppCard extends StatelessWidget {
     this.variant = AppCardVariant.standard,
     this.icon,
     this.title,
-    this.titleStyle,
     this.trailing,
     this.child,
     this.padding = const EdgeInsets.all(AppSpacing.lg),
@@ -137,9 +133,14 @@ class AppCard extends StatelessWidget {
     this.onTap,
   });
 
+  /// The one card title style of the app, for [title] and for cards that
+  /// lay out their own header. Callers add the foreground colour.
+  static TextStyle? titleTextStyle(BuildContext context) => Theme.of(
+    context,
+  ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold);
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colors = AppCardColors.of(context, variant);
     final hasHeader = icon != null || title != null || trailing != null;
 
@@ -161,13 +162,9 @@ class AppCard extends StatelessWidget {
                       ? const SizedBox.shrink()
                       : Text(
                           title!,
-                          style: (titleStyle ?? theme.textTheme.titleMedium)
-                              ?.copyWith(
-                                fontWeight: titleStyle == null
-                                    ? FontWeight.bold
-                                    : null,
-                                color: colors.foreground,
-                              ),
+                          style: titleTextStyle(
+                            context,
+                          )?.copyWith(color: colors.foreground),
                         ),
                 ),
                 ?trailing,

@@ -437,6 +437,115 @@ void main() {
       expect(find.byType(BumpCameraScreen), findsOneWidget);
     });
 
+    testWidgets('Tuần thai: one side margin, one title style, tonal week '
+        'detail button', (tester) async {
+      seed(const []);
+      _setView(tester, 411, 891);
+      await tester.pumpWidget(_app(const TrackingScreen(showAppBar: false)));
+      await _settle(tester);
+      final hero = tester.getRect(
+        find.byKey(const ValueKey('tracking-week-header')),
+      );
+      expect(hero.left, 16);
+      final style = Theme.of(
+        tester.element(find.byType(TrackingScreen)),
+      ).textTheme.titleMedium!;
+      for (final title in [
+        'Sự phát triển của bé',
+        'Thay đổi ở mẹ',
+        'Gợi ý trong tuần này',
+        'Tăng cân',
+        'Mốc sắp tới',
+      ]) {
+        final text = find.text(title);
+        final card = find.ancestor(of: text, matching: find.byType(Card)).first;
+        expect(tester.getRect(card).left, hero.left, reason: title);
+        expect(tester.getRect(card).right, hero.right, reason: title);
+        final widget = tester.widget<Text>(text);
+        expect(widget.style?.fontSize, style.fontSize, reason: title);
+        expect(widget.style?.fontWeight, FontWeight.bold, reason: title);
+      }
+      final button = tester.widget<FilledButton>(
+        find.byKey(const ValueKey('tracking-week-detail')),
+      );
+      expect(button.onPressed, isNotNull);
+    });
+
+    for (final dark in [false, true]) {
+      testWidgets('Tuần thai: no overflow at 360 dp x1.5 (dark: $dark)', (
+        tester,
+      ) async {
+        seed(const []);
+        _setView(tester, 360, 800);
+        await tester.pumpWidget(
+          _app(
+            const TrackingScreen(showAppBar: false),
+            theme: dark ? AppTheme.dark() : AppTheme.light(),
+            textScale: 1.5,
+          ),
+        );
+        await _settle(tester);
+        expect(tester.takeException(), isNull);
+      });
+    }
+
+    Future<void> addPhoto(WidgetTester tester) async {
+      final container = ProviderScope.containerOf(
+        tester.element(find.byKey(_homeKey)),
+      );
+      final file = File('${tempDir.path}/picked.jpg')
+        ..writeAsBytesSync([1, 2, 3]);
+      await tester.runAsync(
+        () => container.read(bumpPhotoProvider.notifier).addFiles(_week, [
+          XFile(file.path),
+        ]),
+      );
+    }
+
+    testWidgets('a saved photo fades in over 300 ms', (tester) async {
+      seed(const []);
+      await pumpCard(tester);
+      expect(tester.hasRunningAnimations, isFalse);
+      await addPhoto(tester);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 150));
+      double opacity() => tester
+          .widget<FadeTransition>(
+            find
+                .ancestor(
+                  of: find.text('Ảnh bụng tuần $_week'),
+                  matching: find.byType(FadeTransition),
+                )
+                .first,
+          )
+          .opacity
+          .value;
+      expect(opacity(), inExclusiveRange(0, 1));
+      await tester.pump(const Duration(milliseconds: 200));
+      expect(opacity(), 1);
+      expect(find.byKey(_camera), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('reduced motion: a saved photo is shown at once', (
+      tester,
+    ) async {
+      tester.platformDispatcher.accessibilityFeaturesTestValue =
+          const FakeAccessibilityFeatures(disableAnimations: true);
+      addTearDown(
+        tester.platformDispatcher.clearAccessibilityFeaturesTestValue,
+      );
+      seed(const []);
+      await pumpCard(tester);
+      await addPhoto(tester);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 16));
+      await tester.pump(const Duration(milliseconds: 16));
+      expect(find.text('Ảnh bụng tuần $_week'), findsOneWidget);
+      expect(find.byKey(_camera), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
     for (final withPhoto in [false, true]) {
       testWidgets('Tuần thai: card edges line up with the hero '
           '(photo: $withPhoto)', (tester) async {

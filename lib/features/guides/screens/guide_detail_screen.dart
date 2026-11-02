@@ -14,6 +14,7 @@ import '../../../core/services/milestone_progress_service.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/date_picker_utils.dart';
 import '../../../core/utils/vnd_format.dart';
+import '../../../core/widgets/app_progress_bar.dart';
 import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../../references/widgets/source_metadata_card.dart';
@@ -149,7 +150,7 @@ class GuideDetailScreen extends ConsumerWidget {
             ),
             if (progress != null) ...[
               const SizedBox(height: 8),
-              LinearProgressIndicator(value: progress, minHeight: 6),
+              AppProgressBar(value: progress),
             ],
             if (tracksPrices) ...[
               const SizedBox(height: 8),

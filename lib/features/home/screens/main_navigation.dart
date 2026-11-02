@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers/app_mode_provider.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../bump_journal/quick_camera.dart';
 import 'home_screen.dart';
 import 'pre_pregnancy_home_screen.dart';
 import '../../tracking/screens/tracking_screen.dart';
 import '../../health_diary/screens/health_diary_screen.dart';
+import '../../nutrition/screens/food_lookup_screen.dart';
 import '../../nutrition/screens/nutrition_screen.dart';
 import '../../appointments/screens/appointments_screen.dart';
 import '../../emergency/screens/emergency_warning_screen.dart';
@@ -80,7 +82,7 @@ class MainNavigation extends ConsumerWidget {
       isPrePregnancy ? const PrePregnancyHomeScreen() : const HomeScreen(),
       _TrackTabScreen(isPrePregnancy: isPrePregnancy),
       const GuidesScreen(),
-      const _ToolsTabScreen(),
+      const ToolsTabScreen(),
       const _ProfileTabScreen(),
     ];
 
@@ -192,40 +194,57 @@ class _TrackTabScreen extends StatelessWidget {
   }
 }
 
-class _ToolsTabScreen extends ConsumerWidget {
-  const _ToolsTabScreen();
+/// The Công cụ tabs. One tier only: the Dinh dưỡng sub-tabs are tabs here,
+/// after the existing four so "Cần khám" stays in view. "Bộ đếm" (kick
+/// counter, contraction timer) is pregnancy-only.
+List<TabbedPage> toolsPages({required bool isPrePregnancy}) => [
+  const TabbedPage(
+    id: 'nutrition',
+    label: 'Dinh dưỡng',
+    icon: Icons.restaurant_menu,
+    child: NutritionScreen(section: NutritionSection.guides),
+  ),
+  const TabbedPage(
+    id: 'appointments',
+    label: 'Lịch hẹn',
+    icon: Icons.calendar_today,
+    child: AppointmentsScreen(showAppBar: false),
+  ),
+  if (!isPrePregnancy) toolsCounterPage,
+  toolsEmergencyPage,
+  const TabbedPage(
+    id: 'recipes',
+    label: 'Công thức',
+    icon: Icons.restaurant,
+    child: NutritionScreen(section: NutritionSection.recipes),
+  ),
+  const TabbedPage(
+    id: 'food-lookup',
+    label: 'Ăn được không?',
+    icon: Icons.search,
+    child: FoodLookupScreen(showAppBar: false),
+  ),
+];
+
+class ToolsTabScreen extends ConsumerWidget {
+  const ToolsTabScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isPrePregnancy = ref.watch(appModeProvider) == AppMode.prePregnancy;
-    // "Bộ đếm" (kick counter, contraction timer) is pregnancy-only.
     return TabbedScaffold(
       key: ValueKey(isPrePregnancy),
       title: 'Công cụ',
       actions: [
-        IconButton(
+        TextButton.icon(
           key: const ValueKey('tools-find-hospital'),
-          tooltip: 'Tìm bệnh viện gần tôi',
           icon: const Icon(Icons.local_hospital_outlined),
+          label: const Text('Tìm bệnh viện'),
           onPressed: () => MyClinicCard.findNearbyHospital(context),
         ),
+        const SizedBox(width: AppSpacing.xs),
       ],
-      pages: [
-        const TabbedPage(
-          id: 'nutrition',
-          label: 'Dinh dưỡng',
-          icon: Icons.restaurant_menu,
-          child: NutritionScreen(showAppBar: false),
-        ),
-        const TabbedPage(
-          id: 'appointments',
-          label: 'Lịch hẹn',
-          icon: Icons.calendar_today,
-          child: AppointmentsScreen(showAppBar: false),
-        ),
-        if (!isPrePregnancy) toolsCounterPage,
-        toolsEmergencyPage,
-      ],
+      pages: toolsPages(isPrePregnancy: isPrePregnancy),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/models/pregnancy_model.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_progress_bar.dart';
 
 class PregnancyProgressCard extends StatelessWidget {
   final PregnancyModel pregnancy;
@@ -55,13 +56,10 @@ class PregnancyProgressCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 12,
-              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            ),
+          AppProgressBar(
+            value: progress,
+            minHeight: 12,
+            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           ),
           const SizedBox(height: 12),
           // Wraps to two lines at large font scales.

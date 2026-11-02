@@ -6,6 +6,11 @@ import '../../../core/models/food_model.dart';
 import '../../../core/models/guide_models.dart';
 import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/guide_progress_service.dart';
+import '../../../core/theme/app_motion.dart';
+import '../../../core/theme/app_tokens.dart';
+import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_progress_bar.dart';
+import '../../../core/widgets/section_header.dart';
 import '../../nutrition/screens/food_lookup_screen.dart';
 import 'guide_detail_screen.dart';
 
@@ -66,22 +71,24 @@ class GuidesScreen extends ConsumerWidget {
           : ListView(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
               children: [
-                ?foodCard,
-                Text(
-                  stage == GuideStage.pre
-                      ? 'Chuẩn bị mang thai'
-                      : 'Hành trang khi mang thai',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                  child: Text(
+                    stage == GuideStage.pre
+                        ? 'Chuẩn bị mang thai'
+                        : 'Hành trang khi mang thai',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
                 ),
+                ?foodCard,
                 for (final entry in grouped.entries) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 8),
-                    child: Text(
-                      GuideEnums.categoryLabel(entry.key),
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                  SectionHeader(
+                    title: GuideEnums.categoryLabel(entry.key),
+                    padding: const EdgeInsets.only(
+                      top: AppSpacing.lg,
+                      bottom: AppSpacing.sm,
                     ),
                   ),
                   for (final guide in entry.value)
@@ -128,9 +135,7 @@ class _FoodLookupEntryCard extends StatelessWidget {
                   children: [
                     Text(
                       FoodLookupScreen.title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: AppCard.titleTextStyle(context),
                     ),
                     const SizedBox(height: 2),
                     Text(
@@ -159,65 +164,59 @@ class _GuideCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final progress = guide.progress(ticked);
     final theme = Theme.of(context);
+    final isWarning = guide.category == GuideCategory.warning;
+    final variant = isWarning ? AppCardVariant.alert : AppCardVariant.standard;
+    final fg = AppCardColors.of(context, variant).foreground;
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 10),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => GuideDetailScreen(guide: guide)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return AppCard(
+      variant: variant,
+      margin: const EdgeInsets.only(bottom: AppSpacing.md),
+      onTap: () => Navigator.of(context).push(
+        AppMotion.detailRoute(context, (_) => GuideDetailScreen(guide: guide)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      guide.title,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  const Icon(Icons.chevron_right),
-                ],
+              if (isWarning) ...[
+                Icon(Icons.warning_amber_rounded, color: fg),
+                const SizedBox(width: AppSpacing.sm),
+              ],
+              Expanded(
+                child: Text(
+                  guide.title,
+                  style: AppCard.titleTextStyle(context)?.copyWith(color: fg),
+                ),
               ),
-              if (guide.summary.isNotEmpty) ...[
-                const SizedBox(height: 4),
-                Text(
-                  guide.summary,
-                  style: theme.textTheme.bodySmall,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-              if (progress != null) ...[
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: LinearProgressIndicator(
-                          value: progress,
-                          minHeight: 6,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '${(progress * 100).round()}%',
-                      style: theme.textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ],
+              Icon(Icons.chevron_right, color: fg),
             ],
           ),
-        ),
+          if (guide.summary.isNotEmpty) ...[
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              guide.summary,
+              style: theme.textTheme.bodySmall?.copyWith(color: fg),
+              // The warning summary says to call 115: never cut it.
+              maxLines: isWarning ? null : 2,
+              overflow: isWarning ? null : TextOverflow.ellipsis,
+            ),
+          ],
+          // Only once the guide is started; an empty bar says nothing.
+          if (progress != null && progress > 0) ...[
+            const SizedBox(height: AppSpacing.md),
+            Row(
+              children: [
+                Expanded(child: AppProgressBar(value: progress)),
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  '${(progress * 100).round()}%',
+                  style: theme.textTheme.bodySmall?.copyWith(color: fg),
+                ),
+              ],
+            ),
+          ],
+        ],
       ),
     );
   }
