@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -153,6 +154,10 @@ class BumpPhotoNotifier extends StateNotifier<List<BumpPhoto>> {
   bool get photoAdded => _photoAdded;
   bool _photoAdded = false;
 
+  /// The photos stored by the last [addFiles] call.
+  List<BumpPhoto> get lastAdded => _lastAdded;
+  List<BumpPhoto> _lastAdded = const [];
+
   Directory? _folder;
 
   /// Photo folder, known once [ready] completes (null if the documents
@@ -233,6 +238,7 @@ class BumpPhotoNotifier extends StateNotifier<List<BumpPhoto>> {
     }
     // Also the originals behind resized picks (`<uuid>/` folders).
     await ShareHelper.clearPickerLeftovers();
+    _lastAdded = added;
     if (added.isEmpty) return 0;
     _photoAdded = true;
     state = BumpPhotoService.sorted([...state, ...added]);
@@ -240,7 +246,9 @@ class BumpPhotoNotifier extends StateNotifier<List<BumpPhoto>> {
     return added.length;
   }
 
-  /// Deletes the entry and its file; an already missing file is fine.
+  /// Deletes the entry and its file; an already missing file is fine. Copies
+  /// left by an earlier share go too, in the background: a deleted photo must
+  /// not stay on the device.
   Future<void> delete(BumpPhoto photo) async {
     await _ensureLoaded();
     try {
@@ -254,6 +262,7 @@ class BumpPhotoNotifier extends StateNotifier<List<BumpPhoto>> {
     }
     state = state.where((entry) => entry.id != photo.id).toList();
     await _save();
+    unawaited(ShareHelper.clearShareCopies());
   }
 
   /// Clears the in-memory photos (the persisted ones are removed by the

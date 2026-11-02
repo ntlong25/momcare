@@ -7,51 +7,53 @@ import '../../../core/utils/app_logger.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../../core/utils/share_helper.dart';
 import '../../tools/widgets/tool_confirm_dialog.dart';
+import '../bump_photo_share.dart';
 import 'bump_journal_screen.dart';
 
 /// Full-screen bump photo with zoom, share and delete.
-class BumpPhotoViewer extends ConsumerWidget {
+class BumpPhotoViewer extends ConsumerStatefulWidget {
   final BumpPhoto photo;
 
   const BumpPhotoViewer({super.key, required this.photo});
 
-  static String mimeTypeFor(String fileName) {
-    switch (BumpPhotoService.extensionFor(fileName)) {
-      case '.png':
-        return 'image/png';
-      case '.heic':
-        return 'image/heic';
-      case '.webp':
-        return 'image/webp';
-      default:
-        return 'image/jpeg';
-    }
-  }
+  @override
+  ConsumerState<BumpPhotoViewer> createState() => _BumpPhotoViewerState();
+}
 
-  Future<void> _share(BuildContext context, WidgetRef ref) async {
-    final origin = ShareHelper.originOf(context);
+class _BumpPhotoViewerState extends ConsumerState<BumpPhotoViewer> {
+  bool _sharing = false;
+
+  BumpPhoto get photo => widget.photo;
+
+  Future<void> _share(BuildContext buttonContext) async {
+    if (_sharing) return;
+    final origin = ShareHelper.originOf(buttonContext);
     final messenger = ScaffoldMessenger.of(context);
+    setState(() => _sharing = true);
     try {
       final file =
           ref.read(bumpPhotoProvider.notifier).fileFor(photo) ??
           await BumpPhotoService.fileFor(photo);
       if (!await file.exists()) throw StateError('missing file');
-      await ShareHelper.shareFile(
-        file.path,
-        mimeType: mimeTypeFor(photo.fileName),
-        origin: origin,
-      );
+      if (mounted) {
+        await BumpPhotoShare.offer(
+          context,
+          photo: photo,
+          file: file,
+          origin: origin,
+        );
+      }
     } catch (error) {
       AppLogger.instance.warning('Could not share bump photo: $error');
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text('Không chia sẻ được ảnh. Vui lòng thử lại.'),
-        ),
+        const SnackBar(content: Text(BumpPhotoShare.errorMessage)),
       );
+    } finally {
+      if (mounted) setState(() => _sharing = false);
     }
   }
 
-  Future<void> _delete(BuildContext context, WidgetRef ref) async {
+  Future<void> _delete() async {
     final confirmed = await confirmToolDelete(
       context,
       title: 'Xóa ảnh này?',
@@ -59,11 +61,11 @@ class BumpPhotoViewer extends ConsumerWidget {
     );
     if (!confirmed) return;
     await ref.read(bumpPhotoProvider.notifier).delete(photo);
-    if (context.mounted) Navigator.of(context).pop();
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final file = ref.read(bumpPhotoProvider.notifier).fileFor(photo);
     return Scaffold(
       appBar: AppBar(
@@ -101,15 +103,20 @@ class BumpPhotoViewer extends ConsumerWidget {
             builder: (buttonContext) => IconButton(
               key: const ValueKey('bump-share'),
               tooltip: 'Chia sẻ',
-              icon: const Icon(Icons.ios_share),
-              onPressed: () => _share(buttonContext, ref),
+              icon: _sharing
+                  ? const SizedBox.square(
+                      dimension: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.ios_share),
+              onPressed: _sharing ? null : () => _share(buttonContext),
             ),
           ),
           IconButton(
             key: const ValueKey('bump-delete'),
             tooltip: 'Xóa ảnh',
             icon: const Icon(Icons.delete_outline),
-            onPressed: () => _delete(context, ref),
+            onPressed: _sharing ? null : _delete,
           ),
         ],
       ),

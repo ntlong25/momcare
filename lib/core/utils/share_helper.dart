@@ -261,6 +261,29 @@ class ShareHelper {
     return removed;
   }
 
+  /// Removes what sharing left behind: the `share_plus/` copies and our
+  /// generated files, framed photos included. Not for right after a share
+  /// sheet closes, a receiving app may still be reading the copy. Never
+  /// throws; returns entries removed.
+  static Future<int> clearShareCopies() async {
+    var removed = 0;
+    try {
+      final dir = await debugTempDir();
+      if (!await dir.exists()) return 0;
+      final entries = await dir.list(followLinks: false).toList();
+      for (final entity in entries) {
+        final name = _nameOf(entity.path);
+        final ours = entity is File
+            ? isGeneratedFileName(name)
+            : entity is Directory && name == sharePlusFolder;
+        if (ours && await _deleteQuietly(entity)) removed++;
+      }
+    } catch (error) {
+      AppLogger.instance.warning('Could not clear share copies: $error');
+    }
+    return removed;
+  }
+
   /// Delete-all-data. When the temp directory belongs to the app
   /// ([debugOwnsTempDir]) it is emptied recursively (generated files,
   /// `share_plus/` copies, image_picker copies, camera photos, anything
