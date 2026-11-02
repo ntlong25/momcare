@@ -1302,6 +1302,16 @@ Test round 1: mostly passes. P30-R1-01 (major, dark emergency button) accepted. 
 Test round 2: P30-R1-01, 04 and 07 (old P16-R1-01) and 08 (delete-all button disabled until XOA) pass on the emulator.
 Not tested: motion at frame level and on a real phone; iOS.
 
+## Phase 31: Share Right After Capture
+Status: In progress. Requested by the user. No new permissions, no platform SDKs, no auto-posting.
+
+- Task 31.1 'Chia sẻ' on the camera review screen: saves the photo first, then asks 'Ảnh gốc' or 'Ảnh kèm khung MomCare+', then opens the system share sheet.
+  Acceptance: the photo is saved once even if sharing is cancelled; Lưu and Chụp lại behave as before; tapping twice does not save twice.
+- Task 31.2 Framed image: bump photo with 'Tuần X' and the size comparison plus the MomCare+ mark. No name, due date or other personal data.
+  Acceptance: unit and widget tests for text, fallback when no size comparison, PNG output.
+- Task 31.3 The same choice in the journal photo viewer.
+  Acceptance: shared temp files are removed as today; delete-all still clears them.
+
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
