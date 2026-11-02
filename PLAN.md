@@ -1281,6 +1281,22 @@ Status: Completed (2026-10-31). Round 2 of the "canh ngày thụ thai" idea, see
 Changes asked by the user during the phase: fertile notifications must tell the user directly without opening the app. Notifications on the window's first day and peak days, pre-scheduled for 2 cycles, Android via AlarmManager with a private notification and neutral public version; style default Đầy đủ on Android, Kín đáo on iOS. Permission is requested once on the first pre-pregnancy Hôm nay visit. Every notification opens Chu kỳ. android:allowBackup set to false.
 Test rounds: final QA passes on the emulator: permission once, logging, LH re-plan, a real fired notification, tap to Chu kỳ, reboot re-arm, late and stale, delete-all. P25-F-01/03/04/05/07 fixed with tests, not re-run on device. P25-F-02 (already-granted permission after delete-all turns notifications on silently) and P25-F-06 (dates and pending notification text readable in app-private storage) accepted. Lock screen public version not seen: needs a screen PIN or a real phone.
 
+## Phase 30: Design Critique Fixes and Motion
+Status: In progress. Requested by the user after a design critique of the live app. No new features, no content changes.
+
+- Task 30.1 Thai giáo: 'Đã làm' becomes the clear main action; the category chip is a plain label.
+  Acceptance: the two cannot be confused; done state and streak still work.
+- Task 30.2 Công cụ: remove one navigation tier so content starts higher; the '+' gets a clear label or moves to the Lịch hẹn tab.
+  Acceptance: every sub-screen stays reachable, per-tab scroll kept, content starts in the top third at 411dp.
+- Task 30.3 Cẩm nang: warning guide uses the alert style; progress bar only after a guide is started; section heading hierarchy fixed.
+  Acceptance: warning guide is visibly different in both themes.
+- Task 30.4 Consistency: one card title style; one side margin on Tuần thai; remove the duplicate weight on Tuần thai; compact empty appointments; 'Xem chi tiết' more prominent.
+  Acceptance: widget tests for title style and margins.
+- Task 30.5 AppBar emergency button: red icon on a light red fill; 'Gọi 115' and the emergency screen stay solid red.
+  Acceptance: icon contrast >= 3:1 in both themes; still visible at any scroll position; 48dp target.
+- Task 30.6 Motion: progress bar 600 ms, 'Đã làm' 250 ms with light haptic, saved photo 300 ms, card to detail 300 ms, week size change 250 ms. All off when the OS asks for reduced motion.
+  Acceptance: tests for reduced motion; no layout jump; no jank added to first frame.
+
 ## Known issues (pre-existing, backlog)
 - FlutterSecureStorage logs 'EncryptedSharedPreferences initialization failed' at app start on the emulator, then falls back. No user effect seen, but the Hive key depends on it, so check on a real device.
 - The period form accepts a period starting 2 days after the previous one. Found in Phase 24 QA, not fixed.
