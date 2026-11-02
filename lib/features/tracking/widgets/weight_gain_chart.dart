@@ -5,6 +5,7 @@ import '../../../core/services/database_service.dart';
 import '../../../core/utils/bmi_calculator.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/widgets/app_card.dart';
 
 class WeightGainChart extends StatelessWidget {
   final PregnancyModel pregnancy;
@@ -18,6 +19,7 @@ class WeightGainChart extends StatelessWidget {
         .toList();
 
     return Card(
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -41,10 +43,7 @@ class WeightGainChart extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Text(
-                      'Tăng cân',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+                    Text('Tăng cân', style: AppCard.titleTextStyle(context)),
                   ],
                 ),
                 IconButton(

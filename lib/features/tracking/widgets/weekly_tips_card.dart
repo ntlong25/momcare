@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../../core/widgets/app_card.dart';
 import '../../references/widgets/source_metadata_card.dart';
 import '../../../core/theme/app_tokens.dart';
 
@@ -12,6 +13,7 @@ class WeeklyTipsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -35,7 +37,7 @@ class WeeklyTipsCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Gợi ý trong tuần này',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: AppCard.titleTextStyle(context),
                   ),
                 ),
               ],

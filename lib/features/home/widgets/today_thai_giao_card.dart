@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/models/daily_item_model.dart';
 import '../../../core/services/thai_giao_progress_service.dart';
 import '../../../core/services/thai_giao_reminder_service.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../../../core/widgets/app_card.dart';
@@ -77,29 +79,21 @@ class _TodayThaiGiaoCardState extends ConsumerState<TodayThaiGiaoCard> {
 
     return AppCard(
       variant: AppCardVariant.peach,
+      icon: Icons.child_care,
+      title: 'Thai giáo hôm nay',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(Icons.child_care, color: fg),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Thai giáo hôm nay',
-                  style: theme.textTheme.titleLarge?.copyWith(color: fg),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 4,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               if (label != null)
-                Chip(label: Text(label), visualDensity: VisualDensity.compact),
+                Text(
+                  label,
+                  style: theme.textTheme.labelLarge?.copyWith(color: fg),
+                ),
               if (item.durationMin != null)
                 Text(
                   '~${item.durationMin} phút',
@@ -123,13 +117,16 @@ class _TodayThaiGiaoCardState extends ConsumerState<TodayThaiGiaoCard> {
             runSpacing: 8,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              FilterChip(
-                key: const ValueKey('thai-giao-done'),
-                label: const Text('Đã làm'),
-                selected: done,
-                // Read the clock at tap time: the card may have been built
-                // before midnight.
-                onSelected: (value) => progress.setDone(_now(), value),
+              _DoneButton(
+                done: done,
+                onChanged: (value) {
+                  if (value && !AppMotion.reduced(context)) {
+                    HapticFeedback.lightImpact();
+                  }
+                  // Read the clock at tap time: the card may have been built
+                  // before midnight.
+                  progress.setDone(_now(), value);
+                },
               ),
               if (streak > 0)
                 Row(
@@ -242,5 +239,40 @@ class _TodayThaiGiaoCardState extends ConsumerState<TodayThaiGiaoCard> {
         ),
       );
     }
+  }
+}
+
+/// "Đã làm": the main action of the card, a filled button that turns green
+/// once done. Tapping again undoes it.
+class _DoneButton extends StatelessWidget {
+  final bool done;
+  final ValueChanged<bool> onChanged;
+
+  const _DoneButton({required this.done, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final success = AppTone.success.of(context);
+    final duration = AppMotion.of(context, AppMotion.action);
+    return Semantics(
+      toggled: done,
+      // A button only animates its shape and elevation, not its colours.
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(end: done ? 1 : 0),
+        duration: duration,
+        curve: AppMotion.standard,
+        builder: (context, t, _) => FilledButton.icon(
+          key: const ValueKey('thai-giao-done'),
+          style: FilledButton.styleFrom(
+            backgroundColor: Color.lerp(scheme.primary, success.main, t),
+            foregroundColor: Color.lerp(scheme.onPrimary, success.onMain, t),
+          ),
+          onPressed: () => onChanged(!done),
+          icon: Icon(done ? Icons.check_circle : Icons.check_circle_outline),
+          label: const Text('Đã làm'),
+        ),
+      ),
+    );
   }
 }

@@ -392,7 +392,19 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Tiếp tục'));
       await tester.pumpAndSettle();
+      VoidCallback? confirm() => tester
+          .widget<FilledButton>(
+            find.byKey(const ValueKey('delete-all-confirm')),
+          )
+          .onPressed;
+      // P30-R1-08: disabled until the token is typed.
+      expect(confirm(), isNull);
+      await tester.enterText(find.byType(TextField), 'XO');
+      await tester.pump();
+      expect(confirm(), isNull);
       await tester.enterText(find.byType(TextField), 'XOA');
+      await tester.pump();
+      expect(confirm(), isNotNull);
       await tester.tap(find.text('Xóa dữ liệu'));
       await finishDelete(tester);
 
@@ -452,7 +464,19 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Tiếp tục'));
       await tester.pumpAndSettle();
+      VoidCallback? confirm() => tester
+          .widget<FilledButton>(
+            find.byKey(const ValueKey('delete-all-confirm')),
+          )
+          .onPressed;
+      // P30-R1-08: disabled until the token is typed.
+      expect(confirm(), isNull);
+      await tester.enterText(find.byType(TextField), 'XO');
+      await tester.pump();
+      expect(confirm(), isNull);
       await tester.enterText(find.byType(TextField), 'XOA');
+      await tester.pump();
+      expect(confirm(), isNotNull);
       await tester.tap(find.text('Xóa dữ liệu'));
       await finishDelete(tester);
 

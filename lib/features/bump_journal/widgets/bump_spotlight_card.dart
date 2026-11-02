@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/bump_photo.dart';
 import '../../../core/services/bump_photo_service.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/utils/navigation_helper.dart';
 import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_cross_fade.dart';
 import '../screens/bump_journal_screen.dart';
 
 /// Visual entry to "Nhật ký ảnh bụng bầu" on Hôm nay and Tuần thai: the
@@ -35,28 +37,45 @@ class BumpSpotlightCard extends ConsumerWidget {
       for (final group in groups)
         if (group.key == week) ...group.value,
     ];
+    // A saved photo fades in, and the card grows to fit it without a jump.
+    final duration = notifier.photoAdded
+        ? AppMotion.of(context, AppMotion.photo)
+        : Duration.zero;
+    Widget animated(Key key, Widget card) => AppCrossFade(
+      duration: duration,
+      alignment: Alignment.topCenter,
+      child: KeyedSubtree(key: key, child: card),
+    );
+
     if (thisWeek.isNotEmpty) {
-      return _LatestPhoto(
-        week: week,
-        count: thisWeek.length,
-        image: BumpPhotoImage(file: notifier.fileFor(thisWeek.first)),
-        margin: margin,
-        onTap: open,
+      return animated(
+        ValueKey(thisWeek.first.id),
+        _LatestPhoto(
+          week: week,
+          count: thisWeek.length,
+          image: BumpPhotoImage(file: notifier.fileFor(thisWeek.first)),
+          margin: margin,
+          onTap: open,
+        ),
       );
     }
     final recent = <BumpPhoto>[
       for (final group in groups)
         if (group.key < week) ...group.value,
     ].take(maxRecent);
-    return _Invitation(
-      week: week,
-      thumbnails: [
-        for (final photo in recent)
-          BumpPhotoImage(file: notifier.fileFor(photo), cacheWidth: 150),
-      ],
-      margin: margin,
-      onTap: open,
-      onCamera: () => NavigationHelper.toBumpCamera<void>(context, week: week),
+    return animated(
+      const ValueKey('bump-spotlight-invitation'),
+      _Invitation(
+        week: week,
+        thumbnails: [
+          for (final photo in recent)
+            BumpPhotoImage(file: notifier.fileFor(photo), cacheWidth: 150),
+        ],
+        margin: margin,
+        onTap: open,
+        onCamera: () =>
+            NavigationHelper.toBumpCamera<void>(context, week: week),
+      ),
     );
   }
 }
@@ -102,10 +121,7 @@ class _LatestPhoto extends StatelessWidget {
                 children: [
                   Text(
                     'Ảnh bụng tuần $week',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: fg,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppCard.titleTextStyle(context)?.copyWith(color: fg),
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(

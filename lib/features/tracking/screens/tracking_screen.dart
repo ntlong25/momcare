@@ -7,7 +7,10 @@ import '../../../core/widgets/hive_boxes_listener.dart';
 import '../../../core/data/content_pack_service.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
 import '../../../core/models/week_detail_model.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/utils/navigation_helper.dart';
+import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_cross_fade.dart';
 import '../../bump_journal/widgets/bump_spotlight_card.dart';
 import '../widgets/baby_development_card.dart';
 import '../widgets/mother_changes_card.dart';
@@ -82,7 +85,8 @@ class TrackingScreen extends ConsumerWidget {
               const SizedBox(height: 12),
               SizedBox(
                 width: double.infinity,
-                child: OutlinedButton.icon(
+                child: FilledButton.tonalIcon(
+                  key: const ValueKey('tracking-week-detail'),
                   onPressed: () => _openWeekDetail(context, currentWeek),
                   icon: const Icon(Icons.menu_book_outlined),
                   label: Text('Xem chi tiết tuần $currentWeek'),
@@ -164,25 +168,26 @@ class TrackingScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Tuần ${pregnancy.currentWeek}',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: fg,
-                      fontWeight: FontWeight.bold,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Tuần ${pregnancy.currentWeek}',
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(color: fg, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    pregnancy.trimester,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: fg),
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    Text(
+                      pregnancy.trimester,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleMedium?.copyWith(color: fg),
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(width: 12),
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -210,25 +215,37 @@ class TrackingScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildStatItem(
-                context,
-                'Còn lại',
-                '${pregnancy.daysUntilDue < 0 ? 0 : pregnancy.daysUntilDue} ngày',
-                Icons.calendar_today,
+              Expanded(
+                child: _buildStatItem(
+                  context,
+                  'Còn lại',
+                  '${pregnancy.daysUntilDue < 0 ? 0 : pregnancy.daysUntilDue} ngày',
+                  Icons.calendar_today,
+                ),
               ),
               Container(width: 1, height: 40, color: scheme.outline),
-              _buildStatItem(
-                context,
-                'Kích thước',
-                WeekDetail.statText(weekDetail.sizeCompare, weekData.babySize),
-                Icons.spa,
+              Expanded(
+                child: _buildStatItem(
+                  context,
+                  'Kích thước',
+                  WeekDetail.statText(
+                    weekDetail.sizeCompare,
+                    weekData.babySize,
+                  ),
+                  Icons.spa,
+                ),
               ),
               Container(width: 1, height: 40, color: scheme.outline),
-              _buildStatItem(
-                context,
-                'Cân nặng',
-                WeekDetail.statText(weekDetail.weightText, weekData.babyWeight),
-                Icons.monitor_weight,
+              Expanded(
+                child: _buildStatItem(
+                  context,
+                  'Cân nặng',
+                  WeekDetail.statText(
+                    weekDetail.weightText,
+                    weekData.babyWeight,
+                  ),
+                  Icons.monitor_weight,
+                ),
               ),
             ],
           ),
@@ -262,15 +279,22 @@ class TrackingScreen extends ConsumerWidget {
       children: [
         Icon(icon, color: fg, size: 20),
         const SizedBox(height: 4),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: fg,
-            fontWeight: FontWeight.bold,
+        // The size and weight of the baby change with the week.
+        AppCrossFade(
+          duration: AppMotion.of(context, AppMotion.week),
+          child: Text(
+            value,
+            key: ValueKey(value),
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: fg,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(color: fg),
         ),
       ],
@@ -290,12 +314,13 @@ class TrackingScreen extends ConsumerWidget {
     ];
 
     return Card(
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Mốc sắp tới', style: Theme.of(context).textTheme.titleLarge),
+            Text('Mốc sắp tới', style: AppCard.titleTextStyle(context)),
             const SizedBox(height: 16),
             ...milestones.map((milestone) {
               final week = milestone['week'] as int;

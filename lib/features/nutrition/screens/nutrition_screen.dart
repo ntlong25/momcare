@@ -5,6 +5,7 @@ import '../../../core/models/recipe_model.dart';
 import '../../../core/providers/app_mode_provider.dart';
 import '../../../core/services/database_service.dart';
 import '../../../core/services/nutrition_seed_service.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/utils/nutrition_filter.dart';
 import '../widgets/nutrition_card.dart';
 import '../widgets/recipe_card.dart';
@@ -13,9 +14,15 @@ import 'food_lookup_screen.dart';
 import 'recipe_detail_screen.dart';
 import 'nutrition_detail_screen.dart';
 
+/// The parts of [NutritionScreen] shown on their own, as Công cụ tabs.
+enum NutritionSection { guides, recipes }
+
 class NutritionScreen extends ConsumerStatefulWidget {
   final int initialTab;
-  final bool showAppBar;
+
+  /// Shows only this part, without an AppBar or tabs. Null is the full
+  /// screen with its own tabs, opened from the quick actions.
+  final NutritionSection? section;
 
   /// Overrides the week of the weekly focus card (tests); null resolves it
   /// from the app mode and the active pregnancy.
@@ -25,7 +32,7 @@ class NutritionScreen extends ConsumerStatefulWidget {
   const NutritionScreen({
     super.key,
     this.initialTab = 0,
-    this.showAppBar = true,
+    this.section,
     this.focusWeek,
   });
 
@@ -87,37 +94,36 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
 
   @override
   Widget build(BuildContext context) {
-    final tabBar = TabBar(
-      controller: _tabController,
-      isScrollable: true,
-      tabAlignment: TabAlignment.center,
-      tabs: const [
-        Tab(icon: Icon(Icons.lightbulb), text: 'Hướng dẫn'),
-        Tab(icon: Icon(Icons.restaurant), text: 'Công thức'),
-        Tab(icon: Icon(Icons.search), text: 'Ăn được không?'),
-      ],
-    );
-    final tabBarView = TabBarView(
-      controller: _tabController,
-      children: [
-        _buildGuidesTab(),
-        _buildRecipesTab(),
-        const FoodLookupScreen(showAppBar: false),
-      ],
-    );
-
+    switch (widget.section) {
+      case NutritionSection.guides:
+        return Scaffold(body: _buildGuidesTab());
+      case NutritionSection.recipes:
+        return Scaffold(body: _buildRecipesTab());
+      case null:
+        break;
+    }
     return Scaffold(
-      appBar: widget.showAppBar
-          ? AppBar(title: const Text('Hướng dẫn dinh dưỡng'), bottom: tabBar)
-          : null,
-      body: widget.showAppBar
-          ? tabBarView
-          : Column(
-              children: [
-                tabBar,
-                Expanded(child: tabBarView),
-              ],
-            ),
+      appBar: AppBar(
+        title: const Text('Hướng dẫn dinh dưỡng'),
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          tabAlignment: TabAlignment.center,
+          tabs: const [
+            Tab(icon: Icon(Icons.lightbulb), text: 'Hướng dẫn'),
+            Tab(icon: Icon(Icons.restaurant), text: 'Công thức'),
+            Tab(icon: Icon(Icons.search), text: 'Ăn được không?'),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          _buildGuidesTab(),
+          _buildRecipesTab(),
+          const FoodLookupScreen(showAppBar: false),
+        ],
+      ),
     );
   }
 
@@ -166,9 +172,9 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
                   nutrition: nutrition,
                   onTap: () {
                     Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            NutritionDetailScreen(nutrition: nutrition),
+                      AppMotion.detailRoute(
+                        context,
+                        (_) => NutritionDetailScreen(nutrition: nutrition),
                       ),
                     );
                   },
@@ -215,9 +221,9 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
                         recipe: recipe,
                         onTap: () async {
                           await Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  RecipeDetailScreen(recipe: recipe),
+                            AppMotion.detailRoute(
+                              context,
+                              (_) => RecipeDetailScreen(recipe: recipe),
                             ),
                           );
                           setState(() {});
@@ -248,6 +254,8 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen>
       height: 60,
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: ListView.builder(
+        // Apart from the list below it in the tab's page storage.
+        key: const PageStorageKey<String>('nutrition-chips'),
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: categories.length,

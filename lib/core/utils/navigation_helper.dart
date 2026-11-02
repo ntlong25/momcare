@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_motion.dart';
 import '../../features/onboarding/screens/pregnancy_setup_screen.dart';
 import '../../features/health_diary/screens/health_diary_screen.dart';
 import '../../features/health_diary/screens/add_health_log_screen.dart';
@@ -114,7 +115,10 @@ class NavigationHelper {
   static Future<T?> toWeekDetail<T>(BuildContext context, int week) {
     return Navigator.push<T>(
       context,
-      MaterialPageRoute(builder: (_) => WeekDetailScreen(initialWeek: week)),
+      AppMotion.detailRoute(
+        context,
+        (_) => WeekDetailScreen(initialWeek: week),
+      ),
     );
   }
 

@@ -378,7 +378,7 @@ void main() {
         expect(icon.color, sem.onEmergency);
       });
 
-      testWidgets('AppBar emergency button is solid emergency ($name)', (
+      testWidgets('AppBar emergency button colours and target ($name)', (
         tester,
       ) async {
         await tester.pumpWidget(
@@ -392,10 +392,35 @@ void main() {
         final material = tester.widget<Material>(
           find.descendant(of: button, matching: find.byType(Material)).first,
         );
-        expect(material.color, sem.emergency);
+        final isDark = theme.brightness == Brightness.dark;
+        final fill = isDark ? sem.emergency : sem.emergencyContainer;
+        final icon = isDark ? sem.onEmergency : sem.emergency;
+        expect(material.color, fill);
         final context = tester.element(find.byIcon(Icons.emergency_outlined));
-        expect(IconTheme.of(context).color, sem.onEmergency);
+        expect(IconTheme.of(context).color, icon);
+        double ratio(Color a, Color b) {
+          final x = a.computeLuminance() + 0.05;
+          final y = b.computeLuminance() + 0.05;
+          return x > y ? x / y : y / x;
+        }
+
+        expect(ratio(icon, fill), greaterThanOrEqualTo(3));
+        if (isDark) {
+          // P30-R1-01: the circle must not vanish into the AppBar, at rest or
+          // tinted by scrolled content.
+          final scheme = theme.colorScheme;
+          final appBar = theme.appBarTheme;
+          final scrolled = ElevationOverlay.applySurfaceTint(
+            appBar.backgroundColor!,
+            appBar.surfaceTintColor,
+            appBar.scrolledUnderElevation!,
+          );
+          expect(scrolled, isNot(scheme.surface));
+          expect(ratio(fill, scheme.surface), greaterThanOrEqualTo(3));
+          expect(ratio(fill, scrolled), greaterThanOrEqualTo(3));
+        }
         expect(tester.getSize(button).height, greaterThanOrEqualTo(48));
+        expect(tester.getSize(button).width, greaterThanOrEqualTo(48));
       });
 
       testWidgets('"Gọi 115" uses the emergency tokens ($name)', (

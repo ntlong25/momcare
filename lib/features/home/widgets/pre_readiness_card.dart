@@ -9,6 +9,7 @@ import '../../guides/screens/guide_detail_screen.dart';
 import '../../references/widgets/draft_content_note.dart';
 import '../screens/main_navigation.dart';
 import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_progress_bar.dart';
 
 /// "Sẵn sàng mang thai": checklist progress across the pre-pregnancy guides
 /// with up to three guides to continue (A1). Hidden when no pre guide tracks
@@ -61,14 +62,11 @@ class PreReadinessCard extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: readiness.ratio,
-              minHeight: 8,
-              color: theme.colorScheme.primary,
-              backgroundColor: theme.colorScheme.secondaryContainer,
-            ),
+          AppProgressBar(
+            value: readiness.ratio,
+            minHeight: 8,
+            color: theme.colorScheme.primary,
+            backgroundColor: theme.colorScheme.secondaryContainer,
           ),
           const SizedBox(height: 8),
           Text(

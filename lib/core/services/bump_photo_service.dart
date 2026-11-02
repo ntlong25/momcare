@@ -148,6 +148,11 @@ class BumpPhotoNotifier extends StateNotifier<List<BumpPhoto>> {
   bool _loaded = false;
   SharedPreferences? _prefs;
 
+  /// True once a photo was saved in this run, so the first load of the saved
+  /// photos does not animate as if they were new.
+  bool get photoAdded => _photoAdded;
+  bool _photoAdded = false;
+
   Directory? _folder;
 
   /// Photo folder, known once [ready] completes (null if the documents
@@ -229,6 +234,7 @@ class BumpPhotoNotifier extends StateNotifier<List<BumpPhoto>> {
     // Also the originals behind resized picks (`<uuid>/` folders).
     await ShareHelper.clearPickerLeftovers();
     if (added.isEmpty) return 0;
+    _photoAdded = true;
     state = BumpPhotoService.sorted([...state, ...added]);
     await _save();
     return added.length;

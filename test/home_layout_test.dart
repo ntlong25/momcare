@@ -17,6 +17,7 @@ import 'package:momcare/core/models/appointment_model.dart';
 import 'package:momcare/core/models/daily_item_model.dart';
 import 'package:momcare/core/models/menstrual_cycle_model.dart';
 import 'package:momcare/core/models/pregnancy_model.dart';
+import 'package:momcare/core/services/database_service.dart';
 import 'package:momcare/core/providers/app_mode_provider.dart';
 import 'package:momcare/core/services/guide_progress_service.dart';
 import 'package:momcare/core/theme/app_theme.dart';
@@ -295,9 +296,54 @@ void main() {
       );
       expect(errors.map((e) => e.toString()).toList(), isEmpty);
     });
-    // P22-R1-03: the empty upcoming-appointments state fills the card and
-    // is centred in it, like the other AppEmptyState usages.
-    testWidgets('empty upcoming appointments state is centred in its card', (
+    testWidgets('every Hôm nay card title uses the one card title style', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+      final style = Theme.of(
+        tester.element(find.byType(HomeScreen)),
+      ).textTheme.titleMedium!;
+      for (final title in [
+        'Mốc khám tiếp theo',
+        'Thai giáo hôm nay',
+        'Gợi ý hôm nay',
+        'Việc tuần này',
+        'Chăm sóc hôm nay',
+      ]) {
+        final text = tester.widget<Text>(find.text(title));
+        expect(text.style?.fontSize, style.fontSize, reason: title);
+        expect(text.style?.fontWeight, FontWeight.bold, reason: title);
+      }
+    });
+
+    // P30-R1-07 (P16-R1-01): the card is a const child of Hôm nay.
+    testWidgets('appointments row refreshes after add and delete', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+      expect(find.text('Chưa có lịch hẹn nào'), findsOneWidget);
+
+      final now = DateTime.now();
+      final appointment = AppointmentModel(
+        id: 'refresh',
+        title: 'Khám thai định kỳ',
+        dateTime: now.add(const Duration(days: 3)),
+        createdAt: now,
+        updatedAt: now,
+      );
+      await tester.runAsync(() => DatabaseService.saveAppointment(appointment));
+      await tester.pump();
+      expect(find.text('Khám thai định kỳ'), findsOneWidget);
+      expect(find.text('Chưa có lịch hẹn nào'), findsNothing);
+
+      await tester.runAsync(() => DatabaseService.deleteAppointment('refresh'));
+      await tester.pump();
+      expect(find.text('Khám thai định kỳ'), findsNothing);
+      expect(find.text('Chưa có lịch hẹn nào'), findsOneWidget);
+    });
+
+    // Phase 30: compact, the action at the end of the row.
+    testWidgets('empty upcoming appointments state is one compact row', (
       tester,
     ) async {
       await pumpHome(tester);
@@ -310,21 +356,23 @@ void main() {
       final card = tester.getRect(
         find.ancestor(of: empty, matching: find.byType(Card)).first,
       );
-      final centerX = card.center.dx;
-      for (final part in [
+      expect(card.height, lessThan(120));
+      expect(
         find.descendant(
           of: empty,
           matching: find.byIcon(Icons.event_available),
         ),
+        findsOneWidget,
+      );
+      expect(
         find.descendant(of: empty, matching: find.text('Chưa có lịch hẹn nào')),
-        find.descendant(
-          of: empty,
-          matching: find.byWidgetPredicate((w) => w is TextButton),
-        ),
-      ]) {
-        expect(part, findsOneWidget);
-        expect(tester.getCenter(part).dx, closeTo(centerX, 1));
-      }
+        findsOneWidget,
+      );
+      final button = find.descendant(
+        of: empty,
+        matching: find.byWidgetPredicate((w) => w is TextButton),
+      );
+      expect(tester.getSize(button).height, greaterThanOrEqualTo(48));
       expect(tester.getSize(empty).width, greaterThan(card.width * 0.8));
     });
   });

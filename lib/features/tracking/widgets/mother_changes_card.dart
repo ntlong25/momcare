@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/data/medical_references.dart';
 import '../../../core/data/pregnancy_weeks_data.dart';
+import '../../../core/widgets/app_card.dart';
 import '../../references/widgets/source_metadata_card.dart';
 
 class MotherChangesCard extends StatelessWidget {
@@ -11,6 +12,7 @@ class MotherChangesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -34,7 +36,7 @@ class MotherChangesCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'Thay đổi ở mẹ',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: AppCard.titleTextStyle(context),
                   ),
                 ),
               ],
@@ -44,7 +46,7 @@ class MotherChangesCard extends StatelessWidget {
               'Bạn có thể cảm nhận',
               style: Theme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             ...weekData.motherChanges.map((change) {

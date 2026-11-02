@@ -436,7 +436,8 @@ void main() {
         // Sự phát triển của bé card.
         expect(find.text(length), findsOneWidget);
         expect(find.text(size), findsNWidgets(2));
-        expect(find.text(weight), findsNWidgets(2));
+        // Phase 30: the weight is only in the header.
+        expect(find.text(weight), findsOneWidget);
         expect(find.textContaining('null'), findsNothing);
         // The legacy size (e.g. "quả lê" for week 17) must not appear
         // anywhere on the tab, not even inside the development sentence.
@@ -578,9 +579,9 @@ void main() {
 
       expect(find.text('Dấu hiệu nguy hiểm cần đi khám ngay'), findsOneWidget);
       expect(find.text('Lịch khám thai định kỳ'), findsOneWidget);
-      // Only the normal guide shows a progress bar.
-      expect(find.byType(LinearProgressIndicator), findsOneWidget);
-      expect(find.text('0%'), findsOneWidget);
+      // Not started yet: no progress bar on either guide.
+      expect(find.byType(LinearProgressIndicator), findsNothing);
+      expect(find.text('0%'), findsNothing);
     });
 
     testWidgets('warning detail renders bullets, normal detail checkboxes', (
